@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 import Login from "./components/login";
 import Main from "./components/main";
+import Regi from "./components/regi";
 
 import "./App.css";
 
@@ -12,12 +13,18 @@ function App() {
       <BrowserRouter>
         <header>
           <Link to="/">우주주민</Link>
+          <li>
+            <Link to="/login">로그인</Link>
+          </li>
+          <li>
+            <Link to="/regi">회원가입</Link>
+          </li>
         </header>
         <hr/>
 
         <nav>
           <h1>여기 네비바</h1>
-          <Link to="/login">Login</Link> &nbsp;&nbsp;
+          
          
         </nav>
         <hr/>
@@ -27,7 +34,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/login" element={<Login />} />
-            
+            <Route path="regi" element={<Regi />} />
             
         
           </Routes>
