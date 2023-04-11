@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Login from "./components/login";
 import Main from "./components/main";
 import Regi from "./components/regi";
+import Free from "./components/freeBbs";
 
 import "./App.css";
 
@@ -24,7 +25,9 @@ function App() {
 
         <nav>
           <h1>여기 네비바</h1>
-          
+          <li>
+            <Link to="/free">자유게시판</Link>
+          </li>
          
         </nav>
         <hr/>
@@ -35,7 +38,7 @@ function App() {
             <Route path="/" element={<Main />} />
             <Route path="/login" element={<Login />} />
             <Route path="regi" element={<Regi />} />
-            
+            <Route path="free" element={<Free />}/>
         
           </Routes>
         </main>
