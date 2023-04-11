@@ -3,6 +3,10 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 import Login from "./components/login";
 import Main from "./components/main";
+import AccountInfo from "./components/accountInfo";
+import MybbsList from "./components/mybbsList";
+import PartyAccept from "./components/partyAccept";
+import PartyRoom from "./components/partyRoom";
 
 import "./App.css";
 
@@ -11,7 +15,8 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <header>
-          <Link to="/">우주주민</Link>
+          <Link to="/">우주주민</Link>&nbsp;&nbsp;&nbsp;
+          <Link to="/accountInfo">마이페이지</Link>
         </header>
         <hr/>
 
@@ -23,12 +28,15 @@ function App() {
         <hr/>
 
         <main>
-          <h1>여기 메인</h1>
+        
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/login" element={<Login />} />
             
-            
+            <Route path="/accountInfo" element={<AccountInfo/>}></Route>
+            <Route path="/mybbsList" element={<MybbsList/>}></Route>
+            <Route path="/partyAccept" element={<PartyAccept/>}></Route>
+            <Route path="/partyRoom" element={<PartyRoom/>}></Route>
         
           </Routes>
         </main>
