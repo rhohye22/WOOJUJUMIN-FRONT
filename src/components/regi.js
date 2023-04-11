@@ -6,7 +6,7 @@ function Regi(){
     let history = useNavigate();
 
     const [id, setId] = useState('');
-    const [pwd, setPwd] = useState('');
+    const [password, setPassword] = useState('');
     const [nickname, setNickname] = useState('');
     const [email, setEmail] = useState('');
     const [phonenum, setPhonenum] = useState('');
@@ -28,7 +28,7 @@ function Regi(){
     }
 
     function account(){
-        let member = { "id":id, "pwd":pwd, "name":nickname, "email":email, "phonenum":phonenum, "address":address };
+        let member = { "id":id, "password":password, "nickname":nickname, "email":email, "phoneNum":phonenum, "address":address };
         axios.post('http://localhost:3000/addmember', null, { params:member })
             .then(function(resp){
                 if(resp.data === "YES"){
@@ -50,7 +50,7 @@ function Regi(){
             <input value={id} onChange={(e)=>setId(e.target.value)} placeholder="아이디" />&nbsp;
             <button onClick={idCheck}>id확인</button><br/><br/>
 
-            <input type="password" value={pwd} onChange={(e)=>setPwd(e.target.value)} placeholder="비밀번호" /><br/><br/>
+            <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="비밀번호" /><br/><br/>
             <input value={nickname} onChange={(e)=>setNickname(e.target.value)} placeholder="닉네임" /><br/><br/>
             <input value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="이메일" /><br/><br/>
             <input value={phonenum} onChange={(e)=>setPhonenum(e.target.value)} placeholder="휴대전화" /><br/><br/>
