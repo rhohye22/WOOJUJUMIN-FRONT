@@ -10,6 +10,7 @@ import PartyAccept from "./components/partyAccept";
 import PartyRoom from "./components/partyRoom";
 
 import Regi from "./components/regi";
+import Free from "./components/freeBbs";
 
 
 import "./App.css";
@@ -36,7 +37,9 @@ function App() {
 
         <nav>
           <h1>여기 네비바</h1>
-          
+          <li>
+            <Link to="/free">자유게시판</Link>
+          </li>
          
         </nav>
         <hr/>
@@ -54,7 +57,11 @@ function App() {
             <Route path="/partyRoom" element={<PartyRoom/>}></Route>
 
             <Route path="regi" element={<Regi />} />
+
             
+
+
+            <Route path="free" element={<Free />}/>
 
         
           </Routes>
