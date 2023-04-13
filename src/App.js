@@ -38,7 +38,7 @@ function App() {
         <nav>
           <h1>여기 네비바</h1>
           <li>
-            <Link to="/free">자유게시판</Link>
+            <Link to="/freeBoard">자유게시판</Link>
           </li>
          
         </nav>
@@ -61,7 +61,7 @@ function App() {
             
 
 
-            <Route path="free" element={<Free />}/>
+            <Route path="freeBoard" element={<Free />}/>
 
         
           </Routes>
