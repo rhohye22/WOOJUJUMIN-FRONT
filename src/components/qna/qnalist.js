@@ -8,7 +8,12 @@ import "./page.css";
 
 function Qnalist() {
   const [id, setId] = useState("");
-  const [nickname, setNickname] = useState("");
+  const [qnalist, setQnalist] = useState([]);
+
+  // paging
+  const [page, setPage] = useState(1);
+  const [start, setStart] = useState(0);
+  const [totalCnt, setTotalCnt] = useState(0);
 
   const navigate = useNavigate();
 
@@ -20,39 +25,51 @@ function Qnalist() {
     } else {
       let login = JSON.parse(localStorage.getItem("login"));
       setId(login.id);
-      setNickname(login.nickname);
     }
   }, [navigate]);
 
-  const [logState, setLogState] = useState();
-  const [qnalist, setQnalist] = useState([]);
+  useEffect(() => {
+    getQnalist();
+    getQnacnt();
+  }, [id, start]);
 
-  // paging
-  const [page, setPage] = useState(1);
-  const [totalCnt, setTotalCnt] = useState(0);
-
-  function getQnalist(page) {
+  function getQnalist() {
     axios
-      .get("http://localhost:3000/qnalist", { params: { id: id } })
+      .get("http://localhost:3000/qnalist", {
+        params: {
+          id: id,
+          start: start,
+        },
+      })
       .then(function (resp) {
-        // console.log(resp.data);
-        // alert(JSON.stringify(resp.data[0]));
-
-        setQnalist(resp.data.list);
-        setTotalCnt(resp.data.cnt);
+        console.log(resp.data);
+        setQnalist(resp.data);
       })
       .catch(function (err) {
         alert(err);
       });
   }
-  function pageChange(page) {
-    setPage(page);
-    getQnalist(page - 1);
+
+  function getQnacnt() {
+    axios
+      .get("http://localhost:3000/cntqna", {
+        params: {
+          id: id,
+        },
+      })
+      .then(function (resp) {
+        setTotalCnt(resp.data);
+      })
+      .catch(function (err) {
+        alert(err);
+      });
   }
 
-  useEffect(function () {
-    getQnalist(0);
-  }, []);
+  function pageChange(page) {
+    setPage(page);
+    setStart((page - 1) * 10);
+  }
+
   return (
     <div>
       <h2>게시판</h2>
@@ -73,9 +90,7 @@ function Qnalist() {
           </tr>
         </thead>
         <tbody>
-          {qnalist == null ? (
-            <td colSpan={3}>작성된 문의글이 없습니다</td>
-          ) : (
+          {qnalist && qnalist.length ? (
             qnalist.map(function (qna, i) {
               return (
                 <tr key={i}>
@@ -87,6 +102,8 @@ function Qnalist() {
                 </tr>
               );
             })
+          ) : (
+            <td colSpan={3}>작성된 문의글이 없습니다</td>
           )}
         </tbody>
       </table>

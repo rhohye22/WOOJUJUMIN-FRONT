@@ -6,6 +6,7 @@ function Qnawrite() {
   let navigate = useNavigate();
 
   const [id, setId] = useState("");
+  const [qtype, setQtype] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
@@ -17,7 +18,7 @@ function Qnawrite() {
 
     axios
       .post("http://localhost:3000/qnawrite", null, {
-        params: { id: id, title: title, content: content },
+        params: { id: id, title: title, qtype: qtype, content: content },
       })
       .then((res) => {
         console.log(res.data);
@@ -60,6 +61,23 @@ function Qnawrite() {
               />
             </td>
           </tr>
+
+          <tr>
+            <th>문의유형</th>
+            <td>
+              <select value={qtype} onChange={(e) => setQtype(e.target.value)}>
+                <option value="" disabled>
+                  유형선택
+                </option>
+                <option value="회원관리">회원관리</option>
+                <option value="게시글관리">게시글관리</option>
+                <option value="파티관리">파티관리</option>
+                <option value="오류신고">오류신고</option>
+                <option value="기타">기타</option>
+              </select>
+            </td>
+          </tr>
+
           <tr>
             <th>제목</th>
             <td>
