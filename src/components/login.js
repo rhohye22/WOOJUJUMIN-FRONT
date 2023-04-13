@@ -9,7 +9,7 @@ function Login() {
   const history = useNavigate();
 
   const [id, setId] = useState("");
-  const [pwd, setPwd] = useState("");
+  const [password, setPwd] = useState("");
 
   const [cookies, setCookies] = useCookies("");
   // checkbox
@@ -27,16 +27,14 @@ function Login() {
 
   function login() {
     axios
-      .post("http://localhost:3000/login", null, {
-        params: { id: id, pwd: pwd },
-      })
+      .post("http://localhost:3000/login", null, { params: { id: id, password: password }})
       .then(function (resp) {
-        // alert(resp.data);
+       console.log(resp.data);
         if (resp.data !== null && resp.data !== "") {
-          alert(resp.data.name + "님 환영합니다");
+          alert(resp.data.nickname + "님 환영합니다");
 
           localStorage.setItem("login", JSON.stringify(resp.data));
-          history("/bbslist");
+          history("/free");
         } else {
           alert("id나 password를 확인하십시오");
         }
@@ -71,7 +69,7 @@ function Login() {
       <br />
       <input
         type="password"
-        value={pwd}
+        value={password}
         onChange={(e) => setPwd(e.target.value)}
         placeholder="패스워드"
       />
