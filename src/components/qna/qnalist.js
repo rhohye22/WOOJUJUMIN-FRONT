@@ -9,6 +9,7 @@ import "./page.css";
 function Qnalist() {
   const navigate = useNavigate();
   const [id, setId] = useState("");
+
   const isLogin = localStorage.getItem("login");
 
   const [qnalist, setQnalist] = useState([]);
@@ -29,6 +30,9 @@ function Qnalist() {
   }, [navigate, isLogin]);
 
   function getQnalist() {
+    if (!isLogin) {
+      return;
+    }
     axios
       .get("http://localhost:3000/qnalist", {
         params: {
@@ -46,6 +50,9 @@ function Qnalist() {
   }
 
   function getQnacnt() {
+    if (!isLogin) {
+      return;
+    }
     axios
       .get("http://localhost:3000/cntqna", {
         params: {
@@ -59,9 +66,11 @@ function Qnalist() {
         alert(err);
       });
   }
-  useLayoutEffect(() => {
-    getQnalist();
-    getQnacnt();
+  useEffect(() => {
+    if (id) {
+      getQnalist();
+      getQnacnt();
+    }
   }, [id, start, totalCnt]);
 
   function pageChange(page) {
