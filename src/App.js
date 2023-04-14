@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 import Login from "./components/login";
@@ -17,21 +17,39 @@ import Free from "./components/freeBbs";
 import "./App.css";
 
 function App() {
+  // 로그인 상태 관리
+  const [log, setLog] = useState(null);
+
+  function loghandle() {
+      localStorage.clear();
+      document.location.href = '/';
+  }
+
+  useEffect(() => {
+      if(localStorage.getItem('login') === null) {
+      setLog(true);
+      }else {
+      setLog(false);
+      }
+  }, [log])
+
   return (
     <div className="App">
       <BrowserRouter>
         <header>
-
           <Link to="/">우주주민</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/accountInfo">마이페이지</Link>
-
-          
-          <li>
-            <Link to="/login">로그인</Link>
-          </li>
-          <li>
-            <Link to="/regi">회원가입</Link>
-          </li>
+            <li>
+              {log ?
+                <Link to="/login">로그인</Link> :
+                <button onClick={loghandle}>로그아웃</button>
+              }
+            </li>
+            <li>
+              {log ?
+                <Link to="/regi">회원가입</Link> :
+                <Link to="/accountInfo">마이페이지</Link>
+              }
+            </li>
 
         </header>
         <hr/>

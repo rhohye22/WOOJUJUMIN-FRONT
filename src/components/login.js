@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 
 import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
 function Login() {
-  const history = useNavigate();
-
   const [id, setId] = useState("");
   const [password, setPwd] = useState("");
 
@@ -27,14 +24,22 @@ function Login() {
 
   function login() {
     axios
+
       .post("http://localhost:3000/login", null, { params: { id: id, password: password }})
+
+     
+
       .then(function (resp) {
        console.log(resp.data);
         if (resp.data !== null && resp.data !== "") {
           alert(resp.data.nickname + "님 환영합니다");
 
           localStorage.setItem("login", JSON.stringify(resp.data));
+
           history("/free");
+
+         
+
         } else {
           alert("id나 password를 확인하십시오");
         }
