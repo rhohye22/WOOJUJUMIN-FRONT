@@ -1,0 +1,20 @@
+
+.accountInfoButton{ width: 100px;}
+
+
+/* label 태그 */
+.signup-profileImg-label {
+  margin: 5px 0 20px 0;
+  font-weight: bold;
+  font-size: 13px;
+  color: #0095f6;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* input 태그 */
+.form-signup input[type="file"] {
+  display: none;
+}
+
+
