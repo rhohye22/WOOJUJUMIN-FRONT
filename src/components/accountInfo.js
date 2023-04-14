@@ -23,27 +23,23 @@ function AccountInfo(){
   const [profile, setProfile] = useState('');
   
 
+  const imgRef = useRef();
  
-
-  const encodeFileToBase64 = (e) => {
+  function imageLoad() {
+    const file = imgRef.current.files[0];
     const reader = new FileReader();
-    reader.readAsDataURL(e);
-    return new Promise((resolve) => {
-      reader.onload = () => {
-        setProfile(window.atob(reader.result));
-        console.log("썸네일" + profile);
-        resolve();
-      };
-    });
-  };
-
-
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+        setProfile(reader.result);
+        console.log(profile);
+    }
+}
 
    // login 되어 있는지 검사
       useEffect(() => {
       let login = JSON.parse(localStorage.getItem("login"));
       if(login !== undefined){ // 빈칸이 아닐때
-        setmemberSeq(login.memberSeq);
+          setmemberSeq(login.memberSeq);
           setId(login.id);
           setNickname(login.nickname);
           setPwd(login.password);
@@ -69,16 +65,25 @@ function AccountInfo(){
   const passwordConfirmChange = (e) => setconfirmPassword(e.target.value);
 
 
-
-
-  const changeInfo = () => {
+  function changeInfo(e){
     //alert(profile);
+    e.preventDefault();
+    let formData = new FormData();
+    formData.append("memberSeq", memberSeq);
+    formData.append("id", id);
+    formData.append("password", password);
+    formData.append("nickname", nickname);
+    formData.append("email", email);
+    formData.append("phoneNum", phoneNum);
+    formData.append("address", address);
+    formData.append("uploadFile", document.frm.uploadFile.files[0]);
+
+
     if(password !== confirmPassword){
       return alert('비밀번호와 비밀번호 확인은 같아야 합니다.')
   }
 
-    axios.post("http://localhost:3000/changeInfo", null, 
-                    { params:{ "memberSeq":memberSeq, "id":id, "password":password, "nickname":nickname, "email":email, "phoneNum":phoneNum, "address":address, "profile":profile } })
+    axios.post("http://localhost:3000/changeInfo", formData)
              .then(res => {
                 console.log(res.data);
                 if(res.data === "YES"){
@@ -92,6 +97,7 @@ function AccountInfo(){
                 alert(err);
              })   
   }
+
 
     return(
 
@@ -159,40 +165,25 @@ function AccountInfo(){
        />
        <p className="message"></p>
      </div>
-
+     <form name="frm" onSubmit={changeInfo} encType="multipart/form-data">
     <div className="form-el">
        <label className="signup-profileImg-label" htmlFor="profileImg">프로필 이미지 추가</label> <br />
        <input
           className="signup-profileImg-input"         
           id="profileImg"
-         name="profile"
+         name="uploadFile"
          type="file"
-         accept="image/*"
-         onChange={(e) => {
-          encodeFileToBase64(e.target.files[0]);
-        }}
+         
+         onChange={imageLoad} ref={imgRef}
        />
          <div className="preview" style={{ display:"block", margin:'0 auto'}}>
         {profile && <img src={profile} style={{width:'50px', height:'50px'}} />}
       </div>
        <p className="message"></p>
      </div> 
-
-     <div className="form-el">
-       <label htmlFor="profile">Profile</label> <br />
-       <input
-         id="profile"
-         name="profile"
-        value={profile}
-      
-         onChange={encodeFileToBase64}               
-       />
-       
-       <p className="message"></p>
-     </div> 
-
-  
-     <Button type="submit" className="accountInfoButton"  onClick={()=>changeInfo()}>수정하기</Button>
+    
+     <Button type="submit" className="accountInfoButton"  onClick={changeInfo}>수정하기</Button>
+     </form>
    </div>
  </>
 
