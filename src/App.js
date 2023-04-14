@@ -5,6 +5,7 @@ import Login from "./components/login";
 import Main from "./components/main";
 
 import AccountInfo from "./components/accountInfo";
+
 import MybbsList from "./components/mybbsList";
 import PartyAccept from "./components/partyAccept";
 import PartyRoom from "./components/partyRoom";
@@ -49,6 +50,7 @@ function App() {
                 <Link to="/accountInfo">마이페이지</Link>
               }
             </li>
+
         </header>
         <hr/>
 
