@@ -18,92 +18,73 @@ import Qnadetail from "./components/qna/qnadetail";
 
 import Free from "./components/freeBbs";
 
-
-
 import "./App.css";
 
 function App() {
-
   // 로그인 상태 관리
   const [log, setLog] = useState(null);
 
   function loghandle() {
-      localStorage.clear();
-      document.location.href = '/';
+    localStorage.clear();
+    document.location.href = "/";
   }
 
   useEffect(() => {
-      if(localStorage.getItem('login') === null) {
+    if (localStorage.getItem("login") === null) {
       setLog(true);
-      }else {
+    } else {
       setLog(false);
-      }
-  }, [log])
+    }
+  }, [log]);
 
   return (
     <div className="App">
       <BrowserRouter>
         <header>
           <Link to="/">우주주민</Link>&nbsp;&nbsp;&nbsp;
-            <li>
-              {log ?
-                <Link to="/login">로그인</Link> :
-                <button onClick={loghandle}>로그아웃</button>
-              }
-            </li>
-            <li>
-              {log ?
-                <Link to="/regi">회원가입</Link> :
-                <Link to="/accountInfo">마이페이지</Link>
-              }
-            </li>
-
+          <li>
+            {log ? (
+              <Link to="/login">로그인</Link>
+            ) : (
+              <button onClick={loghandle}>로그아웃</button>
+            )}
+          </li>
+          <li>
+            {log ? (
+              <Link to="/regi">회원가입</Link>
+            ) : (
+              <Link to="/accountInfo">마이페이지</Link>
+            )}
+          </li>
         </header>
         <hr />
 
         <nav>
           <h1>여기 네비바</h1>
 
-         
-
           <li>
-            <Link to="/free">자유게시판</Link>
+            <Link to="/free">자유게시판</Link>&nbsp;&nbsp;&nbsp;
             <Link to="/qnalist">Q&A</Link>
           </li>
-         
-
         </nav>
         <hr />
 
         <main>
-        
           <Routes>
             <Route exact path="/" element={<Main />} />
             <Route path="/login" element={<Login />} />
-
             <Route path="/regi" element={<Regi />} />
             // QNA
             <Route path="/qnalist" element={<Qnalist />} />
             <Route path="/qnawrite" element={<Qnawrite />} />
             <Route path="/qnadetail/:qnaSeq" exact element={<Qnadetail />} />
             //
-
-
-            
-            <Route path="/accountInfo" element={<AccountInfo/>}></Route>
-            <Route path="/mybbsList" element={<MybbsList/>}></Route>
-            <Route path="/partyAccept" element={<PartyAccept/>}></Route>
-            <Route path="/partyRoom" element={<PartyRoom/>}></Route>
-
+            <Route path="/accountInfo" element={<AccountInfo />}></Route>
+            <Route path="/mybbsList" element={<MybbsList />}></Route>
+            <Route path="/partyAccept" element={<PartyAccept />}></Route>
+            <Route path="/partyRoom" element={<PartyRoom />}></Route>
             <Route path="regi" element={<Regi />} />
-
-            
-
-
-            <Route path="free" element={<Free />}/>
-
-        
-
+            <Route path="free" element={<Free />} />
           </Routes>
         </main>
         <hr />
@@ -112,7 +93,7 @@ function App() {
       <footer>
         <h1>여긴 푸터</h1>
         <br />
-        <button onClick={() => logout()}>logout</button>&nbsp;
+        <button onClick={() => loghandle()}>logout</button>&nbsp;
       </footer>
     </div>
   );

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 import axios from "axios";
 
 function Login() {
+  const history = useNavigate();
   const [id, setId] = useState("");
 
   const [password, setPwd] = useState("");
-
 
   const [cookies, setCookies] = useCookies("");
   // checkbox
@@ -27,22 +27,18 @@ function Login() {
   function login() {
     axios
 
-
-      .post("http://localhost:3000/login", null, { params: { id: id, password: password }})
-
-     
-
+      .post("http://localhost:3000/login", null, {
+        params: { id: id, password: password },
+      })
 
       .then(function (resp) {
-       console.log(resp.data);
+        console.log(resp.data);
         if (resp.data !== null && resp.data !== "") {
           alert(resp.data.nickname + "님 환영합니다");
 
-
           localStorage.setItem("login", JSON.stringify(resp.data));
 
-          history("/free");
-
+          history("/");
         } else {
           alert("id나 password를 확인하십시오");
         }
@@ -78,9 +74,7 @@ function Login() {
       <input
         type="password"
         value={password}
-
         onChange={(e) => setPwd(e.target.value)}
-
         placeholder="패스워드"
       />
       <br />
