@@ -36,7 +36,7 @@ function Login() {
 
           localStorage.setItem("login", JSON.stringify(resp.data));
 
-          history("/free");
+          document.location.href = '/';
 
          
 
