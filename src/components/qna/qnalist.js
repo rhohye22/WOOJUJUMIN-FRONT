@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import axios from "axios";
 import Pagination from "react-js-pagination";
 import { useNavigate } from "react-router-dom";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "./page.css";
 
 function Qnalist() {
+  const navigate = useNavigate();
   const [id, setId] = useState("");
+  const isLogin = localStorage.getItem("login");
+
   const [qnalist, setQnalist] = useState([]);
 
   // paging
@@ -15,23 +18,15 @@ function Qnalist() {
   const [start, setStart] = useState(0);
   const [totalCnt, setTotalCnt] = useState(0);
 
-  const navigate = useNavigate();
-
   useEffect(() => {
-    const isLogin = localStorage.getItem("login");
     if (isLogin == null) {
       alert("로그인해 주십시오");
       navigate("/login"); // 로그인 페이지로 이동
     } else {
-      let login = JSON.parse(localStorage.getItem("login"));
+      const login = JSON.parse(isLogin);
       setId(login.id);
     }
-  }, [navigate]);
-
-  useEffect(() => {
-    getQnalist();
-    getQnacnt();
-  }, [id, start]);
+  }, [navigate, isLogin]);
 
   function getQnalist() {
     axios
@@ -64,6 +59,10 @@ function Qnalist() {
         alert(err);
       });
   }
+  useLayoutEffect(() => {
+    getQnalist();
+    getQnacnt();
+  }, [id, start, totalCnt]);
 
   function pageChange(page) {
     setPage(page);
@@ -78,14 +77,16 @@ function Qnalist() {
 
       <table border="1" align="center">
         <colgroup>
-          <col width="70" />
+          <col width="100" />
           <col width="600" />
+          <col width="100" />
           <col width="100" />
         </colgroup>
         <thead>
           <tr>
-            <th>번호</th>
+            <th>문의유형</th>
             <th>제목</th>
+            <th>작성날짜</th>
             <th>작성자</th>
           </tr>
         </thead>
@@ -94,10 +95,16 @@ function Qnalist() {
             qnalist.map(function (qna, i) {
               return (
                 <tr key={i}>
-                  <td>{i + 1}</td>
+                  <td>{qna.qtype}</td>
                   <td align="left">
+                    {qna.ansdate ? (
+                      <span>[답변완료] </span>
+                    ) : (
+                      <span>[답변대기중] </span>
+                    )}
                     <Link to={`/qnadetail/${qna.qnaSeq}`}>{qna.title}</Link>
                   </td>
+                  <td>{qna.wdate.substring(0, 10)}</td>
                   <td>{qna.id}</td>
                 </tr>
               );

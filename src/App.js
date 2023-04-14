@@ -6,6 +6,7 @@ import Main from "./components/main";
 import Regi from "./components/regi";
 import Qnalist from "./components/qna/qnalist";
 import Qnawrite from "./components/qna/qnawrite";
+import Qnadetail from "./components/qna/qnadetail";
 
 import "./App.css";
 
@@ -42,6 +43,7 @@ function App() {
             // QNA
             <Route path="/qnalist" element={<Qnalist />} />
             <Route path="/qnawrite" element={<Qnawrite />} />
+            <Route path="/qnadetail/:qnaSeq" exact element={<Qnadetail />} />
             //
           </Routes>
         </main>

@@ -58,6 +58,7 @@ function Qnawrite() {
                 size="30"
                 onChange={(e) => setId(e.target.value)}
                 className="form-control form-control-lg"
+                readOnly
               />
             </td>
           </tr>
