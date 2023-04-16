@@ -10,7 +10,11 @@ import PartyAccept from "./components/partyAccept";
 import PartyRoom from "./components/partyRoom";
 
 import Regi from "./components/regi";
-import Free from "./components/freeBbs";
+import FreeBbs from "./components/freeBbsList";
+import FreeBbsDetail from "./components/freeBbsDetail";
+import FreeBbsWrite from "./components/freeBbsWrite";
+import FreeBbsModify from "./components/freeBbsModify";
+import FreeBbsDelete from "./components/freeBbsDelete";
 
 
 import "./App.css";
@@ -33,40 +37,35 @@ function App() {
           </li>
 
         </header>
-        <hr/>
+        <hr />
 
         <nav>
           <h1>여기 네비바</h1>
           <li>
             <Link to="/freeBoard">자유게시판</Link>
           </li>
-         
+
         </nav>
-        <hr/>
+        <hr />
 
         <main>
-        
+
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/login" element={<Login />} />
-
-            
-            <Route path="/accountInfo" element={<AccountInfo/>}></Route>
-            <Route path="/mybbsList" element={<MybbsList/>}></Route>
-            <Route path="/partyAccept" element={<PartyAccept/>}></Route>
-            <Route path="/partyRoom" element={<PartyRoom/>}></Route>
-
+            <Route path="/accountInfo" element={<AccountInfo />}></Route>
+            <Route path="/mybbsList" element={<MybbsList />}></Route>
+            <Route path="/partyAccept" element={<PartyAccept />}></Route>
+            <Route path="/partyRoom" element={<PartyRoom />}></Route>
             <Route path="regi" element={<Regi />} />
-
-            
-
-
-            <Route path="freeBoard" element={<Free />}/>
-
-        
+            <Route path="freeBoard" element={<FreeBbs />} />
+            <Route path="/freeBbsDetail/:bbsSeq" element={<FreeBbsDetail />} />
+            <Route path="/freeBbsWrite" element={FreeBbsWrite} />
+            <Route path="/freeBbsModify/:bbsSeq" element={FreeBbsModify} />
+            <Route path="/freeBbsDelete/:bbsSeq" element={FreeBbsDelete} />
           </Routes>
         </main>
-        <hr/>
+        <hr />
       </BrowserRouter>
 
       <footer>
