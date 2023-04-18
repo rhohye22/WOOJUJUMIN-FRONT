@@ -1,0 +1,16 @@
+.msgButton{
+
+    
+    border-bottom: 1px solid #aaa;
+    background: #60ccee;
+    border: none;
+   
+}
+
+.msgButton span{
+
+    
+   padding: 0 10px;
+    
+   
+}
