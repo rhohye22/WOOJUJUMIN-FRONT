@@ -74,36 +74,55 @@
 // }
 
 // export default FreeBbs;
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import Pagination from "react-bootstrap/Pagination";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+//import { useAuth } from "../contexts/AuthContext";
 
 function FreeBbsList() {
-  const { currentUser } = useAuth();
+  //로그인관련
+
+  const [id, setId] = useState("");
+  const [auth, setAuth] = useState();
+
+  const isLogin = localStorage.getItem("login");
+
+  useEffect(() => {
+    if (isLogin == null) {
+      return;
+    } else {
+      const login = JSON.parse(isLogin);
+      setId(login.id);
+      setAuth(login.auth);
+    }
+  }, [isLogin]);
+
+  //const { currentUser } = useAuth();
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/getAllList?page=${page}&size=10`)
-      .then(response => {
+    axios
+      .get(`http://localhost:3000/getAllList?page=${page}&size=10`)
+      .then((response) => {
         setList(response.data.content);
         setTotalPages(response.data.totalPages);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }, [page]);
 
-  const handlePageChange = (event, value) => {
+  const handlePageChange = (value) => {
     setPage(value);
   };
 
   return (
     <div>
       <div style={{ float: "right" }}>
-        {currentUser && <Link to="/freeBbsWrite">글 작성</Link>}
+        {auth != null && <Link to="/freeBbsWrite">글 작성</Link>}
         <select>
           <option>카테고리</option>
           <option value={"basketball"}>농구</option>
@@ -141,10 +160,12 @@ function FreeBbsList() {
             </tr>
           </thead>
           <tbody>
-            {list.map(item => (
+            {list.map((item) => (
               <tr key={item.bbsSeq}>
                 <td>{item.bbsSeq}</td>
-                <td><Link to={`/freeBbsDetail/${item.bbsSeq}`}>{item.title}</Link></td>
+                <td>
+                  <Link to={`/freeBbsDetail/${item.bbsSeq}`}>{item.title}</Link>
+                </td>
                 <td>{item.writer}</td>
                 <td>{item.regDate}</td>
                 <td>{item.readCount}</td>
@@ -155,7 +176,11 @@ function FreeBbsList() {
         </table>
         <div style={{ textAlign: "center", marginTop: "20px" }}>
           {totalPages > 0 && (
-            <Pagination count={totalPages} page={page} onChange={handlePageChange} />
+            <Pagination
+              count={totalPages}
+              page={page}
+              onChange={handlePageChange}
+            />
           )}
         </div>
       </div>
