@@ -58,13 +58,16 @@ function Qnadetail() {
           </tr>
 
           {qna.ansdate ? (
-            <tr>
-              <th>답변일자</th>
-              <td style={{ textAlign: "left" }}>{qna.ansdate}</td>
-
-              <th>답변</th>
-              <td style={{ textAlign: "left" }}>{qna.answer}</td>
-            </tr>
+            <>
+              <tr>
+                <th>답변일자</th>
+                <td style={{ textAlign: "left" }}>{qna.ansdate}</td>
+              </tr>
+              <tr>
+                <th>답변</th>
+                <td style={{ textAlign: "left" }}>{qna.answer}</td>
+              </tr>
+            </>
           ) : null}
         </tbody>
       </table>
