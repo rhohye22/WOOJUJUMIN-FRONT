@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-
+import {Link, useNavigate} from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 import axios from "axios";
 
 function Login() {
+  let history = useNavigate();
   const [id, setId] = useState("");
   const [password, setPwd] = useState("");
 

@@ -5,8 +5,11 @@ import Login from "./components/login";
 import Main from "./components/main";
 
 import AccountInfo from "./components/accountInfo";
+import MessageInfo from "./components/messageInfo";
+import SendMessageInfo from "./components/sendMessageInfo";
 
 import MybbsList from "./components/mybbsList";
+import MyfreebbsList from "./components/myfreebbsList";
 import PartyAccept from "./components/partyAccept";
 import PartyRoom from "./components/partyRoom";
 
@@ -43,15 +46,23 @@ function App() {
         <header>
           <Link to="/">우주주민</Link>&nbsp;&nbsp;&nbsp;
             <li>
-              {log ?
+            {log ?
                 <Link to="/login">로그인</Link> :
                 <button onClick={loghandle}>로그아웃</button>
               }
             </li>
             <li>
-              {log ?
+            {log ?
                 <Link to="/regi">회원가입</Link> :
                 <Link to="/accountInfo">마이페이지</Link>
+               
+              }
+            </li>
+            <li>
+            {log === false &&
+                
+              
+                <Link to="/messageInfo">메시지함</Link>
               }
             </li>
 
@@ -72,10 +83,23 @@ function App() {
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/login" element={<Login />} />
+
+
+            
+          
+           
+
+
             <Route path="/accountInfo" element={<AccountInfo />}></Route>
             <Route path="/mybbsList" element={<MybbsList />}></Route>
             <Route path="/partyAccept" element={<PartyAccept />}></Route>
             <Route path="/partyRoom" element={<PartyRoom />}></Route>
+            <Route path="/messageInfo" element={<MessageInfo/>}></Route>
+            <Route path="/sendMessageInfo" element={<SendMessageInfo/>}></Route>
+            
+            <Route path="/myfreebbsList" element={<MyfreebbsList/>}></Route>
+            <Route path="/partyAccept" element={<PartyAccept/>}></Route>
+            <Route path="/partyRoom" element={<PartyRoom/>}></Route>
             <Route path="regi" element={<Regi />} />
             <Route path="freeBoard" element={<FreeBbs />} />
             <Route path="/freeBbsDetail/:bbsSeq" element={<FreeBbsDetail />} />
