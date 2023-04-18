@@ -14,12 +14,20 @@ import PartyAccept from "./components/partyAccept";
 import PartyRoom from "./components/partyRoom";
 
 import Regi from "./components/regi";
+
+
 import FreeBbs from "./components/freeBbsList";
 import FreeBbsDetail from "./components/freeBbsDetail";
 import FreeBbsWrite from "./components/freeBbsWrite";
 import FreeBbsModify from "./components/freeBbsModify";
 import FreeBbsDelete from "./components/freeBbsDelete";
 
+
+import Qnalist from "./components/qna/qnalist";
+import Qnawrite from "./components/qna/qnawrite";
+import Qnadetail from "./components/qna/qnadetail";
+
+import Free from "./components/freeBbs";
 
 import "./App.css";
 
@@ -28,23 +36,24 @@ function App() {
   const [log, setLog] = useState(null);
 
   function loghandle() {
-      localStorage.clear();
-      document.location.href = '/';
+    localStorage.clear();
+    document.location.href = "/";
   }
 
   useEffect(() => {
-      if(localStorage.getItem('login') === null) {
+    if (localStorage.getItem("login") === null) {
       setLog(true);
-      }else {
+    } else {
       setLog(false);
-      }
-  }, [log])
+    }
+  }, [log]);
 
   return (
     <div className="App">
       <BrowserRouter>
         <header>
           <Link to="/">우주주민</Link>&nbsp;&nbsp;&nbsp;
+
             <li>
             {log ?
                 <Link to="/login">로그인</Link> :
@@ -66,23 +75,38 @@ function App() {
               }
             </li>
 
+
         </header>
         <hr />
 
         <nav>
           <h1>여기 네비바</h1>
+
           <li>
+
+            <Link to="/qnalist">Q&A</Link>
+
             <Link to="/freeBoard">자유게시판</Link>
           </li>
+
 
         </nav>
         <hr />
 
         <main>
 
+
           <Routes>
-            <Route path="/" element={<Main />} />
+            <Route exact path="/" element={<Main />} />
             <Route path="/login" element={<Login />} />
+
+            <Route path="/regi" element={<Regi />} />
+            // QNA
+            <Route path="/qnalist" element={<Qnalist />} />
+            <Route path="/qnawrite" element={<Qnawrite />} />
+            <Route path="/qnadetail/:qnaSeq" exact element={<Qnadetail />} />
+            //
+
 
 
             
@@ -90,10 +114,12 @@ function App() {
            
 
 
+
             <Route path="/accountInfo" element={<AccountInfo />}></Route>
             <Route path="/mybbsList" element={<MybbsList />}></Route>
             <Route path="/partyAccept" element={<PartyAccept />}></Route>
             <Route path="/partyRoom" element={<PartyRoom />}></Route>
+
             <Route path="/messageInfo" element={<MessageInfo/>}></Route>
             <Route path="/sendMessageInfo" element={<SendMessageInfo/>}></Route>
             
@@ -106,6 +132,7 @@ function App() {
             <Route path="/freeBbsWrite" element={FreeBbsWrite} />
             <Route path="/freeBbsModify/:bbsSeq" element={FreeBbsModify} />
             <Route path="/freeBbsDelete/:bbsSeq" element={FreeBbsDelete} />
+
           </Routes>
         </main>
         <hr />
@@ -113,6 +140,8 @@ function App() {
 
       <footer>
         <h1>여긴 푸터</h1>
+        <br />
+        <button onClick={() => loghandle()}>logout</button>&nbsp;
       </footer>
     </div>
   );
