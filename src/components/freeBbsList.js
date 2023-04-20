@@ -77,10 +77,11 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+// import { useAuth } from '../contexts/AuthContext';
+import Pagination from "react-js-pagination";
 
 function FreeBbsList() {
-  const { currentUser } = useAuth();
+  // const { currentUser } = useAuth();
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -103,7 +104,7 @@ function FreeBbsList() {
   return (
     <div>
       <div style={{ float: "right" }}>
-        {currentUser && <Link to="/freeBbsWrite">글 작성</Link>}
+        {/* {currentUser && <Link to="/freeBbsWrite">글 작성</Link>} */}
         <select>
           <option>카테고리</option>
           <option value={"basketball"}>농구</option>
