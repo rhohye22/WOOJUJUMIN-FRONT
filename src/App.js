@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 import Login from "./components/login";
 import Main from "./components/main";
+import KakaoHandler from "./components/social/kakaoHandler";
 
 import AccountInfo from "./components/accountInfo";
 import MessageInfo from "./components/messageInfo";
@@ -32,8 +33,8 @@ function App() {
   const [log, setLog] = useState(null);
 
   function loghandle() {
-    localStorage.clear();
-    document.location.href = "/";
+      localStorage.clear();
+      window.location.href = '/';
   }
 
   useEffect(() => {
@@ -88,6 +89,7 @@ function App() {
             <Route path="/qnawrite" element={<Qnawrite />} />
             <Route path="/qnadetail/:qnaSeq" exact element={<Qnadetail />} />
             //
+            <Route path="/kakaoLogin" element={<KakaoHandler />} />
             <Route path="/accountInfo" element={<AccountInfo />}></Route>
             <Route path="/mybbsList" element={<MybbsList />}></Route>
             <Route path="/partyAccept" element={<PartyAccept />}></Route>
