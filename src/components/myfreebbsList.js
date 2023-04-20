@@ -3,9 +3,9 @@ import axios from 'axios';
 import {Link, useNavigate} from "react-router-dom";
 import Pagination from "react-js-pagination";
 import "./page.css";
+import "./myfreebbsList.css";
 
-
-function MybbsList(){
+function MyfreebbsList(){
 
     let history = useNavigate();
     const [bbslist, setBbslist] = useState([]); // 게시판은 배열로 넘어오니까 
@@ -26,6 +26,8 @@ function MybbsList(){
         if(login !== undefined){ // 빈칸이 아닐때
             
             setId(login.id);
+            
+            
           
         }else{
            // alert('로그인해 주십시오');
@@ -41,12 +43,14 @@ function MybbsList(){
     function getBbslist(choice, search, page){
        
         
-        axios.get("http://localhost:3000/myBbslist", { params:{ "choice":choice, "search":search, "pageNumber":page, "id":id } })
+        axios.get("http://localhost:3000/myfreeBbslist", { params:{ "choice":choice, "search":search, "pageNumber":page, "id":id } })
         .then(function(resp){
             //console.log(resp.data);
             setBbslist(resp.data.list); // map을 return하기 때문(map 안에 list있음)
             setTotalCnt(resp.data.cnt);
-             console.log(bbslist);
+           console.log(bbslist);
+
+             //alert(bbslist);
         })
         .catch(function(err){
             alert(err);
@@ -57,7 +61,12 @@ function MybbsList(){
     
     function pageChange(page){
         setPage(page);
-        getBbslist(choice, search, page-1);
+       
+
+            getBbslist(choice, search, page-1);
+
+       
+        
     }
     
     function searchBtn(){
@@ -74,9 +83,8 @@ function MybbsList(){
                         // 시킬때 이런 식으로 사용, 처음 들어오면 검색어와 페이징이 안들어옴
     }, [id]);// 한번만 호출
     
-    
     if(bbslist.length > 0){
-
+     
     return(
 
         
@@ -90,10 +98,11 @@ function MybbsList(){
           <br></br>
           <Link to="/mybbsList">모집 게시판</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/myfreebbsList">자유 게시판</Link>&nbsp;&nbsp;&nbsp;
-    <div>
+  
    
 
     <br></br>
+       <div class="searchpart">
         <select value={choice} onChange={(e)=>setChoice(e.target.value)}>
             <option value=''>검색</option>
             <option value="title">제목</option>
@@ -103,22 +112,24 @@ function MybbsList(){
         </select>&nbsp;
         <input value={search} onChange={(e)=>setSearch(e.target.value)} placeholder="검색어"/>
 
-        <button onClick={searchBtn}>검색</button>
-
+        <button className="searchTitle" onClick={searchBtn}>검색</button>
+        </div>
 
     <br></br>
     <br></br>
 
+  
     <table border="1" style={{ margin:'0 auto'}}>
         <colgroup>
             <col width='70'/><col width='600'/><col width='100'/><col width='100'/>
         </colgroup>
         <thead>
             <tr>
-              <th>번호</th><th>제목</th><th>조회수</th><th>인원수</th><th>날짜</th><th>작성자</th>
+              <th>번호</th><th>제목</th><th>조회수</th><th>날짜</th><th>작성자</th>
             </tr>
         </thead>
 
+     
         <tbody>
             {
                 bbslist.map(function(bbs, i){
@@ -130,17 +141,18 @@ function MybbsList(){
                             
                             </td>
                             <td align="center">{bbs.readcount}</td>
-                            <td align="center">{bbs.people}</td>
+                           
                             <td align="center">{bbs.wdate}</td>
                             <td align="center">{bbs.id}</td>
                         </tr>
                     )
                 })
             }
+        
+        </tbody> 
+           
+    </table> 
 
-        </tbody>
-
-    </table>
     <br>
     </br>
 
@@ -150,22 +162,18 @@ function MybbsList(){
        pageRangeDisplayed={5}
        prevPageText={"이전"}
        nextPageText={"다음"}
-       onChange={pageChange}/>
-
+       onChange={pageChange}/> 
+           
+  
 
        <br>
        </br>
 
-      
-</div>
 </>
-
-
 
    
     )
 }else{
-
 
     return(
 
@@ -203,14 +211,16 @@ function MybbsList(){
        prevPageText={"이전"}
        nextPageText={"다음"}
        onChange={pageChange}/>
-
 </>
 
 
 
    
     )
-}
+
 }
 
-export default MybbsList;
+
+}
+
+export default MyfreebbsList;

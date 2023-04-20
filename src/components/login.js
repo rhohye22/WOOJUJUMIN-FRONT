@@ -6,7 +6,11 @@ import KakaoLogin from "react-kakao-login";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
+
+  let history = useNavigate();
+
   const [id, setId] = useState("");
+
   const [password, setPwd] = useState("");
 
   const [cookies, setCookies] = useCookies("");
@@ -33,6 +37,7 @@ function Login() {
           alert(resp.data.nickname + "님 환영합니다");
 
           localStorage.setItem("login", JSON.stringify(resp.data));
+
 
           document.location.href = '/';
 
