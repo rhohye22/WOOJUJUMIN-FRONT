@@ -1,13 +1,60 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function FreeBbsWrite() {
-  const navigate = useNavigate();
+  let history = useNavigate();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [files, setFiles] = useState([]);
-  const [previewUrls, setPreviewUrls] = useState([]);
+  const [image, setImage] = useState("");
+
+  const imgRef = useRef();
+
+  const [id, setId] = useState("");
+  useEffect(function () {
+    let login = JSON.parse(localStorage.getItem("login"));
+    setId(login.id);
+  }, []);
+
+  function imageLoad() {
+    const file = imgRef.current.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImage(reader.result);
+    };
+    console.log(image);
+  }
+
+  function writeFreeBbs(e) {
+    e.preventDefault();
+    let formData = new FormData();
+    formData.append("id", id);
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("image", image);
+    if (document.frm.uploadFile.files[0].name === null || document.frm.uploadFile.files[0].name === "") {
+      formData.append("uploadFile", "basic");
+    } else {
+      console.log(document.frm.uploadFile.files[0].name);
+      formData.append("uploadFile", document.frm.uploadFile.files[0]);
+    }
+
+    axios
+      .post("http://localhost:3000/writeFreeBbs", formData)
+      .then(function (resp) {
+        if (resp.data === "YES") {
+          alert("글이 등록되었습니다.");
+          history("/freeBoard"); // 이동(link)
+        } else {
+          alert("게시글 등록에 실패했습니다");
+        }
+      })
+      .catch(function (err) {
+        alert(err);
+        alert("에러");
+      });
+  }
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -17,62 +64,30 @@ function FreeBbsWrite() {
     setContent(e.target.value);
   };
 
-  const handleFileSelect = (e) => {
-    const fileList = Array.from(e.target.files);
-    setFiles(fileList);
-
-    const urls = fileList.map((file) => URL.createObjectURL(file));
-    setPreviewUrls(urls);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("content", content);
-    files.forEach((file) => {
-      formData.append("files", file);
-    });
-
-    try {
-      const response = await axios.post(`http://localhost:3000/freeBbsWrite`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: localStorage.getItem("token"),
-        },
-      });
-      console.log(response.data);
-      navigate("/freeBbs");
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     <div>
       <h2>글 작성</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          제목
-          <input type="text" value={title} onChange={handleTitleChange} />
-        </label>
+
+      <label>
+        제목
+        <input type="text" value={title} onChange={handleTitleChange} />
+      </label>
+      <br />
+      <label>
+        내용
+        <textarea value={content} onChange={handleContentChange} />
+      </label>
+      <br />
+
+      <form name="frm" onSubmit={writeFreeBbs} encType="multipart/form-data">
+        <input type="file" onChange={imageLoad} ref={imgRef} name="uploadFile" />
         <br />
-        <label>
-          내용
-          <textarea value={content} onChange={handleContentChange} />
-        </label>
+        <img src={image} alt="" />
         <br />
-        <input type="file" multiple onChange={handleFileSelect} />
-        <br />
-        <div>
-          {previewUrls.map((url) => (
-            <img key={url} src={url} width="200px" height="200px" alt="preview" />
-          ))}
-        </div>
-        <br />
-        <button type="submit">작성하기</button>
       </form>
+      <button type="submit" onClick={writeFreeBbs}>
+        작성하기
+      </button>
     </div>
   );
 }

@@ -96,11 +96,7 @@ function FreeBbsList() {
         <option value={"travel"}>탐사</option>
         <option value={"chat"}>잡담</option> */}
       </select>
-      <input
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        placeholder="검색어"
-      />
+      <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="검색어" />
       &nbsp;
       <button onClick={searchBtn}>검색</button>
       <br />
@@ -110,7 +106,7 @@ function FreeBbsList() {
           <colgroup>
             <col width={"80px"} />
             <col width={"500px"} />
-            <col width={"130px"} />
+
             <col width={"100px"} />
             <col width={"100px"} />
             <col width={"100px"} />
@@ -119,7 +115,7 @@ function FreeBbsList() {
             <tr>
               <th>글번호</th>
               <th>제목</th>
-              <th>작성자</th>
+
               <th>작성일</th>
               <th>조회수</th>
               <th>좋아요 수</th>
@@ -132,11 +128,31 @@ function FreeBbsList() {
                   <tr key={i}>
                     <td>{free.bbsSeq}</td>
                     <td>
-                      <Link to={`/freeBbsDetail/${free.bbsSeq}`}>
-                        {free.title}
-                      </Link>
+                      <div
+                        style={{
+                          width: "100%",
+                          height: "50px",
+                          overflow: "hidden",
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        {free.image ? (
+                          <img
+                            src={`http://localhost:3000/upload/freebbs/${free.image.substring(66)}`}
+                            alt="free image"
+                            style={{
+                              width: 40,
+                              height: "auto",
+                              objectFit: "cover",
+                              objectPosition: "center",
+                            }}
+                          />
+                        ) : null}
+                        &nbsp;&nbsp;<Link to={`/freeBbsDetail/${free.bbsSeq}`}>{free.title}</Link>{" "}
+                      </div>
                     </td>
-                    <td>닉네임넣고싶음</td>
+
                     <td>{free.wdate.substring(0, 10)}</td>
                     <td>{free.readcount}</td>
                     <td>{free.likey}</td>
@@ -149,15 +165,7 @@ function FreeBbsList() {
           </tbody>
         </table>
         <br />
-        <Pagination
-          activePage={page}
-          itemsCountPerPage={20}
-          totalItemsCount={totalCnt}
-          pageRangeDisplayed={5}
-          prevPageText={"이전"}
-          nextPageText={"다음"}
-          onChange={pageChange}
-        />
+        <Pagination activePage={page} itemsCountPerPage={20} totalItemsCount={totalCnt} pageRangeDisplayed={5} prevPageText={"이전"} nextPageText={"다음"} onChange={pageChange} />
       </div>
     </div>
   );
