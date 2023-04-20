@@ -74,11 +74,10 @@
 // }
 
 // export default FreeBbs;
-import Pagination from "react-bootstrap/Pagination";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
-//import { useAuth } from "../contexts/AuthContext";
+import { useState, useEffect,useAuth } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+// import { useAuth } from '../contexts/AuthContext';
 
 function FreeBbsList() {
   //로그인관련
