@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 import Login from "./components/login";
 import Main from "./components/main";
+import KakaoHandler from "./components/social/kakaoHandler";
 
 import AccountInfo from "./components/accountInfo";
 
@@ -26,7 +27,7 @@ function App() {
 
   function loghandle() {
       localStorage.clear();
-      document.location.href = '/';
+      window.location.href = '/';
   }
 
   useEffect(() => {
@@ -68,10 +69,10 @@ function App() {
         <hr />
 
         <main>
-
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/kakaoLogin" element={<KakaoHandler />} />
             <Route path="/accountInfo" element={<AccountInfo />}></Route>
             <Route path="/mybbsList" element={<MybbsList />}></Route>
             <Route path="/partyAccept" element={<PartyAccept />}></Route>
