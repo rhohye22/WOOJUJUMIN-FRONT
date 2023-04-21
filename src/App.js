@@ -21,6 +21,7 @@ import FreeBbsDetail from "./components/freebbs/freeBbsDetail";
 import FreeBbsWrite from "./components/freebbs/freeBbsWrite";
 import FreeBbsModify from "./components/freebbs/freeBbsModify";
 import FreeBbsDelete from "./components/freebbs/freeBbsDelete";
+import FreeBbsReply from "./components/freebbs/freeBbsReply";
 
 import Qnalist from "./components/qna/qnalist";
 import Qnawrite from "./components/qna/qnawrite";
@@ -91,6 +92,7 @@ function App() {
             <Route path="/freeBbsWrite" element={<FreeBbsWrite />} />
             <Route path="/freeBbsModify/:bbsSeq" element={<FreeBbsModify />} />
             <Route path="/freeBbsDelete/:bbsSeq" element={<FreeBbsDelete />} />
+            <Route path="/freeBbsReply/:bbsSeq" element={<FreeBbsReply />} />
           </Routes>
         </main>
       </BrowserRouter>
