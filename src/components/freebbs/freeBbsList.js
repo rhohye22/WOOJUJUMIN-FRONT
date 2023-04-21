@@ -84,17 +84,6 @@ function FreeBbsList() {
         <option value="title">제목</option>
         <option value="content">내용</option>
         <option value="writer">작성자</option>
-        {/*  <option>카테고리</option>
-        <option value={"basketball"}>농구</option>
-        <option value={"soccer"}>축구</option>
-        <option value={"baseball"}>야구</option>
-        <option value={"tvShow"}>예능</option>
-        <option value={"dramaMovie"}>드라마/영화</option>
-        <option value={"game"}>게임</option>
-        <option value={"food"}>음식</option>
-        <option value={"together"}>함께</option>
-        <option value={"travel"}>탐사</option>
-        <option value={"chat"}>잡담</option> */}
       </select>
       <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="검색어" />
       &nbsp;
