@@ -1,61 +1,46 @@
-// import axios from "axios";
-// import { useEffect, useState } from "react";
-
-// function Detail(props) {
-//     const [bbs, setBbs] = useState([]);
-
-//     useEffect(() => {
-//         const bbsSeq = parseInt(props.children.props.match.params.bbsSeq); // URL 파라미터에서 게시글 고유값 가져오기
-//         axios.get('http://localhost:3000/getBbs', {
-//             params: {
-//                 bbsSeq: bbsSeq
-//             }
-//         })
-//             .then(response => {
-//                 console.log(bbsSeq);
-//                 console.log(response.data);
-//                 setBbs(response.data);
-//             })
-//             .catch(error => {
-//                 console.log(error);
-//             })
-//     }, [props.children.props.match.params.bbsSeq]); // 의존성 배열에 bbsSeq 추가
-
-//     console.log(bbs);
-
-//     return (
-//         <div>
-//             <h2>{bbs.title}</h2>
-//             <p>{bbs.content}</p>
-//         </div>
-//     );
-// }
-
-// export default Detail;
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
 function FreeBbsDetail() {
-  const [bbs, setBbs] = useState({});
-  const { bbsSeq } = useParams();
+  const [freebbs, setFreeBbs] = useState({});
+  const [loading, setLoading] = useState(false);
+  let params = useParams();
+  const qnaData = async (bbsSeq) => {
+    const response = await axios.get("http://localhost:3000/getfreeBbs", {
+      params: { bbsSeq: bbsSeq },
+    });
+    setFreeBbs(response.data);
+
+    setLoading(true); // 여기서 rendering 해 준다
+  };
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:3000/freeBbsDetail/${bbsSeq}`)
-      .then((response) => {
-        setBbs(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [bbsSeq]);
+    qnaData(params.bbsSeq);
+  }, [params.bbsSeq]);
+
+  if (loading === false) {
+    return <div>Loading...</div>;
+  }
+
+  const imageUrl = freebbs.image !== null ? `http://localhost:3000/upload/freebbs/${freebbs.image.substring(66)}` : null;
 
   return (
     <div>
-      <h2>{bbs.title}</h2>
-      <h4>{bbs.author}</h4>
-      <p>{bbs.content}</p>
+      <h2>제목 : {freebbs.title}</h2>
+      {imageUrl !== null ? (
+        <img
+          src={imageUrl}
+          alt="no image"
+          style={{
+            width: 500,
+            height: "auto",
+            objectFit: "cover",
+            objectPosition: "center",
+          }}
+        />
+      ) : null}
+      <p>내용 : {freebbs.content}</p>
     </div>
   );
 }
