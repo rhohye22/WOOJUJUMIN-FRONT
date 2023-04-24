@@ -17,13 +17,13 @@ import MyfreebbsList from "./components/myfreebbsList";
 import PartyAccept from "./components/partyAccept";
 import PartyRoom from "./components/partyRoom";
 
-import Regi from "./components/regi";
+import Regi from "./components/login/regi";
 
-import FreeBbsList from "./components/freeBbsList";
-import FreeBbsDetail from "./components/freeBbsDetail";
-import FreeBbsWrite from "./components/freeBbsWrite";
-import FreeBbsModify from "./components/freeBbsModify";
-import FreeBbsDelete from "./components/freeBbsDelete";
+import FreeBbsList from "./components/freebbs/freeBbsList";
+import FreeBbsDetail from "./components/freebbs/freeBbsDetail";
+import FreeBbsWrite from "./components/freebbs/freeBbsWrite";
+import FreeBbsModify from "./components/freebbs/freeBbsModify";
+import FreeBbsDelete from "./components/freebbs/freeBbsDelete";
 
 import Qnalist from "./components/qna/qnalist";
 import Qnawrite from "./components/qna/qnawrite";
@@ -91,12 +91,6 @@ function App() {
 
         <main>
           <Routes>
-
-
-            <Route path="/" element={<ProtectRoute>
-              <Main />
-            </ProtectRoute>
-            } />
 
 
             <Route path="/login" element={<Login />} />

@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
+
+import { signInWithEmailAndPassword } from "firebase/auth";
 import axios from "axios";
+import { auth } from "../../firebase";
+
 import KakaoLogin from "react-kakao-login";
 // npm install react-kakao-login
 import { useNavigate } from "react-router-dom";
@@ -19,6 +23,8 @@ function Login() {
   // checkbox
   const [saveId, setSaveId] = useState(false);
 
+  const [err, setErr] = useState(false);
+
   const navigate = useNavigate();
 
   function CheckHandler() {
@@ -31,7 +37,18 @@ function Login() {
     }
   }
 
-  function login() {
+  const Login = async (e) => {
+    const hab = '@naver.com';
+    const chatId = id + hab;
+    const chatPwd = password;
+      try{
+        await signInWithEmailAndPassword(auth, chatId, chatPwd);
+        //alert('hello');
+        // history("/");
+      }catch(err){
+        setErr(true);
+      }
+
     axios.post("http://localhost:3000/login", null, { params: { id: id, password: password }})
         .then(function (resp) {
         console.log(resp.data);
@@ -221,7 +238,7 @@ function Login() {
       아이디저장
       <br />
       <br />
-      <button onClick={() => login()}>Login</button>&nbsp;
+      <button onClick={() => Login()}>Login</button>&nbsp;
       <a href="/regi">회원가입</a>
       <hr/>
 
