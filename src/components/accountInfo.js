@@ -177,7 +177,7 @@ function AccountInfo(){
          onChange={imageLoad} ref={imgRef}
        />
          <div className="preview" style={{ display:"block", margin:'0 auto'}}>
-        {profile && <img src={profile} style={{width:'50px', height:'50px'}} />}
+         {profile && <img src={`http://localhost:3000/upload/${profile.substring(57)}`} style={{width:'50px', height:'50px'}} />}
       </div>
        <p className="message"></p>
      </div> 
