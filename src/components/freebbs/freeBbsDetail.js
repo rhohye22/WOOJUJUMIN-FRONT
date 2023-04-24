@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import FreeBbsReply from "./freeBbsReply";
+import FreeBbslikey from "./freeBbslikey";
 function FreeBbsDetail() {
   let navigate = useNavigate();
 
@@ -13,14 +14,21 @@ function FreeBbsDetail() {
   const [replySeq, setReplySeq] = useState();
   const [content, setContent] = useState("");
   const [writer, setWriter] = useState("");
+  const [memberSeq, setMemberSeq] = useState();
 
   //접속정보
   useEffect(function () {
     let login = JSON.parse(localStorage.getItem("login"));
+
     setWriter(login.id);
+    setMemberSeq(login.memberSeq);
   }, []);
 
   let params = useParams();
+
+  let bbsSeq = params.bbsSeq;
+  const seqs = { memberSeq: memberSeq, bbsSeq: bbsSeq };
+
   const qnaData = async (bbsSeq) => {
     const response = await axios.get("http://localhost:3000/getfreeBbs", {
       params: { bbsSeq: bbsSeq },
@@ -39,7 +47,7 @@ function FreeBbsDetail() {
     return <div>Loading...</div>;
   }
 
-  const imageUrl = freebbs.image !== null ? `http://localhost:3000/upload/freebbs/${freebbs.image.substring(66)}` : null;
+  const imageUrl = freebbs.image !== null ? `http://localhost:3000/upload/freebbs/${freebbs.image}` : null;
 
   const contentChange = (e) => {
     setContent(e.target.value);
@@ -75,6 +83,7 @@ function FreeBbsDetail() {
     <div>
       <h2>제목 : {freebbs.title}</h2>
       <h2>작성자 : {freebbs.id}</h2>
+      <h2>파일 : {freebbs.image}</h2>
       {imageUrl !== null ? (
         <img
           src={imageUrl}
@@ -88,6 +97,8 @@ function FreeBbsDetail() {
         />
       ) : null}
       <p>내용 : {freebbs.content}</p>
+      <p>멤시퀸스 : {memberSeq}</p>
+      <FreeBbslikey seqs={seqs} />
       <br />
       <FreeBbsReply replySeq={replySeq} />
       <br />

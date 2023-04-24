@@ -63,6 +63,18 @@ function FreeBbsList() {
       });
   }
 
+  //게시글당 좋아요 개수
+  function cntLikey(bbsSeq) {
+    try {
+      const res = axios.get("http://localhost:3000/cntLikey", {
+        params: { bbsSeq: bbsSeq },
+      });
+      return res.data;
+    } catch (err) {
+      alert(err);
+    }
+  }
+
   function searchBtn() {
     getFreelist(choice, search);
   }
@@ -126,9 +138,9 @@ function FreeBbsList() {
                           alignItems: "center",
                         }}
                       >
-                        {free.image ? (
+                        {free.image !== null ? (
                           <img
-                            src={`http://localhost:3000/upload/freebbs/${free.image.substring(66)}`}
+                            src={`http://localhost:3000/upload/freebbs/${free.image}`}
                             alt="free image"
                             style={{
                               width: 40,

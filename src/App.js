@@ -94,7 +94,7 @@ function App() {
             <Route path="/freeBbsModify/:bbsSeq" element={<FreeBbsModify />} />
             <Route path="/freeBbsDelete/:bbsSeq" element={<FreeBbsDelete />} />
             <Route path="/freeBbsReply/:bbsSeq" element={<FreeBbsReply />} />
-            <Route path="/freeBbslikey/:bbsSeq" element={<FreeBbslikey />} />
+            <Route path="/freeBbslikey" element={<FreeBbslikey />} />
           </Routes>
         </main>
       </BrowserRouter>
