@@ -17,7 +17,11 @@ function PartyAccept(){
           <Link to="/partyAccept">파티원 승인</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/partyRoom">파티방</Link>
           <br></br>
-          <h3>파티원 승인</h3>
+          <br></br>
+        
+          <Link to="/partyAccept">파티 수락</Link>&nbsp;&nbsp;&nbsp;
+          <Link to="/partyRequest">파티 요청</Link>&nbsp;&nbsp;&nbsp;
+          <h3>ㅇㅇㅇ</h3>
   
  </>
 
