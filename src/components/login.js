@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
+
+import { signInWithEmailAndPassword } from "firebase/auth";
 import axios from "axios";
+import { auth } from "../firebase";
+
 import KakaoLogin from "react-kakao-login";
 // npm install react-kakao-login
 import { useNavigate } from "react-router-dom";
+
 
 function Login() {
 
@@ -17,7 +22,11 @@ function Login() {
   // checkbox
   const [saveId, setSaveId] = useState(false);
 
+
+  const [err, setErr] = useState(false);
+
   const navigate = useNavigate();
+
 
   function CheckHandler() {
     // alert(saveId)
@@ -28,11 +37,49 @@ function Login() {
       setCookies("user_id", "");
     }
   }
+  // const handleSubmit = async (e) => {
+  
+  //  //e.preventDefault();
+  //   const hab = '@naver.com';
+  //   const chatId = id + hab;
+  //   const chatPwd = password;
+  //   try{
+      
+  //     await signInWithEmailAndPassword(auth, chatId, chatPwd);
+  //     history("/");
+
+
+  //   }catch(err){
+  //       setErr(true);
+  //   }
+  //   };
+
+
+
+  const Login = async (e) => {
+
+   // e.preventDefault();
+   const hab = '@naver.com';
+   const chatId = id + hab;
+    const chatPwd = password;
+    try{
+      
+      await signInWithEmailAndPassword(auth, chatId, chatPwd);
+      //alert('hello');
+     // history("/");
+
+    }catch(err){
+        setErr(true);
+    }
+
+
+
 
   function login() {
     axios.post("http://localhost:3000/login", null, { params: { id: id, password: password }})
         .then(function (resp) {
         console.log(resp.data);
+
         if (resp.data !== null && resp.data !== "") {
           alert(resp.data.nickname + "님 환영합니다");
 
@@ -139,6 +186,7 @@ function Login() {
   return (
     <div>
       <h3>Login</h3>
+      
       <input
         value={id}
         onChange={(e) => setId(e.target.value)}
@@ -156,7 +204,8 @@ function Login() {
       아이디저장
       <br />
       <br />
-      <button onClick={() => login()}>Login</button>&nbsp;
+      <button type="submit" onClick={() => Login()}>Login</button>&nbsp;
+     
       <a href="/regi">회원가입</a>
       <hr/>
 
@@ -168,5 +217,5 @@ function Login() {
     </div>
   );
 }
-
+}
 export default Login;
