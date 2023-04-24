@@ -3,7 +3,7 @@ import { useDaumPostcodePopup } from 'react-daum-postcode';
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 
-function KakaoHandler() {
+function SocialHandler() {
     const location = useLocation();
     const userInfo = { ...location.state };
     //alert(userInfo.id);
@@ -64,7 +64,7 @@ function KakaoHandler() {
 
     function account(){
         let member = { "id":userInfo.id, "nickname":nickname, "phoneNum":phonenum, "address":juso };
-        axios.post('http://localhost:3000/kakaoAdd', null, { params:member })
+        axios.post('http://localhost:3000/socialAdd', null, { params:member })
             .then(function(resp){
                 if(resp.data !== null && resp.data !== ""){
                     alert(resp.data.nickname + "님 환영합니다");
@@ -100,7 +100,7 @@ function KakaoHandler() {
             {/* 닉네임 */}
             <input value={nickname} onChange={(e)=>setNickname(e.target.value)} placeholder="닉네임" />&nbsp;
             <button onClick={nickCheck}>닉네임 확인</button><br/>
-            <p>원하는 닉네임으로 수정해주세요. 수정하지 않을 시 카카오톡에서 설정한 이름으로 설정됩니다.</p>
+            <p>원하는 닉네임으로 수정해주세요. 수정하지 않을 시 기존에 설정한 닉네임으로 설정됩니다.</p>
 
             {/* 전화번호 */}
             {/* <input value={phonenum} onChange={(e)=>setPhonenum(e.target.value)} placeholder="휴대전화" /><br/><br/> */}
@@ -115,4 +115,4 @@ function KakaoHandler() {
     )
 }
 
-export default KakaoHandler;
+export default SocialHandler;

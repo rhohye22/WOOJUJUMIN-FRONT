@@ -3,9 +3,9 @@ import React, { useState, useEffect, useContext } from "react";
 import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import ToggleMenu from "./components/togglemenu";
 
-import Login from "./components/login";
+import Login from "./components/login/login";
 import Main from "./components/main";
-import KakaoHandler from "./components/social/kakaoHandler";
+import SocialHandler from "./components/social/socialHandler";
 
 import AccountInfo from "./components/accountInfo";
 import MessageInfo from "./components/messageInfo";
@@ -17,8 +17,7 @@ import MyfreebbsList from "./components/myfreebbsList";
 import PartyAccept from "./components/partyAccept";
 import PartyRoom from "./components/partyRoom";
 
-import Regi from "./components/regi";
-
+import Regi from "./components/login/regi";
 
 import FreeBbsList from "./components/freebbs/freeBbsList";
 import FreeBbsDetail from "./components/freebbs/freeBbsDetail";
@@ -94,12 +93,6 @@ function App() {
           <Routes>
 
 
-            <Route path="/" element={<ProtectRoute>
-              <Main />
-            </ProtectRoute>
-            } />
-
-
             <Route path="/login" element={<Login />} />
 
 
@@ -110,9 +103,8 @@ function App() {
             <Route path="/qnalist" element={<Qnalist />} />
             <Route path="/qnawrite" element={<Qnawrite />} />
             <Route path="/qnadetail/:qnaSeq" exact element={<Qnadetail />} />
-   
-            <Route path="/kakaoLogin" element={<KakaoHandler />} />
-
+            
+            <Route path="/socialLogin" element={<SocialHandler />} />
             <Route path="/accountInfo" element={<AccountInfo />}></Route>
             <Route path="/mybbsList" element={<MybbsList />}></Route>
             <Route path="/partyAccept" element={<PartyAccept />}></Route>
