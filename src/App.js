@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 
 import Login from "./components/login";
 import Main from "./components/main";
@@ -7,6 +7,7 @@ import Main from "./components/main";
 import AccountInfo from "./components/accountInfo";
 import MessageInfo from "./components/messageInfo";
 import SendMessageInfo from "./components/sendMessageInfo";
+import Home from "./pages/Home";
 
 import MybbsList from "./components/mybbsList";
 import MyfreebbsList from "./components/myfreebbsList";
@@ -20,8 +21,10 @@ import FreeBbsWrite from "./components/freeBbsWrite";
 import FreeBbsModify from "./components/freeBbsModify";
 import FreeBbsDelete from "./components/freeBbsDelete";
 
-
 import "./App.css";
+import { AuthContext } from "./context/AuthContext";
+import { signOut } from "firebase/auth";
+import { auth } from "./firebase";
 
 function App() {
   // 로그인 상태 관리
@@ -40,6 +43,18 @@ function App() {
       }
   }, [log])
 
+  const {currentUser} = useContext(AuthContext);
+  //console.log(currentUser);
+
+  const ProtectRoute = ({children}) => {
+    if(!currentUser){
+      return <Navigate to="/login"/>
+    }
+  }
+
+
+
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -48,7 +63,8 @@ function App() {
             <li>
             {log ?
                 <Link to="/login">로그인</Link> :
-                <button onClick={loghandle}>로그아웃</button>
+                <button onClick={()=>{loghandle(); signOut(auth); } }>로그아웃</button>
+              
               }
             </li>
             <li>
@@ -81,14 +97,14 @@ function App() {
         <main>
 
           <Routes>
-            <Route path="/" element={<Main />} />
+
+            <Route path="/" element={<ProtectRoute>
+              <Main />
+            </ProtectRoute>
+            } />
+
+
             <Route path="/login" element={<Login />} />
-
-
-            
-          
-           
-
 
             <Route path="/accountInfo" element={<AccountInfo />}></Route>
             <Route path="/mybbsList" element={<MybbsList />}></Route>
@@ -96,11 +112,13 @@ function App() {
             <Route path="/partyRoom" element={<PartyRoom />}></Route>
             <Route path="/messageInfo" element={<MessageInfo/>}></Route>
             <Route path="/sendMessageInfo" element={<SendMessageInfo/>}></Route>
+         
             
             <Route path="/myfreebbsList" element={<MyfreebbsList/>}></Route>
             <Route path="/partyAccept" element={<PartyAccept/>}></Route>
             <Route path="/partyRoom" element={<PartyRoom/>}></Route>
             <Route path="regi" element={<Regi />} />
+            <Route path="pages/Home" element={<Home />} />
             <Route path="freeBoard" element={<FreeBbs />} />
             <Route path="/freeBbsDetail/:bbsSeq" element={<FreeBbsDetail />} />
             <Route path="/freeBbsWrite" element={FreeBbsWrite} />

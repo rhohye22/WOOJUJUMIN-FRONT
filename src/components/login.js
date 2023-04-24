@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {Link, useNavigate} from "react-router-dom";
 import { useCookies } from "react-cookie";
-
+import { signInWithEmailAndPassword } from "firebase/auth";
 import axios from "axios";
+import { auth } from "../firebase";
 
 function Login() {
   let history = useNavigate();
@@ -13,6 +14,8 @@ function Login() {
   // checkbox
   const [saveId, setSaveId] = useState(false);
 
+  const [err, setErr] = useState(false);
+
   function CheckHandler() {
     // alert(saveId)
     setSaveId(!saveId);
@@ -22,13 +25,43 @@ function Login() {
       setCookies("user_id", "");
     }
   }
+  // const handleSubmit = async (e) => {
+  
+  //  //e.preventDefault();
+  //   const hab = '@naver.com';
+  //   const chatId = id + hab;
+  //   const chatPwd = password;
+  //   try{
+      
+  //     await signInWithEmailAndPassword(auth, chatId, chatPwd);
+  //     history("/");
 
-  function login() {
-    axios
+  //   }catch(err){
+  //       setErr(true);
+  //   }
+  //   };
 
-      .post("http://localhost:3000/login", null, { params: { id: id, password: password }})
 
-     
+
+  const Login = async (e) => {
+
+   // e.preventDefault();
+   const hab = '@naver.com';
+   const chatId = id + hab;
+    const chatPwd = password;
+    try{
+      
+      await signInWithEmailAndPassword(auth, chatId, chatPwd);
+      //alert('hello');
+     // history("/");
+
+    }catch(err){
+        setErr(true);
+    }
+
+
+
+    axios.post("http://localhost:3000/login", null, { params: { id: id, password: password }})
 
       .then(function (resp) {
        console.log(resp.data);
@@ -67,6 +100,7 @@ function Login() {
   return (
     <div>
       <h3>Login</h3>
+      
       <input
         value={id}
         onChange={(e) => setId(e.target.value)}
@@ -84,7 +118,8 @@ function Login() {
       아이디저장
       <br />
       <br />
-      <button onClick={() => login()}>Login</button>&nbsp;
+      <button type="submit" onClick={() => Login()}>Login</button>&nbsp;
+     
       <a href="/regi">회원가입</a>
     </div>
   );
