@@ -15,6 +15,7 @@ import Home from "./pages/Home";
 import MybbsList from "./components/mybbsList";
 import MyfreebbsList from "./components/myfreebbsList";
 import PartyAccept from "./components/partyAccept";
+import PartyRequest from "./components/partyRequest";
 import PartyRoom from "./components/partyRoom";
 
 import Regi from "./components/regi";
@@ -59,11 +60,11 @@ function App() {
   const {currentUser} = useContext(AuthContext);
   //console.log(currentUser);
 
-  const ProtectRoute = ({children}) => {
-    if(!currentUser){
-      return <Navigate to="/login"/>
-    }
-  }
+  // const ProtectRoute = ({children}) => {
+  //   if(!currentUser){
+  //     return <Navigate to="/login"/>
+  //   }
+  // }
 
 
 
@@ -81,6 +82,7 @@ function App() {
           {log ? <span>로그인해주세요</span> : <span>{nickname}님</span>}&nbsp;&nbsp;&nbsp;
           {log ? <Link to="/regi">회원가입</Link> : <Link to="/accountInfo">마이페이지</Link>}&nbsp;&nbsp;&nbsp;
           {log === false && <Link to="/messageInfo">메시지함</Link>}&nbsp;&nbsp;&nbsp;
+          {log === false && <Link to="/">파티장 요청</Link>}&nbsp;&nbsp;&nbsp;
           {log ? <Link to="/login">로그인</Link> : <button onClick={()=>{loghandle(); signOut(auth); } }>로그아웃</button>}&nbsp;&nbsp;&nbsp;
 
         </header>
@@ -94,11 +96,7 @@ function App() {
           <Routes>
 
 
-            <Route path="/" element={<ProtectRoute>
-              <Main />
-            </ProtectRoute>
-            } />
-
+           
 
             <Route path="/login" element={<Login />} />
 
@@ -116,6 +114,7 @@ function App() {
             <Route path="/accountInfo" element={<AccountInfo />}></Route>
             <Route path="/mybbsList" element={<MybbsList />}></Route>
             <Route path="/partyAccept" element={<PartyAccept />}></Route>
+            <Route path="/partyRequest" element={<PartyRequest />}></Route>
             <Route path="/partyRoom" element={<PartyRoom />}></Route>
 
             <Route path="/messageInfo" element={<MessageInfo/>}></Route>
