@@ -3,13 +3,18 @@ import { useNavigate } from "react-router-dom"
 import axios from "axios";
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth, db, storage } from "../firebase";
+import { auth, db, storage } from "../../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 import { v4 as uuidv4 } from 'uuid';
-function Regi(){
+import KakaoLogin from "react-kakao-login";
+// npm install react-kakao-login
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import jwt_decode from 'jwt-decode';
+import "./regi.css";
 
-    let history = useNavigate();
+function Regi(){
+    const navigate = useNavigate();
 
     // 각각의 이름 설정
     const [id, setId] = useState('');
@@ -37,17 +42,15 @@ function Regi(){
     const [isPwdchk, setIsPwdchk] = useState(false);
     const [isPhone, setIsPhone] = useState(false);
     // const router = useRouter();
-   
-    function imageLoad(e) {
+
+    function imageLoad() {
         const file = imgRef.current.files[0];
-       
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () => {
             setProfile(reader.result);
-           // console.log("file : " + profile);
-            
         }
+        console.log(profile);
     }
 
     //const [visible, setVisible] = useState(false);
@@ -113,46 +116,28 @@ function Regi(){
                     alert('닉네임 찾기');
                 })
     }
-    // useEffect(() => {
-    //     Account();
-    //   },[]);
 
-
-
-    const Account = async (e) => {
-       
-        //const[err, setErr] = useState(false);
-        
-      e.preventDefault();
-       
-     
-        
+    const Account = async(e) => {
+        e.preventDefault();
         let chatPwd = password;
-      
         console.log("ewfewf" + chatPwd);
-      
         const displayName = nickname;
-     
         const file = document.frm.uploadFile.files[0];
         console.log(file);
-       
         try{
             const res = await createUserWithEmailAndPassword(auth, email, password);// 계정생성
             const fileId = uuidv4();
             //const storageRef = ref(storage, `avatars/${res.user.uid}/${fileId}`);
             const storageRef = ref(storage, displayName);
             const uploadTask = uploadBytesResumable(storageRef, file);
-            
-            
+        
             uploadTask.on(
                
             (error) => {
              // setErr(true);
             },
             () => {
-               
                 getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-                   
                 // 인증만 하는곳
                 await updateProfile(res.user, {
                     displayName,
@@ -160,14 +145,12 @@ function Regi(){
                 });
                 // collection에 data추가하는 곳
                 await setDoc(doc( db, "users", res.user.uid),{
-                    
                     uid:res.user.uid,
                     displayName,
                     email,
                     photoURL: downloadURL
                 });
                 await setDoc(doc(db, "userChats", res.user.uid), {});
-
                 
               });
             } 
@@ -177,7 +160,6 @@ function Regi(){
             //setErr(true);
            alert(err);
         };
-        
 
         let formData = new FormData();
         formData.append("id", id);
@@ -188,22 +170,17 @@ function Regi(){
         formData.append("address", juso);
         if(document.frm.uploadFile.files[0].name === null || document.frm.uploadFile.files[0].name === '') {
             formData.append("uploadFile", "basic");
-
-
-
         }else {
             console.log(document.frm.uploadFile.files[0].name);
             formData.append("uploadFile", document.frm.uploadFile.files[0]);
         }
-
 
         // let member = { "id":id, "password":password, "nickname":nickname, "email":email, "phoneNum":phonenum, "address":address, "uploadFile":formData };
         axios.post('http://localhost:3000/addmember', formData)
             .then(function(resp){
                 if(resp.data === "YES"){
                     alert("정상적으로 가입되었습니다.");
-
-                    history("/login");  // 이동(link)
+                    navigate("/");  // 이동(link)
                 }else{
                     alert("가입되지 않았습니다.");
                 }
@@ -275,7 +252,143 @@ function Regi(){
         },
         [password]
     )
+
+    // 카카오 로그인
+    const kakaoClientId = 'bae3cae9292dc7ae67aa897703235e5e'
+    const kakaoOnSuccess = async (data)=>{
+        console.log(data);
+        // alert(data);
+        const idToken = data.response.id_token;  // 인가코드 백엔드로 전달
         
+        const kakaoId = 'kakao_'+data.profile.id;
+        const kakaoImg = data.profile.properties.profile_image;
+        const kakaoNickname = data.profile.properties.nickname;
+        const kakaoEmail = data.profile.kakao_account.email;
+        // alert(kakaoId);
+        // alert(kakaoNickname);
+
+        console.log(idToken);
+        // alert(idToken);
+
+        // 해당 카카오 계정이 있는지 확인
+        axios.post('http://localhost:3000/idcheck', null, { params:{"id":kakaoId} })
+            .then(function(res){
+                if(res.data === 'YES'){
+                    // 임의 비밀번호
+                    const randomString = Math.random().toString(36).slice(2);
+                
+                    // 데이터를 모아서 백엔드로 넘기기
+                    let kakaoParams = { 'id':kakaoId, 'password':randomString, 'profile':kakaoImg, 'nickname':kakaoNickname, 'email':kakaoEmail, 'phoneNum':'초기값', 'address':'초기값' };
+                    axios.post("http://localhost:3000/socialRegi", null, { params:kakaoParams })
+                      .then(function (resp) {
+                      if (resp.data === "YES") {
+                        console.log(kakaoParams);
+                        navigate('/socialLogin', {
+                          state: {
+                            id: `${kakaoId}`,
+                            nickname:`${kakaoNickname}`
+                          }
+                        });
+                        // document.location.href = `/kakaoLogin`;
+
+                      } else {
+                        alert("가입되지 않았습니다.");
+                      }
+                    })
+                    .catch(function (err) {
+                      alert(err);
+                    });
+                }else{
+                  axios.post("http://localhost:3000/socialLogin", null, { params:{ 'id':kakaoId } })
+                      .then(function (resp) {
+                      console.log(resp.data);
+                      if (resp.data !== null && resp.data !== "") {
+                        alert(resp.data.nickname + "님 환영합니다");
+                        localStorage.setItem("login", JSON.stringify(resp.data));
+            
+                        document.location.href = '/';
+                      } else {
+                        alert("로그인에 실패했습니다.");
+                      }
+                    })
+                    .catch(function (err) {
+                      alert(err);
+                    });
+                  }
+              })
+              .catch(function(err){
+                  alert(err);
+                  alert('아이디 찾기');
+              })
+    }
+    const kakaoOnFailure = (error) => {
+      console.log(error);
+    };
+
+    // 구글 로그인
+    const clientId = '35821294018-ps4nug5312m228unr95fih9gc2hq518u.apps.googleusercontent.com'
+    const googleOnSuccess = async(credentialResponse) => {
+        console.log(credentialResponse.credential);
+        const decodeding = jwt_decode(credentialResponse.credential);
+        console.log(decodeding);
+        
+        const googleId = 'google_'+decodeding.sub;
+        const googleNickname = decodeding.name;
+        const googleEmail = decodeding.email;
+        const googleImg = decodeding.picture;
+
+        // 구글 계정이 있는지 확인
+        axios.post('http://localhost:3000/idcheck', null, { params:{"id":googleId} })
+          .then(function(res){
+              if(res.data === 'YES'){
+                  // 임의 비밀번호
+                  const randomString = Math.random().toString(36).slice(2);
+              
+                  // 데이터를 모아서 백엔드로 넘기기
+                  let googleParams = { 'id':googleId, 'password':randomString, 'profile':googleImg, 'nickname':googleNickname, 'email':googleEmail, 'phoneNum':'초기값', 'address':'초기값' };
+                  axios.post("http://localhost:3000/socialRegi", null, { params:googleParams })
+                    .then(function (resp) {
+                    if (resp.data === "YES") {
+                      console.log(googleParams);
+                      navigate('/socialLogin', {
+                        state: {
+                          id: `${googleId}`,
+                          nickname:`${googleNickname}`
+                        }
+                      });
+                      // document.location.href = `/kakaoLogin`;
+
+                    } else {
+                      alert("가입되지 않았습니다.");
+                    }
+                  })
+                  .catch(function (err) {
+                    alert(err);
+                  });
+              }else{
+                axios.post("http://localhost:3000/socialLogin", null, { params:{ 'id':googleId } })
+                    .then(function (resp) {
+                    console.log(resp.data);
+                    if (resp.data !== null && resp.data !== "") {
+                      alert(resp.data.nickname + "님 환영합니다");
+                      localStorage.setItem("login", JSON.stringify(resp.data));
+          
+                      document.location.href = '/';
+                    } else {
+                      alert("로그인에 실패했습니다.");
+                    }
+                  })
+                  .catch(function (err) {
+                    alert(err);
+                  });
+              }
+          })
+          .catch(function(err){
+              alert(err);
+              alert('아이디 찾기');
+          })
+    }
+
     return (
         <div>
             <h3>회원가입</h3>
@@ -316,12 +429,28 @@ function Regi(){
 
             {/* 프로필 사진 등록 */}
             <form name="frm" onSubmit={Account} encType="multipart/form-data">
-                <input type="file" onChange={imageLoad}  ref={imgRef} name="uploadFile" />&nbsp;
+                <input type="file" onChange={imageLoad} ref={imgRef} name="uploadFile" />&nbsp;
                 <img src={profile} alt=""/><br/><br/>
                 
                 <button type="submit" onClick={Account}>회원가입</button>
-               
             </form>
+            <hr/>
+
+            <KakaoLogin
+              token={kakaoClientId}
+              onSuccess={kakaoOnSuccess}
+              onFail={kakaoOnFailure}
+            >카카오로 시작하기</KakaoLogin><br/><br/>
+            <div className="google-box">
+            <GoogleOAuthProvider clientId={clientId}>
+              <GoogleLogin
+                  onSuccess={googleOnSuccess}
+                  onFailure={() => {
+                  console.log('로그인 실패');
+                  }}
+              />
+            </GoogleOAuthProvider>
+            </div>
         </div>
     )
 }
