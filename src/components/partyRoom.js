@@ -4,6 +4,7 @@ import {Link, useNavigate} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MsgModal from "./modals/MsgModal";
 import {Modal, Button, Form, Container} from 'react-bootstrap'
+
 import "./modals/MsgModal.css";
 
 function PartyRoom(){
@@ -59,6 +60,12 @@ function PartyRoom(){
             }
                             
         }, [id]);// 한번만 호출
+
+    function chatting(){
+
+        history("../pages/Home");
+    }
+
 
 
     return(
@@ -120,6 +127,12 @@ function PartyRoom(){
            
     </table> 
 
+
+<br></br>
+
+<br></br>
+{/* 여기서 아싸리 로컬스토리지에서 받아온 dto를 이용해서 채팅방에 들어가면 넘기고 db생성하게하기 */}
+<button onClick={chatting}>채팅방</button>
 
 
 
