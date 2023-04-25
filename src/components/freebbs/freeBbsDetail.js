@@ -4,6 +4,8 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import FreeBbsReply from "./freeBbsReply";
 import FreeBbslikey from "./freeBbslikey";
+import FreeBbsReadcount from "./freeBbsReadcount";
+
 function FreeBbsDetail() {
   let navigate = useNavigate();
 
@@ -84,6 +86,8 @@ function FreeBbsDetail() {
       <h2>제목 : {freebbs.title}</h2>
       <h2>작성자 : {freebbs.id}</h2>
       <h2>파일 : {freebbs.image}</h2>
+      <FreeBbsReadcount seqs={seqs} />
+      <br />
       {imageUrl !== null ? (
         <img
           src={imageUrl}

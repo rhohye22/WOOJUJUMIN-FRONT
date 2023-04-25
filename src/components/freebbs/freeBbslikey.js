@@ -41,7 +41,7 @@ function FreeBbslikey(props) {
   useEffect(() => {
     likeyState();
     cntLikey();
-  }, [sumlikey, likey]);
+  }, [sumlikey, likey, cntLikey]);
 
   //likey테이블에 bbsSeq, memSeq조건을 만족하는 로우가 있는지 확인
 
