@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import ToggleMenu from "./components/togglemenu";
+import BackToTopBtn from "./components/backToTopBtn";
+import ChatbotModal from "./components/chatbotModal";
 import Login from "./components/login";
 import Main from "./components/main";
 import KakaoHandler from "./components/social/kakaoHandler";
@@ -68,6 +70,9 @@ function App() {
         </nav>
 
         <main>
+          <ChatbotModal />
+          <BackToTopBtn />
+          <ChatbotModal />
           <Routes>
             <Route exact path="/" element={<Main />} />
             <Route path="/login" element={<Login />} />

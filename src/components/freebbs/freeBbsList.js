@@ -108,7 +108,7 @@ function FreeBbsList() {
       <button value={7} onClick={(e) => setTag(e.target.value)}>
         음식
       </button>
-
+      <a href="#">내가 좋아한 게시물</a>
       <br />
       <div>
         <table border="1" align="center">
