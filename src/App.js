@@ -3,7 +3,11 @@ import React, { useState, useEffect, useContext } from "react";
 import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import ToggleMenu from "./components/togglemenu";
 
+import BackToTopBtn from "./components/backToTopBtn";
+import ChatbotModal from "./components/chatbotModal";
+
 import Login from "./components/login/login";
+
 import Main from "./components/main";
 import SocialHandler from "./components/social/socialHandler";
 
@@ -15,6 +19,7 @@ import Home from "./pages/Home";
 import MybbsList from "./components/mybbsList";
 import MyfreebbsList from "./components/myfreebbsList";
 import PartyAccept from "./components/partyAccept";
+import PartyRequest from "./components/partyRequest";
 import PartyRoom from "./components/partyRoom";
 
 import Regi from "./components/login/regi";
@@ -24,6 +29,8 @@ import FreeBbsDetail from "./components/freebbs/freeBbsDetail";
 import FreeBbsWrite from "./components/freebbs/freeBbsWrite";
 import FreeBbsModify from "./components/freebbs/freeBbsModify";
 import FreeBbsDelete from "./components/freebbs/freeBbsDelete";
+import FreeBbsReply from "./components/freebbs/freeBbsReply";
+import FreeBbslikey from "./components/freebbs/freeBbslikey";
 
 import Qnalist from "./components/qna/qnalist";
 import Qnawrite from "./components/qna/qnawrite";
@@ -59,11 +66,11 @@ function App() {
   const {currentUser} = useContext(AuthContext);
   //console.log(currentUser);
 
-  const ProtectRoute = ({children}) => {
-    if(!currentUser){
-      return <Navigate to="/login"/>
-    }
-  }
+  // const ProtectRoute = ({children}) => {
+  //   if(!currentUser){
+  //     return <Navigate to="/login"/>
+  //   }
+  // }
 
 
 
@@ -81,6 +88,7 @@ function App() {
           {log ? <span>로그인해주세요</span> : <span>{nickname}님</span>}&nbsp;&nbsp;&nbsp;
           {log ? <Link to="/regi">회원가입</Link> : <Link to="/accountInfo">마이페이지</Link>}&nbsp;&nbsp;&nbsp;
           {log === false && <Link to="/messageInfo">메시지함</Link>}&nbsp;&nbsp;&nbsp;
+          {log === false && <Link to="/">파티장 요청</Link>}&nbsp;&nbsp;&nbsp;
           {log ? <Link to="/login">로그인</Link> : <button onClick={()=>{loghandle(); signOut(auth); } }>로그아웃</button>}&nbsp;&nbsp;&nbsp;
 
         </header>
@@ -91,9 +99,18 @@ function App() {
         </nav>
 
         <main>
+          <ChatbotModal />
+          <BackToTopBtn />
+          <ChatbotModal />
           <Routes>
-            
-            <Route path="/login" element={<Login />} />
+
+
+
+           
+
+
+
+         
 
 
             <Route exact path="/" element={<Main />} />
@@ -108,6 +125,7 @@ function App() {
             <Route path="/accountInfo" element={<AccountInfo />}></Route>
             <Route path="/mybbsList" element={<MybbsList />}></Route>
             <Route path="/partyAccept" element={<PartyAccept />}></Route>
+            <Route path="/partyRequest" element={<PartyRequest />}></Route>
             <Route path="/partyRoom" element={<PartyRoom />}></Route>
 
             <Route path="/messageInfo" element={<MessageInfo/>}></Route>
@@ -124,6 +142,8 @@ function App() {
             <Route path="/freeBbsWrite" element={<FreeBbsWrite />} />
             <Route path="/freeBbsModify/:bbsSeq" element={<FreeBbsModify />} />
             <Route path="/freeBbsDelete/:bbsSeq" element={<FreeBbsDelete />} />
+            <Route path="/freeBbsReply/:bbsSeq" element={<FreeBbsReply />} />
+            <Route path="/freeBbslikey" element={<FreeBbslikey />} />
           </Routes>
           
             <Chatbot />
