@@ -34,6 +34,7 @@ import "./App.css";
 import { AuthContext } from "./context/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "./firebase";
+import Chatbot from "./components/chatbot/chatbot";
 
 function App() {
   // 로그인 상태 관리
@@ -91,8 +92,7 @@ function App() {
 
         <main>
           <Routes>
-
-
+            
             <Route path="/login" element={<Login />} />
 
 
@@ -125,8 +125,14 @@ function App() {
             <Route path="/freeBbsModify/:bbsSeq" element={<FreeBbsModify />} />
             <Route path="/freeBbsDelete/:bbsSeq" element={<FreeBbsDelete />} />
           </Routes>
+          
+            <Chatbot />
+            
+
         </main>
       </BrowserRouter>
+
+      
 
       <footer>
         <p>여긴 푸터</p>
