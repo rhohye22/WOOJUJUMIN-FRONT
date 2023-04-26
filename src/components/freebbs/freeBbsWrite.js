@@ -6,7 +6,7 @@ function FreeBbsWrite() {
   let history = useNavigate();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState();
   const [tag, setTag] = useState("");
 
   const imgRef = useRef();
@@ -37,9 +37,12 @@ function FreeBbsWrite() {
       formData.append("id", id);
       formData.append("title", title);
       formData.append("content", content);
+
       formData.append("image", image);
+
       formData.append("tag", tag);
-      if (document.frm.uploadFile.files[0].name === null || document.frm.uploadFile.files[0].name === "") {
+
+      if (document.frm.uploadFile.files[0] == null || document.frm.uploadFile.files[0] == "") {
         formData.append("uploadFile", "basic");
       } else {
         console.log(document.frm.uploadFile.files[0].name);
