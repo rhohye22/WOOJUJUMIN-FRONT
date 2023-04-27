@@ -65,6 +65,6 @@ function FreeBbsReadcount(props) {
     cntRead();
   }, [cntread]);
 
-  return <>조회수 : {cntread}</>;
+  return <> {cntread}</>;
 }
 export default FreeBbsReadcount;
