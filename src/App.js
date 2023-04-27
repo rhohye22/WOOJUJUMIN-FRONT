@@ -16,11 +16,13 @@ import MessageInfo from "./components/messageInfo";
 import SendMessageInfo from "./components/sendMessageInfo";
 import Home from "./pages/Home";
 
+
 import MybbsList from "./components/mybbsList";
 import MyfreebbsList from "./components/myfreebbsList";
 import PartyAccept from "./components/partyAccept";
 import PartyRequest from "./components/partyRequest";
 import PartyRoom from "./components/partyRoom";
+import PartyList from "./components/partyList";
 
 import Regi from "./components/login/regi";
 
@@ -31,6 +33,8 @@ import FreeBbsModify from "./components/freebbs/freeBbsModify";
 import FreeBbsDelete from "./components/freebbs/freeBbsDelete";
 import FreeBbsReply from "./components/freebbs/freeBbsReply";
 import FreeBbslikey from "./components/freebbs/freeBbslikey";
+
+import BankaccountInfo from "./components/bank/bankaccountInfo";
 
 import Qnalist from "./components/qna/qnalist";
 import Qnawrite from "./components/qna/qnawrite";
@@ -98,13 +102,15 @@ function App() {
             <Route path="/mybbsList" element={<MybbsList />}></Route>
             <Route path="/partyAccept" element={<PartyAccept />}></Route>
             <Route path="/partyRequest" element={<PartyRequest />}></Route>
-            <Route path="/partyRoom" element={<PartyRoom />}></Route>
+            <Route path="/partyRoom/:seq" element={<PartyRoom />}></Route>
+            <Route path="/partyList" element={<PartyList />}></Route>
 
             <Route path="/messageInfo" element={<MessageInfo/>}></Route>
             <Route path="/sendMessageInfo" element={<SendMessageInfo/>}></Route>
      
             <Route path="regi" element={<Regi />} />
             <Route path="pages/Home" element={<Home />} />
+            <Route path="bank/bankaccountInfo" element={<BankaccountInfo />} />
 
             <Route path="/myfreebbsList" element={<MyfreebbsList />}></Route>
          

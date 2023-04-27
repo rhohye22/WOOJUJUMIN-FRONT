@@ -3,14 +3,51 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function FreeBbsReply(props) {
+  let navigate = useNavigate();
+
   const [replylist, setReplylist] = useState([]);
 
   const [start, setStart] = useState(0);
   const [limit, setLimit] = useState(10);
 
   let replySeq = props.replySeq;
+  let writer = props.writer;
+  //댓글
+  //const [replySeq, setReplySeq] = useState();
+  const [content, setContent] = useState("");
+  //const [writer, setWriter] = useState("");
+  const contentChange = (e) => {
+    setContent(e.target.value);
+  };
+
+  //댓글쓰기
+  function writeFreebbsReply() {
+    if (content === undefined || content.trim() === "") {
+      alert("댓글 내용을 입력해 주십시오");
+      return;
+    }
+
+    axios
+      .post("http://localhost:3000/writeFreeReply", null, {
+        params: { writer: writer, replySeq: replySeq, content: content },
+      })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data === "YES") {
+          alert("성공적으로 등록되었습니다");
+          navigate(`/freeBbsDetail/${replySeq}`);
+          setContent("");
+        } else {
+          alert("등록되지 않았습니다");
+        }
+      })
+      .catch(function (err) {
+        alert(err);
+      });
+  }
 
   function getReplylist() {
     axios
@@ -27,7 +64,7 @@ function FreeBbsReply(props) {
 
   useEffect(() => {
     getReplylist();
-  }, [replySeq, limit]);
+  }, [replySeq, limit, content]);
 
   const handleLoadMore = () => {
     setLimit((prev) => prev + 10);
@@ -40,11 +77,10 @@ function FreeBbsReply(props) {
         <table border="1" align="center">
           <colgroup>
             <col width={"100px"} />
-            <col width={"100px"} />
+            <col width={"700px"} />
           </colgroup>
           <thead>
             <tr>
-              {" "}
               <th>댓쓴이</th>
               <th>내용</th>
             </tr>
@@ -60,9 +96,25 @@ function FreeBbsReply(props) {
                 );
               })
             ) : (
-              <td colSpan={2}>작성된 글이 없습니다</td>
+              <tr>
+                <td colSpan={2}>작성된 글이 없습니다</td>
+              </tr>
             )}
-            <button onClick={handleLoadMore}>Load More</button>
+            <tr>
+              <td colSpan={2}>
+                <button onClick={handleLoadMore}>댓글 더보기</button>
+              </td>
+            </tr>
+            <tr>
+              <td colSpan={2}>
+                <br />
+                <textarea style={{ width: "95%", resize: "none" }} value={content} onChange={contentChange}></textarea>
+                <button type="submit" onClick={writeFreebbsReply}>
+                  작성하기
+                </button>
+                <br /> <br />
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
