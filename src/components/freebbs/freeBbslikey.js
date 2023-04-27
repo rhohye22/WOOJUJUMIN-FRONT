@@ -9,8 +9,7 @@ function FreeBbslikey(props) {
   const [sumlikey, setSumlikey] = useState();
   const { bbsSeq, memberSeq } = props.seqs;
 
-  ////입장시 페이지 좋아요 상태
-
+  ////입장시 페이지 좋아요 상태(개인별 기록 불러오기)
   async function likeyState() {
     try {
       const res = await axios.get("http://localhost:3000/LikeyState", {
@@ -39,8 +38,11 @@ function FreeBbslikey(props) {
     }
   }
   useEffect(() => {
-    likeyState();
-    cntLikey();
+    //비회원일시 memberseq안넘어옴
+    if (memberSeq) {
+      likeyState();
+      cntLikey();
+    }
   }, [sumlikey, likey, cntLikey]);
 
   //likey테이블에 bbsSeq, memSeq조건을 만족하는 로우가 있는지 확인
@@ -76,7 +78,7 @@ function FreeBbslikey(props) {
           //alert(" likey테이블에 로우가 등록되지 않았습니다");
         }
       })
-      .catch(function (err) {
+      .catch(function(err) {
         alert(err);
       });
   }
@@ -91,10 +93,10 @@ function FreeBbslikey(props) {
         if (res.data === "YES") {
           //alert("좋아요가 1증가했습니다");
         } else {
-          alert("좋아요 1증가가 등록되지 않았습니다");
+          //alert("좋아요 1증가가 등록되지 않았습니다");
         }
       })
-      .catch(function (err) {
+      .catch(function(err) {
         alert(err);
       });
   }
@@ -113,7 +115,7 @@ function FreeBbslikey(props) {
           //alert("등록되지 않았습니다");
         }
       })
-      .catch(function (err) {
+      .catch(function(err) {
         alert(err);
       });
   }
@@ -138,7 +140,7 @@ function FreeBbslikey(props) {
 
   return (
     <>
-      {likey == false ? (
+      {likey === false ? (
         <img src={nonheart} alt="My Image" onClick={nonheartClick} style={{ width: 30, height: 30 }} />
       ) : (
         <img src={redheart} alt="My Image" onClick={redheartClick} style={{ width: 30, height: 30 }} />
