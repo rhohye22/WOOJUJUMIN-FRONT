@@ -1,6 +1,6 @@
 
-import React, { useState, useEffect, useContext } from "react";
-import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import ToggleMenu from "./components/togglemenu";
 
 import BackToTopBtn from "./components/backToTopBtn";
@@ -38,10 +38,8 @@ import Qnadetail from "./components/qna/qnadetail";
 
 
 import "./App.css";
-import { AuthContext } from "./context/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "./firebase";
-import Chatbot from "./components/chatbot/chatbot";
 
 function App() {
   // 로그인 상태 관리
@@ -63,27 +61,12 @@ function App() {
     }
   }, [log]);
 
-  const {currentUser} = useContext(AuthContext);
-  //console.log(currentUser);
-
-  // const ProtectRoute = ({children}) => {
-  //   if(!currentUser){
-  //     return <Navigate to="/login"/>
-  //   }
-  // }
-
-
-
-
   return (
     <div className="App">
       <BrowserRouter>
         <header>
           <ToggleMenu />
           <Link to="/">우주주민</Link>&nbsp;&nbsp;&nbsp;
-
-          
-
 
           {log ? <span>로그인해주세요</span> : <span>{nickname}님</span>}&nbsp;&nbsp;&nbsp;
           {log ? <Link to="/regi">회원가입</Link> : <Link to="/accountInfo">마이페이지</Link>}&nbsp;&nbsp;&nbsp;
@@ -101,18 +84,7 @@ function App() {
         <main>
           <ChatbotModal />
           <BackToTopBtn />
-          <ChatbotModal />
           <Routes>
-
-
-
-           
-
-
-
-         
-
-
             <Route exact path="/" element={<Main />} />
             <Route path="/login" element={<Login />} />
             <Route path="/regi" element={<Regi />} />
@@ -145,8 +117,6 @@ function App() {
             <Route path="/freeBbsReply/:bbsSeq" element={<FreeBbsReply />} />
             <Route path="/freeBbslikey" element={<FreeBbslikey />} />
           </Routes>
-          
-            <Chatbot />
             
 
         </main>
