@@ -117,8 +117,8 @@ function FreeBbsList() {
             <col width={"500px"} />
 
             <col width={"100px"} />
-            <col width={"100px"} />
-            <col width={"100px"} />
+            <col width={"60px"} />
+            <col width={"60px"} />
           </colgroup>
           <thead>
             <tr>
@@ -127,7 +127,7 @@ function FreeBbsList() {
 
               <th>작성일</th>
               <th>조회수</th>
-              <th>좋아요 수</th>
+              <th>좋아요</th>
             </tr>
           </thead>
           <tbody>
