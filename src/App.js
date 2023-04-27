@@ -44,6 +44,12 @@ import Qnadetail from "./components/qna/qnadetail";
 import "./App.css";
 import { signOut } from "firebase/auth";
 import { auth } from "./firebase";
+import MovieCrawling from "./components/crawling/movieCrawling";
+import BookCrawling from "./components/crawling/bookcrawling";
+import Localeventcrawling from "./components/crawling/localeventcrawling";
+import Musiccrawling from "./components/crawling/musicrawling";
+// import TestScroll from "./components/crawling/test";
+
 
 function App() {
   // 로그인 상태 관리
@@ -78,6 +84,11 @@ function App() {
           {log === false && <Link to="/">파티장 요청</Link>}&nbsp;&nbsp;&nbsp;
           {log ? <Link to="/login">로그인</Link> : <button onClick={()=>{loghandle(); signOut(auth); } }>로그아웃</button>}&nbsp;&nbsp;&nbsp;
 
+          <Link to="/moviechart">무비차트</Link>
+          <Link to="/bookchart">책순위</Link>
+          <Link to="/localevent">지역행사</Link>
+          <Link to="/musichart">TOP100</Link>
+          {/* <Link to="/test">삭제할것 잠깐 테스트</Link> */}
         </header>
 
         <nav className="appNav">
@@ -92,7 +103,13 @@ function App() {
             <Route exact path="/" element={<Main />} />
             <Route path="/login" element={<Login />} />
             <Route path="/regi" element={<Regi />} />
-    
+            <Route path="/moviechart" element={<MovieCrawling/>} />
+            <Route path="/bookchart" element={<BookCrawling/>} />
+            <Route path="/localevent" element={<Localeventcrawling/>} />
+            <Route path="/musichart" element={<Musiccrawling/>} />
+            {/* <Route path="/test" element={<TestScroll/>} /> */}
+            
+
             <Route path="/qnalist" element={<Qnalist />} />
             <Route path="/qnawrite" element={<Qnawrite />} />
             <Route path="/qnadetail/:qnaSeq" exact element={<Qnadetail />} />
