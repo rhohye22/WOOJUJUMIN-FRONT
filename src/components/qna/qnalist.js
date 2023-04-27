@@ -106,11 +106,7 @@ function Qnalist() {
                 <tr key={i}>
                   <td>{qna.qtype}</td>
                   <td align="left">
-                    {qna.ansdate ? (
-                      <span>[답변완료] </span>
-                    ) : (
-                      <span>[답변대기중] </span>
-                    )}
+                    {qna.ansdate ? <span>[답변완료] </span> : <span>[답변대기중] </span>}
                     <Link to={`/qnadetail/${qna.qnaSeq}`}>{qna.title}</Link>
                   </td>
                   <td>{qna.wdate.substring(0, 10)}</td>
@@ -126,15 +122,7 @@ function Qnalist() {
 
       <br />
 
-      <Pagination
-        activePage={page}
-        itemsCountPerPage={10}
-        totalItemsCount={totalCnt}
-        pageRangeDisplayed={5}
-        prevPageText={"이전"}
-        nextPageText={"다음"}
-        onChange={pageChange}
-      />
+      <Pagination activePage={page} /* itemsCountPerPage={10}  */ totalItemsCount={totalCnt} pageRangeDisplayed={5} prevPageText={"이전"} nextPageText={"다음"} onChange={pageChange} />
 
       <br />
 
