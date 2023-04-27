@@ -12,11 +12,13 @@ import MessageInfo from "./components/messageInfo";
 import SendMessageInfo from "./components/sendMessageInfo";
 import Home from "./pages/Home";
 
+
 import MybbsList from "./components/mybbsList";
 import MyfreebbsList from "./components/myfreebbsList";
 import PartyAccept from "./components/partyAccept";
 import PartyRequest from "./components/partyRequest";
 import PartyRoom from "./components/partyRoom";
+import PartyList from "./components/partyList";
 
 import Regi from "./components/login/regi";
 
@@ -25,6 +27,8 @@ import FreeBbsDetail from "./components/freebbs/freeBbsDetail";
 import FreeBbsWrite from "./components/freebbs/freeBbsWrite";
 import FreeBbsModify from "./components/freebbs/freeBbsModify";
 import FreeBbsDelete from "./components/freebbs/freeBbsDelete";
+
+import BankaccountInfo from "./components/bank/bankaccountInfo";
 
 import Qnalist from "./components/qna/qnalist";
 import Qnawrite from "./components/qna/qnawrite";
@@ -75,8 +79,6 @@ function App() {
           <ToggleMenu />
           <Link to="/">우주주민</Link>&nbsp;&nbsp;&nbsp;
 
-          
-
 
           {log ? <span>로그인해주세요</span> : <span>{nickname}님</span>}&nbsp;&nbsp;&nbsp;
           {log ? <Link to="/regi">회원가입</Link> : <Link to="/accountInfo">마이페이지</Link>}&nbsp;&nbsp;&nbsp;
@@ -94,15 +96,6 @@ function App() {
         <main>
           <Routes>
 
-
-
-           
-
-
-
-         
-
-
             <Route exact path="/" element={<Main />} />
             <Route path="/login" element={<Login />} />
             <Route path="/regi" element={<Regi />} />
@@ -116,13 +109,15 @@ function App() {
             <Route path="/mybbsList" element={<MybbsList />}></Route>
             <Route path="/partyAccept" element={<PartyAccept />}></Route>
             <Route path="/partyRequest" element={<PartyRequest />}></Route>
-            <Route path="/partyRoom" element={<PartyRoom />}></Route>
+            <Route path="/partyRoom/:seq" element={<PartyRoom />}></Route>
+            <Route path="/partyList" element={<PartyList />}></Route>
 
             <Route path="/messageInfo" element={<MessageInfo/>}></Route>
             <Route path="/sendMessageInfo" element={<SendMessageInfo/>}></Route>
      
             <Route path="regi" element={<Regi />} />
             <Route path="pages/Home" element={<Home />} />
+            <Route path="bank/bankaccountInfo" element={<BankaccountInfo />} />
 
             <Route path="/myfreebbsList" element={<MyfreebbsList />}></Route>
          

@@ -92,7 +92,7 @@ function MyfreebbsList(){
         <Link to="/accountInfo">회원정보 수정</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/mybbsList">내가 쓴 글</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/partyAccept">파티원 승인</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/partyRoom">파티방</Link>
+          <Link to="/partyList">내파티 보기</Link>
 
           <br></br>
           <br></br>
@@ -182,7 +182,7 @@ function MyfreebbsList(){
         <Link to="/accountInfo">회원정보 수정</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/mybbsList">내가 쓴 글</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/partyAccept">파티원 승인</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/partyRoom">파티방</Link>
+          <Link to="/partyList">내파티 보기</Link>
 
           <br></br>
           <br></br>
