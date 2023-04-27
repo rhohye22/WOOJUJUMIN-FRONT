@@ -137,7 +137,7 @@ function MyfreebbsList(){
                         <tr key={i}>
                             <td align="center">{i + 1}</td>
                             <td align="left">
-                               <Link to={`/bbsdetail/${bbs.seq}`}> {bbs.title}</Link>
+                               <Link to={`/freeBbsDetail/${bbs.bbsSeq}`}> {bbs.title}</Link>
                             
                             </td>
                             <td align="center">{bbs.readcount}</td>
