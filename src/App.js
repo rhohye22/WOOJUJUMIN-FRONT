@@ -3,7 +3,11 @@ import React, { useState, useEffect, useContext } from "react";
 import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import ToggleMenu from "./components/togglemenu";
 
+import BackToTopBtn from "./components/backToTopBtn";
+import ChatbotModal from "./components/chatbotModal";
+
 import Login from "./components/login/login";
+
 import Main from "./components/main";
 import SocialHandler from "./components/social/socialHandler";
 
@@ -27,6 +31,8 @@ import FreeBbsDetail from "./components/freebbs/freeBbsDetail";
 import FreeBbsWrite from "./components/freebbs/freeBbsWrite";
 import FreeBbsModify from "./components/freebbs/freeBbsModify";
 import FreeBbsDelete from "./components/freebbs/freeBbsDelete";
+import FreeBbsReply from "./components/freebbs/freeBbsReply";
+import FreeBbslikey from "./components/freebbs/freeBbslikey";
 
 import BankaccountInfo from "./components/bank/bankaccountInfo";
 
@@ -94,6 +100,9 @@ function App() {
         </nav>
 
         <main>
+          <ChatbotModal />
+          <BackToTopBtn />
+          <ChatbotModal />
           <Routes>
 
             <Route exact path="/" element={<Main />} />
@@ -127,6 +136,8 @@ function App() {
             <Route path="/freeBbsWrite" element={<FreeBbsWrite />} />
             <Route path="/freeBbsModify/:bbsSeq" element={<FreeBbsModify />} />
             <Route path="/freeBbsDelete/:bbsSeq" element={<FreeBbsDelete />} />
+            <Route path="/freeBbsReply/:bbsSeq" element={<FreeBbsReply />} />
+            <Route path="/freeBbslikey" element={<FreeBbslikey />} />
           </Routes>
         </main>
       </BrowserRouter>
