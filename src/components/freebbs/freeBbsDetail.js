@@ -14,7 +14,7 @@ function FreeBbsDetail() {
 
   //댓글
   const [replySeq, setReplySeq] = useState();
-  const [content, setContent] = useState("");
+
   const [writer, setWriter] = useState("");
   const [memberSeq, setMemberSeq] = useState();
 
@@ -36,7 +36,6 @@ function FreeBbsDetail() {
       params: { bbsSeq: bbsSeq },
     });
     setFreeBbs(response.data);
-
     setLoading(true); // 여기서 rendering 해 준다
   };
 
@@ -51,69 +50,71 @@ function FreeBbsDetail() {
 
   const imageUrl = freebbs.image !== null ? `http://localhost:3000/upload/freebbs/${freebbs.image}` : null;
 
-  const contentChange = (e) => {
-    setContent(e.target.value);
-  };
-
-  //댓글쓰기
-  function writeFreebbsReply() {
-    if (content === undefined || content.trim() === "") {
-      alert("댓글 내용을 입력해 주십시오");
-      return;
-    }
-
-    axios
-      .post("http://localhost:3000/writeFreeReply", null, {
-        params: { writer: writer, replySeq: replySeq, content: content },
-      })
-      .then((res) => {
-        console.log(res.data);
-        if (res.data === "YES") {
-          alert("성공적으로 등록되었습니다");
-          navigate(`/freeBbsDetail/${replySeq}`);
-          setContent("");
-        } else {
-          alert("등록되지 않았습니다");
-        }
-      })
-      .catch(function (err) {
-        alert(err);
-      });
+  //목록으로 이동
+  function handleButtonClick() {
+    navigate("/freeBoard");
   }
-
   return (
     <div>
-      <h2>제목 : {freebbs.title}</h2>
-      <h2>작성자 : {freebbs.id}</h2>
-      <h2>파일 : {freebbs.image}</h2>
-      <FreeBbsReadcount seqs={seqs} />
       <br />
-      {imageUrl !== null ? (
-        <img
-          src={imageUrl}
-          alt="no image"
-          style={{
-            width: 500,
-            height: "auto",
-            objectFit: "cover",
-            objectPosition: "center",
-          }}
-        />
-      ) : null}
-      <p>내용 : {freebbs.content}</p>
-      <p>멤시퀸스 : {memberSeq}</p>
-      <FreeBbslikey seqs={seqs} />
+      <table border="1" align="center">
+        <colgroup>
+          <col width={"80px"} />
+          <col width={"500px"} />
+          <col width={"150px"} />
+          <col width={"150px"} />
+        </colgroup>
+        <tbody>
+          <tr>
+            <th>제목</th>
+            <td>{freebbs.title}</td>
+            <th>조회수</th>
+            <td>
+              <FreeBbsReadcount seqs={seqs} />
+            </td>
+          </tr>
+          <tr>
+            <th>작성자</th>
+            <td>{freebbs.id}</td>
+            <th>작성시간</th>
+            <td>{freebbs.wdate}</td>
+          </tr>
+          <tr>
+            <td colSpan={4}>
+              <br /> <br />
+              {imageUrl !== null ? (
+                <img
+                  src={imageUrl}
+                  alt="no image"
+                  style={{
+                    width: 500,
+                    height: "auto",
+                    objectFit: "cover",
+                    objectPosition: "center",
+                  }}
+                />
+              ) : null}
+              <br /> <br />
+              <pre>내용 : {freebbs.content}</pre>
+              <br /> <br />
+              <FreeBbslikey seqs={seqs} /> <br /> <br />
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={4}>
+              <FreeBbsReply replySeq={replySeq} writer={writer} />
+              <br /> <br />
+            </td>
+          </tr>
+        </tbody>
+      </table>
       <br />
-      <FreeBbsReply replySeq={replySeq} />
+      <button onClick={handleButtonClick}> 목록</button>
+      <button> 수정</button>
+      <button> 삭제</button>
+      <br /> <br />
       <br />
-      <label>
-        댓글내용
-        <input type="text" value={content} onChange={contentChange} />
-      </label>
-      <button type="submit" onClick={writeFreebbsReply}>
-        작성하기
-      </button>
-      <br /> <br /> <br />
+      <br />
     </div>
   );
 }
