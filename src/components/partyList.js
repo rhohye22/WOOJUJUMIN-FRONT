@@ -5,24 +5,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Pagination from "react-js-pagination";
 
 
-function PartyRequest(){
+function PartyList(){
     let history = useNavigate();
     const [id, setId] = useState('');
-
-    const [requestlist, setRequestlist] = useState([]); 
-    const [totalPeople, setTotalPeople] = useState(''); 
-      //paging hook
-      const [page, setPage] = useState(1);
-      const [totalCnt, setTotalCnt] = useState(0);
-      // login 되어 있는지 검사
+    const [page, setPage] = useState(1);
+    const [totalCnt, setTotalCnt] = useState(0);
+    const [partyListmy, setPartyListmy] = useState([]); 
+          // login 되어 있는지 검사
   useEffect(() => {
     let login = JSON.parse(localStorage.getItem("login"));
     if(login !== undefined){ // 빈칸이 아닐때
         
         setId(login.id);
-        
-        
-      
+       
     }else{
        // alert('로그인해 주십시오');
        history('/login');
@@ -31,11 +26,12 @@ function PartyRequest(){
 
        
 }, [history]);
-function myRequestList(page){    
-    axios.get("http://localhost:3000/myRequestList", { params:{ "pageNumber":page, "id":id } })
+
+function partyList(page){    
+    axios.get("http://localhost:3000/partyListmy", { params:{ "pageNumber":page, "id":id } })
     .then(function(resp){
         //console.log(resp.data);
-        setRequestlist(resp.data.list); // map을 return하기 때문(map 안에 list있음)
+        setPartyListmy(resp.data.list); // map을 return하기 때문(map 안에 list있음)
         setTotalCnt(resp.data.cnt);
        
          //console.log(requestlist);
@@ -45,10 +41,12 @@ function myRequestList(page){
     })
     
 }
+
+
 useEffect(function(){
     if(id){
 
-        myRequestList(0);
+        partyList(0);
     
     }
                    
@@ -58,12 +56,21 @@ function pageChange(page){
     setPage(page);
    
 
-    myRequestList(page-1);
+    partyList(page-1);
 
    
     
 }
-if(requestlist.length > 0){
+
+function go(seq){
+    //alert('찍히냐 : ' + seq)
+   
+    history(`/partyRoom/${seq}`);
+
+    
+}
+
+if(partyListmy.length > 0){
     return(
 
         
@@ -75,36 +82,28 @@ if(requestlist.length > 0){
           <br></br>
           <br></br>
         
-          <Link to="/partyAccept">파티 수락</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/partyRequest">파티 요청</Link>&nbsp;&nbsp;&nbsp;
-          <br></br>
-          <br></br>
+         
 
           <table border="1" style={{ margin:'0 auto'}}>
         <colgroup>
-            <col width='70'/><col width='600'/><col width='100'/><col width='100'/>
+            <col width='70'/><col width='600'/><col width='200'/><col width='100'/>
         </colgroup>
         <thead>
             <tr>
-              <th>번호</th><th>파티제목</th><th>수락여부</th><th>모집여부</th>
+              <th>번호</th><th>파티제목</th><th>파티정보 보기</th><th>파티장</th>
             </tr>
         </thead>
 
         <tbody>
             {
-                requestlist.map(function(bbs, i){
+                partyListmy.map(function(bbs, i){
                     return(
                         <tr key={i}>
-                            <td align="center">{i + 1}</td>
-                            <td align="left">
-                               <Link to={`/partydetail/${bbs.partySeq}`}> {bbs.title}</Link>
-                            
-                            </td>
-                            {bbs.check === 0 ? <td align="center">수락중...</td> : <td align="center">수락완료!</td> }
-                            {bbs.full === 0 ? <td align="center">모집중</td> : <td align="center">모집끝</td> }
-                            
-                           
-                           
+                              <td align="center">{i + 1}</td>
+                            <td align="center">{bbs.title}</td>
+                            <td align="center"><button onClick={()=>{go(bbs.partySeq)}}>보기</button></td>
+                            <td align="center">{bbs.masterId}</td>
+          
                         </tr>
                     )
                 })
@@ -141,11 +140,7 @@ if(requestlist.length > 0){
           <br></br>
           <br></br>
   
-<Link to="/partyAccept">파티 수락</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/partyRequest">파티 요청</Link>&nbsp;&nbsp;&nbsp;
 
-  <br></br>
-  <br></br>
 
         <h3>작성된 내용이 없습니다.</h3>
      
@@ -173,4 +168,4 @@ onChange={pageChange}/>
 }
 }
 
-export default PartyRequest;
+export default PartyList;

@@ -122,7 +122,7 @@ function Qnalist() {
 
       <br />
 
-      <Pagination activePage={page} itemsCountPerPage={10} totalItemsCount={totalCnt} pageRangeDisplayed={5} prevPageText={"이전"} nextPageText={"다음"} onChange={pageChange} />
+      <Pagination activePage={page} /* itemsCountPerPage={10}  */ totalItemsCount={totalCnt} pageRangeDisplayed={5} prevPageText={"이전"} nextPageText={"다음"} onChange={pageChange} />
 
       <br />
 
