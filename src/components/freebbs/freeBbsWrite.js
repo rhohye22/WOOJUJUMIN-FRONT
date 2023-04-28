@@ -96,7 +96,13 @@ function FreeBbsWrite() {
           <tr>
             <th>제목</th>
             <td>
-              <textarea rows={1} style={{ border: "none", width: "100%", resize: "none" }} placeholder="제목을 입력해주세요" value={title} onChange={handleTitleChange} />
+              <textarea
+                rows={1}
+                style={{ border: "none", width: "100%", resize: "none" }}
+                placeholder="제목을 입력해주세요"
+                value={title}
+                onChange={/* handleTitleChange */ (e) => setTitle(e.target.value)}
+              />
             </td>
             <th>주제 선택</th>
             <td>

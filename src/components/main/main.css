@@ -1,0 +1,29 @@
+.mainpage {
+  /*   background-color: bisque; */
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.slider {
+  /*  background-color: aqua; */
+  height: 200px;
+  display: flex;
+  justify-content: center;
+}
+.slidearea {
+  background-color: blueviolet;
+  width: 70%;
+  height: 200px;
+}
+.slideimg {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slideimg img {
+  height: 200px;
+
+  z-index: 3;
+}

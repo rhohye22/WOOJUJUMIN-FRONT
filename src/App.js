@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import ToggleMenu from "./components/togglemenu";
@@ -8,14 +7,13 @@ import ChatbotModal from "./components/chatbotModal";
 
 import Login from "./components/login/login";
 
-import Main from "./components/main";
+import Main from "./components/main/main";
 import SocialHandler from "./components/social/socialHandler";
 
 import AccountInfo from "./components/accountInfo";
 import MessageInfo from "./components/messageInfo";
 import SendMessageInfo from "./components/sendMessageInfo";
 import Home from "./pages/Home";
-
 
 import MybbsList from "./components/mybbsList";
 import MyfreebbsList from "./components/myfreebbsList";
@@ -40,7 +38,6 @@ import Qnalist from "./components/qna/qnalist";
 import Qnawrite from "./components/qna/qnawrite";
 import Qnadetail from "./components/qna/qnadetail";
 
-
 import "./App.css";
 import { signOut } from "firebase/auth";
 import { auth } from "./firebase";
@@ -49,7 +46,6 @@ import BookCrawling from "./components/crawling/bookcrawling";
 import Localeventcrawling from "./components/crawling/localeventcrawling";
 import Musiccrawling from "./components/crawling/musicrawling";
 // import TestScroll from "./components/crawling/test";
-
 
 function App() {
   // 로그인 상태 관리
@@ -77,13 +73,23 @@ function App() {
         <header>
           <ToggleMenu />
           <Link to="/">우주주민</Link>&nbsp;&nbsp;&nbsp;
-
           {log ? <span>로그인해주세요</span> : <span>{nickname}님</span>}&nbsp;&nbsp;&nbsp;
           {log ? <Link to="/regi">회원가입</Link> : <Link to="/accountInfo">마이페이지</Link>}&nbsp;&nbsp;&nbsp;
           {log === false && <Link to="/messageInfo">메시지함</Link>}&nbsp;&nbsp;&nbsp;
           {log === false && <Link to="/">파티장 요청</Link>}&nbsp;&nbsp;&nbsp;
-          {log ? <Link to="/login">로그인</Link> : <button onClick={()=>{loghandle(); signOut(auth); } }>로그아웃</button>}&nbsp;&nbsp;&nbsp;
-
+          {log ? (
+            <Link to="/login">로그인</Link>
+          ) : (
+            <button
+              onClick={() => {
+                loghandle();
+                signOut(auth);
+              }}
+            >
+              로그아웃
+            </button>
+          )}
+          &nbsp;&nbsp;&nbsp;
           <Link to="/moviechart">무비차트</Link>
           <Link to="/bookchart">책순위</Link>
           <Link to="/localevent">지역행사</Link>
@@ -103,17 +109,16 @@ function App() {
             <Route exact path="/" element={<Main />} />
             <Route path="/login" element={<Login />} />
             <Route path="/regi" element={<Regi />} />
-            <Route path="/moviechart" element={<MovieCrawling/>} />
-            <Route path="/bookchart" element={<BookCrawling/>} />
-            <Route path="/localevent" element={<Localeventcrawling/>} />
-            <Route path="/musichart" element={<Musiccrawling/>} />
+            <Route path="/moviechart" element={<MovieCrawling />} />
+            <Route path="/bookchart" element={<BookCrawling />} />
+            <Route path="/localevent" element={<Localeventcrawling />} />
+            <Route path="/musichart" element={<Musiccrawling />} />
             {/* <Route path="/test" element={<TestScroll/>} /> */}
-            
 
             <Route path="/qnalist" element={<Qnalist />} />
             <Route path="/qnawrite" element={<Qnawrite />} />
             <Route path="/qnadetail/:qnaSeq" exact element={<Qnadetail />} />
-            
+
             <Route path="/socialLogin" element={<SocialHandler />} />
             <Route path="/accountInfo" element={<AccountInfo />}></Route>
             <Route path="/mybbsList" element={<MybbsList />}></Route>
@@ -122,15 +127,15 @@ function App() {
             <Route path="/partyRoom/:seq" element={<PartyRoom />}></Route>
             <Route path="/partyList" element={<PartyList />}></Route>
 
-            <Route path="/messageInfo" element={<MessageInfo/>}></Route>
-            <Route path="/sendMessageInfo" element={<SendMessageInfo/>}></Route>
-     
+            <Route path="/messageInfo" element={<MessageInfo />}></Route>
+            <Route path="/sendMessageInfo" element={<SendMessageInfo />}></Route>
+
             <Route path="regi" element={<Regi />} />
             <Route path="pages/Home" element={<Home />} />
             <Route path="bank/bankaccountInfo" element={<BankaccountInfo />} />
 
             <Route path="/myfreebbsList" element={<MyfreebbsList />}></Route>
-         
+
             <Route path="freeBoard" element={<FreeBbsList />} />
 
             <Route path="/freeBbsDetail/:bbsSeq" element={<FreeBbsDetail />} />
@@ -140,12 +145,8 @@ function App() {
             <Route path="/freeBbsReply/:bbsSeq" element={<FreeBbsReply />} />
             <Route path="/freeBbslikey" element={<FreeBbslikey />} />
           </Routes>
-            
-
         </main>
       </BrowserRouter>
-
-      
 
       <footer>
         <p>여긴 푸터</p>
