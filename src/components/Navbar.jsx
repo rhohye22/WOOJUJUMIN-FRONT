@@ -6,11 +6,12 @@ import { auth } from '../firebase'
 const Navbar = () => {
 
   const {currentUser} = useContext(AuthContext)
+  //console.log("wfwfewf" + JSON.stringify(currentUser));
   return (
     <div className='navbar'>
       <span className='logo'>Party Chat</span>
       <div className='user'>
-        <img className='img1' src={currentUser.photoURL} alt=''/>
+        <img className='img' src={currentUser.photoURL} alt=''/>
         <span>{currentUser.displayName}</span>
         {/* <button onClick={()=>signOut(auth)}>logout</button> */}
         
