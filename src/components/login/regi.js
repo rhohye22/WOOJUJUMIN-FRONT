@@ -113,20 +113,22 @@ function Regi(){
                 })
                 .catch(function(err){
                     alert(err);
-                    alert('닉네임 찾기');
+                    //alert('닉네임 찾기');
                 })
     }
+
+
 
     const Account = async(e) => {
         e.preventDefault();
         let chatPwd = password;
-        console.log("ewfewf" + chatPwd);
+       // console.log("ewfewf" + chatPwd);
         const displayName = nickname;
         const file = document.frm.uploadFile.files[0];
         console.log(file);
         try{
             const res = await createUserWithEmailAndPassword(auth, email, password);// 계정생성
-            const fileId = uuidv4();
+           
             //const storageRef = ref(storage, `avatars/${res.user.uid}/${fileId}`);
             const storageRef = ref(storage, displayName);
             const uploadTask = uploadBytesResumable(storageRef, file);
@@ -139,11 +141,11 @@ function Regi(){
             () => {
                 getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
                 // 인증만 하는곳
+                // collection에 data추가하는 곳
                 await updateProfile(res.user, {
                     displayName,
                     photoURL:downloadURL
                 });
-                // collection에 data추가하는 곳
                 await setDoc(doc( db, "users", res.user.uid),{
                     uid:res.user.uid,
                     displayName,
@@ -160,6 +162,7 @@ function Regi(){
             //setErr(true);
            alert(err);
         };
+       
 
         let formData = new FormData();
         formData.append("id", id);

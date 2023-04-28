@@ -13,7 +13,8 @@ const Chats = () => {
     const getChats = () => {
     const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc) => { // onSnapshot : 실시간 작동하는거
       setChats(doc.data());
-      alert(JSON.stringify(doc.data()));
+    //  alert(JSON.stringify(doc.data()));
+    //  alert(currentUser.uid);
   });
     return () => {
       unsub();
@@ -34,11 +35,11 @@ const Chats = () => {
     <div className='chats'>
       {Object.entries(chats)?.sort((a,b)=>b[1].date - a[1].date).map((chat) => ( // 가장 최근에 보낸거 위로가게게
 
-        <div className="userchat" key={chat[0]} onClick={()=>handleSelect(chat[1].userInfo)}>
+        <div className="userChat" key={chat[0]} onClick={()=>handleSelect(chat[1].userInfo)}>
         <img className='img2' src={chat[1].userInfo.photoURL}alt=''/>
-          <div className="userchaInfo">
-             <span>{chat[1].userInfo.displayName}</span>
-             <p>{chat[1].userInfo.lastMessage?.text}</p>
+          <div className="userChatInfo">
+             <span className='dname'>{chat[1].userInfo.displayName}</span>
+             <p className='pname'>{chat[1].lastMessage?.text}</p>
            </div>
       </div>
     ))}

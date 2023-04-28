@@ -36,10 +36,10 @@
                     display: flex; 
                     gap: 10px;
 
-                    .img1{
+                    .img{
                         background-color: #ddddf7;
-                        height: 24px;
-                        width: 24px;
+                        height: 30px;
+                        width: 30px;
                         border-radius: 50%;
                         object-fit: cover;
 
@@ -58,7 +58,7 @@
             .search{
                 border-bottom: 1px solid gray;
                 .searchForm{
-
+                    text-align: left;
                     padding: 10px;
                     .input1 {
     
@@ -66,6 +66,7 @@
                         border:none;
                         color: white;
                         outline: none;
+                        text-align: left;
                     
                         &::placeholder{
                             color: lightgray;
@@ -77,6 +78,7 @@
 
             .userChat{
 
+                text-align: left;
                 padding: 10px;
                 display: flex;
                 align-items: center;
@@ -88,14 +90,9 @@
                     background-color: #2f2d52;
                 }
 
-                .img2{
-                    width: 50px;
-                    height: 50px;
-                    border-radius: 50%;
-                    object-fit:cover;
-                }
+                
                 .userChatInfo{
-                    span{font-size: 18px; font-weight: 500;}
+                    span{font-size: 20px; font-weight: 500;}
                     p{font-size: 14px; color: lightgray;}
                 }
     
@@ -231,6 +228,15 @@
 }
 
 
+
+
+.img2{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit:cover;
+    
+}
 
 
 

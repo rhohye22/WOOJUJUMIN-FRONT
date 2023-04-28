@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import ToggleMenu from "./components/togglemenu";
 
@@ -48,6 +48,7 @@ import MovieCrawling from "./components/crawling/movieCrawling";
 import BookCrawling from "./components/crawling/bookcrawling";
 import Localeventcrawling from "./components/crawling/localeventcrawling";
 import Musiccrawling from "./components/crawling/musicrawling";
+import { AuthContext } from "./context/AuthContext";
 // import TestScroll from "./components/crawling/test";
 
 
@@ -55,6 +56,7 @@ function App() {
   // 로그인 상태 관리
   const [log, setLog] = useState(null);
   const [nickname, setNickname] = useState("");
+  const {currentUser} = useContext(AuthContext);
 
   function loghandle() {
     localStorage.clear();
