@@ -30,6 +30,7 @@ function FreeBbsDetail() {
   let params = useParams();
 
   let bbsSeq = params.bbsSeq;
+  
   const seqs = { memberSeq: memberSeq, bbsSeq: bbsSeq };
 
   const qnaData = async (bbsSeq) => {
