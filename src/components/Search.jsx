@@ -1,39 +1,30 @@
-
-import {useContext, useState} from 'react'
+import { useContext, useState } from "react";
 import { collection, query, where, getDoc, getDocs, setDoc, updateDoc, doc, serverTimestamp } from "firebase/firestore";
-import {db} from "../firebase";
-import {AuthContext} from "../context/AuthContext"
+import { db } from "../firebase";
+import { AuthContext } from "../context/AuthContext";
 const Search = () => {
-
-
   const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
   const [err, setErr] = useState(false);
 
+  const { currentUser } = useContext(AuthContext);
 
-  const {currentUser} = useContext(AuthContext);
+  const handleSearch = async () => {
+    const q = query(collection(db, "users"), where("displayName", "==", username));
 
-  const handleSearch = async () =>{
-    const q = query(collection(db, "users"),
-    where("displayName", "==", username));
-
-    try{
+    try {
       const querySnapshot = await getDocs(q);
       //alert(JSON.stringify(q));
       querySnapshot.forEach((doc) => {
-        setUser(doc.data())  
-       // alert("user는? : " + user);
-
+        setUser(doc.data());
+        // alert("user는? : " + user);
       });
     } catch (err) {
       setErr(true);
     }
   };
 
-
-  const handleKey = e =>{
-
-
+  const handleKey = (e) => {
     e.code === "Enter" && handleSearch();
   };
 
@@ -79,12 +70,12 @@ const Search = () => {
       </div>
       {err && <span>User not found</span>}
 
-      {user && <div className="userChat" onClick={handleSelect}>
-
-        <img className='img2' src={user.photoURL}alt=''/>
-        <div className="userChatInfo">
-          <span>{user.displayName}</span>
-
+      {user && (
+        <div className="userChat" onClick={handleSelect}>
+          <img className="img2" src={user.photoURL} alt="" />
+          <div className="userChatInfo">
+            <span>{user.displayName}</span>
+          </div>
         </div>
       )}
     </div>
