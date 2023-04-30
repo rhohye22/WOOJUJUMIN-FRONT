@@ -1,29 +1,17 @@
 .mainpage {
-  /*   background-color: bisque; */
-  height: 100vh;
-  overflow-y: auto;
+  position: relative;
+  /*   z-index: 0; */
 }
-
-.slider {
-  /*  background-color: aqua; */
-  height: 200px;
-  display: flex;
-  justify-content: center;
+.slider-container {
+  padding-top: 20px;
+  /*  background-color: antiquewhite; */
+  /*  z-index: 0; */
 }
-.slidearea {
-  background-color: blueviolet;
-  width: 70%;
-  height: 200px;
+.carousel-control-prev,
+.carousel-control-next {
+  z-index: 1;
 }
-.slideimg {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.slideimg img {
-  height: 200px;
-
-  z-index: 3;
+.mainmiddle {
+  /*   background-color: rgb(242, 242, 242); */
+  height: 900px;
 }

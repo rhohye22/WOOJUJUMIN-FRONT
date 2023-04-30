@@ -4,6 +4,8 @@ import ToggleMenu from "./components/togglemenu";
 
 import BackToTopBtn from "./components/backToTopBtn";
 import ChatbotModal from "./components/chatbotModal";
+import Footer from "./footer";
+import logo from "./components/image/logo.png";
 
 import Login from "./components/login/login";
 
@@ -70,43 +72,47 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <header>
-          <ToggleMenu />
-          <Link to="/">우주주민</Link>&nbsp;&nbsp;&nbsp;
-          {log ? <span>로그인해주세요</span> : <span>{nickname}님</span>}&nbsp;&nbsp;&nbsp;
-          {log ? <Link to="/regi">회원가입</Link> : <Link to="/accountInfo">마이페이지</Link>}&nbsp;&nbsp;&nbsp;
-          {log === false && <Link to="/messageInfo">메시지함</Link>}&nbsp;&nbsp;&nbsp;
-          {log === false && <Link to="/">파티장 요청</Link>}&nbsp;&nbsp;&nbsp;
-          {log ? (
-            <Link to="/login">로그인</Link>
-          ) : (
-            <button
-              onClick={() => {
-                loghandle();
-                signOut(auth);
-              }}
-            >
-              로그아웃
-            </button>
-          )}
-          &nbsp;&nbsp;&nbsp;
-          <Link to="/moviechart">무비차트</Link>
-          <Link to="/bookchart">책순위</Link>
-          <Link to="/localevent">지역행사</Link>
-          <Link to="/musichart">TOP100</Link>
-          {/* <Link to="/test">삭제할것 잠깐 테스트</Link> */}
+        <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <ToggleMenu />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <Link to="/main">
+              <img src={logo} alt="Main Page" style={{ width: "120px" }} />
+            </Link>
+          </div>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            {log ? <span>로그인해주세요</span> : <span>{nickname}님</span>}&nbsp;&nbsp;&nbsp;
+            {log ? <Link to="/regi">회원가입</Link> : <Link to="/accountInfo">마이페이지</Link>}&nbsp;&nbsp;&nbsp;
+            {log === false && <Link to="/messageInfo">메시지함</Link>}&nbsp;&nbsp;&nbsp;
+            {log === false && <Link to="/">파티장 요청</Link>}&nbsp;&nbsp;&nbsp;
+            {log ? (
+              <Link to="/login">로그인</Link>
+            ) : (
+              <button
+                onClick={() => {
+                  loghandle();
+                  signOut(auth);
+                }}
+              >
+                로그아웃
+              </button>
+            )}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </div>
         </header>
-
         <nav className="appNav">
           <Link to="/freeBoard">자유게시판</Link>&nbsp;&nbsp;&nbsp;
+          <Link to="/moviechart">무비차트</Link>&nbsp;&nbsp;&nbsp;
+          <Link to="/bookchart">책순위</Link>&nbsp;&nbsp;&nbsp;
+          <Link to="/localevent">지역행사</Link>&nbsp;&nbsp;&nbsp;
+          <Link to="/musichart">TOP100</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/qnalist">Q&A</Link>&nbsp;&nbsp;&nbsp;
         </nav>
-
         <main>
           <ChatbotModal />
           <BackToTopBtn />
           <Routes>
-            <Route exact path="/" element={<Main />} />
+            <Route exact path="/main" element={<Main />} />
             <Route path="/login" element={<Login />} />
             <Route path="/regi" element={<Regi />} />
             <Route path="/moviechart" element={<MovieCrawling />} />
@@ -146,11 +152,10 @@ function App() {
             <Route path="/freeBbslikey" element={<FreeBbslikey />} />
           </Routes>
         </main>
+        <footer>
+          <p style={{ color: "gray", fontSize: "12px" }}>Copyright(c)2023 woojujumin All rights reserved </p>&nbsp;&nbsp;
+        </footer>
       </BrowserRouter>
-
-      <footer>
-        <p>여긴 푸터</p>
-      </footer>
     </div>
   );
 }
