@@ -37,18 +37,15 @@ function FreeBbsList() {
       .get("http://localhost:3000/freeBbslist", {
         params: { choice: choice, search: search, start: start, tag: tag },
       })
-      .then(function (resp) {
+      .then(function(resp) {
         setFreelist(resp.data);
       })
-      .catch(function (err) {
+      .catch(function(err) {
         alert(err);
       });
   }
 
   function getFreecnt() {
-    if (!isLogin) {
-      return;
-    }
     axios
       .get("http://localhost:3000/cntFreeBbs", {
         params: {
@@ -57,10 +54,10 @@ function FreeBbsList() {
           tag: tag,
         },
       })
-      .then(function (resp) {
+      .then(function(resp) {
         setTotalCnt(resp.data);
       })
-      .catch(function (err) {
+      .catch(function(err) {
         alert(err);
       });
   }
@@ -132,7 +129,7 @@ function FreeBbsList() {
           </thead>
           <tbody>
             {freelist && freelist.length ? (
-              freelist.map(function (free, i) {
+              freelist.map(function(free, i) {
                 return (
                   <tr key={i}>
                     <td>{free.bbsSeq}</td>

@@ -38,7 +38,7 @@ function FreeBbsReadcount(props) {
           //alert(" read테이블에 로우가 등록되지 않았습니다");
         }
       })
-      .catch(function (err) {
+      .catch(function(err) {
         alert(err);
       });
   }
@@ -56,8 +56,11 @@ function FreeBbsReadcount(props) {
   }
 
   useEffect(() => {
-    if (checkReadrow()) {
-      makeReadrow();
+    if (memberSeq) {
+      //비회원일시 memberseq안넘어옴
+      if (checkReadrow()) {
+        makeReadrow();
+      }
     }
   }, []);
 

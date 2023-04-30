@@ -26,14 +26,15 @@ function BackToTopBtn() {
         <button
           style={{
             position: "fixed",
-            bottom: "10px",
-            right: "20px",
+            bottom: "50px",
+            right: "50px",
 
             color: "gray",
             padding: "10px 20px",
             border: "none",
             borderRadius: "5px",
             cursor: "pointer",
+            zIndex: "999",
           }}
           onClick={handleButtonClick}
         >
