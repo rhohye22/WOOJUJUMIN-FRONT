@@ -34,7 +34,7 @@ function BackToTopBtn() {
             border: "none",
             borderRadius: "5px",
             cursor: "pointer",
-            zIndex: "999",
+            zIndex: "998",
           }}
           onClick={handleButtonClick}
         >

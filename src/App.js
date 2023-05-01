@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect, useContext } from "react";
 
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
@@ -7,7 +5,8 @@ import ToggleMenu from "./components/togglemenu";
 
 import BackToTopBtn from "./components/backToTopBtn";
 import ChatbotModal from "./components/chatbotModal";
-import Footer from "./footer";
+import ChattingModal from "./components/ChattingModal";
+
 import logo from "./components/image/logo.png";
 
 import Login from "./components/login/login";
@@ -57,7 +56,7 @@ function App() {
   // 로그인 상태 관리
   const [log, setLog] = useState(null);
   const [nickname, setNickname] = useState("");
-  const {currentUser} = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
 
   function loghandle() {
     localStorage.clear();
@@ -81,7 +80,7 @@ function App() {
           <div style={{ display: "flex", alignItems: "center" }}>
             <ToggleMenu />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <Link to="/main">
+            <Link to="/">
               <img src={logo} alt="Main Page" style={{ width: "120px" }} />
             </Link>
           </div>
@@ -115,9 +114,10 @@ function App() {
         </nav>
         <main>
           <ChatbotModal />
+          <ChattingModal />
           <BackToTopBtn />
           <Routes>
-            <Route exact path="/main" element={<Main />} />
+            <Route exact path="/" element={<Main />} />
             <Route path="/login" element={<Login />} />
             <Route path="/regi" element={<Regi />} />
             <Route path="/moviechart" element={<MovieCrawling />} />

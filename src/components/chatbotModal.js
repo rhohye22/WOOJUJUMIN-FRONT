@@ -170,7 +170,7 @@ function ChatbotModal() {
         }}
         onClick={handleButtonClick1}
       >
-        <img src={chatbot} alt="My Image" style={{ width: 50, height: 50 }} />
+        <img src={chatbot} alt="My Image" style={{ width: 60, height: 60 }} />
       </button>
       {showModal && (
         <div
