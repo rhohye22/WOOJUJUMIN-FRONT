@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import chatbot from "./image/chat.png";
+import Home from "../pages/Home";
 
 function ChattingModal() {
   const [showModal, setShowModal] = useState(false);
@@ -35,18 +36,19 @@ function ChattingModal() {
         <div
           style={{
             position: "fixed",
-            top: "65%",
-            left: "10%",
+            top: "50%",
+            left: "25%",
             transform: "translate(-50%, -50%)",
             backgroundColor: "white",
             padding: "20px",
             borderRadius: "5px",
             boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)",
             zIndex: "999",
+            width: "600px", // 추가
+            height: "700px",
           }}
         >
-          <h2>Modal Title</h2>
-          <p>Modal Content</p>
+          <Home />
           <button onClick={handleButtonClick2}>닫기</button>
         </div>
       )}
