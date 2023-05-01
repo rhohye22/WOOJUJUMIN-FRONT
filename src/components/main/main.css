@@ -1,0 +1,17 @@
+.mainpage {
+  position: relative;
+  /*   z-index: 0; */
+}
+.slider-container {
+  padding-top: 20px;
+  /*  background-color: antiquewhite; */
+  /*  z-index: 0; */
+}
+.carousel-control-prev,
+.carousel-control-next {
+  z-index: 1;
+}
+.mainmiddle {
+  /*   background-color: rgb(242, 242, 242); */
+  height: 900px;
+}

@@ -40,11 +40,11 @@ function Qnalist() {
           start: start,
         },
       })
-      .then(function (resp) {
+      .then(function(resp) {
         console.log(resp.data);
         setQnalist(resp.data);
       })
-      .catch(function (err) {
+      .catch(function(err) {
         alert(err);
       });
   }
@@ -59,10 +59,10 @@ function Qnalist() {
           id: id,
         },
       })
-      .then(function (resp) {
+      .then(function(resp) {
         setTotalCnt(resp.data);
       })
-      .catch(function (err) {
+      .catch(function(err) {
         alert(err);
       });
   }
@@ -80,7 +80,7 @@ function Qnalist() {
 
   return (
     <div>
-      <h2>게시판</h2>
+      <h2>사용문의</h2>
 
       <br />
 
@@ -101,7 +101,7 @@ function Qnalist() {
         </thead>
         <tbody>
           {qnalist && qnalist.length ? (
-            qnalist.map(function (qna, i) {
+            qnalist.map(function(qna, i) {
               return (
                 <tr key={i}>
                   <td>{qna.qtype}</td>
@@ -122,7 +122,7 @@ function Qnalist() {
 
       <br />
 
-      <Pagination activePage={page} /* itemsCountPerPage={10}  */ totalItemsCount={totalCnt} pageRangeDisplayed={5} prevPageText={"이전"} nextPageText={"다음"} onChange={pageChange} />
+      <Pagination activePage={page} itemsCountPerPage={10} totalItemsCount={totalCnt} pageRangeDisplayed={5} prevPageText={"이전"} nextPageText={"다음"} onChange={pageChange} />
 
       <br />
 
