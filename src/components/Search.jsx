@@ -1,5 +1,5 @@
 import {useContext, useState} from 'react'
-import { collection, query, where, getDoc, setDoc, updateDoc, doc, serverTimestamp } from "firebase/firestore";
+import { collection, query, where, getDoc, getDocs ,setDoc, updateDoc, doc, serverTimestamp } from "firebase/firestore";
 import {db} from "../firebase";
 import {AuthContext} from "../context/AuthContext"
 const Search = () => {
@@ -17,7 +17,7 @@ const Search = () => {
     );
     try{
 
-      const querySnapshot = await getDoc(q);
+      const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         setUser(doc.data())  
       });

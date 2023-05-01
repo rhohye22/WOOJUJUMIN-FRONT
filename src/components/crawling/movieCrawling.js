@@ -10,12 +10,12 @@ function MovieCrawling() {
 
     const [movielist, setMovieList] = useState([]);
     const [imageslist, setImageslist] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [talks, setTalks] = useState([]);
     const [comment, setComment] = useState([]);
 
     const [alltalk, setAlltalk] = useState([]);
-    const [indexCom, setIndecCom] = useState(0);
+    const [indexCom, setIndexCom] = useState(1);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -40,22 +40,24 @@ function MovieCrawling() {
                     console.log(res.data.slice(0, 10));
                     setAlltalk(res.data);
                     // setTalks(res.data.slice(0, 10));
-                    setTalks(res.data.slice(indexCom, (indexCom + 1) * 10));
-                    setIndecCom(indexCom + 1);
+                    // setTalks(res.data.slice(indexCom, indexCom + 10));
+                    setTalks(res.data.slice(0, 10));
+                    // setIndexCom(indexCom + 1);
 
                 })
                 .catch(function (err) {
                     alert(err);
                 })
         }
-
+        
+        
         fetchData();
         talkData();
 
     }, []);
 
-
     let importimg = [];
+    // let indexCom = 1;
 
     function MovieList(props) {
 
@@ -141,6 +143,9 @@ function MovieCrawling() {
         }
     }
 
+    // let startIndex = indexCom * 10;
+    // let endIndex = alltalk.length - talks.length >= 10 ? (indexCom + 1) * 10 : alltalk.length;
+
     function commentSubmit() {
         // alert("확인용");
 
@@ -151,14 +156,23 @@ function MovieCrawling() {
 
         // alert(id);
 
-        axios.post("http://localhost:3000/talkcomment", null, { params: { "talkid": id, "talkcomment": comment } })
+        axios.post("http://localhost:3000/talkcomment", null, { params: { "talkid": id, "talkcomment": comment, "category": 1 } })
             .then(function (res) {
                 // alert(res.data);
                 if (res.data === "YES") {
                     const fetchTalkData = async () => {
                         try {
                             const res = await axios.get("http://localhost:3000/alltalkcomment");
-                            setTalks(res.data);
+                            setTalks(res.data.slice(0, 10));
+                            setComment("");
+                            setIndexCom(1);
+                            // console.log( "다시 수정"+indexCom);
+                            // if (indexCom + 1 > alltalk.length / 10) {
+                            //     alert("확인");
+                            //     // setIndexCom(1);
+                            //     document.getElementById("more-btn").style.display = "block";
+                            // }
+                            console.log(indexCom + "fd");
                         } catch (err) {
                             alert(err);
                         }
@@ -183,43 +197,45 @@ function MovieCrawling() {
 
 
     const loadMoreTalks = async () => {
-        const lastTalk = talks[talks.length - 1];
 
         // const totalPage = Math.floor(alltalk.length / 10) + (alltalk.length % 10 > 0 ? 1 : 0);
-
-
         // console.log("길이확인" + totalPage);
 
+        const numLoadedComments = document.querySelectorAll(".comment-box").length;
+        console.log(numLoadedComments);
 
-
-        axios.get('http://localhost:3000/alltalkcomment', {})
+        await axios.get('http://localhost:3000/alltalkcomment', {})
             .then((res) => {
                 // const newTalks = res.data.slice((indexCom*10)+1, (indexCom)*20);
                 // setTalks([...talks.slice(0, 10), ...newTalks]);
-
-                const startIndex = indexCom * 10;
-                const endIndex = alltalk.length - talks.length > 10 ? (indexCom + 1) * 10 : alltalk.length;
+                let startIndex = indexCom * 10;
+                let endIndex = alltalk.length - talks.length >= 10 ? (indexCom + 1) * 10 : alltalk.length;
+                console.log(indexCom + "indexCom");
+                console.log(startIndex + "startindex")
+                console.log(endIndex + "endIndex")
+                console.log(alltalk.length / 10);
                 const newTalks = res.data.slice(startIndex, endIndex);
 
-                const totalPage = Math.ceil(alltalk.length / 10);
-                // const newTalks = res.data.slice(indexCom * 10, (indexCom + 1) * 10);
-                setTalks([...talks, ...newTalks]);
+                if (endIndex >= alltalk.length) {
+                    // endIndex가 배열의 인덱스 범위를 벗어난 경우 버튼을 숨김
+                    // document.getElementById("more-btn").style.display = "none";
+                    // document.getElementById("more-btn").disabled = true;
+                    setIndexCom(1);
+                    // setLoading(true);
+                    console.log("초기화 확인용" + indexCom);
+                }
 
-                setIndecCom(indexCom + 1);
-                // setTalks((prevTalks) => [...prevTalks, ...res.data.slice(0, 10)]);
-                // setTalks([...talks, ...res.data]);
+                setTalks([...talks, ...newTalks]);
+                setIndexCom(indexCom + 1);
+
             })
             .catch((err) => {
                 console.error(err);
             });
 
-        // const res = await axios.get("http://localhost:3000/alltalkcomment", {
-        //     params: { skip, limit },
-        // });
-        // console.log(res.data);
-        // setTalks((prevTalks) => prevTalks.concat(res.data));
-        // setSkip((prevSkip) => prevSkip + limit);
+            
     };
+
 
     return (
         <div>
@@ -236,9 +252,9 @@ function MovieCrawling() {
 
             <div>
                 {talks.map((talk, index) => (
-                    <div key={index}>{index + 1}{talk.talkid}{talk.talkcomment}</div>
+                    <div className="comment-box" key={index + 1}>{index}{talk.talkid}{talk.talkcomment}</div>
                 ))}
-                <button onClick={loadMoreTalks}>더보기</button>
+                <button onClick={loadMoreTalks} id="more-btn">더보기</button>
             </div>
             {/* {talks.map((talk, index) => (
                 <div>
