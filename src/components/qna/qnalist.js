@@ -41,7 +41,6 @@ function Qnalist() {
         },
       })
       .then(function(resp) {
-        console.log(resp.data);
         setQnalist(resp.data);
       })
       .catch(function(err) {

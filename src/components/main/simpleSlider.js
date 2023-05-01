@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import Carousel from "react-bootstrap/Carousel";
-import Slider from "react-slick";
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -10,7 +10,7 @@ import sliderimg3 from "./j-king-ebuixpviQH0-unsplash.jpg";
 
 function SimpleSlider() {
   return (
-    <Carousel slide={false} style={{ maxWidth: "1000px", margin: "auto" }}>
+    <Carousel slide={false} style={{ maxWidth: "1200px", margin: "auto" }}>
       <Carousel.Item>
         <img className="d-block w-100" src={sliderimg1} alt="First slide" />
         <Carousel.Caption>

@@ -1,5 +1,6 @@
 .mainpage {
   position: relative;
+  background-color: #fbf4e9;
   /*   z-index: 0; */
 }
 .slider-container {
@@ -11,7 +12,96 @@
 .carousel-control-next {
   z-index: 1;
 }
-.mainmiddle {
-  /*   background-color: rgb(242, 242, 242); */
+.mainmiddle1 {
+  /*   background-color: rgb(190, 107, 107); */
+  height: 480px;
+  padding-top: 50px;
+}
+.mainmiddle1-1 {
+  margin: 0 auto;
+  /*   background-color: rgb(209, 162, 162); */
+  width: 1200px;
+  height: 300px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
+  padding: 20px;
+  margin-bottom: 10px;
+}
+.mainmiddle1-1 > div {
+  border-radius: 50px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 5px 7px rgba(0, 0, 0, 0.5);
+  transform: translateY(0);
+  transition: transform 0.2s ease-in-out;
+  border: 4px solid rgb(21, 151, 180);
+  width: 100%;
+  height: 100%;
+}
+.mainmiddle1-1 > div:hover {
+  transform: translateY(-15px);
+}
+.mainmiddle1-1 > div > img {
+  order: 1;
+}
+
+.mainmiddle2 {
+  margin: 0 auto;
+  /*   background-color: rgb(152, 166, 110); */
+  margin-top: 30px;
+  height: 400px;
+  width: 1200px;
+  display: flex;
+  flex-direction: row;
+}
+.mainmiddle2-1 {
+  background-color: #f9f9f9;
+  width: 600px;
+  height: 400px;
+  padding: 30px;
+  border-radius: 30px;
+  border: 4px solid rgb(180, 111, 21);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+  margin-right: 10px;
+}
+
+.mainmiddle2-2 {
+  background-color: #efe8e4;
+  width: 600px;
+  height: 400px;
+  padding: 30px;
+  padding-top: 20px;
+  border-radius: 30px;
+  border: 4px solid rgb(180, 111, 21);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+  margin-left: 10px;
+}
+.calisttable {
+  max-height: 350px;
+  overflow-y: auto;
+}
+/* 버튼 스타일 */
+.btn {
+  display: inline-block;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  margin-top: 20px;
+  border-radius: 30px;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+}
+
+.btn:hover {
+  background-color: #3e8e41;
+}
+.mainmiddle3 {
+  background-color: rgb(166, 145, 110);
   height: 900px;
 }

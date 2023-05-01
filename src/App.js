@@ -70,6 +70,7 @@ function App() {
       setLog(false);
       const loginInfo = JSON.parse(localStorage.getItem("login"));
       setNickname(loginInfo.nickname);
+      console.log(localStorage.getItem("login"));
     }
   }, [log]);
 
@@ -81,7 +82,7 @@ function App() {
             <ToggleMenu />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <Link to="/">
-              <img src={logo} alt="Main Page" style={{ width: "120px" }} />
+              <img src={logo} alt="Main Page" style={{ width: "150px" }} />
             </Link>
           </div>
           <div style={{ display: "flex", alignItems: "center" }}>
@@ -117,7 +118,7 @@ function App() {
           <ChattingModal />
           <BackToTopBtn />
           <Routes>
-            <Route exact path="/" element={<Main />} />
+            <Route exact path="/*" element={<Main />} />
             <Route path="/login" element={<Login />} />
             <Route path="/regi" element={<Regi />} />
             <Route path="/moviechart" element={<MovieCrawling />} />
