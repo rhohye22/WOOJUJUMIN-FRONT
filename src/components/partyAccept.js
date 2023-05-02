@@ -3,7 +3,13 @@ import axios from 'axios';
 import {Link, useNavigate} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Pagination from "react-js-pagination";
-
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
 
 function PartyAccept(){
     let history = useNavigate();
@@ -53,7 +59,11 @@ const check = (partySeq, applyMem) =>{
     })
     
 }
-
+const style = {
+    width: '100%',
+    maxWidth: 360,
+    bgcolor: 'background.paper',
+  };
 useEffect(function(){
     if(id){
 
@@ -87,9 +97,25 @@ if(partyList.length > 0){
         
           <Link to="/partyAccept">파티 수락</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/partyRequest">파티 요청</Link>&nbsp;&nbsp;&nbsp;
-          <br></br>
-          <br></br>
+        
 
+          <List sx={style} component="nav" aria-label="mailbox folders">
+      <ListItem button>
+        <ListItemText primary="회원정보 수정" />
+      </ListItem>
+      <Divider />
+      <ListItem button>
+        <ListItemText primary="내가 쓴 글" />
+      </ListItem>
+      <ListItem button>
+        <ListItemText primary="파티원 승인" />
+      </ListItem>
+      <Divider light />
+      <ListItem button>
+        <ListItemText primary="내파티 보기" />
+      </ListItem>
+    </List>
+<div className="gamssagi3">
           <table border="1" style={{ margin:'0 auto'}}>
         <colgroup>
             <col width='70'/><col width='600'/><col width='200'/><col width='100'/><col width='100'/>
@@ -139,6 +165,7 @@ if(partyList.length > 0){
        prevPageText={"이전"}
        nextPageText={"다음"}
        onChange={pageChange}/> 
+       </div>
  </>
 
    

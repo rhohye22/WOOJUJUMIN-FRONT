@@ -126,22 +126,23 @@ function MyBbsList(){
         </Box>
         <List sx={style} component="nav" aria-label="mailbox folders">
       <ListItem button>
-        <ListItemText primary="Inbox" />
+        <ListItemText primary="회원정보 수정" />
       </ListItem>
       <Divider />
-      <ListItem button divider>
-        <ListItemText primary="Drafts" />
+      <ListItem button>
+        <ListItemText primary="내가 쓴 글" />
       </ListItem>
       <ListItem button>
-        <ListItemText primary="Trash" />
+        <ListItemText primary="파티원 승인" />
       </ListItem>
       <Divider light />
       <ListItem button>
-        <ListItemText primary="Spam" />
+        <ListItemText primary="내파티 보기" />
       </ListItem>
     </List>
 
     <br></br>
+    <div className='gamssagi2'>
         <select value={choice} onChange={(e)=>setChoice(e.target.value)}>
             <option value=''>검색</option>
             <option value="title">제목</option>
@@ -204,7 +205,7 @@ function MyBbsList(){
 
        <br>
        </br>
-
+       </div>
 
 </>
 

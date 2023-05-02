@@ -21,6 +21,7 @@
 
   width: 600px;
   margin: auto;
+  
 }
 
 Form.Label{
@@ -72,4 +73,19 @@ thead {
 
   display: flex;
   
+}
+
+.gamssagi{
+
+  margin-top: -10%;
+}
+
+.gamssagi2{
+
+  margin-top: -11%;
+}
+
+.gamssagi3{
+
+  margin-top: -10%;
 }

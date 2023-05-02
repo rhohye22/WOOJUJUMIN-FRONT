@@ -58,6 +58,7 @@ import Partybbs from "./components/partybbs";
 import Partybbsdetail from "./components/partybbsdetail";
 import Partybbslist from "./components/partybbslist";
 import Partybbsupdate from "./components/partybbsupdate";
+import Mypage from "./components/mypage";
 
 function App() {
   // 로그인 상태 관리
@@ -93,7 +94,7 @@ function App() {
           </div>
           <div style={{ display: "flex", alignItems: "center" }}>
             {log ? <span>로그인해주세요</span> : <span>{nickname}님</span>}&nbsp;&nbsp;&nbsp;
-            {log ? <Link to="/regi">회원가입</Link> : <Link to="/accountInfo">마이페이지</Link>}&nbsp;&nbsp;&nbsp;
+            {log ? <Link to="/regi">회원가입</Link> : <Link to="/mypage">마이페이지</Link>}&nbsp;&nbsp;&nbsp;
             {log === false && <Link to="/messageInfo">메시지함</Link>}&nbsp;&nbsp;&nbsp;
             {log === false && <Link to="/">파티장 요청</Link>}&nbsp;&nbsp;&nbsp;
             {log ? (
@@ -153,6 +154,7 @@ function App() {
             <Route path="/partyList" element={<PartyList />}></Route>
 
             <Route path="/messageInfo" element={<MessageInfo />}></Route>
+            <Route path="/mypage" element={<Mypage />}></Route>
             <Route path="/sendMessageInfo" element={<SendMessageInfo />}></Route>
 
             <Route path="regi" element={<Regi />} />
