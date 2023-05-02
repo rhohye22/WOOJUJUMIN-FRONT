@@ -117,8 +117,7 @@ function FreeBbsWrite() {
                 <option value={5}>드라마/영화</option>
                 <option value={6}>게임</option>
                 <option value={7}>음식</option>
-                <option value={8}>함께</option>
-                <option value={9}>탐사</option>
+
                 <option value={10}>잡담</option>
               </select>
             </td>
