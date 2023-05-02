@@ -15,7 +15,7 @@ const Message = ({message}) => {
 
   console.log(message);
   return (
-    <div className={`message ${message.senderId === currentUser.uid && "owner"}`}>
+    <div ref={ref} className={`message ${message.senderId === currentUser.uid && "owner"}`}>
       <div className="messageInfo">
       <img className='img4' src={message.senderId === currentUser.uid ? currentUser.photoURL : data.user.photoURL} alt=""/>
       <span>just now</span>

@@ -19,16 +19,18 @@ function FreeBbsDetail() {
   const [memberSeq, setMemberSeq] = useState();
 
   //접속정보
-  useEffect(function () {
-    let login = JSON.parse(localStorage.getItem("login"));
-
-    setWriter(login.id);
-    setMemberSeq(login.memberSeq);
+  let login = JSON.parse(localStorage.getItem("login"));
+  useEffect(function() {
+    if (login) {
+      setWriter(login.id);
+      setMemberSeq(login.memberSeq);
+    }
   }, []);
 
   let params = useParams();
 
   let bbsSeq = params.bbsSeq;
+  
   const seqs = { memberSeq: memberSeq, bbsSeq: bbsSeq };
 
   const qnaData = async (bbsSeq) => {
@@ -95,23 +97,25 @@ function FreeBbsDetail() {
                 />
               ) : null}
               <br /> <br />
-              <pre>내용 : {freebbs.content}</pre>
+              <pre>{freebbs.content}</pre>
               <br /> <br />
-              <FreeBbslikey seqs={seqs} /> <br /> <br />
+              {login && <FreeBbslikey seqs={seqs} />} <br /> <br />
             </td>
           </tr>
-          <tr>
-            <td colSpan={4}>
-              <FreeBbsReply replySeq={replySeq} writer={writer} />
-              <br /> <br />
-            </td>
-          </tr>
+          {login && (
+            <tr>
+              <td colSpan={4}>
+                <FreeBbsReply replySeq={replySeq} writer={writer} />
+                <br /> <br />
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
       <br />
       <button onClick={handleButtonClick}> 목록</button>
-      <button> 수정</button>
-      <button> 삭제</button>
+      {freebbs.id == writer ? <button> 삭제</button> : null}
+      {freebbs.id == writer ? <button> 수정</button> : null}
       <br /> <br />
       <br />
       <br />
