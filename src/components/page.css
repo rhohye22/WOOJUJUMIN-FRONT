@@ -55,7 +55,3 @@ ul.pagination li a.active {
     height: 30px;
     color: #337ab7;
 }
-table, tr, td, th{
-    border: 1px solid black;
-
-}

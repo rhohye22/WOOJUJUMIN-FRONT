@@ -1,9 +1,13 @@
+import * as React from 'react';
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import "./page.css";
-import "./myfreebbsList.css";
+import "./accountInfo.css";
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
 
 function MyfreebbsList() {
   let history = useNavigate();
@@ -16,7 +20,11 @@ function MyfreebbsList() {
   const [totalCnt, setTotalCnt] = useState(0);
 
   const [id, setId] = useState("");
+  const [value, setValue] = React.useState('one');
 
+  const handleChange = (event, newValue) => {
+      setValue(newValue);
+    };
   // login 되어 있는지 검사
   useEffect(() => {
     let login = JSON.parse(localStorage.getItem("login"));
@@ -75,9 +83,12 @@ function MyfreebbsList() {
         <Link to="/partyList">내파티 보기</Link>
         <br></br>
         <br></br>
-        <Link to="/mybbsList">모집 게시판</Link>&nbsp;&nbsp;&nbsp;
-        <Link to="/myfreebbsList">자유 게시판</Link>&nbsp;&nbsp;&nbsp;
+   
         <br></br>
+        <br></br>
+        <Link to="/mybbsList"> <Tab label="모집 게시판"></Tab></Link> 
+        <Link to="/myfreebbsList"><Tab label="자유 게시판"></Tab></Link>
+
         <div class="searchpart">
           <select value={choice} onChange={(e) => setChoice(e.target.value)}>
             <option value="">검색</option>
@@ -95,10 +106,7 @@ function MyfreebbsList() {
         <br></br>
         <table border="1" style={{ margin: "0 auto" }}>
           <colgroup>
-            <col width="70" />
-            <col width="600" />
-            <col width="100" />
-            <col width="100" />
+          <col width='70'/><col width='600'/><col width='100'/><col width='100'/>
           </colgroup>
           <thead>
             <tr>
@@ -121,7 +129,7 @@ function MyfreebbsList() {
                   </td>
                   <td align="center">{bbs.readcount}</td>
 
-                  <td align="center">{bbs.wdate}</td>
+                  <td align="center">{bbs.wdate.substring(0,10)}</td>
                   <td align="center">{bbs.id}</td>
                 </tr>
               );
