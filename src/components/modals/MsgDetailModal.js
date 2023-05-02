@@ -10,11 +10,6 @@ const MsgDetailModal = ({show, onHide, sendId, targetId, title, message}) => {
   const [id, setId] = useState('');
 
 
-
-
-
-
-
   return (
     <Modal
     show={show}

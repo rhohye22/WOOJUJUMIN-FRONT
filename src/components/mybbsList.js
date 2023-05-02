@@ -1,11 +1,24 @@
+import * as React from 'react';
 import {useEffect, useState} from "react";
 import axios from 'axios';
 import {Link, useNavigate} from "react-router-dom";
 import Pagination from "react-js-pagination";
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
 import "./page.css";
+import "./accountInfo.css";
 
 
-function MybbsList(){
+
+
+//npm install @mui/material @emotion/react @emotion/styled --legacy-peer-deps
+//npm install @mui/icons-material --legacy-peer-deps
+function MyBbsList(){
 
     let history = useNavigate();
     const [bbslist, setBbslist] = useState([]); // 게시판은 배열로 넘어오니까 
@@ -17,7 +30,11 @@ function MybbsList(){
     const [totalCnt, setTotalCnt] = useState(0);
 
     const [id, setId] = useState('');
-    
+    const [value, setValue] = React.useState('one');
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+      };
    
     
     // login 되어 있는지 검사
@@ -64,7 +81,12 @@ function MybbsList(){
         
         getBbslist(choice, search, 0);
     }
-    
+   
+    const style = {
+        width: '100%',
+        maxWidth: 360,
+        bgcolor: 'background.paper',
+      };
     useEffect(function(){
         if(id){
 
@@ -78,8 +100,6 @@ function MybbsList(){
     if(bbslist.length > 0){
 
     return(
-
-        
         <>
         <Link to="/accountInfo">회원정보 수정</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/mybbsList">내가 쓴 글</Link>&nbsp;&nbsp;&nbsp;
@@ -89,9 +109,37 @@ function MybbsList(){
           <br></br>
           <br></br>
           <Link to="/mybbsList">모집 게시판</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/myfreebbsList">자유 게시판</Link>&nbsp;&nbsp;&nbsp;
-    <div>
-   
+        <Link to="/myfreebbsList">자유 게시판</Link>&nbsp;&nbsp;&nbsp;
+
+        <Box sx={{ width: '100%' }}>
+         <Tabs
+        value={value}
+        onChange={handleChange}
+        variant="scrollable"
+        scrollButtons="auto"
+        aria-label="scrollable auto tabs example"
+        >
+        <Tab label="모집 게시판"></Tab>
+       <Tab label="자유 게시판"></Tab>
+       
+        </Tabs>
+        </Box>
+        <List sx={style} component="nav" aria-label="mailbox folders">
+      <ListItem button>
+        <ListItemText primary="Inbox" />
+      </ListItem>
+      <Divider />
+      <ListItem button divider>
+        <ListItemText primary="Drafts" />
+      </ListItem>
+      <ListItem button>
+        <ListItemText primary="Trash" />
+      </ListItem>
+      <Divider light />
+      <ListItem button>
+        <ListItemText primary="Spam" />
+      </ListItem>
+    </List>
 
     <br></br>
         <select value={choice} onChange={(e)=>setChoice(e.target.value)}>
@@ -109,9 +157,10 @@ function MybbsList(){
     <br></br>
     <br></br>
 
-    <table border="1" style={{ margin:'0 auto'}}>
+  
+    <table>
         <colgroup>
-            <col width='70'/><col width='600'/><col width='100'/><col width='100'/>
+            <col width='70'/><col width='600'/><col width='100'/><col width='100'/><col width='100'/><col width='100'/>
         </colgroup>
         <thead>
             <tr>
@@ -131,7 +180,7 @@ function MybbsList(){
                             </td>
                             <td align="center">{bbs.readcount}</td>
                             <td align="center">{bbs.people}</td>
-                            <td align="center">{bbs.wdate}</td>
+                            <td align="center">{bbs.wdate.substring(0,10)}</td>
                             <td align="center">{bbs.id}</td>
                         </tr>
                     )
@@ -139,8 +188,8 @@ function MybbsList(){
             }
 
         </tbody>
-
-    </table>
+        </table>
+   
     <br>
     </br>
 
@@ -156,13 +205,9 @@ function MybbsList(){
        <br>
        </br>
 
-      
-</div>
+
 </>
 
-
-
-   
     )
 }else{
 
@@ -213,4 +258,4 @@ function MybbsList(){
 }
 }
 
-export default MybbsList;
+export default MyBbsList;
