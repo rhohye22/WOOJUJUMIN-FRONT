@@ -108,7 +108,7 @@ function App() {
 
         <nav className="appNav">
           <Link to="/freeBoard">자유게시판</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/moviechart">무비차트</Link>&nbsp;&nbsp;&nbsp;
+          <Link to="/moviechart">무비 차트</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/bookchart">책순위</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/localevent">지역행사</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/musichart">TOP100</Link>&nbsp;&nbsp;&nbsp;
