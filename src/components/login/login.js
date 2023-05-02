@@ -13,6 +13,7 @@ import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import jwt_decode from 'jwt-decode';
 // npm install jwt-decode
 import "./login.css";
+import { Button, Container, FloatingLabel, Form, Row, Col } from 'react-bootstrap';
 
 function Login() {
   const [id, setId] = useState("");
@@ -219,34 +220,84 @@ function Login() {
   }
 
   return (
-    <div>
-      <h3>Login</h3>
-      <input
+    <Container fluid>
+    <Form>
+      <h3>우주주민 로그인</h3>
+      <br/>
+      <Row>
+      <Col></Col>
+        <Col></Col>
+        <Col>
+      <FloatingLabel
+        controlId="floatingInput"
+        label="아이디"
+        className="mb-3"
+      >
+        <Form.Control type="id" placeholder="아이디" value={id} onChange={(e) => setId(e.target.value)} />
+      </FloatingLabel>
+      </Col>
+      <Col style={{ marginTop: '15px', textAlign: 'left'}}><a href="/idsearch">forget?</a></Col>
+      <Col></Col>
+      </Row>
+
+      <Row>
+      <Col></Col>
+      <Col></Col>
+      <Col>
+      <FloatingLabel controlId="floatingPassword" label="비밀번호">
+        <Form.Control type="password" placeholder="비밀번호" value={password} onChange={(e) => setPwd(e.target.value)} />
+      </FloatingLabel>
+      </Col>
+      <Col style={{ marginTop: '15px', textAlign: 'left'}}><a href="/pwdsearch">forget?</a></Col>
+      <Col></Col>
+      </Row>
+      
+      <Row>
+      <Col></Col>
+      <Col md={2}></Col>
+      <Col md={2}>
+      <Form.Group className="mb-3" controlId="formBasicCheckbox" style={{textAlign:'left', marginLeft:'25px'}}>
+        <Form.Check type="checkbox" label="아이디 저장" checked={saveId} onChange={CheckHandler} />
+      </Form.Group>
+      </Col>
+      <Col style={{textAlign:'left', marginLeft:'0px'}}><a href="/regi">회원가입</a></Col>
+      <Col></Col>
+      </Row>
+
+      <Button variant="primary" onClick={() => Login()}>
+        로그인
+      </Button>
+      {/* <input
         value={id}
         onChange={(e) => setId(e.target.value)}
         placeholder="아이디"
-      />
+      />&nbsp;&nbsp;<a href="/idsearch">forget?</a>
       <br />
       <input
         type="password"
         value={password}
         onChange={(e) => setPwd(e.target.value)}
         placeholder="패스워드"
-      />
+      />&nbsp;&nbsp;<a href="/pwdsearch">forget?</a>
       <br />
       <input type="checkbox" checked={saveId} onChange={CheckHandler} />
       아이디저장
       <br />
       <br />
       <button onClick={() => Login()}>Login</button>&nbsp;
-      <a href="/regi">회원가입</a>
+      <a href="/regi">회원가입</a> */}
       <hr/>
 
+      <Row>
+        <Col md={4}></Col>
+        <Col>
       <KakaoLogin
           token={kakaoClientId}
           onSuccess={kakaoOnSuccess}
           onFail={kakaoOnFailure}
-      /><br/><br/>
+      />
+      </Col>
+      <Col>
       <div className="google-box">
       <GoogleOAuthProvider clientId={clientId}>
         <GoogleLogin
@@ -257,7 +308,11 @@ function Login() {
         />
       </GoogleOAuthProvider>
       </div>
-    </div>
+      </Col>
+      <Col md={4}></Col>
+      </Row>
+    </Form>
+    </Container>
   );
 }
 

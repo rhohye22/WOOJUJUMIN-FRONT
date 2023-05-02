@@ -50,6 +50,8 @@ import BookCrawling from "./components/crawling/bookcrawling";
 import Localeventcrawling from "./components/crawling/localeventcrawling";
 import Musiccrawling from "./components/crawling/musicrawling";
 import { AuthContext } from "./context/AuthContext";
+import IdSearch from "./components/login/idsearch";
+import PwdSearch from "./components/login/pwdsearch";
 // import TestScroll from "./components/crawling/test";
 
 function App() {
@@ -120,6 +122,9 @@ function App() {
             <Route exact path="/" element={<Main />} />
             <Route path="/login" element={<Login />} />
             <Route path="/regi" element={<Regi />} />
+            <Route path="/idsearch" element={<IdSearch />} />
+            <Route path="/pwdsearch" element={<PwdSearch />} />
+
             <Route path="/moviechart" element={<MovieCrawling />} />
             <Route path="/bookchart" element={<BookCrawling />} />
             <Route path="/localevent" element={<Localeventcrawling />} />
