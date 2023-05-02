@@ -32,18 +32,20 @@ function ToggleMenu() {
         <img src={menuimg} alt="My Image" style={{ width: 30, height: 30 }} />
       </button>
       <nav id="navbar" ref={navbarRef}>
-        <br /> <br />
-        <a href="/" style={{ color: "white" }}>
-          메인
-        </a>
-        <br /> <br />
-        <a href="/freeBoard" style={{ color: "white" }}>
-          자유게시판
-        </a>
-        <br /> <br />
-        <a href="/qnalist" style={{ color: "white" }}>
-          사용문의
-        </a>
+        <div className="togglecontent">
+          <br /> <br />
+          <a href="/" style={{ color: "white" }}>
+            메인
+          </a>
+          <br /> <br />
+          <a href="/freeBoard" style={{ color: "white" }}>
+            자유게시판
+          </a>
+          <br /> <br />
+          <a href="/qnalist" style={{ color: "white" }}>
+            사용문의
+          </a>
+        </div>
       </nav>
     </>
   );
