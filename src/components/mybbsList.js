@@ -100,26 +100,18 @@ function MyBbsList(){
     if(bbslist.length > 0){
 
     return(
-
-        
         <>
         <Link to="/accountInfo">회원정보 수정</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/mybbsList">내가 쓴 글</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/partyAccept">파티원 승인</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/partyList">내파티 보기</Link>
 
-
-      
-
-
-
-
           <br></br>
           <br></br>
           <Link to="/mybbsList">모집 게시판</Link>&nbsp;&nbsp;&nbsp;
         <Link to="/myfreebbsList">자유 게시판</Link>&nbsp;&nbsp;&nbsp;
 
-          <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: '100%' }}>
          <Tabs
         value={value}
         onChange={handleChange}
@@ -132,26 +124,22 @@ function MyBbsList(){
        
         </Tabs>
         </Box>
-        <div className='sidemenu'>
         <List sx={style} component="nav" aria-label="mailbox folders">
-        <ListItem button>
-            <ListItemText primary="회원정보 수정" />
-        </ListItem>
-        <Divider />
-        <ListItem button divider>
-            <ListItemText primary="내가 쓴 글" />
-        </ListItem>
-        <ListItem button>
-            <ListItemText primary="파티원 승인" />
-        </ListItem>
-        <Divider light />
-        <ListItem button>
-            <ListItemText primary="내파티 보기" />
-        </ListItem>
-        </List>
-        </div>
-    <div>
-   
+      <ListItem button>
+        <ListItemText primary="Inbox" />
+      </ListItem>
+      <Divider />
+      <ListItem button divider>
+        <ListItemText primary="Drafts" />
+      </ListItem>
+      <ListItem button>
+        <ListItemText primary="Trash" />
+      </ListItem>
+      <Divider light />
+      <ListItem button>
+        <ListItemText primary="Spam" />
+      </ListItem>
+    </List>
 
     <br></br>
         <select value={choice} onChange={(e)=>setChoice(e.target.value)}>
@@ -217,13 +205,9 @@ function MyBbsList(){
        <br>
        </br>
 
-      
-</div>
+
 </>
 
-
-
-   
     )
 }else{
 
