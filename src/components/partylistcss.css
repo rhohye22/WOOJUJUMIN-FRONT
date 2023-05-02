@@ -1,0 +1,48 @@
+.posts-container {
+    overflow-y: scroll;
+    height: 500px;
+  }
+  
+
+  .posts-container::-webkit-scrollbar {
+    width: 8px;
+    background-color: #f5f5f5;
+  }
+  
+  .posts-container::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #aaa;
+  }
+  
+  .posts-container::-webkit-scrollbar-thumb:hover {
+    background-color: #999;
+  }
+  
+  .post-info {
+    overflow: hidden;
+  }
+  
+  .post-info img {
+    float: left;
+    margin-right: 10px;
+  }
+  
+  .post-info h2 {
+    margin-top: 0;
+  }
+  
+  .post-info p {
+    margin-bottom: 0;
+  }
+  /* .post-info {
+    overflow: hidden;
+  }
+
+  .post-info img {
+    width: 100%;
+    height: auto;
+  } */
+  /* .partybbslist-container {
+    height: 70vh;
+    overflow-y: scroll;
+  } */
