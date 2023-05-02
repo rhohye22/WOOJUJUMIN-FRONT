@@ -50,7 +50,14 @@ import BookCrawling from "./components/crawling/bookcrawling";
 import Localeventcrawling from "./components/crawling/localeventcrawling";
 import Musiccrawling from "./components/crawling/musicrawling";
 import { AuthContext } from "./context/AuthContext";
+import IdSearch from "./components/login/idsearch";
+import PwdSearch from "./components/login/pwdsearch";
 // import TestScroll from "./components/crawling/test";
+
+import Partybbs from "./components/partybbs";
+import Partybbsdetail from "./components/partybbsdetail";
+import Partybbslist from "./components/partybbslist";
+import Partybbsupdate from "./components/partybbsupdate";
 
 function App() {
   // 로그인 상태 관리
@@ -111,6 +118,11 @@ function App() {
           <Link to="/localevent">지역행사</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/musichart">TOP100</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/qnalist">Q&A</Link>&nbsp;&nbsp;&nbsp;
+          <Link to="/login">Login</Link> &nbsp;&nbsp;
+          <Link to="/partybbs">partybbs</Link> &nbsp;&nbsp;
+          <Link to="/partybbslist">partybbslist</Link> &nbsp;&nbsp;
+          {/* <Link to="/partybbsdetail">partybbsdetail</Link> &nbsp;&nbsp; */}
+          {/* <Link to="/partybbsupdate">partybbsupdate</Link> &nbsp;&nbsp; */}
         </nav>
         <main>
           <ChatbotModal />
@@ -120,12 +132,14 @@ function App() {
             <Route exact path="/" element={<Main />} />
             <Route path="/login" element={<Login />} />
             <Route path="/regi" element={<Regi />} />
+            <Route path="/idsearch" element={<IdSearch />} />
+            <Route path="/pwdsearch" element={<PwdSearch />} />
+
             <Route path="/moviechart" element={<MovieCrawling />} />
             <Route path="/bookchart" element={<BookCrawling />} />
             <Route path="/localevent" element={<Localeventcrawling />} />
             <Route path="/musichart" element={<Musiccrawling />} />
-            {/* <Route path="/test" element={<TestScroll/>} /> */}
-
+            
             <Route path="/qnalist" element={<Qnalist />} />
             <Route path="/qnawrite" element={<Qnawrite />} />
             <Route path="/qnadetail/:qnaSeq" exact element={<Qnadetail />} />
@@ -153,6 +167,10 @@ function App() {
             <Route path="/freeBbsWrite" element={<FreeBbsWrite />} />
             <Route path="/freeBbsModify/:bbsSeq" element={<FreeBbsModify />} />
             <Route path="/freeBbsDelete/:bbsSeq" element={<FreeBbsDelete />} />
+            <Route path="/partybbs" element={<Partybbs/>}/>
+            <Route path="/partybbslist" element={<Partybbslist/>}/>
+            <Route path="/partybbsdetail/:seq" element={<Partybbsdetail/>}/>
+            <Route path="/partybbsupdate/:seq"exact element={<Partybbsupdate/>}/>    
             <Route path="/freeBbsReply/:bbsSeq" element={<FreeBbsReply />} />
             <Route path="/freeBbslikey" element={<FreeBbslikey />} />
           </Routes>
