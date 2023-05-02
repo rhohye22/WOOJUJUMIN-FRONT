@@ -87,7 +87,7 @@ function CategoryBtn() {
 
   return (
     <div className="mainmiddle1-1">
-      <div>
+      <div onClick={() => (window.location.href = "freeboard/1")}>
         <img
           src={isBasketballHovered ? basketballGif : basketball}
           alt="basketball"
@@ -97,31 +97,32 @@ function CategoryBtn() {
         />
         농구
       </div>
-      <div>
+
+      <div onClick={() => (window.location.href = "freeboard/2")}>
         <img src={isBallHovered ? ballGif : ball} alt="ball" style={{ width: "70px", height: "auto" }} onMouseOver={handleBallMouseOver} onMouseOut={handleBallMouseOut} />
-        <p>축구</p>
+        축구
       </div>
-      <div>
+      <div onClick={() => (window.location.href = "freeboard/3")}>
         <img src={isbaseballHovered ? baseballGif : baseball} alt="ball" style={{ width: "70px", height: "auto" }} onMouseOver={handlebaseballMouseOver} onMouseOut={handlebaseballMouseOut} />
         야구
       </div>
-      <div>
+      <div onClick={() => (window.location.href = "freeboard/6")}>
         <img src={isgameHovered ? gameGif : game} alt="game" style={{ width: "70px", height: "auto" }} onMouseOver={handlegameMouseOver} onMouseOut={handlegameMouseOut} />
         게임
       </div>
-      <div>
+      <div onClick={() => (window.location.href = "freeboard/4")}>
         <img src={istvHovered ? tvGif : tv} alt="tv" style={{ width: "70px", height: "auto" }} onMouseOver={handletvMouseOver} onMouseOut={handletvMouseOut} />
         예능
       </div>
-      <div>
+      <div onClick={() => (window.location.href = "freeboard/5")}>
         <img src={isfilmHovered ? filmGif : film} alt="film" style={{ width: "70px", height: "auto" }} onMouseOver={handlefilmMouseOver} onMouseOut={handlefilmMouseOut} />
         영화/드라마
       </div>
-      <div>
+      <div onClick={() => (window.location.href = "freeboard/7")}>
         <img src={isburgerHovered ? burgerGif : burger} alt="burger" style={{ width: "70px", height: "auto" }} onMouseOver={handleburgerMouseOver} onMouseOut={handleburgerMouseOut} />
         음식
       </div>
-      <div>
+      <div onClick={() => (window.location.href = "freeboard/10")}>
         <img src={isfriendsHovered ? friendsGif : friends} alt="friends" style={{ width: "70px", height: "auto" }} onMouseOver={handlefriendsMouseOver} onMouseOut={handlefriendsMouseOut} />
         잡담
       </div>

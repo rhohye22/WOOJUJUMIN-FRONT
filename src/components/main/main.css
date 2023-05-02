@@ -1,6 +1,6 @@
 .mainpage {
   position: relative;
-  background-color: #fbf4e9;
+  background-color: #f9f9f9;
   /*   z-index: 0; */
 }
 .slider-container {
@@ -26,11 +26,11 @@
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 20px;
-  padding: 20px;
+  padding: 40px;
   margin-bottom: 10px;
 }
 .mainmiddle1-1 > div {
-  border-radius: 50px;
+  border-radius: 40px;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -54,7 +54,7 @@
   margin: 0 auto;
   /*   background-color: rgb(152, 166, 110); */
   margin-top: 30px;
-  height: 400px;
+  height: 500px;
   width: 1200px;
   display: flex;
   flex-direction: row;
@@ -62,7 +62,7 @@
 .mainmiddle2-1 {
   background-color: #f9f9f9;
   width: 600px;
-  height: 400px;
+  height: 450px;
   padding: 30px;
   border-radius: 30px;
   border: 4px solid rgb(180, 111, 21);
@@ -73,7 +73,7 @@
 .mainmiddle2-2 {
   background-color: #efe8e4;
   width: 600px;
-  height: 400px;
+  height: 450px;
   padding: 30px;
   padding-top: 20px;
   border-radius: 30px;
@@ -85,23 +85,34 @@
   max-height: 350px;
   overflow-y: auto;
 }
-/* 버튼 스타일 */
-.btn {
-  display: inline-block;
-  background-color: #4caf50;
-  color: white;
-  padding: 10px 20px;
-  margin-top: 20px;
-  border-radius: 30px;
-  text-decoration: none;
-  cursor: pointer;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
-}
 
-.btn:hover {
-  background-color: #3e8e41;
-}
 .mainmiddle3 {
-  background-color: rgb(166, 145, 110);
+  /*  background-color: rgb(166, 145, 110); */
   height: 900px;
+}
+.mainmiddle3-1 {
+  margin: 0 auto;
+  /*   background-color: rgb(251, 228, 228); */
+  width: 1200px;
+  height: 350px;
+  display: flex;
+  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 20px;
+  padding: 20px;
+}
+.mainmiddle3-2 {
+  margin: 0 auto;
+  background-color: rgb(240, 225, 225);
+  width: 1200px;
+  height: 450px;
+  /*   display: flex;
+  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 20px;
+  padding: 20px; */
 }

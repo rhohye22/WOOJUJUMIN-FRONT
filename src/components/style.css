@@ -2,7 +2,7 @@
 
 :root {
   --modal-duration: 1s;
-  --primary-color: #d7e3de;
+  --primary-color: #86c8bc;
 }
 
 * {
@@ -28,11 +28,19 @@ body.show-nav {
   top: 0;
   left: 0;
   width: 200px;
-  height: 100vh;
+  height: 100%;
   z-index: 100;
   transform: translateX(-100%);
 }
-
+.togglecontent {
+  position: fixed; /* togglecontent가 부모 요소에 상대적인 위치를 가지도록 만들어줌 */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-top: 20px;
+  height: 100vh;
+}
 button,
 input[type="submit"] {
   background-color: var(--secondary-color);

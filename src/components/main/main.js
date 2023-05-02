@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import Button from "react-bootstrap/Button";
 
 import SimpleSlider from "./simpleSlider";
 import Calendar from "./calendar";
-import CalendarList from "./calendarlist";
+import PartycardBtn from "./partycardBtn";
 import calendarimg from "./img/calendar.png";
+import friends from "./img/friends.png";
+import fight from "./img/fight.png";
+import board from "./img/board.png";
+import speech from "./img/speech-bubble.png";
 
 import "./main.css";
 
@@ -27,16 +32,31 @@ function Main() {
         <SimpleSlider />
       </div>
       <div className="mainmiddle1">
-        <h2>이웃과 함께 관심사를 즐기세요</h2>
+        <img src={board} alt="noimg" style={{ height: "60px", width: "auto" }} /> &nbsp; &nbsp;&nbsp; &nbsp;
+        <span style={{ fontSize: "1.5em" }}>이웃과 함께 당신의 관심사에 대해 이야기하세요</span> &nbsp; &nbsp;&nbsp; &nbsp;
+        <img src={speech} alt="noimg" style={{ height: "60px", width: "auto" }} />
         <CategoryBtn />
-        <button>더보기</button>
+        <Button variant="outline-info" size="sm">
+          더보기
+        </Button>
       </div>
-      <img src={calendarimg} alt="noimg" style={{ height: "50px", width: "auto" }} /> &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-      <span style={{ fontSize: "2em" }}>일자를 클릭하고 가까운 이벤트를 확인하세요</span>
+      <img src={friends} alt="noimg" style={{ height: "70px", width: "auto" }} /> &nbsp; &nbsp;&nbsp; &nbsp;
+      <span style={{ fontSize: "1.5em" }}>이웃과 함께 취미를 즐기세요!</span> &nbsp; &nbsp;&nbsp; &nbsp;
+      <img src={fight} alt="noimg" style={{ height: "70px", width: "auto" }} />
+      <div className="mainmiddle3">
+        <div className="mainmiddle3-1">
+          <PartycardBtn />
+        </div>
+        <Button variant="outline-secondary" size="sm">
+          더보기
+        </Button>
+        <div className="mainmiddle3-2"> 모집게시판 좋아요 상위 10개글</div>
+      </div>
+      <img src={calendarimg} alt="noimg" style={{ height: "50px", width: "auto" }} /> &nbsp; &nbsp;&nbsp;
+      <span style={{ fontSize: "1.5em" }}>일자를 클릭하고 가까운 이벤트를 확인하세요</span>
       <div className="mainmiddle2">
         <Calendar />
       </div>
-      <div className="mainmiddle3"></div>
     </div>
   );
 }

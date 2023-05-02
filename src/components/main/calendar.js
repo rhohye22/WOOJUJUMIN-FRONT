@@ -128,6 +128,11 @@ function Calendar() {
   // useEffect(() => {
   //     fetchData(sendYear, sendMonth);
   // }, [sendMonth, sendYear, sendyyyymm]);
+  const [clickedDate, setClickedDate] = useState(null);
+
+  const handleClick = (day) => {
+    setClickedDate(day);
+  };
 
   // 달력 가져오기
   const calendarList = () => {
@@ -164,7 +169,9 @@ function Calendar() {
 
       row.push(
         <td key={i + dayOfWeek - 1}>
-          {<Link to={`/calendarlist/${year}${month}${charTwo(i)}`}>{i}일 </Link>}
+          <div key={i} onClick={() => handleClick(i)} style={{ backgroundColor: clickedDate === i ? "#ECC5FB" : "" }}>
+            <Link to={`/${year}${month}${charTwo(i)}`}>{i}일</Link>
+          </div>
 
           {tableList}
         </td>
@@ -206,7 +213,7 @@ function Calendar() {
           <img src={nextyear} onClick={nextYear} alt="내년도" style={{ height: "40px", width: "auto" }} />
         </div>
         <div>
-          <Table responsive>
+          <Table responsive hover>
             <thead>
               <tr>
                 <th>일</th>
@@ -224,7 +231,7 @@ function Calendar() {
       </div>
       <div className="mainmiddle2-2">
         <Routes>
-          <Route path="/calendarlist/:rdate" element={<CalendarList />} />
+          <Route path="/:rdate" element={<CalendarList />} />
         </Routes>
       </div>
     </>

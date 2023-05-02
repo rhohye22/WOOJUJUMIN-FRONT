@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import Table from "react-bootstrap/Table";
 
 function CalendarList() {
   let navigate = useNavigate();
@@ -37,7 +38,7 @@ function CalendarList() {
   }
   return (
     <div className="calisttable">
-      <table border={1}>
+      <Table bordered hover>
         <colgroup>
           <col width={"150px"} />
           <col width={"350px"} />
@@ -65,7 +66,7 @@ function CalendarList() {
             <td colSpan={3}>등록된 일정이 없습니다</td>
           )}
         </tbody>
-      </table>
+      </Table>
     </div>
   );
 }
