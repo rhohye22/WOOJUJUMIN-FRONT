@@ -1,0 +1,15 @@
+.freebbspage {
+  justify-content: center;
+  align-items: center;
+}
+
+.freebbslist {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}

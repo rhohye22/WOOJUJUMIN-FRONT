@@ -1,3 +1,13 @@
+.pnapage {
+  justify-content: center;
+  align-items: center;
+}
+
+.qnalist {
+  width: 1200px;
+  margin: 0 auto;
+}
+
 .pagination {
   display: flex;
   justify-content: center;
