@@ -50,6 +50,8 @@ import BookCrawling from "./components/crawling/bookcrawling";
 import Localeventcrawling from "./components/crawling/localeventcrawling";
 import Musiccrawling from "./components/crawling/musicrawling";
 import { AuthContext } from "./context/AuthContext";
+import IdSearch from "./components/login/idsearch";
+import PwdSearch from "./components/login/pwdsearch";
 // import TestScroll from "./components/crawling/test";
 
 import Partybbs from "./components/partybbs";
@@ -75,6 +77,7 @@ function App() {
       setLog(false);
       const loginInfo = JSON.parse(localStorage.getItem("login"));
       setNickname(loginInfo.nickname);
+      console.log(localStorage.getItem("login"));
     }
   }, [log]);
 
@@ -82,14 +85,15 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <div style={{ display: "flex", alignItems: "center" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
             <ToggleMenu />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </div>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", position: "absolute", left: "50%", transform: "translateX(-50%)" }}>
             <Link to="/">
-              <img src={logo} alt="Main Page" style={{ width: "120px" }} />
+              <img src={logo} alt="Main Page" style={{ width: "150px" }} />
             </Link>
           </div>
-          <div style={{ display: "flex", alignItems: "center" }}>
+          <div style={{ display: "flex", lignItems: "center", justifyContent: "center" }}>
             {log ? <span>로그인해주세요</span> : <span>{nickname}님</span>}&nbsp;&nbsp;&nbsp;
             {log ? <Link to="/regi">회원가입</Link> : <Link to="/accountInfo">마이페이지</Link>}&nbsp;&nbsp;&nbsp;
             {log === false && <Link to="/messageInfo">메시지함</Link>}&nbsp;&nbsp;&nbsp;
@@ -106,12 +110,12 @@ function App() {
                 로그아웃
               </button>
             )}
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           </div>
         </header>
+
         <nav className="appNav">
           <Link to="/freeBoard">자유게시판</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/moviechart">무비차트</Link>&nbsp;&nbsp;&nbsp;
+          <Link to="/moviechart">무비 차트</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/bookchart">책순위</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/localevent">지역행사</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/musichart">TOP100</Link>&nbsp;&nbsp;&nbsp;
@@ -127,9 +131,13 @@ function App() {
           <ChattingModal />
           <BackToTopBtn />
           <Routes>
-            <Route exact path="/" element={<Main />} />
+            <Route exact path="/*" element={<Main />} />
+
             <Route path="/login" element={<Login />} />
             <Route path="/regi" element={<Regi />} />
+            <Route path="/idsearch" element={<IdSearch />} />
+            <Route path="/pwdsearch" element={<PwdSearch />} />
+
             <Route path="/moviechart" element={<MovieCrawling />} />
             <Route path="/bookchart" element={<BookCrawling />} />
             <Route path="/localevent" element={<Localeventcrawling />} />
@@ -156,7 +164,8 @@ function App() {
 
             <Route path="/myfreebbsList" element={<MyfreebbsList />}></Route>
 
-            <Route path="freeBoard" element={<FreeBbsList />} />
+            <Route path="/freeBoard" element={<FreeBbsList />} />
+            <Route path="/freeBoard/:tag" element={<FreeBbsList />} />
 
             <Route path="/freeBbsDetail/:bbsSeq" element={<FreeBbsDetail />} />
             <Route path="/freeBbsWrite" element={<FreeBbsWrite />} />

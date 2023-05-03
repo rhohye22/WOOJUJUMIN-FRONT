@@ -1,19 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import chatbot from "./image/chat.png";
 import Home from "../pages/Home";
+import x from "../components/image/x.png";
+
+
 
 function ChattingModal() {
-  const [showModal, setShowModal] = useState(false);
+  
+    // 로그인 상태 관리
+    const [log, setLog] = useState(null);
+    const [nickname, setNickname] = useState("");
+    useEffect(() => {
+      if (localStorage.getItem("login") === null) {
+        setLog(true);
+      } else {
+        setLog(false);
+        const loginInfo = JSON.parse(localStorage.getItem("login"));
+        setNickname(loginInfo.nickname);
+      }
+    }, [log]);
 
+  const [showModal, setShowModal] = useState(false);
   const handleButtonClick1 = () => {
     setShowModal(true);
   };
+ 
   const handleButtonClick2 = () => {
     setShowModal(false);
   };
 
   return (
+
     <div style={{ position: "relative" }}>
+       {log === false &&
       <button
         style={{
           position: "fixed",
@@ -30,26 +49,28 @@ function ChattingModal() {
         }}
         onClick={handleButtonClick1}
       >
-        <img src={chatbot} alt="My Image" style={{ width: 60, height: 60 }} />
-      </button>
+        <img src={chatbot} alt="My Image" style={{ width: 50, height: 50 }} />
+      </button>}
       {showModal && (
         <div
           style={{
             position: "fixed",
-            top: "50%",
-            left: "25%",
+            top: "30%",
+            left: "50%",
             transform: "translate(-50%, -50%)",
-            backgroundColor: "white",
-            padding: "20px",
+            backgroundColor: "#a7bcff",
+           
             borderRadius: "5px",
             boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)",
             zIndex: "999",
-            width: "600px", // 추가
-            height: "700px",
+            width: "1200px", // 추가
+            height: "600px",
+            
           }}
         >
+         <img src={x} alt="" style={{width:"50px", cursor: "pointer"}} onClick={handleButtonClick2}/>
+         
           <Home />
-          <button onClick={handleButtonClick2}>닫기</button>
         </div>
       )}
     </div>

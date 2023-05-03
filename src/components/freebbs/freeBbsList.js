@@ -1,9 +1,20 @@
 import Pagination from "react-js-pagination";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
+import "./freebbs.css";
 
 function FreeBbsList() {
+  const [tag, setTag] = useState();
+  const paramtag = useParams().tag;
+
+  useEffect(() => {
+    if (paramtag !== undefined) {
+      setTag(paramtag);
+    }
+  }, []);
   //로그인관련
 
   const [id, setId] = useState("");
@@ -25,7 +36,6 @@ function FreeBbsList() {
 
   const [choice, setChoice] = useState();
   const [search, setSearch] = useState();
-  const [tag, setTag] = useState();
 
   // paging
   const [page, setPage] = useState(1);
@@ -76,39 +86,49 @@ function FreeBbsList() {
   }, [start, totalCnt, tag, choice]);
 
   return (
-    <div>
+    <div className="freebbspage">
       <br />
-      <button value={""} onClick={(e) => setTag(e.target.value)}>
+      <Button variant="outline-secondary" value={""} onClick={(e) => setTag(e.target.value)}>
         전체
-      </button>
-      <button value={10} onClick={(e) => setTag(e.target.value)}>
+      </Button>
+      &nbsp;&nbsp;
+      <Button variant="outline-secondary" value={10} onClick={(e) => setTag(e.target.value)}>
         잡담
-      </button>
-      <button value={1} onClick={(e) => setTag(e.target.value)}>
+      </Button>
+      &nbsp;&nbsp;
+      <Button variant="outline-secondary" value={1} onClick={(e) => setTag(e.target.value)}>
         농구
-      </button>
-      <button value={2} onClick={(e) => setTag(e.target.value)}>
+      </Button>
+      &nbsp;&nbsp;
+      <Button variant="outline-secondary" value={2} onClick={(e) => setTag(e.target.value)}>
         축구
-      </button>
-      <button value={3} onClick={(e) => setTag(e.target.value)}>
+      </Button>
+      &nbsp;&nbsp;
+      <Button variant="outline-secondary" value={3} onClick={(e) => setTag(e.target.value)}>
         야구
-      </button>
-      <button value={4} onClick={(e) => setTag(e.target.value)}>
+      </Button>
+      &nbsp;&nbsp;
+      <Button variant="outline-secondary" value={4} onClick={(e) => setTag(e.target.value)}>
         예능
-      </button>
-      <button value={5} onClick={(e) => setTag(e.target.value)}>
+      </Button>
+      &nbsp;&nbsp;
+      <Button variant="outline-secondary" value={5} onClick={(e) => setTag(e.target.value)}>
         드라마/영화
-      </button>
-      <button value={6} onClick={(e) => setTag(e.target.value)}>
+      </Button>
+      &nbsp;&nbsp;
+      <Button variant="outline-secondary" value={6} onClick={(e) => setTag(e.target.value)}>
         게임
-      </button>
-      <button value={7} onClick={(e) => setTag(e.target.value)}>
+      </Button>
+      &nbsp;&nbsp;
+      <Button variant="outline-secondary" value={7} onClick={(e) => setTag(e.target.value)}>
         음식
-      </button>
+      </Button>
+      &nbsp;&nbsp;&nbsp;&nbsp;
       <a href="#">내가 좋아한 게시물</a>
       <br />
-      <div>
-        <table border="1" align="center">
+      <br />
+      <div className="freebbslist">
+        <Table bordered hover>
           <colgroup>
             <col width={"80px"} />
             <col width={"500px"} />
@@ -169,7 +189,7 @@ function FreeBbsList() {
               <td colSpan={6}>작성된 글이 없습니다</td>
             )}
           </tbody>
-        </table>
+        </Table>
         <br />
         <Pagination activePage={page} itemsCountPerPage={20} totalItemsCount={totalCnt} pageRangeDisplayed={5} prevPageText={"이전"} nextPageText={"다음"} onChange={pageChange} />
         {auth != null && <Link to="/freeBbsWrite">글 작성</Link>}
