@@ -11,6 +11,7 @@ function Partybbsdetail(){
     let history = useNavigate();
     const [id, setId] = useState('');
     const [partybbslist, setPartybbslist] = useState([]);
+    const [profile, setProfile] = useState('');
     //const { partybbsSeq } = useParams();
     const [partybbsSeq, setPartybbsseq] = useState(params.seq);
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -19,6 +20,7 @@ function Partybbsdetail(){
         if(login !== undefined){ // 빈칸이 아닐때
             
             setId(login.id);
+            setProfile(login.profile);
             console.log(partybbsSeq);
         }else{
            // alert('로그인해 주십시오');
@@ -46,17 +48,24 @@ function Partybbsdetail(){
         e.preventDefault();
         const formData = new FormData();
         formData.append("partySeq", partybbsSeq);
-        formData.append("id", id);
+        formData.append("applyMem", id);
+        formData.append("profile", profile);
         formData.append("title", partybbslist.title);
-        formData.append("masterid", partybbslist.id);
-        formData.append("totalmem", partybbslist.people);
-
-        await axios.post('http://localhost:3000/ ', formData)
+        formData.append("masterId", partybbslist.id);
+        formData.append("totalMem", partybbslist.people);
+        for (const keyValue of formData) console.log(keyValue);
+        await axios.post('http://localhost:3000/partyApply ', formData)
         .then(function(res){
             console.log(res.data);
+            if(res.data === "YES"){
+              alert("요청성공");
+             
+          }else{
+              alert("요청 실패");
+          }
           })
           .catch(function(err){
-            console.log(err);
+            alert(err);
           })
     }
 

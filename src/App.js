@@ -65,6 +65,7 @@ function App() {
   const [log, setLog] = useState(null);
   const [nickname, setNickname] = useState("");
   const { currentUser } = useContext(AuthContext);
+  const [profile, setProfile] = useState('');
 
   function loghandle() {
     localStorage.clear();
@@ -78,6 +79,7 @@ function App() {
       setLog(false);
       const loginInfo = JSON.parse(localStorage.getItem("login"));
       setNickname(loginInfo.nickname);
+      setProfile(loginInfo.profile);
       console.log(localStorage.getItem("login"));
     }
   }, [log]);
@@ -95,7 +97,7 @@ function App() {
             </Link>
           </div>
           <div style={{ display: "flex", lignItems: "center", justifyContent: "center" }}>
-            {log ? <span>로그인해주세요</span> : <span>{nickname}님</span>}&nbsp;&nbsp;&nbsp;
+            {log ? <span>로그인해주세요</span> : <span><img src={`http://localhost:3000/upload/${profile.substring(57)}`} style={{width: "20px", height: "20px", borderRadius: "50%"}}/>{nickname}님</span>}&nbsp;&nbsp;&nbsp;
             {log ? <Link to="/regi">회원가입</Link> : <Link to="/mypage">마이페이지</Link>}&nbsp;&nbsp;&nbsp;
             {log === false && <Link to="/messageInfo">메시지함</Link>}&nbsp;&nbsp;&nbsp;
             {log === false && <Link to="/">파티장 요청</Link>}&nbsp;&nbsp;&nbsp;

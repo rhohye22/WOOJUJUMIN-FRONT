@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useEffect, useState, useRef} from "react";
 import axios from 'axios';
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useParams, Routes, Route, useNavigate } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -15,6 +15,7 @@ import Button from 'react-bootstrap/Button';
 import { useDaumPostcodePopup } from "react-daum-postcode";
 import "./page.css";
 import "./accountInfo.css";
+import MyBbsList from './mybbsList';
 
 
 
@@ -151,31 +152,49 @@ function Mypage(){
                   alert(err);
                })   
     }
+    const gomy = () => {
+
+    history('/mybbsList');
+
+  };
+    const goinfo = () => {
+
+    history('/mypage');
+
+  };
+    const goparty = () => {
+
+    history('/partyAccept');
+
+  };
+    const gomyparty = () => {
+
+    history('/partyList');
+
+  };
+
+   useEffect(() => {
+             
+}, [history]);
   
   
       return(
           <>
-    
-          <Link to="/accountInfo">회원정보 수정</Link>&nbsp;&nbsp;&nbsp;
-            <Link to="/mybbsList">내가 쓴 글</Link>&nbsp;&nbsp;&nbsp;
-            <Link to="/partyAccept">파티원 승인</Link>&nbsp;&nbsp;&nbsp;
-            <Link to="/partyList">내파티 보기</Link>
-
 
             <List sx={style} component="nav" aria-label="mailbox folders">
       <ListItem button>
-        <ListItemText primary="회원정보 수정" ><Link to="/mypage"></Link></ListItemText>
+        <ListItemText primary="회원정보 수정" onClick={()=>goinfo()}></ListItemText>
       </ListItem>
       <Divider />
       <ListItem button>
-        <ListItemText primary="내가 쓴 글" ><Link to="/accountInfo"></Link></ListItemText>
+        <ListItemText primary="내가 쓴 글" onClick={()=>gomy()}></ListItemText>
       </ListItem>
       <ListItem button>
-        <ListItemText primary="파티원 승인" />
+        <ListItemText primary="파티원 승인" onClick={()=>goparty()}></ListItemText>
       </ListItem>
       <Divider light />
       <ListItem button>
-        <ListItemText primary="내파티 보기" />
+        <ListItemText primary="내파티 보기" onClick={()=>gomyparty()}></ListItemText>
       </ListItem>
     </List>
 
@@ -248,11 +267,11 @@ function Mypage(){
             {flg ?
   
                 <div className="preview" style={{ display:"block", margin:'0 auto'}}>
-               <img src={profile} alt=""  style={{width:'50px', height:'50px'}} />
+               <img src={profile} alt=""  style={{width:'50px', height:'50px', borderRadius: "50%"}} />
                 </div>:
   
                 <div className="preview" style={{ display:"block", margin:'0 auto'}}>
-                {profile && <img src={`http://localhost:3000/upload/${profile.substring(57)}`} style={{width:'50px', height:'50px'}} />}
+                {profile && <img src={`http://localhost:3000/upload/${profile.substring(57)}`} style={{width:'50px', height:'50px', borderRadius: "50%"}} />}
                 </div>
             }
          <p className="message"></p>

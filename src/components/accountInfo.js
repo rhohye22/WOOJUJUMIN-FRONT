@@ -209,11 +209,11 @@ function AccountInfo(){
           {flg ?
 
               <div className="preview" style={{ display:"block", margin:'0 auto'}}>
-             <img src={profile} alt=""  style={{width:'50px', height:'50px'}} />
+             <img src={profile} alt=""  style={{width:'50px', height:'50px', borderRadius: "50%"}} />
               </div>:
 
               <div className="preview" style={{ display:"block", margin:'0 auto'}}>
-              {profile && <img src={`http://localhost:3000/upload/${profile.substring(57)}`} style={{width:'50px', height:'50px'}} />}
+              {profile && <img src={`http://localhost:3000/upload/${profile.substring(57)}`} style={{width:'50px', height:'50px', borderRadius: "50%"}} />}
               </div>
           }
        <p className="message"></p>
