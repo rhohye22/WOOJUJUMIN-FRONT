@@ -50,13 +50,22 @@ import BookCrawling from "./components/crawling/bookcrawling";
 import Localeventcrawling from "./components/crawling/localeventcrawling";
 import Musiccrawling from "./components/crawling/musicrawling";
 import { AuthContext } from "./context/AuthContext";
+import IdSearch from "./components/login/idsearch";
+import PwdSearch from "./components/login/pwdsearch";
 // import TestScroll from "./components/crawling/test";
+
+import Partybbs from "./components/partybbs";
+import Partybbsdetail from "./components/partybbsdetail";
+import Partybbslist from "./components/partybbslist";
+import Partybbsupdate from "./components/partybbsupdate";
+import Mypage from "./components/mypage";
 
 function App() {
   // 로그인 상태 관리
   const [log, setLog] = useState(null);
   const [nickname, setNickname] = useState("");
   const { currentUser } = useContext(AuthContext);
+  const [profile, setProfile] = useState('');
 
   function loghandle() {
     localStorage.clear();
@@ -70,6 +79,8 @@ function App() {
       setLog(false);
       const loginInfo = JSON.parse(localStorage.getItem("login"));
       setNickname(loginInfo.nickname);
+      setProfile(loginInfo.profile);
+      console.log(localStorage.getItem("login"));
     }
   }, [log]);
 
@@ -77,16 +88,17 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <div style={{ display: "flex", alignItems: "center" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
             <ToggleMenu />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </div>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", position: "absolute", left: "50%", transform: "translateX(-50%)" }}>
             <Link to="/">
-              <img src={logo} alt="Main Page" style={{ width: "120px" }} />
+              <img src={logo} alt="Main Page" style={{ width: "150px" }} />
             </Link>
           </div>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            {log ? <span>로그인해주세요</span> : <span>{nickname}님</span>}&nbsp;&nbsp;&nbsp;
-            {log ? <Link to="/regi">회원가입</Link> : <Link to="/accountInfo">마이페이지</Link>}&nbsp;&nbsp;&nbsp;
+          <div style={{ display: "flex", lignItems: "center", justifyContent: "center" }}>
+            {log ? <span>로그인해주세요</span> : <span><img src={`http://localhost:3000/upload/${profile.substring(57)}`} style={{width: "20px", height: "20px", borderRadius: "50%"}}/>{nickname}님</span>}&nbsp;&nbsp;&nbsp;
+            {log ? <Link to="/regi">회원가입</Link> : <Link to="/mypage">마이페이지</Link>}&nbsp;&nbsp;&nbsp;
             {log === false && <Link to="/messageInfo">메시지함</Link>}&nbsp;&nbsp;&nbsp;
             {log === false && <Link to="/">파티장 요청</Link>}&nbsp;&nbsp;&nbsp;
             {log ? (
@@ -101,31 +113,39 @@ function App() {
                 로그아웃
               </button>
             )}
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           </div>
         </header>
+
         <nav className="appNav">
           <Link to="/freeBoard">자유게시판</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/moviechart">무비차트</Link>&nbsp;&nbsp;&nbsp;
+          <Link to="/moviechart">무비 차트</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/bookchart">책순위</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/localevent">지역행사</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/musichart">TOP100</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/qnalist">Q&A</Link>&nbsp;&nbsp;&nbsp;
+          <Link to="/login">Login</Link> &nbsp;&nbsp;
+          <Link to="/partybbs">partybbs</Link> &nbsp;&nbsp;
+          <Link to="/partybbslist">partybbslist</Link> &nbsp;&nbsp;
+          {/* <Link to="/partybbsdetail">partybbsdetail</Link> &nbsp;&nbsp; */}
+          {/* <Link to="/partybbsupdate">partybbsupdate</Link> &nbsp;&nbsp; */}
         </nav>
         <main>
           <ChatbotModal />
           <ChattingModal />
           <BackToTopBtn />
           <Routes>
-            <Route exact path="/" element={<Main />} />
+            <Route exact path="/*" element={<Main />} />
+
             <Route path="/login" element={<Login />} />
             <Route path="/regi" element={<Regi />} />
+            <Route path="/idsearch" element={<IdSearch />} />
+            <Route path="/pwdsearch" element={<PwdSearch />} />
+
             <Route path="/moviechart" element={<MovieCrawling />} />
             <Route path="/bookchart" element={<BookCrawling />} />
             <Route path="/localevent" element={<Localeventcrawling />} />
             <Route path="/musichart" element={<Musiccrawling />} />
-            {/* <Route path="/test" element={<TestScroll/>} /> */}
-
+            
             <Route path="/qnalist" element={<Qnalist />} />
             <Route path="/qnawrite" element={<Qnawrite />} />
             <Route path="/qnadetail/:qnaSeq" exact element={<Qnadetail />} />
@@ -139,6 +159,7 @@ function App() {
             <Route path="/partyList" element={<PartyList />}></Route>
 
             <Route path="/messageInfo" element={<MessageInfo />}></Route>
+            <Route path="/mypage" element={<Mypage />}></Route>
             <Route path="/sendMessageInfo" element={<SendMessageInfo />}></Route>
 
             <Route path="regi" element={<Regi />} />
@@ -147,12 +168,17 @@ function App() {
 
             <Route path="/myfreebbsList" element={<MyfreebbsList />}></Route>
 
-            <Route path="freeBoard" element={<FreeBbsList />} />
+            <Route path="/freeBoard" element={<FreeBbsList />} />
+            <Route path="/freeBoard/:tag" element={<FreeBbsList />} />
 
             <Route path="/freeBbsDetail/:bbsSeq" element={<FreeBbsDetail />} />
             <Route path="/freeBbsWrite" element={<FreeBbsWrite />} />
             <Route path="/freeBbsModify/:bbsSeq" element={<FreeBbsModify />} />
             <Route path="/freeBbsDelete/:bbsSeq" element={<FreeBbsDelete />} />
+            <Route path="/partybbs" element={<Partybbs/>}/>
+            <Route path="/partybbslist" element={<Partybbslist/>}/>
+            <Route path="/partybbsdetail/:seq" element={<Partybbsdetail/>}/>
+            <Route path="/partybbsupdate/:seq"exact element={<Partybbsupdate/>}/>    
             <Route path="/freeBbsReply/:bbsSeq" element={<FreeBbsReply />} />
             <Route path="/freeBbslikey" element={<FreeBbslikey />} />
           </Routes>

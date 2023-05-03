@@ -1,22 +1,39 @@
+import * as React from 'react';
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import "./page.css";
-import "./myfreebbsList.css";
+import "./accountInfo.css";
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
 
 function MyfreebbsList() {
   let history = useNavigate();
   const [bbslist, setBbslist] = useState([]); // 게시판은 배열로 넘어오니까
   const [choice, setChoice] = useState("");
   const [search, setSearch] = useState("");
-
+  const [profile, setProfile] = useState('');
   //paging hook
   const [page, setPage] = useState(1);
   const [totalCnt, setTotalCnt] = useState(0);
 
   const [id, setId] = useState("");
+  const [value, setValue] = React.useState('one');
 
+  const handleChange = (event, newValue) => {
+      setValue(newValue);
+    };
+    const style = {
+      width: '100%',
+      maxWidth: 360,
+      bgcolor: 'background.paper',
+    };
   // login 되어 있는지 검사
   useEffect(() => {
     let login = JSON.parse(localStorage.getItem("login"));
@@ -24,6 +41,7 @@ function MyfreebbsList() {
       // 빈칸이 아닐때
 
       setId(login.id);
+      setProfile(login.profile);
     } else {
       // alert('로그인해 주십시오');
       history("/login");
@@ -65,20 +83,72 @@ function MyfreebbsList() {
     },
     [id]
   ); // 한번만 호출
+  const gomy = () => {
 
+    history('/mybbsList');
+
+  };
+    const goinfo = () => {
+
+    history('/mypage');
+
+  };
+    const goparty = () => {
+
+    history('/partyAccept');
+
+  };
+    const gomyparty = () => {
+
+    history('/partyList');
+
+  };
+  const gobbs = () => {
+    
+    history('/mybbsList');
+
+  };
+  const gofree = () => {
+
+    history('/myfreebbsList');
+
+  };
   if (bbslist.length > 0) {
     return (
       <>
-        <Link to="/accountInfo">회원정보 수정</Link>&nbsp;&nbsp;&nbsp;
-        <Link to="/mybbsList">내가 쓴 글</Link>&nbsp;&nbsp;&nbsp;
-        <Link to="/partyAccept">파티원 승인</Link>&nbsp;&nbsp;&nbsp;
-        <Link to="/partyList">내파티 보기</Link>
-        <br></br>
-        <br></br>
-        <Link to="/mybbsList">모집 게시판</Link>&nbsp;&nbsp;&nbsp;
-        <Link to="/myfreebbsList">자유 게시판</Link>&nbsp;&nbsp;&nbsp;
-        <br></br>
-        <div class="searchpart">
+       <div className='tabdogae'>
+          <Box sx={{ width: '100%' }}>
+         <Tabs
+        value={value}
+        onChange={handleChange}
+        variant="scrollable"
+        scrollButtons="auto"
+        aria-label="scrollable auto tabs example"
+        >
+        <Tab label="모집 게시판" onClick={()=>gobbs()}></Tab>
+       <Tab label="자유 게시판" onClick={()=>gofree()}></Tab>
+       
+        </Tabs>
+        </Box>
+        </div>
+        <List sx={style} component="nav" aria-label="mailbox folders">
+      <ListItem button>
+        <ListItemText primary="회원정보 수정" onClick={()=>goinfo()} />
+      </ListItem>
+      <Divider />
+      <ListItem button>
+        <ListItemText primary="내가 쓴 글" onClick={()=>gomy()}/>
+      </ListItem>
+      <ListItem button>
+        <ListItemText primary="파티원 승인" onClick={()=>goparty()}/>
+      </ListItem>
+      <Divider light />
+      <ListItem button>
+        <ListItemText primary="내파티 보기" onClick={()=>gomyparty()} />
+      </ListItem>
+    </List>
+    <div className='gamssagi4'>
+        <div className="searchs">
           <select value={choice} onChange={(e) => setChoice(e.target.value)}>
             <option value="">검색</option>
             <option value="title">제목</option>
@@ -92,13 +162,10 @@ function MyfreebbsList() {
           </button>
         </div>
         <br></br>
-        <br></br>
+      
         <table border="1" style={{ margin: "0 auto" }}>
           <colgroup>
-            <col width="70" />
-            <col width="600" />
-            <col width="100" />
-            <col width="100" />
+          <col width='70'/><col width='600'/><col width='100'/><col width='100'/>
           </colgroup>
           <thead>
             <tr>
@@ -121,8 +188,8 @@ function MyfreebbsList() {
                   </td>
                   <td align="center">{bbs.readcount}</td>
 
-                  <td align="center">{bbs.wdate}</td>
-                  <td align="center">{bbs.id}</td>
+                  <td align="center">{bbs.wdate.substring(0,10)}</td>
+                  <td align="center"><img src={`http://localhost:3000/upload/${profile.substring(57)}`} style={{width: "20px", height: "20px", borderRadius: "50%"}}/>{bbs.id}</td>
                 </tr>
               );
             })}
@@ -131,6 +198,7 @@ function MyfreebbsList() {
         <br></br>
         <Pagination activePage={page} itemsCountPerPage={10} totalItemsCount={totalCnt} pageRangeDisplayed={5} prevPageText={"이전"} nextPageText={"다음"} onChange={pageChange} />
         <br></br>
+        </div>
       </>
     );
   } else {
