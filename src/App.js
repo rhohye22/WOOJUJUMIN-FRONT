@@ -118,7 +118,6 @@ function App() {
           <Link to="/localevent">지역행사</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/musichart">TOP100</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/qnalist">Q&A</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/login">Login</Link> &nbsp;&nbsp;
           <Link to="/partybbs">partybbs</Link> &nbsp;&nbsp;
           <Link to="/partybbslist">partybbslist</Link> &nbsp;&nbsp;
           {/* <Link to="/partybbsdetail">partybbsdetail</Link> &nbsp;&nbsp; */}
@@ -155,7 +154,6 @@ function App() {
             <Route path="/messageInfo" element={<MessageInfo />}></Route>
             <Route path="/sendMessageInfo" element={<SendMessageInfo />}></Route>
 
-            <Route path="regi" element={<Regi />} />
             <Route path="pages/Home" element={<Home />} />
             <Route path="bank/bankaccountInfo" element={<BankaccountInfo />} />
 

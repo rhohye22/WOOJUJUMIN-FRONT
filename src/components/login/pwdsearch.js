@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import axios from "axios";
+import { Container, Form, Row, Col, FloatingLabel, Button } from "react-bootstrap";
 
 function PwdSearch() {
     const [id, setId] = useState('');
@@ -39,16 +40,30 @@ function PwdSearch() {
     }
 
     return(
-        <div>
+        <Container fluid>
+            <Form>
             <h1>비밀번호 찾기</h1>
-            <input
+            <Row className="justify-content-md-center">
+                <Col md={3}>
+            <FloatingLabel
+                controlId="floatingInput"
+                label="아이디"
+                className="mb-3"
+            >
+                <Form.Control type="id" placeholder="아이디" value={id} onChange={(e) => setId(e.target.value)} />
+            </FloatingLabel>
+            </Col>
+            </Row>
+            <Button variant="primary" onClick={() => pwdInfo()}>비밀번호 찾기</Button>
+            {/* <input
                 value={id}
                 onChange={(e) => setId(e.target.value)}
                 placeholder="아이디 입력"
             />
-            <br/><br/>
-            <button onClick={() => pwdInfo()}>비밀번호 찾기</button>
-        </div>
+            <br/><br/> */}
+            {/* <button onClick={() => pwdInfo()}>비밀번호 찾기</button> */}
+            </Form>
+        </Container>
     );
 }
 
