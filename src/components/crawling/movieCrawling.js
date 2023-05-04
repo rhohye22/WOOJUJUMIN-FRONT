@@ -79,7 +79,7 @@ function MovieCrawling() {
 
         imageslist.map((img, index) => {
             let imageload = "";
-            // console.log("이미지경로" + imageslist[index]);
+            console.log("이미지경로" + imageslist[index]);
             imageload = imageslist[index].split("\\");
             // console.log("스플릿" + imageload);
             importimg.push(imageload[imageload.length - 1]);
@@ -99,7 +99,7 @@ function MovieCrawling() {
             }
         });
 
-
+        console.log(imagePath);
         setLoading(false);
 
         function dot3(msg) {
@@ -115,13 +115,14 @@ function MovieCrawling() {
                             <img src={imagePath[i]} alt={movie} />
                             <h3>{dot3(movie.split(":")[0])}</h3>
                             <h4>{"예매율｜" + movie.split(":")[1]}</h4>
-                            <h4>{movie.split(":")[2]}</h4>
+                            <h4>{movie.split(":")[2]}</h4>                   
                         </div>
                     ))) : (<div>내용을 불러오고 있습니다.</div>)}
             </div>
         );
 
     }
+
 
     // function Talklist(props) {
 
@@ -297,6 +298,7 @@ function MovieCrawling() {
                     </div>
                 </div>
             ))} */}
+            {/* <img src={imagePath[1]} alt="테스트용" /> */}
         </div>
     );
 }
