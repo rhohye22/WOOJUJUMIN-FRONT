@@ -97,7 +97,7 @@ function App() {
             </Link>
           </div>
           <div style={{ display: "flex", lignItems: "center", justifyContent: "center" }}>
-            {log ? <span>로그인해주세요</span> : <span><img src={`http://localhost:3000/upload/${profile.substring(57)}`} style={{width: "20px", height: "20px", borderRadius: "50%"}}/>{nickname}님</span>}&nbsp;&nbsp;&nbsp;
+            {/* {log ? <span>로그인해주세요</span> : <span><img src={`http://localhost:3000/upload/${profile.substring(57)}`} style={{width: "20px", height: "20px", borderRadius: "50%"}}/>{nickname}님</span>}&nbsp;&nbsp;&nbsp; */}
             {log ? <Link to="/regi">회원가입</Link> : <Link to="/mypage">마이페이지</Link>}&nbsp;&nbsp;&nbsp;
             {log === false && <Link to="/messageInfo">메시지함</Link>}&nbsp;&nbsp;&nbsp;
             {log === false && <Link to="/">파티장 요청</Link>}&nbsp;&nbsp;&nbsp;
@@ -118,10 +118,23 @@ function App() {
 
         <nav className="appNav">
           <Link to="/freeBoard">자유게시판</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/moviechart">무비 차트</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/bookchart">책순위</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/localevent">지역행사</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/musichart">TOP100</Link>&nbsp;&nbsp;&nbsp;
+          <Link to="" className="mainmenu">문화생활
+            <ul className="submenu">
+              <li>
+                <Link to="/moviechart">상영영화</Link>&nbsp;&nbsp;&nbsp;
+              </li>
+              <li>
+                <Link to="/bookchart">책베스트</Link>&nbsp;&nbsp;&nbsp;
+              </li>
+              <li>
+                <Link to="/localevent">지역축제</Link>&nbsp;&nbsp;&nbsp;
+              </li>
+              <li>
+                <Link to="/musichart">TOP50</Link>&nbsp;&nbsp;&nbsp;
+              </li>
+            </ul>
+          </Link>&nbsp;&nbsp;&nbsp;
+
           <Link to="/qnalist">Q&A</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/partybbs">partybbs</Link> &nbsp;&nbsp;
           <Link to="/partybbslist">partybbslist</Link> &nbsp;&nbsp;
@@ -144,7 +157,7 @@ function App() {
             <Route path="/bookchart" element={<BookCrawling />} />
             <Route path="/localevent" element={<Localeventcrawling />} />
             <Route path="/musichart" element={<Musiccrawling />} />
-            
+
             <Route path="/qnalist" element={<Qnalist />} />
             <Route path="/qnawrite" element={<Qnawrite />} />
             <Route path="/qnadetail/:qnaSeq" exact element={<Qnadetail />} />
@@ -173,10 +186,10 @@ function App() {
             <Route path="/freeBbsWrite" element={<FreeBbsWrite />} />
             <Route path="/freeBbsModify/:bbsSeq" element={<FreeBbsModify />} />
             <Route path="/freeBbsDelete/:bbsSeq" element={<FreeBbsDelete />} />
-            <Route path="/partybbs" element={<Partybbs/>}/>
-            <Route path="/partybbslist" element={<Partybbslist/>}/>
-            <Route path="/partybbsdetail/:seq" element={<Partybbsdetail/>}/>
-            <Route path="/partybbsupdate/:seq"exact element={<Partybbsupdate/>}/>    
+            <Route path="/partybbs" element={<Partybbs />} />
+            <Route path="/partybbslist" element={<Partybbslist />} />
+            <Route path="/partybbsdetail/:seq" element={<Partybbsdetail />} />
+            <Route path="/partybbsupdate/:seq" exact element={<Partybbsupdate />} />
             <Route path="/freeBbsReply/:bbsSeq" element={<FreeBbsReply />} />
             <Route path="/freeBbslikey" element={<FreeBbslikey />} />
           </Routes>
