@@ -24,7 +24,7 @@ function MyBbsList(){
     const [bbslist, setBbslist] = useState([]); // 게시판은 배열로 넘어오니까 
     const [choice, setChoice] = useState('');
     const [search, setSearch] = useState('');
-    
+    const [profile, setProfile] = useState('');
     //paging hook
     const [page, setPage] = useState(1);
     const [totalCnt, setTotalCnt] = useState(0);
@@ -35,7 +35,7 @@ function MyBbsList(){
     const handleChange = (event, newValue) => {
         setValue(newValue);
       };
-   
+ 
     
     // login 되어 있는지 검사
     useEffect(() => {
@@ -43,7 +43,7 @@ function MyBbsList(){
         if(login !== undefined){ // 빈칸이 아닐때
             
             setId(login.id);
-          
+            setProfile(login.profile);
         }else{
            // alert('로그인해 주십시오');
            history('/login');
@@ -95,22 +95,44 @@ function MyBbsList(){
         }
                         // 시킬때 이런 식으로 사용, 처음 들어오면 검색어와 페이징이 안들어옴
     }, [id]);// 한번만 호출
+    const gomy = () => {
+
+        history('/mybbsList');
     
+      };
+        const goinfo = () => {
+    
+        history('/mypage');
+    
+      };
+        const goparty = () => {
+    
+        history('/partyAccept');
+    
+      };
+        const gomyparty = () => {
+    
+        history('/partyList');
+    
+      };
+      const gobbs = () => {
+    
+        history('/mybbsList');
+    
+      };
+      const gofree = () => {
+    
+        history('/myfreebbsList');
+    
+      };
     
     if(bbslist.length > 0){
 
     return(
         <>
-        <Link to="/accountInfo">회원정보 수정</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/mybbsList">내가 쓴 글</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/partyAccept">파티원 승인</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/partyList">내파티 보기</Link>
+    
 
-          <br></br>
-          <br></br>
-          <Link to="/mybbsList">모집 게시판</Link>&nbsp;&nbsp;&nbsp;
-        <Link to="/myfreebbsList">자유 게시판</Link>&nbsp;&nbsp;&nbsp;
-
+        <div className='tabdogae'>
         <Box sx={{ width: '100%' }}>
          <Tabs
         value={value}
@@ -119,29 +141,33 @@ function MyBbsList(){
         scrollButtons="auto"
         aria-label="scrollable auto tabs example"
         >
-        <Tab label="모집 게시판"></Tab>
-       <Tab label="자유 게시판"></Tab>
+        <Tab label="모집 게시판" onClick={()=>gobbs()}></Tab>
+       <Tab label="자유 게시판" onClick={()=>gofree()}></Tab>
        
         </Tabs>
         </Box>
+        </div>
+
         <List sx={style} component="nav" aria-label="mailbox folders">
       <ListItem button>
-        <ListItemText primary="Inbox" />
+        <ListItemText primary="회원정보 수정" onClick={()=>goinfo()} />
       </ListItem>
       <Divider />
-      <ListItem button divider>
-        <ListItemText primary="Drafts" />
+      <ListItem button>
+        <ListItemText primary="내가 쓴 글" onClick={()=>gomy()}/>
       </ListItem>
       <ListItem button>
-        <ListItemText primary="Trash" />
+        <ListItemText primary="파티원 승인" onClick={()=>goparty()}/>
       </ListItem>
       <Divider light />
       <ListItem button>
-        <ListItemText primary="Spam" />
+        <ListItemText primary="내파티 보기" onClick={()=>gomyparty()} />
       </ListItem>
     </List>
 
     <br></br>
+    <div className='gamssagi2'>
+        <div className='searchs'>
         <select value={choice} onChange={(e)=>setChoice(e.target.value)}>
             <option value=''>검색</option>
             <option value="title">제목</option>
@@ -152,10 +178,12 @@ function MyBbsList(){
         <input value={search} onChange={(e)=>setSearch(e.target.value)} placeholder="검색어"/>
 
         <button onClick={searchBtn}>검색</button>
+     
 
+        </div>
 
     <br></br>
-    <br></br>
+   
 
   
     <table>
@@ -181,7 +209,7 @@ function MyBbsList(){
                             <td align="center">{bbs.readcount}</td>
                             <td align="center">{bbs.people}</td>
                             <td align="center">{bbs.wdate.substring(0,10)}</td>
-                            <td align="center">{bbs.id}</td>
+                            <td align="center"><img src={`http://localhost:3000/upload/${profile.substring(57)}`} style={{width: "20px", height: "20px", borderRadius: "50%"}}/>{bbs.id}</td>
                         </tr>
                     )
                 })
@@ -204,7 +232,7 @@ function MyBbsList(){
 
        <br>
        </br>
-
+       </div>
 
 </>
 

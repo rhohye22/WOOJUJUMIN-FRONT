@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import axios from "axios";
+import { Button, Container, FloatingLabel, Form, Row, Col } from 'react-bootstrap';
 
 function IdSearch() {
     const [email, setEmail] = useState('');
@@ -24,16 +25,29 @@ function IdSearch() {
     }
 
     return(
-        <div>
+        <Container fluid>
+            <Form>
             <h1>아이디 찾기</h1>
-            <input
+            <Row className="justify-content-md-center">
+                <Col md={3}>
+            <FloatingLabel
+                controlId="floatingInput"
+                label="이메일"
+                className="mb-3"
+            >
+                <Form.Control type="email" placeholder="이메일" value={email} onChange={(e) => setEmail(e.target.value)} />
+            </FloatingLabel>
+            </Col>
+            </Row>
+            {/* <input
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="이메일 입력"
             />
-            <br/><br/>
-            <button onClick={() => idInfo()}>아이디 찾기</button>
-        </div>
+            <br/><br/> */}
+            <Button variant="primary" onClick={() => idInfo()}>아이디 찾기</Button>
+            </Form>
+        </Container>
     );
 }
 
