@@ -111,7 +111,7 @@ function FreeBbsReply(props) {
             <tr>
               <td colSpan={2}>
                 <br />
-                <textarea style={{ width: "100%", resize: "none" }} value={content} onChange={contentChange}></textarea>
+                <textarea class="form-control" style={{ width: "100%", resize: "none" }} value={content} onChange={contentChange}></textarea>
                 <br /> <br />
                 <div className="d-grid gap-2">
                   <Button variant="secondary" size="sm" type="submit" onClick={writeFreebbsReply}>

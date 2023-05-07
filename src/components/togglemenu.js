@@ -1,5 +1,6 @@
 import "./style.css";
 import React, { useRef } from "react";
+import { BrowserRouter, Routes, Route, Link, useNavigate, useLocation } from "react-router-dom";
 import menuimg from "./image/more.png";
 
 function ToggleMenu() {
@@ -33,18 +34,19 @@ function ToggleMenu() {
       </button>
       <nav id="navbar" ref={navbarRef}>
         <div className="togglecontent">
-          <br /> <br />
-          <a href="/" style={{ color: "white" }}>
-            메인
-          </a>
-          <br /> <br />
-          <a href="/freeBoard" style={{ color: "white" }}>
-            자유게시판
-          </a>
-          <br /> <br />
-          <a href="/qnalist" style={{ color: "white" }}>
-            사용문의
-          </a>
+          <ul className="nav-menu">
+            <li>
+              <Link to="/">메인페이지</Link>
+            </li>
+
+            <li>
+              <Link to="/freeBoard">자유게시판</Link>
+            </li>
+
+            <li>
+              <Link to="/qnalist">사용문의</Link>
+            </li>
+          </ul>
         </div>
       </nav>
     </>

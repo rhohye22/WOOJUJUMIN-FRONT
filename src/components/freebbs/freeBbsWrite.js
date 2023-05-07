@@ -97,6 +97,7 @@ function FreeBbsWrite() {
             <th>제목</th>
             <td>
               <textarea
+                class="form-control"
                 rows={1}
                 style={{ border: "none", width: "100%", resize: "none" }}
                 placeholder="제목을 입력해주세요"
@@ -106,7 +107,7 @@ function FreeBbsWrite() {
             </td>
             <th>주제 선택</th>
             <td>
-              <select value={tag} onChange={(e) => setTag(e.target.value)}>
+              <select class="form-select" value={tag} onChange={(e) => setTag(e.target.value)}>
                 <option value="" disabled>
                   카테고리
                 </option>
@@ -146,14 +147,14 @@ function FreeBbsWrite() {
           </tr>
           <tr style={{ border: "none" }}>
             <td style={{ border: "none" }} colSpan={4}>
-              <textarea rows={10} style={{ border: "none", width: "90%", resize: "none" }} placeholder="내용을 입력해주세요" value={content} onChange={handleContentChange} />
+              <textarea class="form-control" rows="18" style={{ border: "none", width: "100%", resize: "none" }} placeholder="내용을 입력해주세요" value={content} onChange={handleContentChange} />
             </td>
           </tr>
           <tr>
             <td colSpan={4}>
-              <Button variant="success" size="sm" type="submit" onClick={writeFreeBbs}>
+              <button className="btn btn-primary" size="sm" type="submit" onClick={writeFreeBbs}>
                 작성하기
-              </Button>
+              </button>
             </td>
           </tr>
         </tbody>

@@ -186,14 +186,14 @@ function FreeBbsList() {
                 ) : free.del === 1 ? (
                   <tr key={i}>
                     <td>{free.bbsSeq}</td>
-                    <td colSpan={5} style={{ textAlign: "left" }}>
+                    <td colSpan={6} style={{ textAlign: "left" }}>
                       <p style={{ color: "red" }}>작성자가 삭제한글입니다</p>
                     </td>
                   </tr>
                 ) : (
                   <tr key={i}>
                     <td>{free.bbsSeq}</td>
-                    <td colSpan={5} style={{ textAlign: "left" }}>
+                    <td colSpan={6} style={{ textAlign: "left" }}>
                       <p style={{ color: "purple" }}>관리자가 검토중인 글입니다</p>
                     </td>
                   </tr>
