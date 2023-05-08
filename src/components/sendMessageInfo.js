@@ -120,7 +120,7 @@ if(sendmsglist.length > 0){
   <Link to="/sendMessageInfo">보낸 메시지</Link>&nbsp;&nbsp;&nbsp;
   <br></br>
           <br></br>
-  <table border="1" style={{ margin:'0 auto'}}>
+  <table className="ttable" border="1" style={{ margin:'0 auto'}}>
         <colgroup>
             <col width='100'/><col width='400'/><col width='200'/>
         </colgroup>

@@ -22,6 +22,7 @@ const Search = () => {
         // alert("user는? : " + user);
       });
     } catch (err) {
+     
       setErr(true);
     }
   };
@@ -70,7 +71,7 @@ const Search = () => {
   return (
     <div className="search">
       <div className="searchForm">
-        <input className="input1" type="text" placeholder="find a user" onKeyDown={handleKey} onChange={(e) => setUsername(e.target.value)} value={username} />
+        <input className="input1" type="text" placeholder="회원찾기" onKeyDown={handleKey} onChange={(e) => setUsername(e.target.value)} value={username} />
       </div>
       {err && <span>User not found</span>}
       {user && (

@@ -20,7 +20,7 @@ const Input = () => {
     if(img){
       const storageRef = ref(storage, uuid());
         
-      const uploadTask = uploadBytesResumable(storageRef, img);
+      const uploadTask = uploadBytesResumable(storageRef, img); // 업로드 관리
 
       uploadTask.on(
                    
