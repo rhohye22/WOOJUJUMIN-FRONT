@@ -186,7 +186,7 @@ function MyBbsList(){
    
 
   
-    <table>
+    <table className='ttable'>
         <colgroup>
             <col width='70'/><col width='600'/><col width='100'/><col width='100'/><col width='100'/><col width='100'/>
         </colgroup>
@@ -203,7 +203,7 @@ function MyBbsList(){
                         <tr key={i}>
                             <td align="center">{i + 1}</td>
                             <td align="left">
-                               <Link to={`/bbsdetail/${bbs.seq}`}> {bbs.title}</Link>
+                               <Link to={`/partybbsdetail/${bbs.partySeq}`}> {bbs.title}</Link>
                             
                             </td>
                             <td align="center">{bbs.readcount}</td>
@@ -244,23 +244,39 @@ function MyBbsList(){
 
         
         <>
-        <Link to="/accountInfo">회원정보 수정</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/mybbsList">내가 쓴 글</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/partyAccept">파티원 승인</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/partyList">내파티 보기</Link>
-
-          <br></br>
-          <br></br>
-          <Link to="/mybbsList">모집 게시판</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/myfreebbsList">자유 게시판</Link>&nbsp;&nbsp;&nbsp;
-  
-   
-
-    <br></br>
+        <div className='tabdogae'>
+        <Box sx={{ width: '100%' }}>
+         <Tabs
+        value={value}
+        onChange={handleChange}
+        variant="scrollable"
+        scrollButtons="auto"
+        aria-label="scrollable auto tabs example"
+        >
+        <Tab label="모집 게시판" onClick={()=>gobbs()}></Tab>
+       <Tab label="자유 게시판" onClick={()=>gofree()}></Tab>
        
+        </Tabs>
+        </Box>
+        </div>
 
-    <br></br>
-    <br></br>
+        <List sx={style} component="nav" aria-label="mailbox folders">
+      <ListItem button>
+        <ListItemText primary="회원정보 수정" onClick={()=>goinfo()} />
+      </ListItem>
+      <Divider />
+      <ListItem button>
+        <ListItemText primary="내가 쓴 글" onClick={()=>gomy()}/>
+      </ListItem>
+      <ListItem button>
+        <ListItemText primary="파티원 승인" onClick={()=>goparty()}/>
+      </ListItem>
+      <Divider light />
+      <ListItem button>
+        <ListItemText primary="내파티 보기" onClick={()=>gomyparty()} />
+      </ListItem>
+    </List>
+
             <h3>작성된 내용이 없습니다.</h3>
 
 
