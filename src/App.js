@@ -97,6 +97,9 @@ function App() {
             </Link>
           </div>
           <div style={{ display: "flex", lignItems: "center", justifyContent: "center" }}>
+
+          
+
             {log ? (
               <span>로그인해주세요</span>
             ) : (
@@ -106,6 +109,7 @@ function App() {
               </span>
             )}
             &nbsp;&nbsp;&nbsp;
+
             {log ? <Link to="/regi">회원가입</Link> : <Link to="/mypage">마이페이지</Link>}&nbsp;&nbsp;&nbsp;
             {log === false && <Link to="/messageInfo">메시지함</Link>}&nbsp;&nbsp;&nbsp;
             {log === false && <Link to="/">파티장 요청</Link>}&nbsp;&nbsp;&nbsp;

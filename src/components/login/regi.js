@@ -11,7 +11,7 @@ import KakaoLogin from "react-kakao-login";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import "./regi.css";
-
+import { Form, Button, Container, FloatingLabel, Row, Col } from "react-bootstrap";
 function Regi() {
   const navigate = useNavigate();
 
