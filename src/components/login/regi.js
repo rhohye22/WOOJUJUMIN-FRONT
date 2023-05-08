@@ -41,6 +41,10 @@ function Regi() {
   const [isPwd, setIsPwd] = useState(false);
   const [isPwdchk, setIsPwdchk] = useState(false);
   const [isPhone, setIsPhone] = useState(false);
+  const [isId, setIsId] = useState(false);
+  const [isNickname, setIsNickname] = useState(false);
+  const [isJuso, setIsJuso] = useState(false);
+  const [isProfile, setIsProfile] = useState(false);
   // const router = useRouter();
 
   function imageLoad() {
@@ -51,6 +55,7 @@ function Regi() {
       setProfile(reader.result);
     };
     console.log(profile);
+    setIsProfile(true);
   }
 
   //const [visible, setVisible] = useState(false);
@@ -75,6 +80,7 @@ function Regi() {
 
     address = data.sido + " " + data.sigungu + " " + data.bname;
     setJuso(data.sido + " " + data.sigungu + " " + data.bname);
+    setIsJuso(true);
 
     console.log(address);
     console.log(fullAddress); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
@@ -91,6 +97,7 @@ function Regi() {
       .then(function(res) {
         if (res.data === "YES") {
           alert("사용가능한 아이디입니다.");
+          setIsId(true);
         } else {
           alert("사용중인 아이디입니다.");
           setId("");
@@ -108,6 +115,7 @@ function Regi() {
       .then(function(res) {
         if (res.data === "YES") {
           alert("사용가능한 닉네임입니다.");
+          setIsNickname(true);
         } else {
           alert("사용중인 닉네임입니다.");
           setNickname("");
@@ -120,6 +128,8 @@ function Regi() {
   };
 
   const Account = async (e) => {
+    if(isEmail === true && isPwd === true && isPwdchk === true && isPhone === true
+        && isId === true && isNickname === true && isJuso === true && isProfile === true) {
     e.preventDefault();
     let chatPwd = password;
     console.log("pwd : " + chatPwd);
@@ -167,12 +177,12 @@ function Regi() {
     formData.append("email", email);
     formData.append("phoneNum", phonenum);
     formData.append("address", juso);
-    if (document.frm.uploadFile.files[0].name === null || document.frm.uploadFile.files[0].name === "") {
-      formData.append("uploadFile", "basic");
-    } else {
+    //if (document.frm.uploadFile.files[0].name === null || document.frm.uploadFile.files[0].name === "") {
+      //formData.append("uploadFile", "basic");
+    //} else {
       //console.log(document.frm.uploadFile.files[0].name);
       formData.append("uploadFile", document.frm.uploadFile.files[0]);
-    }
+    //}
 
     // let member = { "id":id, "password":password, "nickname":nickname, "email":email, "phoneNum":phonenum, "address":address, "uploadFile":formData };
     axios
@@ -189,6 +199,10 @@ function Regi() {
         alert(err);
         alert("회원가입 에러");
       });
+    }else {
+      alert('회원정보를 다시 살펴주세요');
+      navigate('/regi');
+    }
   };
 
   // 전화번호
@@ -408,7 +422,6 @@ function Regi() {
       <FloatingLabel
           controlId="floatingInput"
           label="아이디"
-          className="mb-3"
       >
           <Form.Control type="id" placeholder="아이디" value={id} onChange={(e) => setId(e.target.value)} />
       </FloatingLabel>
@@ -419,7 +432,7 @@ function Regi() {
       </Col>
       </Row>
       {/* <button onClick={idCheck}>id확인</button> */}
-
+      <br/>
       {/* 비밀번호 */}
       <Row className="justify-content-md-center">
           <Col md={3}>
@@ -460,7 +473,6 @@ function Regi() {
       <FloatingLabel
           controlId="floatingInput"
           label="닉네임"
-          className="mb-3"
       >
           <Form.Control type="text" placeholder="닉네임" value={nickname} onChange={(e) => setNickname(e.target.value)} />
       </FloatingLabel>
@@ -471,7 +483,7 @@ function Regi() {
       </Col>
       </Row>
       {/* <button onClick={nickCheck}>닉네임 확인</button> */}
-      
+      <br/>
       {/* 이메일 */}
       <Row className="justify-content-md-center">
           <Col md={3}>
@@ -541,7 +553,7 @@ function Regi() {
       </Col>
       </Row>
       <img src={profile} alt="" />
-      <br /><br />
+      <br/>
       <Button variant="primary" type="submit">회원가입</Button>
       
       {/* <form name="frm" onSubmit={Account} encType="multipart/form-data">
