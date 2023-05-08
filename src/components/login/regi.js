@@ -6,13 +6,11 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db, storage } from "../../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
-//import { v4 as uuidv4 } from "uuid";
 import KakaoLogin from "react-kakao-login";
 // npm install react-kakao-login
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import "./regi.css";
-//import { async } from "@firebase/util";
 
 function Regi() {
   const navigate = useNavigate();
@@ -129,7 +127,6 @@ function Regi() {
     console.log(file);
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password); // 계정생성
-     // const fileId = uuidv4();
       //const storageRef = ref(storage, `avatars/${res.user.uid}/${fileId}`);
       const storageRef = ref(storage, displayName);
       const uploadTask = uploadBytesResumable(storageRef, file);
@@ -399,66 +396,169 @@ function Regi() {
   };
 
   return (
-    <div>
+    <Container fluid>
+      <Form noValidate onSubmit={Account} encType="multipart/form-data" name="frm">
       <h3>회원가입</h3>
       {/* 아이디 */}
-      <input value={id} onChange={(e) => setId(e.target.value)} placeholder="아이디" />
-      &nbsp;
-      <button onClick={idCheck}>id확인</button>
-      <br />
-      <br />
+      <Row className="justify-content-md-center">
+        <Col></Col>
+          <Col md={3}>
+      <FloatingLabel
+          controlId="floatingInput"
+          label="아이디"
+          className="mb-3"
+      >
+          <Form.Control type="id" placeholder="아이디" value={id} onChange={(e) => setId(e.target.value)} />
+      </FloatingLabel>
+      </Col>
+      {/* <input value={id} onChange={(e) => setId(e.target.value)} placeholder="아이디" /> */}
+      <Col>
+      <Button variant="primary" onClick={idCheck} style={{height:'50px', width:'80px', marginRight:'88%', marginTop:'0.5%'}}>id확인</Button>
+      </Col>
+      </Row>
+      {/* <button onClick={idCheck}>id확인</button> */}
+
       {/* 비밀번호 */}
+      <Row className="justify-content-md-center">
+          <Col md={3}>
+      <FloatingLabel
+          controlId="floatingInput"
+          label="비밀번호"
+          className="mb-3"
+      >
+          <Form.Control type="password" placeholder="비밀번호" value={password} onChange={onChangePassword} />
+      </FloatingLabel>
+      </Col>
+      </Row>
       {/* <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="비밀번호" /><br/><br/> */}
-      <input type="password" value={password} onChange={onChangePassword} placeholder="비밀번호" />
-      <br />
+      {/* <input type="password" value={password} onChange={onChangePassword} placeholder="비밀번호" /> */}
+      
       {password.length > 0 && <span className={`message ${isPwd ? "success" : "error"}`}>{pwdMsg}</span>}
-      <br />
+      
       {/* 비밀번호 확인 */}
-      <input type="password" value={pwdchk} onChange={onChangePasswordConfirm} placeholder="비밀번호 확인" />
-      <br />
+      <Row className="justify-content-md-center">
+          <Col md={3}>
+      <FloatingLabel
+          controlId="floatingInput"
+          label="비밀번호 확인"
+          className="mb-3"
+      >
+          <Form.Control type="password" placeholder="비밀번호 확인" value={pwdchk} onChange={onChangePasswordConfirm} />
+      </FloatingLabel>
+      </Col>
+      </Row>
+      {/* <input type="password" value={pwdchk} onChange={onChangePasswordConfirm} placeholder="비밀번호 확인" /> */}
+      
       {pwdchk.length > 0 && <span className={`message ${isPwdchk ? "success" : "error"}`}>{pwdchkMsg}</span>}
-      <br />
+      
       {/* 닉네임 */}
-      <input value={nickname} onChange={(e) => setNickname(e.target.value)} placeholder="닉네임" />
-      &nbsp;
-      <button onClick={nickCheck}>닉네임 확인</button>
-      <br />
-      <br />
+      <Row className="justify-content-md-center">
+        <Col></Col>
+          <Col md={3}>
+      <FloatingLabel
+          controlId="floatingInput"
+          label="닉네임"
+          className="mb-3"
+      >
+          <Form.Control type="text" placeholder="닉네임" value={nickname} onChange={(e) => setNickname(e.target.value)} />
+      </FloatingLabel>
+      </Col>
+      <Col>
+      {/* <input value={nickname} onChange={(e) => setNickname(e.target.value)} placeholder="닉네임" /> */}
+      <Button variant="primary" onClick={nickCheck} style={{height:'50px', width:'120px', marginRight:'85%', marginTop:'0.5%'}}>닉네임 확인</Button>
+      </Col>
+      </Row>
+      {/* <button onClick={nickCheck}>닉네임 확인</button> */}
+      
       {/* 이메일 */}
+      <Row className="justify-content-md-center">
+          <Col md={3}>
+      <FloatingLabel
+          controlId="floatingInput"
+          label="이메일"
+          className="mb-3"
+      >
+          <Form.Control type="email" placeholder="이메일" value={email} onChange={onChangeEmail} />
+      </FloatingLabel>
+      </Col>
+      </Row>
       {/* <input value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="이메일" /><br/><br/> */}
-      <input value={email} onChange={onChangeEmail} placeholder="이메일" />
-      <br />
+      {/* <input value={email} onChange={onChangeEmail} placeholder="이메일" /> */}
+      
       {email.length > 0 && <span className={`message ${isEmail ? "success" : "error"}`}>{emailMsg}</span>}
-      <br />
+      
       {/* 전화번호 */}
+      <Row className="justify-content-md-center">
+          <Col md={3}>
+      <FloatingLabel
+          controlId="floatingInput"
+          label="전화번호"
+          className="mb-3"
+      >
+          <Form.Control type="text" placeholder="전화번호" value={phonenum} onChange={onChangePhoneNum} />
+      </FloatingLabel>
+      </Col>
+      </Row>
       {/* <input value={phonenum} onChange={(e)=>setPhonenum(e.target.value)} placeholder="휴대전화" /><br/><br/> */}
-      <input value={phonenum} onChange={onChangePhoneNum} placeholder="전화번호" />
-      <br />
+      {/* <input value={phonenum} onChange={onChangePhoneNum} placeholder="전화번호" /> */}
+      
       {phonenum.length > 0 && <span className={`message ${isPhone ? "success" : "error"}`}>{phoneMsg}</span>}
-      <br />
+      
       {/* 주소 입력 */}
-      <button type="button" onClick={handleClick}>
+      <Row>
+      <Col>
+      <Button variant="primary" onClick={() => handleClick()} style={{marginLeft:'64%'}}>행성등록</Button>
+      </Col>
+      <Col>
+      <Form.Group as={Row} className="mb-3" controlId="formPlaintextAddress">
+        <Form.Control plaintext readOnly value={juso} style={{textAlign:'left'}} />
+      </Form.Group>
+      </Col>
+      </Row>
+      
+      {/* <button type="button" onClick={handleClick}>
         행성 등록
       </button>
       &nbsp;
-      <input value={juso} readOnly />
-      <br />
-      <br />
+      <input value={juso} readOnly /> */}
+
       {/* 프로필 사진 등록 */}
-      <form name="frm" onSubmit={Account} encType="multipart/form-data">
+      
+      <Row className="justify-content-md-center">
+      <Col md={3}>
+      <Form.Group className="mb-3">
+        <Form.Label>프로필 등록</Form.Label>
+        <Form.Control
+          type="file"
+          required
+          name="uploadFile"
+          onChange={imageLoad}
+          ref={imgRef}
+        />
+      </Form.Group>
+      </Col>
+      </Row>
+      <img src={profile} alt="" />
+      <br /><br />
+      <Button variant="primary" type="submit">회원가입</Button>
+      
+      {/* <form name="frm" onSubmit={Account} encType="multipart/form-data">
         <input type="file" onChange={imageLoad} ref={imgRef} name="uploadFile" />
         &nbsp;
         <img src={profile} alt="" />
         <br />
         <br />
-        <button type="submit" /*  onClick={Account} */>회원가입</button>
-      </form>
+        <button type="submit">회원가입</button>
+      </form> */}
       <hr />
+      <Row>
+      <Col md={4}></Col>
+      <Col>
       <KakaoLogin token={kakaoClientId} onSuccess={kakaoOnSuccess} onFail={kakaoOnFailure}>
         카카오로 시작하기
       </KakaoLogin>
-      <br />
-      <br />
+      </Col>
+      <Col>
       <div className="google-box">
         <GoogleOAuthProvider clientId={clientId}>
           <GoogleLogin
@@ -469,7 +569,11 @@ function Regi() {
           />
         </GoogleOAuthProvider>
       </div>
-    </div>
+      </Col>
+      <Col md={4}></Col>
+      </Row>
+      </Form>
+    </Container>
   );
 }
 
