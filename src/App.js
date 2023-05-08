@@ -124,7 +124,7 @@ function App() {
               >
                 로그아웃
               </button>
-            )}
+            )}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           </div>
         </header>
 
