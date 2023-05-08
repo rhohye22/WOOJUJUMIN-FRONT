@@ -59,7 +59,7 @@ function FreeBbsDetail() {
   return (
     <div>
       <br />
-      <table border="1" align="center">
+      <table className="ttable" border="1" align="center">
         <colgroup>
           <col width={"80px"} />
           <col width={"500px"} />

@@ -125,7 +125,7 @@ if(partyListmy.length > 0){
       </ListItem>
     </List>
     <div className='gamssagi3'>
-          <table border="1" style={{ margin:'0 auto'}}>
+          <table className="ttable" border="1" style={{ margin:'0 auto'}}>
         <colgroup>
             <col width='70'/><col width='600'/><col width='200'/><col width='100'/>
         </colgroup>
@@ -175,12 +175,25 @@ if(partyListmy.length > 0){
 
         
         <>
-  <Link to="/accountInfo">회원정보 수정</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/mybbsList">내가 쓴 글</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/partyAccept">파티원 승인</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/partyList">내파티 보기</Link>
-          <br></br>
-          <br></br>
+
+
+        <List sx={style} component="nav" aria-label="mailbox folders">
+      <ListItem button>
+        <ListItemText primary="회원정보 수정" onClick={()=>goinfo()} />
+      </ListItem>
+      <Divider />
+      <ListItem button>
+        <ListItemText primary="내가 쓴 글" onClick={()=>gomy()}/>
+      </ListItem>
+      <ListItem button>
+        <ListItemText primary="파티원 승인" onClick={()=>goparty()}/>
+      </ListItem>
+      <Divider light />
+      <ListItem button>
+        <ListItemText primary="내파티 보기" onClick={()=>gomyparty()} />
+      </ListItem>
+    </List>
+
   
 
 

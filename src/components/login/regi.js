@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDaumPostcodePopup } from "react-daum-postcode";
@@ -6,13 +6,13 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db, storage } from "../../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
-import { v4 as uuidv4 } from "uuid";
+//import { v4 as uuidv4 } from "uuid";
 import KakaoLogin from "react-kakao-login";
 // npm install react-kakao-login
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import "./regi.css";
-import { async } from "@firebase/util";
+//import { async } from "@firebase/util";
 
 function Regi() {
   const navigate = useNavigate();
@@ -129,7 +129,7 @@ function Regi() {
     console.log(file);
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password); // 계정생성
-      const fileId = uuidv4();
+     // const fileId = uuidv4();
       //const storageRef = ref(storage, `avatars/${res.user.uid}/${fileId}`);
       const storageRef = ref(storage, displayName);
       const uploadTask = uploadBytesResumable(storageRef, file);
