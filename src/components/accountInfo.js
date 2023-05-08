@@ -1,34 +1,29 @@
-import {useEffect, useState, useRef} from "react";
-import axios from 'axios';
-import {Link, useNavigate} from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import { useDaumPostcodePopup } from "react-daum-postcode";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import "bootstrap/dist/css/bootstrap.min.css";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 import "./accountInfo.css";
 
-
-function AccountInfo(){
-  
+function AccountInfo() {
   let history = useNavigate();
 
-
-  const [memberSeq, setmemberSeq] = useState('');
-  const [id, setId] = useState('');
-  const [nickname, setNickname] = useState('');
-  const [password, setPwd] = useState('');
+  const [memberSeq, setmemberSeq] = useState("");
+  const [id, setId] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [password, setPwd] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
-  const [email, setEmail] = useState('');
-  const [phoneNum, setPhone] = useState('');
- 
-  
-  const [profile, setProfile] = useState('');
+  const [email, setEmail] = useState("");
+  const [phoneNum, setPhone] = useState("");
+
+  const [profile, setProfile] = useState("");
   let address = "";
   const [juso, setJuso] = useState("");
   const imgRef = useRef();
-  
-  const [flg, setFlg] = useState(false);
 
+  const [flg, setFlg] = useState(false);
 
   function imageLoad() {
     setFlg(true);
@@ -36,60 +31,60 @@ function AccountInfo(){
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-        setProfile(reader.result);
-        console.log(profile);
-        console.log(flg);
-    }
-}
+      setProfile(reader.result);
+      console.log(profile);
+      console.log(flg);
+    };
+  }
 
- // 다음 주소 api
+  // 다음 주소 api
 
- const open = useDaumPostcodePopup("//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js");
+  const open = useDaumPostcodePopup("//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js");
 
- const handleComplete = (data) => {
-   let fullAddress = data.address;
-   let extraAddress = "";
+  const handleComplete = (data) => {
+    let fullAddress = data.address;
+    let extraAddress = "";
 
-   if (data.addressType === "R") {
-     if (data.bname !== "") {
-       extraAddress += data.bname;
-     }
-     if (data.buildingName !== "") {
-       extraAddress += extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
-     }
-     fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
-   }
-
-   address = data.sido + " " + data.sigungu + " " + data.bname + " " + data.roadAddress;
-   setJuso(data.roadAddress);
-
-   console.log(address);
-   console.log(data); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
-   //setVisible(true);
- };
-
- const handleClick = () => {
-   open({ onComplete: handleComplete });
- };
-
-   // login 되어 있는지 검사
-      useEffect(() => {
-      let login = JSON.parse(localStorage.getItem("login"));
-      if(login !== undefined){ // 빈칸이 아닐때
-          setmemberSeq(login.memberSeq);
-          setId(login.id);
-          setNickname(login.nickname);
-          setPwd(login.password);
-          setEmail(login.email);
-          setPhone(login.phoneNum);
-          setJuso(login.address);
-          setProfile(login.profile);
-          //alert(login);
-      }else{
-         // alert('로그인해 주십시오');
-          history('/login');
+    if (data.addressType === "R") {
+      if (data.bname !== "") {
+        extraAddress += data.bname;
       }
+      if (data.buildingName !== "") {
+        extraAddress += extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+      }
+      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+    }
 
+    address = data.sido + " " + data.sigungu + " " + data.bname + " " + data.roadAddress;
+    setJuso(data.roadAddress);
+
+    console.log(address);
+    console.log(data); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
+    //setVisible(true);
+  };
+
+  const handleClick = () => {
+    open({ onComplete: handleComplete });
+  };
+
+  // login 되어 있는지 검사
+  useEffect(() => {
+    let login = JSON.parse(localStorage.getItem("login"));
+    if (login !== undefined) {
+      // 빈칸이 아닐때
+      setmemberSeq(login.memberSeq);
+      setId(login.id);
+      setNickname(login.nickname);
+      setPwd(login.password);
+      setEmail(login.email);
+      setPhone(login.phoneNum);
+      setJuso(login.address);
+      setProfile(login.profile);
+      //alert(login);
+    } else {
+      // alert('로그인해 주십시오');
+      history("/login");
+    }
   }, [history]);
 
   const idChange = (e) => setId(e.target.value);
@@ -101,8 +96,7 @@ function AccountInfo(){
   //const profileChange = (e) => setProfile(e.target.value);
   const passwordConfirmChange = (e) => setconfirmPassword(e.target.value);
 
-
-  function changeInfo(e){
+  function changeInfo(e) {
     //alert(profile);
     e.preventDefault();
     let formData = new FormData();
@@ -115,120 +109,98 @@ function AccountInfo(){
     formData.append("address", juso);
     formData.append("uploadFile", document.frm.uploadFile.files[0]);
 
+    if (password !== confirmPassword) {
+      return alert("비밀번호와 비밀번호 확인은 같아야 합니다.");
+    }
 
-    if(password !== confirmPassword){
-      return alert('비밀번호와 비밀번호 확인은 같아야 합니다.')
+    axios
+      .post("http://localhost:3000/changeInfo", formData)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data === "YES") {
+          alert("성공적으로 수정되었습니다");
+          history("/login");
+        } else {
+          alert("수정되지 않았습니다");
+        }
+      })
+      .catch(function(err) {
+        alert(err);
+      });
   }
 
-    axios.post("http://localhost:3000/changeInfo", formData)
-             .then(res => {
-                console.log(res.data);
-                if(res.data === "YES"){
-                    alert("성공적으로 수정되었습니다");
-                    history('/login');    
-                }else{
-                    alert("수정되지 않았습니다");
-                }
-             })
-             .catch(function(err){
-                alert(err);
-             })   
-  }
+  return (
+    <>
+      <Link to="/accountInfo">회원정보 수정</Link>&nbsp;&nbsp;&nbsp;
+      <Link to="/mybbsList">내가 쓴 글</Link>&nbsp;&nbsp;&nbsp;
+      <Link to="/partyAccept">파티원 승인</Link>&nbsp;&nbsp;&nbsp;
+      <Link to="/partyList">내파티 보기</Link>
+      <Form>
+        <Form.Group className="mb-3">
+          <Form.Label>ID</Form.Label>
+          <Form.Control type="id" id="id" name="id" defaultValue={id} onChange={idChange} />
+          <Form.Text className="text-muted">We'll never share your id with anyone else.</Form.Text>
+        </Form.Group>
 
+        <Form.Group className="mb-3">
+          <Form.Label>Nick Name</Form.Label>
+          <Form.Control type="name" id="name" name="name" defaultValue={nickname} onChange={nicknameChange} />
+        </Form.Group>
 
-    return(
+        <Form.Group className="mb-3">
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="password" id="password" name="password" defaultValue={password} onChange={passwordChange} />
+        </Form.Group>
 
-        
-        <>
-        <Link to="/accountInfo">회원정보 수정</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/mybbsList">내가 쓴 글</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/partyAccept">파티원 승인</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/partyList">내파티 보기</Link>
+        <Form.Group className="mb-3">
+          <Form.Label>Password Confirm</Form.Label>
+          <Form.Control type="passwordConfirm" id="passwordConfirm" name="passwordConfirm" onChange={passwordConfirmChange} />
+        </Form.Group>
 
-    <Form>
-    <Form.Group className="mb-3">
-     <Form.Label>ID</Form.Label>
-     <Form.Control type="id" id="id" name="id" defaultValue={id} onChange={idChange}  />
-     <Form.Text className="text-muted">
-          We'll never share your id with anyone else.
-        </Form.Text>
-     </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Email</Form.Label>
+          <Form.Control type="email" id="email" name="email" defaultValue={email} onChange={emailChange} />
+          <Form.Text className="text-muted">We'll never share your email with anyone else.</Form.Text>
+        </Form.Group>
 
-    <Form.Group className="mb-3">
-     <Form.Label>Nick Name</Form.Label>
-     <Form.Control type="name" id="name" name="name" defaultValue={nickname} onChange={nicknameChange}  />
-   
-     </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Phone</Form.Label>
+          <Form.Control type="phone" id="phone" name="phone" defaultValue={phoneNum} onChange={phoneChange} />
+        </Form.Group>
 
-    <Form.Group className="mb-3" >
-     <Form.Label>Password</Form.Label>
-     <Form.Control type="password" id="password" name="password" defaultValue={password} onChange={passwordChange}  />
-   
-     </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Address</Form.Label>
+          <Form.Control type="address" id="address" name="address" defaultValue={juso} /> <br></br>
+          <Button variant="info" onClick={handleClick}>
+            행성등록
+          </Button>
+        </Form.Group>
+      </Form>
+      <form name="frm" onSubmit={changeInfo} encType="multipart/form-data">
+        <div className="form-el">
+          <label className="signup-profileImg-label" htmlFor="profileImg">
+            프로필 이미지 추가
+          </label>{" "}
+          <br />
+          <input className="signup-profileImg-input" id="profileImg" name="uploadFile" type="file" onChange={imageLoad} ref={imgRef} />
+          {flg ? (
+            <div className="preview" style={{ display: "block", margin: "0 auto" }}>
+              <img src={profile} alt="" style={{ width: "50px", height: "50px", borderRadius: "50%" }} />
+            </div>
+          ) : (
+            <div className="preview" style={{ display: "block", margin: "0 auto" }}>
+              {profile && <img src={`http://localhost:3000/upload/memeber/${profile}`} style={{ width: "50px", height: "50px", borderRadius: "50%" }} />}
+            </div>
+          )}
+          <p className="message"></p>
+        </div>
 
-    <Form.Group className="mb-3" >
-     <Form.Label>Password Confirm</Form.Label>
-     <Form.Control type="passwordConfirm" id="passwordConfirm" name="passwordConfirm"  onChange={passwordConfirmChange}  />
-   
-     </Form.Group>
-
-     <Form.Group className="mb-3" >
-     <Form.Label>Email</Form.Label>
-     <Form.Control type="email" id="email" name="email" defaultValue={email} onChange={emailChange}  />
-     <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
-        </Form.Text>
-     </Form.Group>
- 
-     <Form.Group className="mb-3">
-     <Form.Label>Phone</Form.Label>
-     <Form.Control type="phone" id="phone" name="phone" defaultValue={phoneNum}  onChange={phoneChange}  />
-   
-     </Form.Group>
-
-     <Form.Group className="mb-3">
-     <Form.Label>Address</Form.Label>
-     <Form.Control type="address" id="address" name="address" defaultValue={juso}   /> <br></br>
-     <Button variant="info"  onClick={handleClick} >행성등록</Button>
-   
-     </Form.Group>
-     </Form>
-   
-  
-     <form name="frm" onSubmit={changeInfo} encType="multipart/form-data">
-    <div className="form-el">
-       <label className="signup-profileImg-label" htmlFor="profileImg">프로필 이미지 추가</label> <br />
-       <input
-          className="signup-profileImg-input"         
-          id="profileImg"
-         name="uploadFile"
-         type="file"
-         
-         onChange={imageLoad} ref={imgRef}
-       />
-          {flg ?
-
-              <div className="preview" style={{ display:"block", margin:'0 auto'}}>
-             <img src={profile} alt=""  style={{width:'50px', height:'50px', borderRadius: "50%"}} />
-              </div>:
-
-              <div className="preview" style={{ display:"block", margin:'0 auto'}}>
-              {profile && <img src={`http://localhost:3000/upload/${profile.substring(57)}`} style={{width:'50px', height:'50px', borderRadius: "50%"}} />}
-              </div>
-          }
-       <p className="message"></p>
-     </div> 
-    
-     <Button type="submit" className="accountInfoButton"  onClick={changeInfo}>수정하기</Button>
-     </form>
-   
- 
-  
- </>
-
-   
-    )
-
+        <Button type="submit" className="accountInfoButton" onClick={changeInfo}>
+          수정하기
+        </Button>
+      </form>
+    </>
+  );
 }
 
 export default AccountInfo;
