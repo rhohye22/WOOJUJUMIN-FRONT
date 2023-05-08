@@ -152,7 +152,7 @@ if(requestlist.length > 0){
       </ListItem>
     </List>
     <div className='gamssagi3'>
-          <table border="1" style={{ margin:'0 auto'}}>
+          <table className='ttable' border="1" style={{ margin:'0 auto'}}>
         <colgroup>
             <col width='70'/><col width='600'/><col width='100'/><col width='100'/>
         </colgroup>
@@ -169,7 +169,7 @@ if(requestlist.length > 0){
                         <tr key={i}>
                             <td align="center">{i + 1}</td>
                             <td align="left">
-                               <Link to={`/partydetail/${bbs.partySeq}`}> {bbs.title}</Link>
+                               <Link to={`/partybbsdetail/${bbs.partySeq}`}> {bbs.title}</Link>
                             
                             </td>
                             {bbs.check === 0 ? <td align="center">수락중...</td> : <td align="center">수락완료!</td> }

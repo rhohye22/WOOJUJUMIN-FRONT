@@ -133,7 +133,7 @@ function PartyRoom(){
   <h3>내파티 정보</h3>
 
   <br></br>
-    <table border="1" style={{ margin:'0 auto'}}>
+    <table className='ttable' border="1" style={{ margin:'0 auto'}}>
         <colgroup>
             <col width='200'/><col width='200'/><col width='200'/>
         </colgroup>

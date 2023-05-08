@@ -5,16 +5,19 @@ import Modal from 'react-modal';
 import axios from 'axios';
 import MapContainer from "./mapcontainer/MapContainer";
 import DetailMap from "./mapcontainer/detailMap";
-
+//import { useIsFocused } from "@react-navigation/native";
 function Partybbsdetail(){
     let params = useParams("");
     let history = useNavigate();
     const [id, setId] = useState('');
     const [partybbslist, setPartybbslist] = useState([]);
     const [profile, setProfile] = useState('');
+    const [flg, setFlg] = useState('');
+
     //const { partybbsSeq } = useParams();
     const [partybbsSeq, setPartybbsseq] = useState(params.seq);
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    //const isFocused = useIsFocused();
     useEffect(() => {
         let login = JSON.parse(localStorage.getItem("login"));
         if(login !== undefined){ // 빈칸이 아닐때
@@ -40,9 +43,29 @@ function Partybbsdetail(){
           console.log(error);
         });
     }, [partybbsSeq]);
-    //partybbslist.title
-    //partybbslist.mdate
-    //partybbslist.place
+
+    function preventSecond(){
+      axios
+        .get(`http://localhost:3000/getRow`, { params:{ "partySeq":partybbsSeq , "applyMem":id, "masterId":partybbslist.id}})
+        .then((res) => {
+          //console.log(res.data);
+          setFlg(res.data);
+        //console.log("머니??" + flg);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+   
+   
+    useEffect(function(){
+      if(id){
+
+        preventSecond(partybbsSeq,id)
+      }
+                      
+  });
+  
 
     const apply  = async (e) => {
         e.preventDefault();
@@ -59,7 +82,8 @@ function Partybbsdetail(){
             console.log(res.data);
             if(res.data === "YES"){
               alert("요청성공");
-             
+              document.location.href='/partybbsdetail/' + partybbsSeq;
+              
           }else{
               alert("요청 실패");
           }
@@ -68,6 +92,7 @@ function Partybbsdetail(){
             alert(err);
           })
     }
+  
 
     const pbdelete = async (e) =>{
         e.preventDefault();
@@ -96,7 +121,11 @@ function Partybbsdetail(){
             <input type="text" value={partybbslist.id} readOnly/>
             {partybbslist.applymem}/{partybbslist.people}
             <input type="text" value={partybbslist.applymem} readOnly/>
-            <button onClick={apply}>신청</button><br/>
+
+            {partybbslist.id !== id && flg === "NO" && 
+            <>
+            <button onClick={apply}>신청</button><br/></>}
+
             <textarea value={partybbslist.content} readOnly></textarea><br/>
             <button>댓글</button>
             <Link to={/partybbsupdate/+partybbsSeq}>

@@ -24,7 +24,7 @@ const Chats = () => {
   }, [currentUser.uid]);
 
  
-  console.log("object" + Object.entries(chats)); // object is null 
+  console.log("object" + Object.entries(chats)); 
   const handleSelect = (u) =>{
 
     dispatch({type:"CHANGE_USER", payload: u})

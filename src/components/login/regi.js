@@ -12,7 +12,6 @@ import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import "./regi.css";
 import { Form, Button, Container, FloatingLabel, Row, Col } from "react-bootstrap";
-
 function Regi() {
   const navigate = useNavigate();
 
@@ -128,7 +127,6 @@ function Regi() {
     console.log(file);
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password); // 계정생성
-      //const fileId = uuidv4();
       //const storageRef = ref(storage, `avatars/${res.user.uid}/${fileId}`);
       const storageRef = ref(storage, displayName);
       const uploadTask = uploadBytesResumable(storageRef, file);
