@@ -231,7 +231,6 @@ function Login() {
       <FloatingLabel
         controlId="floatingInput"
         label="아이디"
-        className="mb-3"
       >
         <Form.Control type="id" placeholder="아이디" value={id} onChange={(e) => setId(e.target.value)} />
       </FloatingLabel>
@@ -239,7 +238,7 @@ function Login() {
       <Col style={{ marginTop: '15px', textAlign: 'left'}}><a href="/idsearch">forget?</a></Col>
       <Col></Col>
       </Row>
-
+      <br/>
       <Row>
       <Col></Col>
       <Col></Col>

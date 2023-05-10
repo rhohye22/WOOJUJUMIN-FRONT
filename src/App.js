@@ -32,7 +32,7 @@ import FreeBbsList from "./components/freebbs/freeBbsList";
 import FreeBbsDetail from "./components/freebbs/freeBbsDetail";
 import FreeBbsWrite from "./components/freebbs/freeBbsWrite";
 import FreeBbsModify from "./components/freebbs/freeBbsModify";
-import FreeBbsDelete from "./components/freebbs/freeBbsDelete";
+
 import FreeBbsReply from "./components/freebbs/freeBbsReply";
 import FreeBbslikey from "./components/freebbs/freeBbslikey";
 
@@ -58,12 +58,14 @@ import Partybbs from "./components/partybbs";
 import Partybbsdetail from "./components/partybbsdetail";
 import Partybbslist from "./components/partybbslist";
 import Partybbsupdate from "./components/partybbsupdate";
+import Mypage from "./components/mypage";
 
 function App() {
   // 로그인 상태 관리
   const [log, setLog] = useState(null);
   const [nickname, setNickname] = useState("");
   const { currentUser } = useContext(AuthContext);
+  const [profile, setProfile] = useState("");
 
   function loghandle() {
     localStorage.clear();
@@ -77,6 +79,7 @@ function App() {
       setLog(false);
       const loginInfo = JSON.parse(localStorage.getItem("login"));
       setNickname(loginInfo.nickname);
+      setProfile(loginInfo.profile);
       console.log(localStorage.getItem("login"));
     }
   }, [log]);
@@ -94,8 +97,20 @@ function App() {
             </Link>
           </div>
           <div style={{ display: "flex", lignItems: "center", justifyContent: "center" }}>
-            {log ? <span>로그인해주세요</span> : <span>{nickname}님</span>}&nbsp;&nbsp;&nbsp;
-            {log ? <Link to="/regi">회원가입</Link> : <Link to="/accountInfo">마이페이지</Link>}&nbsp;&nbsp;&nbsp;
+
+          
+
+            {log ? (
+              <span>로그인해주세요</span>
+            ) : (
+              <span>
+                <img src={`http://localhost:3000/upload/member/${profile}`} style={{ width: "20px", height: "20px", borderRadius: "50%" }} />
+                {nickname}님
+              </span>
+            )}
+            &nbsp;&nbsp;&nbsp;
+
+            {log ? <Link to="/regi">회원가입</Link> : <Link to="/mypage">마이페이지</Link>}&nbsp;&nbsp;&nbsp;
             {log === false && <Link to="/messageInfo">메시지함</Link>}&nbsp;&nbsp;&nbsp;
             {log === false && <Link to="/">파티장 요청</Link>}&nbsp;&nbsp;&nbsp;
             {log ? (
@@ -109,20 +124,33 @@ function App() {
               >
                 로그아웃
               </button>
-            )}
+            )}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           </div>
         </header>
 
         <nav className="appNav">
           <Link to="/freeBoard">자유게시판</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/moviechart">무비 차트</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/bookchart">책순위</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/localevent">지역행사</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/musichart">TOP100</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/qnalist">Q&A</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/login">Login</Link> &nbsp;&nbsp;
+          <Link to="" className="mainmenu">
+            문화생활
+            <ul className="submenu">
+              <li>
+                <Link to="/moviechart">상영영화</Link>&nbsp;&nbsp;&nbsp;
+              </li>
+              <li>
+                <Link to="/bookchart">책베스트</Link>&nbsp;&nbsp;&nbsp;
+              </li>
+              <li>
+                <Link to="/localevent">지역축제</Link>&nbsp;&nbsp;&nbsp;
+              </li>
+              <li>
+                <Link to="/musichart">TOP50</Link>&nbsp;&nbsp;&nbsp;
+              </li>
+            </ul>
+          </Link>
+          &nbsp;&nbsp;&nbsp;
           <Link to="/partybbs">partybbs</Link> &nbsp;&nbsp;
           <Link to="/partybbslist">partybbslist</Link> &nbsp;&nbsp;
+          <Link to="/qnalist">사용문의</Link>&nbsp;&nbsp;&nbsp;
           {/* <Link to="/partybbsdetail">partybbsdetail</Link> &nbsp;&nbsp; */}
           {/* <Link to="/partybbsupdate">partybbsupdate</Link> &nbsp;&nbsp; */}
         </nav>
@@ -142,7 +170,7 @@ function App() {
             <Route path="/bookchart" element={<BookCrawling />} />
             <Route path="/localevent" element={<Localeventcrawling />} />
             <Route path="/musichart" element={<Musiccrawling />} />
-            
+
             <Route path="/qnalist" element={<Qnalist />} />
             <Route path="/qnawrite" element={<Qnawrite />} />
             <Route path="/qnadetail/:qnaSeq" exact element={<Qnadetail />} />
@@ -156,9 +184,9 @@ function App() {
             <Route path="/partyList" element={<PartyList />}></Route>
 
             <Route path="/messageInfo" element={<MessageInfo />}></Route>
+            <Route path="/mypage" element={<Mypage />}></Route>
             <Route path="/sendMessageInfo" element={<SendMessageInfo />}></Route>
 
-            <Route path="regi" element={<Regi />} />
             <Route path="pages/Home" element={<Home />} />
             <Route path="bank/bankaccountInfo" element={<BankaccountInfo />} />
 
@@ -170,11 +198,11 @@ function App() {
             <Route path="/freeBbsDetail/:bbsSeq" element={<FreeBbsDetail />} />
             <Route path="/freeBbsWrite" element={<FreeBbsWrite />} />
             <Route path="/freeBbsModify/:bbsSeq" element={<FreeBbsModify />} />
-            <Route path="/freeBbsDelete/:bbsSeq" element={<FreeBbsDelete />} />
-            <Route path="/partybbs" element={<Partybbs/>}/>
-            <Route path="/partybbslist" element={<Partybbslist/>}/>
-            <Route path="/partybbsdetail/:seq" element={<Partybbsdetail/>}/>
-            <Route path="/partybbsupdate/:seq"exact element={<Partybbsupdate/>}/>    
+
+            <Route path="/partybbs" element={<Partybbs />} />
+            <Route path="/partybbslist" element={<Partybbslist />} />
+            <Route path="/partybbsdetail/:seq" element={<Partybbsdetail />} />
+            <Route path="/partybbsupdate/:seq" exact element={<Partybbsupdate />} />
             <Route path="/freeBbsReply/:bbsSeq" element={<FreeBbsReply />} />
             <Route path="/freeBbslikey" element={<FreeBbslikey />} />
           </Routes>

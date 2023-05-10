@@ -1,9 +1,17 @@
+import * as React from 'react';
 import {useEffect, useState} from "react";
 import axios from 'axios';
 import {Link, useNavigate, useParams} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MsgModal from "./modals/MsgModal";
 import {Modal, Button, Form, Container} from 'react-bootstrap';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
 
 import "./modals/MsgModal.css";
 
@@ -18,7 +26,16 @@ function PartyRoom(){
 
     const [msgModal, setMsgModal] = useState(false); // 기본적으로 모달창이 꺼져있어서 false
     let params = useParams();
+    const [value, setValue] = React.useState('one');
 
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+      };
+      const style = {
+        width: '100%',
+        maxWidth: 360,
+        bgcolor: 'background.paper',
+      };
         // login 되어 있는지 검사
         useEffect(() => {
             let login = JSON.parse(localStorage.getItem("login"));
@@ -63,15 +80,28 @@ function PartyRoom(){
                             
         }, [id], [params.seq]);// 한번만 호출
 
-    function chatting(){
+        const gomy = () => {
 
-        history("../pages/Home");
-    }
-
-    function bank(){
-
-        history("../bank/bankaccountInfo");
-    }
+            history('/mybbsList');
+        
+          };
+            const goinfo = () => {
+        
+            history('/mypage');
+        
+          };
+            const goparty = () => {
+        
+            history('/partyAccept');
+        
+          };
+            const gomyparty = () => {
+        
+            history('/partyList');
+        
+          };
+        
+    
 
 
     return(
@@ -80,19 +110,30 @@ function PartyRoom(){
         <MsgModal sendId={id} targetId={targetId} show={msgModal} onHide={()=>setMsgModal(false)}/>
        
 
-        <Link to="/accountInfo">회원정보 수정</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/mybbsList">내가 쓴 글</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/partyAccept">파티원 승인</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/partyList">내파티 보기</Link>
-  <br></br>
-  <br></br>
+        <List sx={style} component="nav" aria-label="mailbox folders">
+      <ListItem button>
+        <ListItemText primary="회원정보 수정" onClick={()=>goinfo()}/>
+      </ListItem>
+      <Divider />
+      <ListItem button>
+        <ListItemText primary="내가 쓴 글" onClick={()=>gomy()}/>
+      </ListItem>
+      <ListItem button>
+        <ListItemText primary="파티원 승인"onClick={()=>goparty()} />
+      </ListItem>
+      <Divider light />
+      <ListItem button>
+        <ListItemText primary="내파티 보기"onClick={()=>gomyparty()} />
+      </ListItem>
+    </List>
+
+   
+
+  <div className='gamssagi3'>
   <h3>내파티 정보</h3>
 
   <br></br>
-   
-
-  
-    <table border="1" style={{ margin:'0 auto'}}>
+    <table className='ttable' border="1" style={{ margin:'0 auto'}}>
         <colgroup>
             <col width='200'/><col width='200'/><col width='200'/>
         </colgroup>
@@ -139,12 +180,9 @@ function PartyRoom(){
 <br></br>
 
 <br></br>
-{/* 여기서 아싸리 로컬스토리지에서 받아온 dto를 이용해서 채팅방에 들어가면 넘기고 db생성하게하기 */}
-<button onClick={chatting}>채팅방</button>
-<button onClick={bank}>계좌 확인</button>
 
 
-
+</div>
 
  </>
 

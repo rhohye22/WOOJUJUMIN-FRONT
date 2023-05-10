@@ -4,6 +4,7 @@ import Pagination from "react-js-pagination";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
 import "./page.css";
 
 function Qnalist() {
@@ -125,7 +126,11 @@ function Qnalist() {
 
         <br />
 
-        <Link to="/qnawrite">글쓰기</Link>
+        <Link to="/qnawrite">
+          <Button variant="success" size="sm">
+            글 작성
+          </Button>
+        </Link>
       </div>
     </div>
   );
