@@ -38,6 +38,7 @@
     "react-simple": "^1.2.3",
     "react-simple-chatbot": "^0.6.1",
     "react-slick": "^0.29.0",
+    "react-tooltip": "^5.11.2",
     "redux": "^4.2.1",
     "sass": "^1.62.0",
     "slick-carousel": "^1.8.1",

@@ -161,8 +161,8 @@ function Mypage() {
   useEffect(() => {}, [history]);
 
   return (
-    <>
-      <List sx={style} component="nav" aria-label="mailbox folders">
+    <div className="changeinfo">
+      {/*    <List sx={style} component="nav" aria-label="mailbox folders">
         <ListItem button>
           <ListItemText primary="회원정보 수정" onClick={() => goinfo()}></ListItemText>
         </ListItem>
@@ -177,7 +177,7 @@ function Mypage() {
         <ListItem button>
           <ListItemText primary="내파티 보기" onClick={() => gomyparty()}></ListItemText>
         </ListItem>
-      </List>
+      </List> */}
 
       <Form className="gamssagi">
         <Form.Group className="mb-3">
@@ -244,7 +244,7 @@ function Mypage() {
           수정하기
         </Button>
       </form>
-    </>
+    </div>
   );
 }
 export default Mypage;
