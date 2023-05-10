@@ -61,3 +61,42 @@ footer {
   display: flex;
   justify-content: flex-end;
 }
+.mainmenu{
+  position: relative;
+  /* display: inline-block; */
+  height: 70px;
+  /* width: 100%; */
+  margin-top: 35px;
+}
+.mainmenu:hover .submenu, .submenu:hover .submenu{
+  display: flex;
+  justify-content: center;
+  /* font-style: italic; */
+}
+
+.submenu{
+  display: none;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  /* width: 1200px; */
+  /* height: 200px; */
+  /* padding: 10px; */
+  z-index: 1;
+  /* background-color: cornflowerblue; */
+  /* display: flex; */
+  font-size: 14px;
+}
+.submenu li:first-child{
+  width: 100px;
+}
+.submenu li {
+  /* display: block; */
+  text-align: center;
+  float: left;
+  width: 100px;
+  margin-right: 10px;
+}
+.submenu li a{
+  margin: 0;
+}

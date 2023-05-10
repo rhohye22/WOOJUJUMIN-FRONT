@@ -10,7 +10,7 @@ export const AuthContextProvider = ({children}) =>{
     const [currentUser, setCurrentUser] = useState({});
 
     useEffect(()=>{
-      const unsub =  onAuthStateChanged(auth,(user)=>{
+      const unsub =  onAuthStateChanged(auth,(user)=>{ // onAuthStateChanged : 유저가 로그인 상태인지 확인
             setCurrentUser(user);
             console.log(user);
             

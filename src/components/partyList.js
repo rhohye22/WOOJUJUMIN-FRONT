@@ -3,7 +3,13 @@ import axios from 'axios';
 import {Link, useNavigate} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Pagination from "react-js-pagination";
-
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
 
 function PartyList(){
     let history = useNavigate();
@@ -11,6 +17,12 @@ function PartyList(){
     const [page, setPage] = useState(1);
     const [totalCnt, setTotalCnt] = useState(0);
     const [partyListmy, setPartyListmy] = useState([]); 
+
+    const style = {
+        width: '100%',
+        maxWidth: 360,
+        bgcolor: 'background.paper',
+      };
           // login 되어 있는지 검사
   useEffect(() => {
     let login = JSON.parse(localStorage.getItem("login"));
@@ -69,22 +81,51 @@ function go(seq){
 
     
 }
+const gomy = () => {
+
+    history('/mybbsList');
+
+  };
+    const goinfo = () => {
+
+    history('/mypage');
+
+  };
+    const goparty = () => {
+
+    history('/partyAccept');
+
+  };
+    const gomyparty = () => {
+
+    history('/partyList');
+
+  };
 
 if(partyListmy.length > 0){
     return(
 
         
         <>
-        <Link to="/accountInfo">회원정보 수정</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/mybbsList">내가 쓴 글</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/partyAccept">파티원 승인</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/partyList">내파티 보기</Link>
-          <br></br>
-          <br></br>
         
-         
-
-          <table border="1" style={{ margin:'0 auto'}}>
+          <List sx={style} component="nav" aria-label="mailbox folders">
+      <ListItem button>
+        <ListItemText primary="회원정보 수정" onClick={()=>goinfo()}/>
+      </ListItem>
+      <Divider />
+      <ListItem button>
+        <ListItemText primary="내가 쓴 글" onClick={()=>gomy()}/>
+      </ListItem>
+      <ListItem button>
+        <ListItemText primary="파티원 승인"onClick={()=>goparty()} />
+      </ListItem>
+      <Divider light />
+      <ListItem button>
+        <ListItemText primary="내파티 보기"onClick={()=>gomyparty()} />
+      </ListItem>
+    </List>
+    <div className='gamssagi3'>
+          <table className="ttable" border="1" style={{ margin:'0 auto'}}>
         <colgroup>
             <col width='70'/><col width='600'/><col width='200'/><col width='100'/>
         </colgroup>
@@ -122,6 +163,7 @@ if(partyListmy.length > 0){
        prevPageText={"이전"}
        nextPageText={"다음"}
        onChange={pageChange}/> 
+    </div>
  </>
 
    
@@ -133,12 +175,25 @@ if(partyListmy.length > 0){
 
         
         <>
-  <Link to="/accountInfo">회원정보 수정</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/mybbsList">내가 쓴 글</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/partyAccept">파티원 승인</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/partyList">내파티 보기</Link>
-          <br></br>
-          <br></br>
+
+
+        <List sx={style} component="nav" aria-label="mailbox folders">
+      <ListItem button>
+        <ListItemText primary="회원정보 수정" onClick={()=>goinfo()} />
+      </ListItem>
+      <Divider />
+      <ListItem button>
+        <ListItemText primary="내가 쓴 글" onClick={()=>gomy()}/>
+      </ListItem>
+      <ListItem button>
+        <ListItemText primary="파티원 승인" onClick={()=>goparty()}/>
+      </ListItem>
+      <Divider light />
+      <ListItem button>
+        <ListItemText primary="내파티 보기" onClick={()=>gomyparty()} />
+      </ListItem>
+    </List>
+
   
 
 
