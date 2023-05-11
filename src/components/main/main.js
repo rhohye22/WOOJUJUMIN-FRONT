@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import SimpleSlider from "./simpleSlider";
 import Calendar from "./calendar";
 import PartycardBtn from "./partycardBtn";
+import Oursays from "./oursays";
 import calendarimg from "./img/calendar.png";
 import friends from "./img/friends.png";
 import fight from "./img/fight.png";
@@ -44,18 +45,20 @@ function Main() {
       <span style={{ fontSize: "1.5em" }}>이웃과 함께 취미를 즐기세요!</span> &nbsp; &nbsp;&nbsp; &nbsp;
       <img src={fight} alt="noimg" style={{ height: "70px", width: "auto" }} />
       <div className="mainmiddle3">
-        <div className="mainmiddle3-1">
+        <div className="mainmiddle3-2">
           <PartycardBtn />
         </div>
         <Button variant="outline-secondary" size="sm">
           더보기
         </Button>
-        <div className="mainmiddle3-2"> 모집게시판 좋아요 상위 10개글</div>
       </div>
       <img src={calendarimg} alt="noimg" style={{ height: "50px", width: "auto" }} /> &nbsp; &nbsp;&nbsp;
       <span style={{ fontSize: "1.5em" }}>일자를 클릭하고 가까운 이벤트를 확인하세요</span>
       <div className="mainmiddle2">
         <Calendar />
+      </div>
+      <div className="mainmiddle4">
+        <Oursays />
       </div>
     </div>
   );
