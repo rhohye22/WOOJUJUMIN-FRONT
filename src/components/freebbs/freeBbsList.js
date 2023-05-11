@@ -1,12 +1,14 @@
 import Pagination from "react-js-pagination";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
+
 import "./freebbs.css";
 
 function FreeBbsList() {
+  let navigate = useNavigate();
   const [tag, setTag] = useState();
   const paramtag = useParams().tag;
 
@@ -150,7 +152,7 @@ function FreeBbsList() {
           <tbody>
             {freelist && freelist.length ? (
               freelist.map(function(free, i) {
-                return (
+                return free.del === 0 ? (
                   <tr key={i}>
                     <td>{free.bbsSeq}</td>
                     <td>
@@ -160,8 +162,9 @@ function FreeBbsList() {
                           height: "50px",
                           overflow: "hidden",
                           display: "flex",
-                          alignItems: "center",
+                          alignItems: "left",
                         }}
+                        onClick={() => navigate(`/freeBbsDetail/${free.bbsSeq}`)}
                       >
                         {free.image !== null ? (
                           <img
@@ -175,7 +178,21 @@ function FreeBbsList() {
                             }}
                           />
                         ) : null}
-                        &nbsp;&nbsp;<Link to={`/freeBbsDetail/${free.bbsSeq}`}>{free.title}</Link>{" "}
+                        &nbsp;&nbsp;
+                        <div
+                          style={{
+                            textDecoration: "none",
+                            color: "inherit",
+                            cursor: "pointer",
+                            flexGrow: 1,
+                            display: "flex",
+                            justifyContent: "flex-start",
+                            alignItems: "center",
+                            height: "100%",
+                          }}
+                        >
+                          {free.title}
+                        </div>
                       </div>
                     </td>
 
@@ -183,16 +200,39 @@ function FreeBbsList() {
                     <td>{free.readcount}</td>
                     <td>{free.likey}</td>
                   </tr>
+                ) : free.del === 1 ? (
+                  <tr key={i}>
+                    <td>{free.bbsSeq}</td>
+                    <td colSpan={6} style={{ textAlign: "left" }}>
+                      <p style={{ color: "red" }}>작성자가 삭제한글입니다</p>
+                    </td>
+                  </tr>
+                ) : (
+                  <tr key={i}>
+                    <td>{free.bbsSeq}</td>
+                    <td colSpan={6} style={{ textAlign: "left" }}>
+                      <p style={{ color: "purple" }}>관리자가 검토중인 글입니다</p>
+                    </td>
+                  </tr>
                 );
               })
             ) : (
-              <td colSpan={6}>작성된 글이 없습니다</td>
+              <tr>
+                <td colSpan={6}>작성된 글이 없습니다</td>
+              </tr>
             )}
           </tbody>
         </Table>
+        {auth != null && (
+          <Link to="/freeBbsWrite">
+            {" "}
+            <Button variant="success" size="sm">
+              글 작성
+            </Button>
+          </Link>
+        )}
         <br />
         <Pagination activePage={page} itemsCountPerPage={20} totalItemsCount={totalCnt} pageRangeDisplayed={5} prevPageText={"이전"} nextPageText={"다음"} onChange={pageChange} />
-        {auth != null && <Link to="/freeBbsWrite">글 작성</Link>}
         <select value={choice} onChange={(e) => setChoice(e.target.value)}>
           <option>검색</option>
           <option value="title">제목</option>
@@ -201,7 +241,9 @@ function FreeBbsList() {
         </select>
         <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="검색어" />
         &nbsp;
-        <button onClick={searchBtn}>검색</button>
+        <Button variant="success" size="sm" onClick={searchBtn}>
+          검색
+        </Button>
         <br />
         <br />
         <br />

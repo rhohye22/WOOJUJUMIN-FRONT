@@ -4,6 +4,9 @@ import {Link, useNavigate} from "react-router-dom";
 import Pagination from "react-js-pagination";
 import MsgDetailModal from "./modals/MsgDetailModal";
 import MsgModal from "./modals/MsgModal";
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
 import "./modals/MsgModal.css";
 
 function MessageInfo(){
@@ -111,6 +114,19 @@ useEffect(function(){
                     
 }, [id, seq]);// 한번만 호출
 
+
+
+const rm = () => {
+    
+    history('/messageInfo');
+
+  };
+  const sm = () => {
+
+    history('/sendMessageInfo');
+
+  };
+
 if(msglist.length > 0){
     return(
         
@@ -118,11 +134,13 @@ if(msglist.length > 0){
    <MsgDetailModal sendId={id} targetId={targetId} show={msgdetailModal} title={title} message={message} onHide={()=>setMsgdetailModal(false)}/>
    <MsgModal sendId={id} targetId={targetId} show={msgModal} onHide={()=>setMsgModal(false)}/>      
 
-  <Link to="/messageInfo">받은 메시지</Link>&nbsp;&nbsp;&nbsp;
-  <Link to="/sendMessageInfo">보낸 메시지</Link>&nbsp;&nbsp;&nbsp;
+
+
+  <Tab label="받은 메시지" onClick={()=>rm()}></Tab>
+       <Tab label="보낸 메시지" onClick={()=>sm()}></Tab>
   <br></br>
           <br></br>
-  <table border="1" style={{ margin:'0 auto'}}>
+  <table className="ttable" border="1" style={{ margin:'0 auto'}}>
         <colgroup>
             <col width='100'/><col width='400'/><col width='200'/>
         </colgroup>
@@ -215,8 +233,9 @@ if(msglist.length > 0){
                 <>
         
           
-          <Link to="/messageInfo">받은 메시지</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/sendMessageInfo">보낸 메시지</Link>&nbsp;&nbsp;&nbsp;
+   
+  <Tab label="받은 메시지" onClick={()=>rm()}></Tab>
+       <Tab label="보낸 메시지" onClick={()=>sm()}></Tab>
         
           <br></br>
           <br></br>

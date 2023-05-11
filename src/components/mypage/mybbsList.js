@@ -1,39 +1,37 @@
-import * as React from 'react';
+import * as React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Pagination from "react-js-pagination";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import Divider from "@mui/material/Divider";
 import "./page.css";
 import "./accountInfo.css";
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
 
-function MyfreebbsList() {
+//npm install @mui/material @emotion/react @emotion/styled --legacy-peer-deps
+//npm install @mui/icons-material --legacy-peer-deps
+function MyBbsList() {
   let history = useNavigate();
   const [bbslist, setBbslist] = useState([]); // 게시판은 배열로 넘어오니까
   const [choice, setChoice] = useState("");
   const [search, setSearch] = useState("");
-  const [profile, setProfile] = useState('');
+  const [profile, setProfile] = useState("");
   //paging hook
   const [page, setPage] = useState(1);
   const [totalCnt, setTotalCnt] = useState(0);
 
   const [id, setId] = useState("");
-  const [value, setValue] = React.useState('one');
+  const [value, setValue] = React.useState("one");
 
   const handleChange = (event, newValue) => {
-      setValue(newValue);
-    };
-    const style = {
-      width: '100%',
-      maxWidth: 360,
-      bgcolor: 'background.paper',
-    };
+    setValue(newValue);
+  };
+
   // login 되어 있는지 검사
   useEffect(() => {
     let login = JSON.parse(localStorage.getItem("login"));
@@ -50,14 +48,12 @@ function MyfreebbsList() {
 
   function getBbslist(choice, search, page) {
     axios
-      .get("http://localhost:3000/myfreeBbslist", { params: { choice: choice, search: search, pageNumber: page, id: id } })
+      .get("http://localhost:3000/myBbslist", { params: { choice: choice, search: search, pageNumber: page, id: id } })
       .then(function(resp) {
         //console.log(resp.data);
         setBbslist(resp.data.list); // map을 return하기 때문(map 안에 list있음)
         setTotalCnt(resp.data.cnt);
         console.log(bbslist);
-
-        //alert(bbslist);
       })
       .catch(function(err) {
         alert(err);
@@ -66,7 +62,6 @@ function MyfreebbsList() {
 
   function pageChange(page) {
     setPage(page);
-
     getBbslist(choice, search, page - 1);
   }
 
@@ -74,6 +69,11 @@ function MyfreebbsList() {
     getBbslist(choice, search, 0);
   }
 
+  const style = {
+    width: "100%",
+    maxWidth: 360,
+    bgcolor: "background.paper",
+  };
   useEffect(
     function() {
       if (id) {
@@ -84,54 +84,37 @@ function MyfreebbsList() {
     [id]
   ); // 한번만 호출
   const gomy = () => {
-
-    history('/mybbsList');
-
+    history("mybbsList");
   };
-    const goinfo = () => {
-
-    history('/mypage');
-
+  const goinfo = () => {
+    history("mypage");
   };
-    const goparty = () => {
-
-    history('/partyAccept');
-
+  const goparty = () => {
+    history("partyAccept");
   };
-    const gomyparty = () => {
-
-    history('/partyList');
-
+  const gomyparty = () => {
+    history("partyList");
   };
   const gobbs = () => {
-    
-    history('/mybbsList');
-
+    history("mybbsList");
   };
   const gofree = () => {
-
-    history('/myfreebbsList');
-
+    history("myfreebbsList");
   };
-  if (bbslist.length > 0) {
-    return (
-      <>
-       <div className='tabdogae'>
-          <Box sx={{ width: '100%' }}>
-         <Tabs
-        value={value}
-        onChange={handleChange}
-        variant="scrollable"
-        scrollButtons="auto"
-        aria-label="scrollable auto tabs example"
-        >
-        <Tab label="모집 게시판" onClick={()=>gobbs()}></Tab>
-       <Tab label="자유 게시판" onClick={()=>gofree()}></Tab>
-       
-        </Tabs>
+
+  /*   if (bbslist.length > 0) { */
+  return (
+    <>
+      <div className="tabdogae">
+        <Box sx={{ width: "100%" }}>
+          <Tabs value={value} onChange={handleChange} variant="scrollable" scrollButtons="auto" aria-label="scrollable auto tabs example">
+            <Tab label="모집 게시판" onClick={() => gobbs()}></Tab>
+            <Tab label="자유 게시판" onClick={() => gofree()}></Tab>
+          </Tabs>
         </Box>
-        </div>
-        <List sx={style} component="nav" aria-label="mailbox folders">
+      </div>
+
+      {/*      <List sx={style} component="nav" aria-label="mailbox folders">
       <ListItem button>
         <ListItemText primary="회원정보 수정" onClick={()=>goinfo()} />
       </ListItem>
@@ -146,8 +129,10 @@ function MyfreebbsList() {
       <ListItem button>
         <ListItemText primary="내파티 보기" onClick={()=>gomyparty()} />
       </ListItem>
-    </List>
-    <div className='gamssagi4'>
+    </List> */}
+
+      <br></br>
+      <div className="gamssagi2">
         <div className="searchs">
           <select value={choice} onChange={(e) => setChoice(e.target.value)}>
             <option value="">검색</option>
@@ -157,54 +142,69 @@ function MyfreebbsList() {
           </select>
           &nbsp;
           <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="검색어" />
-          <button className="searchTitle" onClick={searchBtn}>
-            검색
-          </button>
+          <button onClick={searchBtn}>검색</button>
         </div>
+
         <br></br>
-      
-        <table border="1" style={{ margin: "0 auto" }}>
+
+        <table>
           <colgroup>
-          <col width='70'/><col width='600'/><col width='100'/><col width='100'/>
+            <col width="70" />
+            <col width="600" />
+            <col width="100" />
+            <col width="100" />
+            <col width="100" />
+            <col width="100" />
           </colgroup>
           <thead>
             <tr>
               <th>번호</th>
               <th>제목</th>
               <th>조회수</th>
+              <th>인원수</th>
               <th>날짜</th>
               <th>작성자</th>
             </tr>
-
           </thead>
 
           <tbody>
-            {bbslist.map(function(bbs, i) {
-              return (
-                <tr key={i}>
-                  <td align="center">{i + 1}</td>
-                  <td align="left">
-                    <Link to={`/freeBbsDetail/${bbs.bbsSeq}`}> {bbs.title}</Link>
-                  </td>
-                  <td align="center">{bbs.readcount}</td>
-
-                  <td align="center">{bbs.wdate.substring(0,10)}</td>
-                  <td align="center"><img src={`http://localhost:3000/upload/${profile.substring(57)}`} style={{width: "20px", height: "20px", borderRadius: "50%"}}/>{bbs.id}</td>
-                </tr>
-              );
-            })}
+            {bbslist.length ? (
+              bbslist.map(function(bbs, i) {
+                return (
+                  <tr key={i}>
+                    <td align="center">{i + 1}</td>
+                    <td align="left">
+                      <Link to={`/bbsdetail/${bbs.seq}`}> {bbs.title}</Link>
+                    </td>
+                    <td align="center">{bbs.readcount}</td>
+                    <td align="center">{bbs.people}</td>
+                    <td align="center">{bbs.wdate.substring(0, 10)}</td>
+                    <td align="center">
+                      <img src={`http://localhost:3000/upload/party/${bbs.profile}`} style={{ width: "20px", height: "20px", borderRadius: "50%" }} />
+                      {bbs.id}
+                    </td>
+                  </tr>
+                );
+              })
+            ) : (
+              <tr>
+                <td colSpan={6}>글이 없습니다.</td>
+              </tr>
+            )}
           </tbody>
         </table>
+
         <br></br>
+
         <Pagination activePage={page} itemsCountPerPage={10} totalItemsCount={totalCnt} pageRangeDisplayed={5} prevPageText={"이전"} nextPageText={"다음"} onChange={pageChange} />
+
         <br></br>
-        </div>
-      </>
-    );
-  } else {
+      </div>
+    </>
+  );
+} /* else {
     return (
       <>
-
         <Link to="/accountInfo">회원정보 수정</Link>&nbsp;&nbsp;&nbsp;
         <Link to="/mybbsList">내가 쓴 글</Link>&nbsp;&nbsp;&nbsp;
         <Link to="/partyAccept">파티원 승인</Link>&nbsp;&nbsp;&nbsp;
@@ -221,7 +221,7 @@ function MyfreebbsList() {
         <Pagination activePage={page} itemsCountPerPage={10} totalItemsCount={totalCnt} pageRangeDisplayed={5} prevPageText={"이전"} nextPageText={"다음"} onChange={pageChange} />
       </>
     );
-  }
-}
+  } */
+/* } */
 
-export default MyfreebbsList;
+export default MyBbsList;

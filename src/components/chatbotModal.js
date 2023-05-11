@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import chatbot from "./image/free-icon-chatbot-6819697.png";
 import ChatBot from "react-simple-chatbot";
 // npm install react-simple-chatbot --save
@@ -10,6 +10,20 @@ import { Link } from "react-router-dom";
 import Ans from "./chatbot/chatbot";
 
 function ChatbotModal() {
+  const [profile, setProfile] = useState('');
+
+  // login 되어 있는지 검사
+  useEffect(() => {
+    let login = JSON.parse(localStorage.getItem("login"));
+    if (login === null || login === undefined) {
+      setProfile('basic.png');
+    } else {
+      // 빈칸이 아닐때
+      setProfile(login.profile);
+      //console.log(profile);
+    }
+  }, []);
+
   const [showModal, setShowModal] = useState(false);
 
   const handleButtonClick1 = () => {
@@ -42,6 +56,24 @@ function ChatbotModal() {
     {
       id: "2",
       message: "저는 우주탐방을 도와드릴 미리내입니다.",
+      trigger: "선택",
+    },
+    {
+      id: "선택",
+      message: "대화에 더 편하신 방식을 선택해주세요.",
+      trigger: "선택_1",
+    },
+    {
+      id: "선택_1",
+      options: [
+        { value: 1, label: "선택지 제공", trigger: "4" },
+        { value: 2, label: "직접 대화", trigger: "대화_1" },
+        { value: 3, label: "안내 종료", trigger: "종료" },
+      ],
+    },
+    {
+      id: "대화_1",
+      message: "필요하신 것을 말씀해주세요!",
       trigger: "200",
     },
     {
@@ -58,14 +90,64 @@ function ChatbotModal() {
     {
       id: "3",
       message: "어떤 도움이 필요하신가요?",
-      trigger: "4",
+      trigger: "200",
+    },
+    {
+      id: "202",
+      message: "사용법이 궁금하실 경우 언제든지 말씀주세요.",
+      trigger: "200",
+    },
+    {
+      id: "소개_101",
+      message: "자유게시판을 통해 자유롭게 글을 작성할 수 있으며, 사람들과 어울리고 싶을 경우 파티게시판을 이용하실 수 있습니다.",
+      trigger: "200",
+    },
+    {
+      id: "게시판_101",
+      message: "둘 중 어떤 게시판이 궁금하신가요?.",
+      trigger: "200",
+    },
+    {
+      id: "자유게시판_101",
+      component: <Link to="/freeBoard">자유게시판</Link>,
+      asMessage: true,
+      trigger: "200",
+    },
+    {
+      id: "파티게시판_101",
+      component: <Link to="/partybbslist">파티게시판</Link>,
+      asMessage: true,
+      trigger: "200",
+    },
+    {
+      id: "로그인여부",
+      message: '파티게시판은 로그인 후에 이용하실 수 있습니다.',
+      trigger: "로그인페이지",
+    },
+    {
+      id: "로그인페이지",
+      component: <Link to="/login">로그인</Link>,
+      asMessage: true,
+      trigger: "200",
+    },
+    {
+      id: "가입_1",
+      component: <Link to="/regi">회원가입</Link>,
+      asMessage: true,
+      trigger: "200",
+    },
+    {
+      id: "설정밖",
+      message: "대화 형식을 변경할까요?.",
+      trigger: "선택_1",
     },
     {
       id: "4",
       options: [
         { value: 1, label: "여긴 어떤 곳?", trigger: "소개_1" },
         { value: 2, label: "어떻게 활동할 수 있지?", trigger: "소개_3" },
-        { value: 3, label: "안내 종료", trigger: "종료" },
+        { value: 3, label: "직접 대화", trigger: "대화_1" },
+        { value: 4, label: "안내 종료", trigger: "종료" },
       ],
     },
     {
@@ -98,7 +180,7 @@ function ChatbotModal() {
       id: "게시판",
       options: [
         { value: 1, label: "자유게시판", trigger: "자유게시판" },
-        { value: 2, label: "모집게시판", trigger: "모집게시판" },
+        { value: 2, label: "파티게시판", trigger: "모집게시판" },
         { value: 3, label: "돌아가기", trigger: "추가 질문" },
       ],
     },
@@ -116,13 +198,19 @@ function ChatbotModal() {
     {
       id: "게시판_2",
       options: [
-        { value: 1, label: "모집게시판", trigger: "모집게시판" },
+        { value: 1, label: "파티게시판", trigger: "모집게시판" },
         { value: 2, label: "돌아가기", trigger: "추가 질문" },
       ],
     },
     {
       id: "모집게시판",
-      message: "모집게시판은 어떤 활동이든 같이 할 파티를 만드는 공간입니다. 마음에 드시는 활동에 참여하거나 직접 만드실 수 있습니다.",
+      component: <Link to="/partybbslist">파티게시판</Link>,
+      asMessage: true,
+      trigger: "모집게시판_2",
+    },
+    {
+      id: "모집게시판_2",
+      message: "파티게시판은 어떤 활동이든 같이 할 파티를 만드는 공간입니다. 마음에 드시는 활동에 참여하거나 직접 만드실 수 있습니다.",
       trigger: "게시판_3",
     },
     {
@@ -135,7 +223,7 @@ function ChatbotModal() {
     },
     {
       id: "카테고리",
-      message: "현재 축구, 농구, 야구, 예능, 드라마/영화, 게임, 음식, 우주주민 함께, 우주주민 탐사, 잡담으로 구분되어 있습니다.",
+      message: "테마는 축구, 농구, 야구, 예능, 드라마/영화, 게임, 음식, 우주주민 함께, 우주주민 탐사, 잡담으로 구분되어 있습니다.",
       trigger: "게시판_4",
     },
     {
@@ -170,7 +258,7 @@ function ChatbotModal() {
         }}
         onClick={handleButtonClick1}
       >
-        <img src={chatbot} alt="My Image" style={{ width: 60, height: 60 }} />
+        <img src={chatbot} alt="My Chatbot" style={{ width: 60, height: 60 }} />
       </button>
       {showModal && (
         <div
@@ -187,7 +275,7 @@ function ChatbotModal() {
           }}
         >
           <ThemeProvider theme={theme}>
-            <ChatBot steps={steps} hideHeader={false} headerTitle="미리내" />
+            <ChatBot steps={steps} hideHeader={false} headerTitle="미리내" userAvatar={`http://localhost:3000/upload/member/${profile}`} botAvatar={chatbot} />
           </ThemeProvider>
           <br />
           <button onClick={handleButtonClick2}>닫기</button>

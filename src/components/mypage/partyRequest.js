@@ -12,19 +12,27 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 
-function PartyAccept(){
+function PartyRequest(){
     let history = useNavigate();
     const [id, setId] = useState('');
-    const [page, setPage] = useState(1);
-    const [totalCnt, setTotalCnt] = useState(0);
-    const [partyList, setPartyList] = useState([]); 
 
-    const [value, setValue] = React.useState('one');
+    const [requestlist, setRequestlist] = useState([]); 
+    const [totalPeople, setTotalPeople] = useState(''); 
+      //paging hook
+      const [page, setPage] = useState(1);
+      const [totalCnt, setTotalCnt] = useState(0);
+      const [value, setValue] = React.useState('one');
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
+      const handleChange = (event, newValue) => {
+          setValue(newValue);
+        };
+
+      const style = {
+        width: '100%',
+        maxWidth: 360,
+        bgcolor: 'background.paper',
       };
-          // login 되어 있는지 검사
+      // login 되어 있는지 검사
   useEffect(() => {
     let login = JSON.parse(localStorage.getItem("login"));
     if(login !== undefined){ // 빈칸이 아닐때
@@ -41,12 +49,11 @@ function PartyAccept(){
 
        
 }, [history]);
-
-function myPartyList(page){    
-    axios.get("http://localhost:3000/myPartyList", { params:{ "pageNumber":page, "id":id } })
+function myRequestList(page){    
+    axios.get("http://localhost:3000/myRequestList", { params:{ "pageNumber":page, "id":id } })
     .then(function(resp){
         //console.log(resp.data);
-        setPartyList(resp.data.list); // map을 return하기 때문(map 안에 list있음)
+        setRequestlist(resp.data.list); // map을 return하기 때문(map 안에 list있음)
         setTotalCnt(resp.data.cnt);
        
          //console.log(requestlist);
@@ -56,25 +63,10 @@ function myPartyList(page){
     })
     
 }
-const check = (partySeq, applyMem) =>{    
-    axios.get("http://localhost:3000/updateCheck", { params:{ "partySeq":partySeq, "applyMem":applyMem } })
-    .then(function(resp){
-        document.location.href='/partyAccept';
-    })
-    .catch(function(err){
-        alert(err);
-    })
-    
-}
-const style = {
-    width: '100%',
-    maxWidth: 360,
-    bgcolor: 'background.paper',
-  };
 useEffect(function(){
     if(id){
 
-        myPartyList(0);
+        myRequestList(0);
     
     }
                    
@@ -84,11 +76,12 @@ function pageChange(page){
     setPage(page);
    
 
-    myPartyList(page-1);
+    myRequestList(page-1);
 
    
     
 }
+
 const gomy = () => {
 
     history('/mybbsList');
@@ -109,6 +102,7 @@ const gomy = () => {
     history('/partyList');
 
   };
+
   const gobbs = () => {
     
     history('/partyAccept');
@@ -119,13 +113,14 @@ const gomy = () => {
     history('/partyRequest');
 
   };
-if(partyList.length > 0){
+if(requestlist.length > 0){
     return(
 
         
         <>
-      
-      <div className='tabdogae'>
+    
+        
+    <div className='tabdogae'>
         <Box sx={{ width: '100%' }}>
          <Tabs
         value={value}
@@ -140,8 +135,7 @@ if(partyList.length > 0){
         </Tabs>
         </Box>
         </div>
-        
-<div className='mysidemenu'>
+        <div className='mysidemenu'>
           <List sx={style} component="nav" aria-label="mailbox folders">
       <ListItem button>
         <ListItemText primary="회원정보 수정" onClick={()=>goinfo()}/>
@@ -159,35 +153,29 @@ if(partyList.length > 0){
       </ListItem>
     </List>
     </div>
-<div className="gamssagi3">
-          <table border="1" style={{ margin:'0 auto'}}>
+    <div className='gamssagi3'>
+          <table className='ttable' border="1" style={{ margin:'0 auto'}}>
         <colgroup>
-            <col width='70'/><col width='600'/><col width='200'/><col width='100'/><col width='100'/>
+            <col width='70'/><col width='600'/><col width='100'/><col width='100'/>
         </colgroup>
         <thead>
             <tr>
-              <th>아이디</th><th>파티제목</th><th>날짜</th><th>인원수</th><th>수락여부</th>
+              <th>번호</th><th>파티제목</th><th>수락여부</th><th>모집여부</th>
             </tr>
         </thead>
 
         <tbody>
             {
-                partyList.map(function(bbs, i){
+                requestlist.map(function(bbs, i){
                     return(
                         <tr key={i}>
-                            <td align="center">{bbs.applyMem}</td>
-                            <td align="center">{bbs.title}</td>
-                            <td align="center">{bbs.wdate}</td>
-                             <td align="center">{bbs.countMem}/{bbs.totalMem}</td> 
-
-                             {
-                                bbs.countMem === bbs.totalMem ?
-                                <td align="center">파티완료</td> 
-                                :(bbs.check === 1 ?
-                                <td align="center">수락됨</td> :
-                                <td align="center"><button onClick={()=>{check(bbs.partySeq, bbs.applyMem)}}>수락하기</button></td>)
-                             }
-                           
+                            <td align="center">{i + 1}</td>
+                            <td align="left">
+                               <Link to={`/partybbsdetail/${bbs.partySeq}`}> {bbs.title}</Link>
+                            
+                            </td>
+                            {bbs.check === 0 ? <td align="center">수락중...</td> : <td align="center">수락완료!</td> }
+                            {bbs.full === 0 ? <td align="center">모집중</td> : <td align="center">모집끝</td> }
                             
                            
                            
@@ -221,6 +209,7 @@ if(partyList.length > 0){
 
         
         <>
+        <div className='mysidemenu'>
   <Link to="/accountInfo">회원정보 수정</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/mybbsList">내가 쓴 글</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/partyAccept">파티원 승인</Link>&nbsp;&nbsp;&nbsp;
@@ -230,7 +219,7 @@ if(partyList.length > 0){
   
 <Link to="/partyAccept">파티 수락</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/partyRequest">파티 요청</Link>&nbsp;&nbsp;&nbsp;
-
+          </div>
   <br></br>
   <br></br>
 
@@ -260,4 +249,4 @@ onChange={pageChange}/>
 }
 }
 
-export default PartyAccept;
+export default PartyRequest;

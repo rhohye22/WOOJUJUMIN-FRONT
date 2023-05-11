@@ -21,8 +21,7 @@ body.show-nav {
 }
 
 #navbar {
-  background-color: var(--primary-color);
-
+  background-color: rgb(94, 152, 209);
   color: #220505;
   position: fixed;
   top: 0;
@@ -31,6 +30,37 @@ body.show-nav {
   height: 100%;
   z-index: 100;
   transform: translateX(-100%);
+  position: fixed;
+  border-radius: 15px;
+
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.25);
+}
+
+#navlist ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#navbar li {
+  margin: 0 10px;
+}
+
+#navbar a {
+  display: flex;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+#navbar a:hover {
+  background-color: #dddddd62;
+  color: black;
+}
+#nav-menu li a.active,
+#nav-menu li a:hover {
+  color: rgb(255, 255, 255); /* 호버시 적용될 스타일 */
 }
 .togglecontent {
   position: fixed; /* togglecontent가 부모 요소에 상대적인 위치를 가지도록 만들어줌 */
