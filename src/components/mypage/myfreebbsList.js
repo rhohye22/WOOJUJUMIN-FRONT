@@ -12,6 +12,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
+import Button from "react-bootstrap/Button";
 
 function MyfreebbsList() {
   let history = useNavigate();
@@ -131,6 +132,7 @@ function MyfreebbsList() {
         </Tabs>
         </Box>
         </div>
+        <div className='mysidemenu'>
         <List sx={style} component="nav" aria-label="mailbox folders">
       <ListItem button>
         <ListItemText primary="회원정보 수정" onClick={()=>goinfo()} />
@@ -147,6 +149,7 @@ function MyfreebbsList() {
         <ListItemText primary="내파티 보기" onClick={()=>gomyparty()} />
       </ListItem>
     </List>
+    </div>
     <div className='gamssagi4'>
         <div className="searchs">
           <select value={choice} onChange={(e) => setChoice(e.target.value)}>
@@ -156,14 +159,15 @@ function MyfreebbsList() {
             <option value="writer">작성자</option>
           </select>
           &nbsp;
-          <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="검색어" />
-          <button className="searchTitle" onClick={searchBtn}>
-            검색
-          </button>
+          <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="검색어" />   &nbsp;
+          <Button variant="success" size="sm" onClick={searchBtn}>
+          검색
+        </Button>
+
         </div>
         <br></br>
       
-        <table border="1" style={{ margin: "0 auto" }}>
+        <table border="1" style={{ margin: "0 auto" }} className='ttable'>
           <colgroup>
           <col width='70'/><col width='600'/><col width='100'/><col width='100'/>
           </colgroup>
@@ -189,7 +193,7 @@ function MyfreebbsList() {
                   <td align="center">{bbs.readcount}</td>
 
                   <td align="center">{bbs.wdate.substring(0,10)}</td>
-                  <td align="center"><img src={`http://localhost:3000/upload/${profile.substring(57)}`} style={{width: "20px", height: "20px", borderRadius: "50%"}}/>{bbs.id}</td>
+                  <td align="center"><img src={`http://localhost:3000/upload/member/${profile}`} style={{width: "20px", height: "20px", borderRadius: "50%"}}/>{bbs.id}</td>
                 </tr>
               );
             })}
@@ -219,7 +223,7 @@ function MyfreebbsList() {
         </Tabs>
         </Box>
         </div>
-
+        <div className='mysidemenu'>
         <List sx={style} component="nav" aria-label="mailbox folders">
       <ListItem button>
         <ListItemText primary="회원정보 수정" onClick={()=>goinfo()} />
@@ -236,7 +240,7 @@ function MyfreebbsList() {
         <ListItemText primary="내파티 보기" onClick={()=>gomyparty()} />
       </ListItem>
     </List>
-
+    </div>
         <h3>작성된 내용이 없습니다.</h3>
         <br></br>
         <Pagination activePage={page} itemsCountPerPage={10} totalItemsCount={totalCnt} pageRangeDisplayed={5} prevPageText={"이전"} nextPageText={"다음"} onChange={pageChange} />

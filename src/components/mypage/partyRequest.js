@@ -135,6 +135,7 @@ if(requestlist.length > 0){
         </Tabs>
         </Box>
         </div>
+        <div className='mysidemenu'>
           <List sx={style} component="nav" aria-label="mailbox folders">
       <ListItem button>
         <ListItemText primary="회원정보 수정" onClick={()=>goinfo()}/>
@@ -151,6 +152,7 @@ if(requestlist.length > 0){
         <ListItemText primary="내파티 보기"onClick={()=>gomyparty()} />
       </ListItem>
     </List>
+    </div>
     <div className='gamssagi3'>
           <table className='ttable' border="1" style={{ margin:'0 auto'}}>
         <colgroup>
@@ -207,6 +209,7 @@ if(requestlist.length > 0){
 
         
         <>
+        <div className='mysidemenu'>
   <Link to="/accountInfo">회원정보 수정</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/mybbsList">내가 쓴 글</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/partyAccept">파티원 승인</Link>&nbsp;&nbsp;&nbsp;
@@ -216,7 +219,7 @@ if(requestlist.length > 0){
   
 <Link to="/partyAccept">파티 수락</Link>&nbsp;&nbsp;&nbsp;
           <Link to="/partyRequest">파티 요청</Link>&nbsp;&nbsp;&nbsp;
-
+          </div>
   <br></br>
   <br></br>
 
