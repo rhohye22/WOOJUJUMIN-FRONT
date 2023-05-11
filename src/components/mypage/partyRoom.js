@@ -25,6 +25,7 @@ function PartyRoom() {
 
   const [msgModal, setMsgModal] = useState(false); // 기본적으로 모달창이 꺼져있어서 false
   let params = useParams();
+
   const [value, setValue] = React.useState("one");
 
   const handleChange = (event, newValue) => {
@@ -69,7 +70,7 @@ function PartyRoom() {
     [params.seq]
   ); // 한번만 호출
 
-  const gomy = () => {
+  /*   const gomy = () => {
     history("/mybbsList");
   };
   const goinfo = () => {
@@ -80,13 +81,13 @@ function PartyRoom() {
   };
   const gomyparty = () => {
     history("/partyList");
-  };
+  }; */
 
   return (
     <>
       <MsgModal sendId={id} targetId={targetId} show={msgModal} onHide={() => setMsgModal(false)} />
 
-      <List sx={style} component="nav" aria-label="mailbox folders">
+      {/*     <List sx={style} component="nav" aria-label="mailbox folders">
         <ListItem button>
           <ListItemText primary="회원정보 수정" onClick={() => goinfo()} />
         </ListItem>
@@ -101,7 +102,7 @@ function PartyRoom() {
         <ListItem button>
           <ListItemText primary="내파티 보기" onClick={() => gomyparty()} />
         </ListItem>
-      </List>
+      </List> */}
 
       <div className="gamssagi3">
         <h3>내파티 정보</h3>

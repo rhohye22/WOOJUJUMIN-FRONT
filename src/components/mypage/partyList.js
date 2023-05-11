@@ -65,12 +65,9 @@ function PartyList() {
 
     history(`partyRoom/${seq}`);
   }
-
-
   if (partyListmy.length > 0) {
     return (
       <>
-    
         <div className="gamssagi3">
           <table border="1" style={{ margin: "0 auto" }}>
             <colgroup>
@@ -95,13 +92,7 @@ function PartyList() {
                     <td align="center">{i + 1}</td>
                     <td align="center">{bbs.title}</td>
                     <td align="center">
-                      <button
-                        onClick={() => {
-                          go(bbs.partySeq);
-                        }}
-                      >
-                        보기
-                      </button>
+                      <button onClick={() => history(`/myinfo/partyRoom/${bbs.partySeq}`)}>보기</button>
                     </td>
                     <td align="center">{bbs.masterId}</td>
                   </tr>
@@ -118,7 +109,6 @@ function PartyList() {
   } else {
     return (
       <>
-  
         <br></br>
         <br></br>
         <h3>작성된 내용이 없습니다.</h3>

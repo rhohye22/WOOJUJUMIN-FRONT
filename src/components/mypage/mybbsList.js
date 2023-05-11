@@ -105,16 +105,7 @@ function MyBbsList() {
   /*   if (bbslist.length > 0) { */
   return (
     <>
-      <div className="tabdogae">
-        <Box sx={{ width: "100%" }}>
-          <Tabs value={value} onChange={handleChange} variant="scrollable" scrollButtons="auto" aria-label="scrollable auto tabs example">
-            <Tab label="모집 게시판" onClick={() => gobbs()}></Tab>
-            <Tab label="자유 게시판" onClick={() => gofree()}></Tab>
-
-          
-          </Tabs>
-        </Box>
-      </div>
+ 
 
    
 

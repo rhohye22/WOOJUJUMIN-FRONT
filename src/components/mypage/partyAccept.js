@@ -101,14 +101,14 @@ function PartyAccept() {
   if (partyList.length > 0) {
     return (
       <>
-        <div className="tabdogae">
+        {/*     <div className="tabdogae">
           <Box sx={{ width: "100%" }}>
             <Tabs value={value} onChange={handleChange} variant="scrollable" scrollButtons="auto" aria-label="scrollable auto tabs example">
               <Tab label="파티 수락" onClick={() => gobbs()}></Tab>
               <Tab label="파티 요청" onClick={() => gofree()}></Tab>
             </Tabs>
           </Box>
-        </div>
+        </div> */}
 
         {/* <div className='mysidemenu'>
           <List sx={style} component="nav" aria-label="mailbox folders">
@@ -193,8 +193,8 @@ function PartyAccept() {
         <Link to="/partyList">내파티 보기</Link>
         <br></br>
         <br></br> */}
-        <Link to="#">파티 수락</Link>&nbsp;&nbsp;&nbsp;
-        <Link to="partyRequest">파티 요청</Link>&nbsp;&nbsp;&nbsp;
+        {/* <Link to="#">파티 수락</Link>&nbsp;&nbsp;&nbsp;
+        <Link to="partyRequest">파티 요청</Link>&nbsp;&nbsp;&nbsp; */}
         <br></br>
         <br></br>
         <h3>작성된 내용이 없습니다.</h3>
