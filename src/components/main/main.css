@@ -36,10 +36,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 5px 7px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 5px 0px rgba(0, 0, 0, 0.5);
   transform: translateY(0);
   transition: transform 0.2s ease-in-out;
-  border: 4px solid rgb(21, 151, 180);
+  border: 3px solid rgb(21, 151, 180);
   width: 100%;
   height: 100%;
 }
@@ -64,21 +64,21 @@
   width: 600px;
   height: 450px;
   padding: 30px;
-  border-radius: 30px;
-  border: 4px solid rgb(180, 111, 21);
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
+  /* border: 1px solid rgb(180, 111, 21); */
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
   margin-right: 10px;
 }
 
 .mainmiddle2-2 {
-  background-color: #efe8e4;
+  background-color: #f0eeee;
   width: 600px;
   height: 450px;
   padding: 30px;
   padding-top: 20px;
-  border-radius: 30px;
-  border: 4px solid rgb(180, 111, 21);
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
+  /*   border: 1px solid rgb(180, 111, 21); */
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
   margin-left: 10px;
 }
 .calisttable {
@@ -88,11 +88,11 @@
 
 .mainmiddle3 {
   /*  background-color: rgb(166, 145, 110); */
-  height: 900px;
+  height: 700px;
 }
-.mainmiddle3-1 {
+/* .mainmiddle3-1 {
   margin: 0 auto;
-  /*   background-color: rgb(251, 228, 228); */
+  background-color: rgb(251, 228, 228);
   width: 1200px;
   height: 350px;
   display: flex;
@@ -102,17 +102,63 @@
 
   gap: 20px;
   padding: 20px;
-}
+} */
 .mainmiddle3-2 {
   margin: 0 auto;
-  background-color: rgb(240, 225, 225);
+  /*   background-color: rgb(237, 237, 237); */
   width: 1200px;
-  height: 450px;
-  /*   display: flex;
+  height: 600px;
+  display: flex;
   flex-direction: row;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   gap: 20px;
-  padding: 20px; */
+  padding: 20px;
+}
+
+.partycard {
+  background-color: #e7eee9;
+  border-radius: 30px;
+  box-shadow: 0 5px 0px rgba(0, 0, 0, 0.5);
+  display: flex;
+  /* justify-content: center; */ /* 수평 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
+  border: 3px solid rgb(26, 112, 26);
+}
+.partycard img {
+  margin-left: 30px;
+}
+.partycontent {
+  /*   background-color: #efe8e4; */
+  width: 330px;
+  height: 80%;
+  margin-left: 30px;
+}
+.mainmiddle4 {
+  /*   background-color: rgb(166, 145, 110); */
+  height: 900px;
+  width: 1200px;
+  margin: 0 auto;
+}
+.saycard {
+  /*   background-color: rgb(214, 202, 181); */
+  height: 200px;
+  width: 100px;
+  padding-top: 10px;
+}
+.incard {
+  background-color: rgb(242, 242, 242);
+  height: 90%;
+  width: 85%;
+  border-radius: 30px;
+
+  display: flex; /* flexbox 사용 */
+  /*  justify-content: center;  */ /* 수평 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
+  margin: 0 auto;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+}
+.incard img {
+  margin-left: 20px;
 }
