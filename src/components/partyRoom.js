@@ -109,7 +109,7 @@ function PartyRoom(){
         <>
         <MsgModal sendId={id} targetId={targetId} show={msgModal} onHide={()=>setMsgModal(false)}/>
        
-
+        <div className='mysidemenu'>
         <List sx={style} component="nav" aria-label="mailbox folders">
       <ListItem button>
         <ListItemText primary="회원정보 수정" onClick={()=>goinfo()}/>
@@ -126,7 +126,7 @@ function PartyRoom(){
         <ListItemText primary="내파티 보기"onClick={()=>gomyparty()} />
       </ListItem>
     </List>
-
+    </div>
    
 
   <div className='gamssagi3'>

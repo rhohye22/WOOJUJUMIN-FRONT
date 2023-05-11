@@ -107,7 +107,7 @@ if(partyListmy.length > 0){
 
         
         <>
-        
+         <div className='mysidemenu'>
           <List sx={style} component="nav" aria-label="mailbox folders">
       <ListItem button>
         <ListItemText primary="회원정보 수정" onClick={()=>goinfo()}/>
@@ -124,6 +124,7 @@ if(partyListmy.length > 0){
         <ListItemText primary="내파티 보기"onClick={()=>gomyparty()} />
       </ListItem>
     </List>
+    </div>
     <div className='gamssagi3'>
           <table className="ttable" border="1" style={{ margin:'0 auto'}}>
         <colgroup>
@@ -176,7 +177,7 @@ if(partyListmy.length > 0){
         
         <>
 
-
+<div className='mysidemenu'>
         <List sx={style} component="nav" aria-label="mailbox folders">
       <ListItem button>
         <ListItemText primary="회원정보 수정" onClick={()=>goinfo()} />
@@ -194,7 +195,7 @@ if(partyListmy.length > 0){
       </ListItem>
     </List>
 
-  
+    </div>
 
 
         <h3>작성된 내용이 없습니다.</h3>

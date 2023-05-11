@@ -2,10 +2,7 @@ import * as React from 'react';
 import {useEffect, useState, useRef} from "react";
 import axios from 'axios';
 import { Link, useParams, Routes, Route, useNavigate } from "react-router-dom";
-import Pagination from "react-js-pagination";
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
+
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -59,6 +56,7 @@ function Mypage(){
           console.log(flg);
       }
   }
+  
   
    // 다음 주소 api
   
@@ -143,7 +141,8 @@ function Mypage(){
                   console.log(res.data);
                   if(res.data === "YES"){
                       alert("성공적으로 수정되었습니다");
-                      history('/login');    
+                      history('/');
+                     
                   }else{
                       alert("수정되지 않았습니다");
                   }
@@ -180,7 +179,7 @@ function Mypage(){
   
       return(
           <>
-
+<div className='mysidemenu' >
             <List sx={style} component="nav" aria-label="mailbox folders">
       <ListItem button>
         <ListItemText primary="회원정보 수정" onClick={()=>goinfo()}></ListItemText>
@@ -197,7 +196,7 @@ function Mypage(){
         <ListItemText primary="내파티 보기" onClick={()=>gomyparty()}></ListItemText>
       </ListItem>
     </List>
-
+    </div>
 
 
 

@@ -236,7 +236,7 @@ if(partyList.length > 0){
         </Tabs>
         </Box>
         </div>
-
+        <div className='mysidemenu'>
         <List sx={style} component="nav" aria-label="mailbox folders">
       <ListItem button>
         <ListItemText primary="회원정보 수정" onClick={()=>goinfo()} />
@@ -254,7 +254,7 @@ if(partyList.length > 0){
       </ListItem>
     </List>
 
-
+    </div>
         <h3>작성된 내용이 없습니다.</h3>
      
       

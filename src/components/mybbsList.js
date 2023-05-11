@@ -12,7 +12,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import "./page.css";
 import "./accountInfo.css";
-
+import Button from "react-bootstrap/Button";
 
 
 
@@ -24,6 +24,7 @@ function MyBbsList(){
     const [bbslist, setBbslist] = useState([]); // 게시판은 배열로 넘어오니까 
     const [choice, setChoice] = useState('');
     const [search, setSearch] = useState('');
+    
     const [profile, setProfile] = useState('');
     //paging hook
     const [page, setPage] = useState(1);
@@ -74,7 +75,7 @@ function MyBbsList(){
     
     function pageChange(page){
         setPage(page);
-        getBbslist(choice, search, page-1);
+        getBbslist(choice, search, page - 1);
     }
     
     function searchBtn(){
@@ -147,7 +148,7 @@ function MyBbsList(){
         </Tabs>
         </Box>
         </div>
-
+        <div className='mysidemenu'>
         <List sx={style} component="nav" aria-label="mailbox folders">
       <ListItem button>
         <ListItemText primary="회원정보 수정" onClick={()=>goinfo()} />
@@ -164,7 +165,7 @@ function MyBbsList(){
         <ListItemText primary="내파티 보기" onClick={()=>gomyparty()} />
       </ListItem>
     </List>
-
+    </div>
     <br></br>
     <div className='gamssagi2'>
         <div className='searchs'>
@@ -175,10 +176,12 @@ function MyBbsList(){
             <option value="writer">작성자</option>
 
         </select>&nbsp;
-        <input value={search} onChange={(e)=>setSearch(e.target.value)} placeholder="검색어"/>
+        <input value={search} onChange={(e)=>setSearch(e.target.value)} placeholder="검색어"/>   &nbsp;
 
-        <button onClick={searchBtn}>검색</button>
-     
+       
+        <Button variant="success" size="sm" onClick={searchBtn}>
+          검색
+        </Button>
 
         </div>
 
@@ -209,7 +212,7 @@ function MyBbsList(){
                             <td align="center">{bbs.readcount}</td>
                             <td align="center">{bbs.people}</td>
                             <td align="center">{bbs.wdate.substring(0,10)}</td>
-                            <td align="center"><img src={`http://localhost:3000/upload/${profile.substring(57)}`} style={{width: "20px", height: "20px", borderRadius: "50%"}}/>{bbs.id}</td>
+                            <td align="center"><img src={`http://localhost:3000/upload/member/${profile}`} style={{width: "20px", height: "20px", borderRadius: "50%"}}/>{bbs.id}</td>
                         </tr>
                     )
                 })
@@ -259,7 +262,7 @@ function MyBbsList(){
         </Tabs>
         </Box>
         </div>
-
+        <div className='mysidemenu'>
         <List sx={style} component="nav" aria-label="mailbox folders">
       <ListItem button>
         <ListItemText primary="회원정보 수정" onClick={()=>goinfo()} />
@@ -276,7 +279,7 @@ function MyBbsList(){
         <ListItemText primary="내파티 보기" onClick={()=>gomyparty()} />
       </ListItem>
     </List>
-
+    </div>
             <h3>작성된 내용이 없습니다.</h3>
 
 

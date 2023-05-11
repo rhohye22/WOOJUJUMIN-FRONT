@@ -68,7 +68,7 @@ function ChattingModal() {
             
           }}
         >
-         <img src={x} alt="" style={{width:"50px", cursor: "pointer"}} onClick={handleButtonClick2}/>
+         <img src={x} alt="" style={{width:"100px", cursor: "pointer", marginTop: '80px'}} onClick={handleButtonClick2}/>
          
           <Home />
         </div>
