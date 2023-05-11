@@ -11,6 +11,7 @@ import friends from "./img/friends.png";
 import fight from "./img/fight.png";
 import board from "./img/board.png";
 import speech from "./img/speech-bubble.png";
+import review from "./img/free-icon-rating-5250082.png";
 
 import "./main.css";
 
@@ -57,6 +58,8 @@ function Main() {
       <div className="mainmiddle2">
         <Calendar />
       </div>
+      <img src={review} alt="noimg" style={{ height: "50px", width: "auto" }} /> &nbsp; &nbsp;&nbsp;
+      <span style={{ fontSize: "1.5em" }}>우주인들의 후기</span>
       <div className="mainmiddle4">
         <Oursays />
       </div>
