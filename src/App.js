@@ -258,14 +258,14 @@ function App() {
           <ul style={{ listStyle: "none", padding: "0" }}>
             <br /> <br />
             <li>
-              <Link to="#" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
+              <Link to="freeBoard" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
                 자유게시판
               </Link>
             </li>
             <br />
             <br />
             <li>
-              <Link to="#" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
+              <Link to="partybbslist" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
                 모집게시판
               </Link>
             </li>
@@ -279,7 +279,7 @@ function App() {
             <br />
             <br />
             <li>
-              <Link to="#" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
+              <Link to="qnalist" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
                 사용문의
               </Link>
             </li>
@@ -301,7 +301,7 @@ function App() {
             <br />
             <br />
             <li>
-              <Link to="#" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
+              <Link to="/pages/Home" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
                 채팅하기
               </Link>
             </li>

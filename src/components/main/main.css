@@ -137,7 +137,7 @@
 }
 .mainmiddle4 {
   /*   background-color: rgb(149, 158, 186); */
-  height: 400px;
+  height: 300px;
   width: 1200px;
   margin: 0 auto;
 }
@@ -162,12 +162,3 @@
 .incard img {
   margin-left: 20px;
 }
-/* .mainmiddle5 {
- 
-  height: 350px;
-  width: 1600px;
-  margin: 0 auto;
-  justify-content: center;
-  align-items: center;
-}
- */

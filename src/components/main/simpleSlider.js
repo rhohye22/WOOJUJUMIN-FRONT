@@ -11,7 +11,7 @@ import space from "./space.jpg";
 
 function SimpleSlider() {
   return (
-    <Carousel slide={false} style={{ maxWidth: "1200px", maxHeight: "300px", margin: "auto" }}>
+    <Carousel slide={false} style={{ maxWidth: "1200px", maxHeight: "300px", margin: "auto" }} interval={2000}>
       <Carousel.Item>
         <img className="d-block w-100" src={station} alt="First slide" />
         <Carousel.Caption></Carousel.Caption>
@@ -26,7 +26,7 @@ function SimpleSlider() {
         <img className="d-block w-100" src={space} alt="First slide" />
         <Carousel.Caption>
           <h1>우주안에선 우린 모두 이웃입니다</h1>
-          <p>외로운 행성들을 모아봅시다</p>
+          <p>외로운 행성들은 고개를 드세요</p>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
