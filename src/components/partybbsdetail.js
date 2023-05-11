@@ -101,6 +101,7 @@ function Partybbsdetail() {
       });
   };
 
+
   return (
     <div>
       <input type="text" value={partybbslist.title} readOnly />
@@ -133,6 +134,7 @@ function Partybbsdetail() {
       <button onClick={pbdelete}>삭제</button>
     </div>
   );
+
 }
 
 export default Partybbsdetail;

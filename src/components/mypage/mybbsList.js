@@ -105,31 +105,9 @@ function MyBbsList() {
   /*   if (bbslist.length > 0) { */
   return (
     <>
-      {/*   <div className="tabdogae">
-        <Box sx={{ width: "100%" }}>
-          <Tabs value={value} onChange={handleChange} variant="scrollable" scrollButtons="auto" aria-label="scrollable auto tabs example">
-            <Tab label="모집 게시판" onClick={() => history("mybbslist")}></Tab>
-            <Tab label="자유 게시판" onClick={() => history("myfreebbsList")}></Tab>
-          </Tabs>
-        </Box>
-      </div> */}
+ 
 
-      {/*      <List sx={style} component="nav" aria-label="mailbox folders">
-      <ListItem button>
-        <ListItemText primary="회원정보 수정" onClick={()=>goinfo()} />
-      </ListItem>
-      <Divider />
-      <ListItem button>
-        <ListItemText primary="내가 쓴 글" onClick={()=>gomy()}/>
-      </ListItem>
-      <ListItem button>
-        <ListItemText primary="파티원 승인" onClick={()=>goparty()}/>
-      </ListItem>
-      <Divider light />
-      <ListItem button>
-        <ListItemText primary="내파티 보기" onClick={()=>gomyparty()} />
-      </ListItem>
-    </List> */}
+   
 
       <br></br>
       <div className="gamssagi2">
