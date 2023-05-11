@@ -19,3 +19,25 @@
   height: 100%;
   width: 80%;
 }
+.mybbspage {
+  height: 100vh;
+}
+.mybbspageTop {
+  height: 5%;
+  /*  background-color: aqua; */
+}
+.mybbspageBottom {
+  height: 95%;
+  /*   background-color: rgb(149, 255, 0); */
+}
+.mypartypage {
+  height: 100vh;
+}
+.mypartypageTop {
+  height: 5%;
+  /*   background-color: aqua; */
+}
+.mypartypageBottom {
+  height: 95%;
+  /*   background-color: rgb(149, 255, 0); */
+}

@@ -15,13 +15,16 @@ import Button from "react-bootstrap/Button";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 
 import Mypage from "./mypage";
-import MybbsList from "./mybbsList";
-import MyfreebbsList from "./myfreebbsList";
-import PartyAccept from "./partyAccept";
-import PartyRequest from "./partyRequest";
+/* import MybbsList from "./mybbsList"; */
+/* import MyfreebbsList from "./myfreebbsList";
+import PartyAccept from "./partyAccept"; */
+/* import PartyRequest from "./partyRequest"; */
 import PartyRoom from "./partyRoom";
 import PartyList from "./partyList";
 import AccountInfo from "./accountInfo";
+
+import Mybbspage from "./mybbspage";
+import Mypartypage from "./mypartypage";
 
 import "./page.css";
 import "./accountInfo.css";
@@ -38,13 +41,13 @@ function MyInfo() {
   };
 
   const gomy = () => {
-    history("/myinfo/mybbsList");
+    history("mybbspage");
   };
   const goinfo = () => {
     history("/myinfo/mypage");
   };
   const goparty = () => {
-    history("/myinfo/partyAccept");
+    history("mypartypage");
   };
   const gomyparty = () => {
     history("/myinfo/partyList");
@@ -66,20 +69,21 @@ function MyInfo() {
           </ListItem>
           <Divider light />
           <ListItem button>
-            <ListItemText primary="내파티 보기" onClick={() => gomyparty()}></ListItemText>
+            <ListItemText primary="내파티 보기" onClick={() => history("partyList")}></ListItemText>
           </ListItem>
         </List>
       </div>
       <div className="mypagecontent">
         <Routes>
-          <Route path="/accountInfo/*" element={<AccountInfo />}></Route>
-          <Route path="/mybbsList/*" element={<MybbsList />}></Route>
-          <Route path="/partyAccept/*" element={<PartyAccept />}></Route>
-          <Route path="/partyRequest/" element={<PartyRequest />}></Route>
-          <Route path="/partyRoom/:seq" element={<PartyRoom />}></Route>
-          <Route path="/partyList/*" element={<PartyList />}></Route>
-          <Route path="/mypage/*" element={<Mypage />}></Route>
-          <Route path="/myfreebbsList/" element={<MyfreebbsList />}></Route>
+          {/*   <Route path="accountInfo/*" element={<AccountInfo />}></Route> */}
+          <Route path="mybbspage/*" element={<Mybbspage />}></Route>
+          <Route path="mypartypage/*" element={<Mypartypage />}></Route>
+          {/* <Route path="partyAccept/*" element={<PartyAccept />}></Route> */}
+          {/* <Route path="partyRequest/*" element={<PartyRequest />}></Route> */}
+          <Route path="partyRoom/:seq" element={<PartyRoom />}></Route>
+          <Route path="partyList/*" element={<PartyList />}></Route>
+          <Route path="mypage/*" element={<Mypage />}></Route>
+          {/*  <Route path="myfreebbsList/*" element={<MyfreebbsList />}></Route> */}
         </Routes>
       </div>
     </div>
