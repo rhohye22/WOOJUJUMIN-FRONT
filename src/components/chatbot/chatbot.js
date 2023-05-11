@@ -44,6 +44,26 @@ function Ans(props) {
       props.step.trigger = '게시판_101';
     }
   }
+  else if(bot.includes('문화') || bot.includes('정보') || bot.includes('추천')) {
+    answer = '문화생활은 영화, 독서, 축제, 음악으로 나뉩니다.'
+    props.step.trigger = '문화생활_101';
+  }
+  else if(bot.includes('영화')) {
+    answer = '현재 상영되는 영화의 예매율, 개봉일자 등의 정보를 알 수 있습니다.'
+    props.step.trigger = '영화_101';
+  }
+  else if(bot.includes('독서') || bot.includes('책')) {
+    answer = '알라딘에서 판매되는 책의 정보를 알 수 있습니다.'
+    props.step.trigger = '독서_101';
+  }
+  else if(bot.includes('축제') || bot.includes('지역')) {
+    answer = '전국에서 진행되는 축제에 대한 정보를 확인할 수 있습니다.'
+    props.step.trigger = '축제_101';
+  }
+  else if(bot.includes('음악')) {
+    answer = '현재 멜론차트 상위 50위까지의 음악을 확인할 수 있습니다.'
+    props.step.trigger = '음악_101';
+  }
   else if(bot.includes('종료') || bot.includes('끝')) {
     answer = '필요하시면 언제든지 불러주세요.'
     props.step.trigger = '종료';
