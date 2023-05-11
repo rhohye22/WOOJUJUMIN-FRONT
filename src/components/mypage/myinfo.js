@@ -75,11 +75,11 @@ function MyInfo() {
           <Route path="/accountInfo/*" element={<AccountInfo />}></Route>
           <Route path="/mybbsList/*" element={<MybbsList />}></Route>
           <Route path="/partyAccept/*" element={<PartyAccept />}></Route>
-          <Route path="/partyRequest/" element={<PartyRequest />}></Route>
+          <Route path="/partyRequest/*" element={<PartyRequest />}></Route>
           <Route path="/partyRoom/:seq" element={<PartyRoom />}></Route>
           <Route path="/partyList/*" element={<PartyList />}></Route>
           <Route path="/mypage/*" element={<Mypage />}></Route>
-          <Route path="/myfreebbsList/" element={<MyfreebbsList />}></Route>
+          <Route path="/myfreebbsList/*" element={<MyfreebbsList />}></Route>
         </Routes>
       </div>
     </div>
