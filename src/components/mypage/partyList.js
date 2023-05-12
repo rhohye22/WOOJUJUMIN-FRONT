@@ -3,13 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Pagination from "react-js-pagination";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
+
 
 function PartyList() {
   let history = useNavigate();
@@ -71,7 +65,6 @@ function PartyList() {
 
     history(`partyRoom/${seq}`);
   }
-
   if (partyListmy.length > 0) {
     return (
       <>

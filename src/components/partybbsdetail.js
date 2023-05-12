@@ -115,6 +115,7 @@ function Partybbsdetail() {
       });
   };
 
+
   function onRemove() {
     if (window.confirm("정말 삭제하겠습니까? ")) {
       pbdelete();
@@ -131,6 +132,7 @@ function Partybbsdetail() {
     }
   }
   const imageUrl = partybbslist.image !== null ? `http://localhost:3000/upload/party/${partybbslist.image}` : null;
+
 
   return (
     <div>
@@ -262,6 +264,7 @@ function Partybbsdetail() {
       <br />
     </div>
   );
+
 }
 
 export default Partybbsdetail;
