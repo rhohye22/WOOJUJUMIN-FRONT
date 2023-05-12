@@ -1,6 +1,9 @@
-.posts-container {
+ .posts-container {
     overflow-y: scroll;
+    width: 1100px; 
     height: 500px;
+    margin: auto;
+    text-align: left;
   }
   
 
@@ -18,13 +21,37 @@
     background-color: #999;
   }
   
+  .post {
+    overflow: hidden;
+    /* clear: both; */
+    width: 520px;
+    height: 180px;
+    margin: 0;
+    margin-top: 20px;
+    margin-right: 20px;
+    border-radius: 10px;
+    /* border: 1px solid gray; */
+    background-color: #fff; 
+    text-align: center;
+    padding: 25px 0;
+    display: inline-block;
+    vertical-align: top;
+  }
+  .post-body{
+    background-color: rgba(216, 184, 184, 0.596);
+    color: black;
+    border-radius: 10px;
+    padding: 5px;
+    display: inline-block;
+    margin-right: 5px;
+  }
   .post-info {
     overflow: hidden;
   }
   
   .post-info img {
     float: left;
-    margin-right: 10px;
+    margin-left: 20px;
   }
   
   .post-info h2 {
