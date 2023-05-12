@@ -27,14 +27,6 @@ import Home from "./pages/Home";
 
 import MyInfo from "./components/mypage/myinfo";
 
-/* import Mypage from "./components/mypage/mypage";
-import MybbsList from "./components/mypage/mybbsList";
-import MyfreebbsList from "./components/mypage/myfreebbsList";
-import PartyAccept from "./components/mypage/partyAccept";
-import PartyRequest from "./components/mypage/partyRequest";
-import PartyRoom from "./components/mypage/partyRoom";
-import PartyList from "./components/mypage/partyList";
- */
 import Regi from "./components/login/regi";
 
 import FreeBbsList from "./components/freebbs/freeBbsList";
@@ -223,16 +215,7 @@ function App() {
             <Route path="/socialLogin" element={<SocialHandler />} />
 
             <Route path="/myinfo/*" element={<MyInfo />}></Route>
-            {/* 
-            <Route path="/accountInfo" element={<AccountInfo />}></Route>
-            <Route path="/mybbsList" element={<MybbsList />}></Route>
-            <Route path="/partyAccept" element={<PartyAccept />}></Route>
-            <Route path="/partyRequest" element={<PartyRequest />}></Route>
-            <Route path="/partyRoom/:seq" element={<PartyRoom />}></Route>
-            <Route path="/partyList" element={<PartyList />}></Route>
-            <Route path="/mypage" element={<Mypage />}></Route>
-            <Route path="/myfreebbsList" element={<MyfreebbsList />}></Route>
- */}
+
             <Route path="/messageInfo" element={<MessageInfo />}></Route>
             <Route path="/sendMessageInfo" element={<SendMessageInfo />}></Route>
 
@@ -253,8 +236,102 @@ function App() {
             <Route path="/freeBbslikey" element={<FreeBbslikey />} />
           </Routes>
         </main>
+        <hr />
+        <div className="mainmiddle5" style={{ display: "flex", flexDirection: "row" }}>
+          <ul style={{ listStyle: "none", padding: "0" }}>
+            <br /> <br />
+            <li>
+              <Link to="freeBoard" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
+                자유게시판
+              </Link>
+            </li>
+            <br />
+            <br />
+            <li>
+              <Link to="partybbslist" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
+                모집게시판
+              </Link>
+            </li>
+            <br />
+            <br />
+            <li>
+              <Link to="#" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
+                문화생활
+              </Link>
+            </li>
+            <br />
+            <br />
+            <li>
+              <Link to="qnalist" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
+                사용문의
+              </Link>
+            </li>
+          </ul>
+          <ul style={{ listStyle: "none", padding: "0", marginLeft: "100px" }}>
+            <br />
+            <li>
+              <Link to="#" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
+                우주주민 소개
+              </Link>
+            </li>
+            <br />
+            <br />
+            <li>
+              <Link to="#" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
+                자주 묻는 질문
+              </Link>
+            </li>
+            <br />
+            <br />
+            <li>
+              <Link to="/pages/Home" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
+                채팅하기
+              </Link>
+            </li>
+            <br />
+            <br />
+          </ul>
+          <ul style={{ listStyle: "none", padding: "0", marginLeft: "100px" }}>
+            <br />
+            <li>
+              <Link to="#" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
+                제휴 문의
+              </Link>
+            </li>
+            <br />
+            <br />
+            <li>
+              <Link to="#" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
+                광고 문의
+              </Link>
+            </li>
+            <br />
+            <br />
+            <li>
+              <Link to="#" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
+                이용약관
+              </Link>
+            </li>
+            <br />
+            <br />
+          </ul>
+          <pre style={{ textAlign: "left", marginLeft: "100px" }}>
+            대표:우주인 | 개인정보책임관리자 : 우주인
+            <br />
+            주소 : 서울시 멀티캠퍼스 자바 풀스택 11반 파이널 2조
+            <br />
+            사업자등록번호 : 0000-000-00000 <br />
+            통신판매 : 제 2023-서울강남-00000
+            <br />
+            고객센터 : 000-0000-0000
+            <br />
+            운영 시간 : (월~금) 오전 11:00 ~ 오후 5:00 / (주말 및 공휴일) 오전 10:00 ~ 오후 7:00
+          </pre>
+
+          <hr />
+        </div>
         <footer>
-          <p style={{ color: "gray", fontSize: "12px" }}>Copyright(c)2023 woojujumin All rights reserved </p>&nbsp;&nbsp;
+          <p style={{ color: "gray", fontSize: "15px" }}>Copyright(c)2023 woojujumin All rights reserved </p>&nbsp;&nbsp;
         </footer>
       </BrowserRouter>
     </div>

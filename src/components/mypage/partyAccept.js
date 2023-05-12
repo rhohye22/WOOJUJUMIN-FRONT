@@ -4,13 +4,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Pagination from "react-js-pagination";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
+import "./accountInfo.css";
 
 function PartyAccept() {
   let history = useNavigate();
@@ -18,7 +12,7 @@ function PartyAccept() {
   const [page, setPage] = useState(1);
   const [totalCnt, setTotalCnt] = useState(0);
   const [partyList, setPartyList] = useState([]);
-
+  const [profile, setProfile] = useState("");
   const [value, setValue] = React.useState("one");
 
   const handleChange = (event, newValue) => {
@@ -44,8 +38,8 @@ function PartyAccept() {
         //console.log(resp.data);
         setPartyList(resp.data.list); // map을 return하기 때문(map 안에 list있음)
         setTotalCnt(resp.data.cnt);
-
-        //console.log(requestlist);
+        setProfile(resp.data);
+       
       })
       .catch(function(err) {
         alert(err);
@@ -55,7 +49,7 @@ function PartyAccept() {
     axios
       .get("http://localhost:3000/updateCheck", { params: { partySeq: partySeq, applyMem: applyMem } })
       .then(function(resp) {
-        document.location.href = "/partyAccept";
+        document.location.href = "myinfo/mypartypage/partyAccept";
       })
       .catch(function(err) {
         alert(err);
@@ -101,41 +95,15 @@ function PartyAccept() {
   if (partyList.length > 0) {
     return (
       <>
-        <div className="tabdogae">
-          <Box sx={{ width: "100%" }}>
-            <Tabs value={value} onChange={handleChange} variant="scrollable" scrollButtons="auto" aria-label="scrollable auto tabs example">
-              <Tab label="파티 수락" onClick={() => gobbs()}></Tab>
-              <Tab label="파티 요청" onClick={() => gofree()}></Tab>
-            </Tabs>
-          </Box>
-        </div>
-
-        {/* <div className='mysidemenu'>
-          <List sx={style} component="nav" aria-label="mailbox folders">
-      <ListItem button>
-        <ListItemText primary="회원정보 수정" onClick={()=>goinfo()}/>
-      </ListItem>
-      <Divider />
-      <ListItem button>
-        <ListItemText primary="내가 쓴 글" onClick={()=>gomy()}/>
-      </ListItem>
-      <ListItem button>
-        <ListItemText primary="파티원 승인"onClick={()=>goparty()} />
-      </ListItem>
-      <Divider light />
-      <ListItem button>
-        <ListItemText primary="내파티 보기"onClick={()=>gomyparty()} />
-      </ListItem>
-    </List>
-    </div> */}
+      
         <div className="gamssagi3">
-          <table border="1" style={{ margin: "0 auto" }}>
+          <table border="1" style={{ margin: "0 auto" }} className='ttable'>
             <colgroup>
-              <col width="70" />
+              <col width="100" />
               <col width="600" />
               <col width="200" />
               <col width="100" />
-              <col width="100" />
+              <col width="130" />
             </colgroup>
             <thead>
               <tr>
@@ -151,17 +119,19 @@ function PartyAccept() {
               {partyList.map(function(bbs, i) {
                 return (
                   <tr key={i}>
-                    <td align="center">{bbs.applyMem}</td>
+                    <td align="center">
+                    <img src={`http://localhost:3000/upload/member/${bbs.profile}`} style={{ width: "20px", height: "20px", borderRadius: "50%" }} />
+                      {bbs.applyMem}</td>
                     <td align="center">{bbs.title}</td>
-                    <td align="center">{bbs.wdate}</td>
+                    <td align="center">{bbs.wdate.substring(0,10)}</td>
                     <td align="center">
                       {bbs.countMem}/{bbs.totalMem}
                     </td>
 
                     {bbs.countMem === bbs.totalMem ? (
-                      <td align="center">파티완료</td>
+                      <td align="center" className="partyWhat">파티완료</td>
                     ) : bbs.check === 1 ? (
-                      <td align="center">수락됨</td>
+                      <td align="center" className="partyWhat">수락됨</td>
                     ) : (
                       <td align="center">
                         <button
@@ -187,14 +157,7 @@ function PartyAccept() {
   } else {
     return (
       <>
-        {/*   <Link to="/accountInfo">회원정보 수정</Link>&nbsp;&nbsp;&nbsp;
-        <Link to="/mybbsList">내가 쓴 글</Link>&nbsp;&nbsp;&nbsp;
-        <Link to="/partyAccept">파티원 승인</Link>&nbsp;&nbsp;&nbsp;
-        <Link to="/partyList">내파티 보기</Link>
-        <br></br>
-        <br></br> */}
-        <Link to="#">파티 수락</Link>&nbsp;&nbsp;&nbsp;
-        <Link to="partyRequest">파티 요청</Link>&nbsp;&nbsp;&nbsp;
+   
         <br></br>
         <br></br>
         <h3>작성된 내용이 없습니다.</h3>

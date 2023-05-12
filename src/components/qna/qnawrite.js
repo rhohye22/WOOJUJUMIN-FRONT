@@ -43,7 +43,7 @@ function Qnawrite() {
     <div>
       <h3>글쓰기</h3>
 
-      <table align="center" border="1">
+      <table className="ttable" align="center" border="1">
         <colgroup>
           <col width="100px" />
           <col width="500px" />

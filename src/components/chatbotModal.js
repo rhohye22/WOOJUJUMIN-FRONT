@@ -137,8 +137,48 @@ function ChatbotModal() {
       trigger: "200",
     },
     {
+      id: "문화생활_101",
+      message: "어떤 부분이 제일 궁금하세요?",
+      trigger: "200",
+    },
+    {
+      id: "영화_101",
+      component: <Link to="/moviechart">상영영화</Link>,
+      asMessage: true,
+      trigger: "200",
+    },
+    {
+      id: "독서_101",
+      component: <Link to="/bookchart">책베스트</Link>,
+      asMessage: true,
+      trigger: "200",
+    },
+    {
+      id: "축제_101",
+      component: <Link to="/localevent">지역축제</Link>,
+      asMessage: true,
+      trigger: "200",
+    },
+    {
+      id: "음악_101",
+      component: <Link to="/musichart">TOP50</Link>,
+      asMessage: true,
+      trigger: "200",
+    },
+    {
       id: "설정밖",
-      message: "대화 형식을 변경할까요?.",
+      message: "복잡하신 질문은 문의사항을 이용하실 수 있습니다.",
+      trigger: "문의_1",
+    },
+    {
+      id: "문의_1",
+      component: <Link to="/qnalist">사용문의</Link>,
+      asMessage: true,
+      trigger: "설정밖_1",
+    },
+    {
+      id: "설정밖_1",
+      message: "대화 형식을 변경하실 수도 있습니다.",
       trigger: "선택_1",
     },
     {
@@ -146,9 +186,117 @@ function ChatbotModal() {
       options: [
         { value: 1, label: "여긴 어떤 곳?", trigger: "소개_1" },
         { value: 2, label: "어떻게 활동할 수 있지?", trigger: "소개_3" },
-        { value: 3, label: "직접 대화", trigger: "대화_1" },
-        { value: 4, label: "안내 종료", trigger: "종료" },
+        { value: 3, label: "관리자에게 연결해줘", trigger: "관리자_1" },
+        { value: 4, label: "다양한 문화 소개", trigger: "문화생활_1" },
+        { value: 5, label: "직접 대화", trigger: "대화_1" },
+        { value: 6, label: "안내 종료", trigger: "종료" },
       ],
+    },
+    {
+      id: "문화생활_1",
+      message: "문화생활은 영화, 독서, 축제, 음악으로 나뉩니다.",
+      trigger: "문화생활_2",
+    },
+    {
+      id: "문화생활_2",
+      options: [
+        { value: 1, label: "영화", trigger: "영화_1" },
+        { value: 2, label: "독서", trigger: "독서_1" },
+        { value: 3, label: "축제", trigger: "축제_1" },
+        { value: 4, label: "음악", trigger: "음악_1" },
+        { value: 5, label: "돌아가기", trigger: "추가 질문" },
+      ],
+    },
+    {
+      id: "영화_1",
+      message: "현재 상영되는 영화의 예매율, 개봉일자 등의 정보를 알 수 있습니다.",
+      trigger: "영화_2",
+    },
+    {
+      id: "영화_2",
+      component: <Link to="/moviechart">상영영화</Link>,
+      asMessage: true,
+      trigger: "영화_3",
+    },
+    {
+      id: "영화_3",
+      options: [
+        { value: 1, label: "독서", trigger: "독서_1" },
+        { value: 2, label: "축제", trigger: "축제_1" },
+        { value: 3, label: "음악", trigger: "음악_1" },
+        { value: 4, label: "돌아가기", trigger: "추가 질문" },
+      ],
+    },
+    {
+      id: "독서_1",
+      message: "알라딘에서 판매되는 책의 정보를 알 수 있습니다.",
+      trigger: "독서_2",
+    },
+    {
+      id: "독서_2",
+      component: <Link to="/bookchart">책베스트</Link>,
+      asMessage: true,
+      trigger: "독서_3",
+    },
+    {
+      id: "독서_3",
+      options: [
+        { value: 1, label: "영화", trigger: "영화_1" },
+        { value: 2, label: "축제", trigger: "축제_1" },
+        { value: 3, label: "음악", trigger: "음악_1" },
+        { value: 4, label: "돌아가기", trigger: "추가 질문" },
+      ],
+    },
+    {
+      id: "축제_1",
+      message: "전국에서 진행되는 축제에 대한 정보를 확인할 수 있습니다.",
+      trigger: "축제_2",
+    },
+    {
+      id: "축제_2",
+      component: <Link to="/localevent">지역축제</Link>,
+      asMessage: true,
+      trigger: "축제_3",
+    },
+    {
+      id: "축제_3",
+      options: [
+        { value: 1, label: "영화", trigger: "영화_1" },
+        { value: 2, label: "독서", trigger: "독서_1" },
+        { value: 3, label: "음악", trigger: "음악_1" },
+        { value: 4, label: "돌아가기", trigger: "추가 질문" },
+      ],
+    },
+    {
+      id: "음악_1",
+      message: "현재 멜론차트 상위 50위까지의 음악을 확인할 수 있습니다.",
+      trigger: "음악_2",
+    },
+    {
+      id: "음악_2",
+      component: <Link to="/musichart">TOP50</Link>,
+      asMessage: true,
+      trigger: "음악_3",
+    },
+    {
+      id: "음악_3",
+      options: [
+        { value: 1, label: "영화", trigger: "영화_1" },
+        { value: 2, label: "독서", trigger: "독서_1" },
+        { value: 3, label: "축제", trigger: "축제_1" },
+        { value: 4, label: "돌아가기", trigger: "추가 질문" },
+      ],
+    },
+    {
+      id: "관리자_1",
+      message: "문의를 통해 관리자에게 요청이나 질문을 남길 수 있습니다.",
+      trigger: "관리자_2",
+    },
+    {
+      id: "관리자_2",
+      component: <Link to="/qnalist">사용문의</Link>,
+      asMessage: true,
+      trigger: "추가 질문",
     },
     {
       id: "소개_1",
@@ -173,7 +321,7 @@ function ChatbotModal() {
     },
     {
       id: "소개_3",
-      message: "크게 자유게시판과 모집게시판으로 나뉘어 있습니다.",
+      message: "크게 자유게시판과 파티게시판으로 나뉘어 있습니다.",
       trigger: "게시판",
     },
     {
@@ -275,7 +423,9 @@ function ChatbotModal() {
           }}
         >
           <ThemeProvider theme={theme}>
-            <ChatBot steps={steps} hideHeader={false} headerTitle="미리내" userAvatar={`http://localhost:3000/upload/member/${profile}`} botAvatar={chatbot} />
+            <ChatBot recognitionEnable={true} recognitionLang='ko'
+              steps={steps} hideHeader={false} headerTitle="미리내"
+              userAvatar={`http://localhost:3000/upload/member/${profile}`} botAvatar={chatbot} />
           </ThemeProvider>
           <br />
           <button onClick={handleButtonClick2}>닫기</button>
