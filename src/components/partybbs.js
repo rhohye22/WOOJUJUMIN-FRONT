@@ -13,34 +13,34 @@ import {Button, Form, InputGroup, Container, Row, Col, FloatingLabel, Modal} fro
 //npm install react-datepicker
 
 function Partybbs(){
-    // const mdstyle = {
-    //     overlay: {
-    //         position: "fixed",
-    //         top: 0,
-    //         left: 0,
-    //         right: 0,
-    //         bottom: 0,
-    //         backgroundColor: "rgba(0, 0, 0, 0.45)",
-    //         zIndex: 10,
-    //     },
-    //     content: {
-    //         display: "flex",
-    //         justifyContent: "center",
-    //         background: "#ffffff",
-    //         overflow: "auto",
-    //         top: "50%",
-    //         left: "50%",
-    //         width: "600px",
-    //         height: "700px",
-    //         transform: "translate(-50%, -50%)",
-    //         WebkitOverflowScrolling: "touch",
-    //         borderRadius: "14px",
-    //         outline: "none",
-    //         zIndex: 10,
-    //         display: "flex",
-    //         flexDirection: "column",
-    //     },
-    // };
+    const mdstyle = {
+        overlay: {
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.45)",
+          zIndex: 10,
+        },
+        content: {
+          display: "flex",
+          justifyContent: "center",
+          background: "#ffffff",
+          overflow: "auto",
+          top: "50%",
+          left: "50%",
+          width: "600px",
+          height: "800px",
+          transform: "translate(-50%, -50%)",
+          WebkitOverflowScrolling: "touch",
+          borderRadius: "14px",
+          outline: "none",
+          zIndex: 10,
+          display: "flex",
+          flexDirection: "column",
+        },
+      };
 
     let history = useNavigate();
     const [id, setId] = useState("");
@@ -137,7 +137,6 @@ function Partybbs(){
         console.log(err);
       });
   };
-
 
     return(
         <Container>
@@ -277,7 +276,6 @@ function Partybbs(){
             {/* 날짜 & 시간 설정 */}
             <Row className="justify-content-md-center">
             <Col md={4}>
-            
             <DatePicker 
                         selected={MDate} 
                         onChange={date => setMDate(date)}
@@ -285,6 +283,17 @@ function Partybbs(){
                         showTimeSelect
                         dateFormat="yyyy-MM-dd HH:mm:ss"
                         customInput={<Form.Control />}/>
+            {/* <DatePicker 
+                        selected={MDate} 
+                        onChange={date => setMDate(date)}
+                        minDate={currentDate}   
+                        showTimeSelect
+                        dateFormat="yyyy-MM-dd HH:mm:ss"/>
+            <input type="text" name="people" value={mnum} onChange={mnumChange} readOnly/>
+            <button type="button" onClick={()=>setMnum(mnum+1)}>up</button><button type="button" onClick={()=>setMnum(mnum-1)}>down</button><br/>
+            <textarea value={content} name="content" placeholder="내용을 입력해주세요" onChange={contentChange} /><br/>
+            <input type="file" name="uploadFile" /> <br/>
+            <button onClick={fetchData} >작성</button> */}
             
             </Col>
             </Row>
@@ -319,6 +328,7 @@ function Partybbs(){
             <Row className="justify-content-md-center">
             <Col md={4}>
             <div className="d-grid gap-2">
+            <input type="file" name="uploadFile" /> <br/>
             <Button variant="primary" onClick={fetchData} >작성</Button>
             </div>
             </Col>
