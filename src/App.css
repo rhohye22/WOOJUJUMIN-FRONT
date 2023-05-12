@@ -26,7 +26,7 @@ header {
   position: relative;
   background-color: #f9f9f9;
   width: 100%;
-  height: 70px;
+  height: 90px;
   top: 100px; /* 헤더의 높이만큼 띄워주기 */
   border-radius: 20px;
 }
@@ -48,15 +48,15 @@ main {
   height: calc(100vh-200px);
 
   padding-top: 100px; /* 헤더와 네비바의 높이만큼 padding 설정 /*/
-  margin-bottom: 50px;
+  margin-bottom: 200px;
   /*   background-color: #f9f9f9; */
 }
 
 footer {
-  position: fixed;
+  /*   position: fixed; */
   bottom: 0;
   width: 100%;
-  height: 30px; /* 푸터의 높이를 50px로 고정 */
+  height: 50px; /* 푸터의 높이를 50px로 고정 */
   background-color: #e9e9e5;
   text-align: center;
   display: flex;
@@ -101,4 +101,13 @@ footer {
 }
 .submenu li a {
   margin: 0;
+}
+.mainmiddle5 {
+  /*  background-color: rgb(166, 145, 110); */
+  height: 350px;
+  width: 1600px;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
 }

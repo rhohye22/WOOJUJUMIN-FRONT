@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
+
+
 //import Modal from 'react-modal';
+
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import MapContainer from "./mapcontainer/MapContainer";
 import {Button, Form, InputGroup, Container, Row, Col, FloatingLabel, Modal} from 'react-bootstrap';
 
 //npm install react-datepicker
+
 function Partybbs(){
     // const mdstyle = {
     //     overlay: {
@@ -56,79 +60,84 @@ function Partybbs(){
         setAddress(e);
     };
 
-    const setPla = e => {
-        setPlace(e);
-    }
-    useEffect(() => {
-        let login = JSON.parse(localStorage.getItem("login"));
-        if(login !== undefined){ // 빈칸이 아닐때
-            
-            setId(login.id);
-          
-        }else{
-           // alert('로그인해 주십시오');
-           history('/login');
-        }
-               
-    }, [history]); 
-    
-    console.log(modalIsOpen);
-    const onChange = (e) => {
-        setInputText(e.target.value);
-      }
-    
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        setInputText(e.target.value);
-        setSearch(InputText)
-        //setInputText('')
-        //console.log("chk2");
-    }  
 
-    const titleChange = (e) => setTitle(e.target.value);
-    const placeChange = (e) => setPlace(e.target.value);
-    const contentChange = (e) => setContent(e.target.value);
-    const mnumChange = (e) => setMnum(e.target.value);
+  const setPla = (e) => {
+    setPlace(e);
+  };
+  useEffect(() => {
+    let login = JSON.parse(localStorage.getItem("login"));
+    if (login !== undefined) {
+      // 빈칸이 아닐때
 
-    const fetchData = async (e) => {
-        e.preventDefault();
-        //const formData = new FormData(frm);
-        if (!place || !category || !Mcategory || !title || !address || !content) {
-            alert('값을 전부 채워주세요!');
-            return;
-          }
-        if (mnum <=1){
-            alert('인원수는 최소 2명이어야 합니다.')
-            return;
-        }
-        const formData = new FormData();
-        const formData2 = new FormData(document.getElementById("frm"));
-        console.log(MDate);
-        const dat = MDate.getTime()
-        console.log(dat);
-        const formattedTimestamp = new Date(dat).toISOString().slice(0, 19).replace('T', ' ');
-        console.log(formattedTimestamp);
-        formData.append("id", id);
-        formData.append("title", title);
-        formData2.append("id", id);
-        formData2.append("place", place);
-        formData2.append("mdate", formattedTimestamp);
-        //formData.append("category", category);
-        //for (const keyValue of formData) console.log(keyValue);
-        for (const keyValue of formData2) console.log(keyValue);
-        for (const keyValue of formData) console.log(keyValue);
-        await axios.post('http://localhost:3000/writePartybbs', formData2)
-        .then(function(res){
-            console.log(res.data);
-            if(res.data === "YES"){
-                alert('글이 작성되었습니다.');
-                history('/partybbslist');
-            }
-          })
-          .catch(function(err){
-            console.log(err);
-          })
+      setId(login.id);
+    } else {
+      // alert('로그인해 주십시오');
+      history("/login");
     }
+  }, [history]);
+
+  console.log(modalIsOpen);
+  const onChange = (e) => {
+    setInputText(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setInputText(e.target.value);
+    setSearch(InputText);
+    //setInputText('')
+    //console.log("chk2");
+  };
+
+  const titleChange = (e) => setTitle(e.target.value);
+  const placeChange = (e) => setPlace(e.target.value);
+  const contentChange = (e) => setContent(e.target.value);
+  const mnumChange = (e) => setMnum(e.target.value);
+
+  const fetchData = async (e) => {
+    e.preventDefault();
+    //const formData = new FormData(frm);
+    if (!place || !category || !Mcategory || !title || !address || !content) {
+      alert("값을 전부 채워주세요!");
+      return;
+    }
+    if (mnum <= 1) {
+      alert("인원수는 최소 2명이어야 합니다.");
+      return;
+    }
+    const formData = new FormData();
+    const formData2 = new FormData(document.getElementById("frm"));
+    console.log(MDate);
+    const dat = MDate.getTime();
+    console.log(dat);
+    const formattedTimestamp = new Date(dat)
+      .toISOString()
+      .slice(0, 19)
+      .replace("T", " ");
+    console.log(formattedTimestamp);
+    formData.append("id", id);
+    formData.append("title", title);
+    formData2.append("id", id);
+    formData2.append("place", place);
+    formData2.append("mdate", formattedTimestamp);
+    //formData.append("category", category);
+    //for (const keyValue of formData) console.log(keyValue);
+    for (const keyValue of formData2) console.log(keyValue);
+    for (const keyValue of formData) console.log(keyValue);
+    await axios
+      .post("http://localhost:3000/writePartybbs", formData2)
+      .then(function(res) {
+        console.log(res.data);
+        if (res.data === "YES") {
+          alert("글이 작성되었습니다.");
+          history("/partybbslist");
+        }
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
+  };
+
 
     return(
         <Container>
@@ -317,6 +326,7 @@ function Partybbs(){
             </form>
         </Container>
     );
+
 }
 
 export default Partybbs;
