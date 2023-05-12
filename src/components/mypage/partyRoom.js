@@ -4,14 +4,9 @@ import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import MsgModal from "../modals/MsgModal";
-import { Modal, Button, Form, Container } from "react-bootstrap";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
+import { Button } from "react-bootstrap";
+
+import crown from "../image/crown.png";
 
 import "../modals/MsgModal.css";
 
@@ -25,6 +20,7 @@ function PartyRoom() {
 
   const [msgModal, setMsgModal] = useState(false); // 기본적으로 모달창이 꺼져있어서 false
   let params = useParams();
+
   const [value, setValue] = React.useState("one");
 
   const handleChange = (event, newValue) => {
@@ -69,45 +65,18 @@ function PartyRoom() {
     [params.seq]
   ); // 한번만 호출
 
-  const gomy = () => {
-    history("/mybbsList");
-  };
-  const goinfo = () => {
-    history("/mypage");
-  };
-  const goparty = () => {
-    history("/partyAccept");
-  };
-  const gomyparty = () => {
-    history("/partyList");
-  };
 
   return (
     <>
       <MsgModal sendId={id} targetId={targetId} show={msgModal} onHide={() => setMsgModal(false)} />
 
-      <List sx={style} component="nav" aria-label="mailbox folders">
-        <ListItem button>
-          <ListItemText primary="회원정보 수정" onClick={() => goinfo()} />
-        </ListItem>
-        <Divider />
-        <ListItem button>
-          <ListItemText primary="내가 쓴 글" onClick={() => gomy()} />
-        </ListItem>
-        <ListItem button>
-          <ListItemText primary="파티원 승인" onClick={() => goparty()} />
-        </ListItem>
-        <Divider light />
-        <ListItem button>
-          <ListItemText primary="내파티 보기" onClick={() => gomyparty()} />
-        </ListItem>
-      </List>
+    
 
       <div className="gamssagi3">
         <h3>내파티 정보</h3>
 
         <br></br>
-        <table border="1" style={{ margin: "0 auto" }}>
+        <table border="1" style={{ margin: "0 auto" }} className='ttable'>
           <colgroup>
             <col width="200" />
             <col width="200" />
@@ -126,9 +95,15 @@ function PartyRoom() {
               memberlist.map(function(mem, i) {
                 return (
                   <tr key={i}>
-                    <td align="center"> {mem.id} </td>
+                    <td align="center"> 
+                    {mem.id === mem.masterId &&
+                    
+                    <img src={crown} alt="" style={{ width: "40px" }} />
+                     }
 
-                    <td align="center">{mem.nickname}</td>
+                    {mem.id} </td>
+                   
+                  <td align="center">{mem.nickname}</td>
 
                     <td align="center">
                       {mem.id !== id && (

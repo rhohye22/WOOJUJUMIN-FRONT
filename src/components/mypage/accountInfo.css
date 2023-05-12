@@ -31,17 +31,20 @@ body {
 }
 
 .ttable {
-  border: 1px #a39485 solid;
-
+  border: 5px #a39485 solid;
+  border-collapse: collapse;
   font-size: 0.9em;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   width: 60%;
   border-collapse: collapse;
   border-radius: 5px;
   overflow: hidden;
   margin: auto;
 }
-
+.ttable td,
+.ttable th {
+  border: 4px solid rgba(210, 210, 210, 0.3);
+}
 th {
   text-align: center;
 }
@@ -54,6 +57,7 @@ thead {
 
 td,
 th {
+  border: 1px solid #a39485;
   padding: 1em 0.5em;
   vertical-align: middle;
 }
@@ -72,28 +76,29 @@ td {
 }
 
 .gamssagi2 {
-  /*   margin-top: -15%; */
+ text-align: center;
 }
 
 .gamssagi3 {
-  /*   margin-top: -10%; */
-}
-.gamssagi4 {
-  /*   margin-top: -13.5%; */
-}
-.tabdogae {
-  /*  margin-left: 45%; */
+  align-items: center;
 }
 
+
 .searchs {
-  margin-left: 43%;
+  text-align: center;
 }
-/* .mysidemenu {
-  width: 150px;
-} */
-/* .changeinfo {
-  width: 500px;
-  height: 800px;
-  background-color: #a39485;
+
+
+.partyWhat{
+
+  color: #0095f6;
 }
- */
+
+.partyWhat2{
+
+  color: crimson;
+}
+.partyWhat3{
+
+  color: blueviolet
+}
