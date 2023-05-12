@@ -16,7 +16,7 @@ function Oursays() {
   };
   return (
     <div>
-      <h4> 우주인의 한마디 </h4>
+      <br />
       <Slider {...settings}>
         <div className="saycard">
           <div className="incard"></div>
