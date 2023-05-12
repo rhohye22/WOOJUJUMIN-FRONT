@@ -27,14 +27,6 @@ import Home from "./pages/Home";
 
 import MyInfo from "./components/mypage/myinfo";
 
-/* import Mypage from "./components/mypage/mypage";
-import MybbsList from "./components/mypage/mybbsList";
-import MyfreebbsList from "./components/mypage/myfreebbsList";
-import PartyAccept from "./components/mypage/partyAccept";
-import PartyRequest from "./components/mypage/partyRequest";
-import PartyRoom from "./components/mypage/partyRoom";
-import PartyList from "./components/mypage/partyList";
- */
 import Regi from "./components/login/regi";
 
 import FreeBbsList from "./components/freebbs/freeBbsList";

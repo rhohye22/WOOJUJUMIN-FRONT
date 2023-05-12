@@ -280,6 +280,11 @@ function Partybbsdetail() {
       <br /> <br />
       <br />
       <br />
+
+  
+        
+    
+   
     </div>
   );
       

@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Pagination from "react-js-pagination";
-
+import { Button } from "react-bootstrap";
 
 function PartyList() {
   let history = useNavigate();
@@ -11,7 +11,7 @@ function PartyList() {
   const [page, setPage] = useState(1);
   const [totalCnt, setTotalCnt] = useState(0);
   const [partyListmy, setPartyListmy] = useState([]);
-
+  const [profile, setProfile] = useState("");
   const style = {
     width: "100%",
     maxWidth: 360,
@@ -24,6 +24,7 @@ function PartyList() {
       // 빈칸이 아닐때
 
       setId(login.id);
+      setProfile(login.profile);
     } else {
       // alert('로그인해 주십시오');
       history("/login");
@@ -68,8 +69,8 @@ function PartyList() {
   if (partyListmy.length > 0) {
     return (
       <>
-        <div className="gamssagi3">
-          <table border="1" style={{ margin: "0 auto" }}>
+        <div>
+          <table border="1" style={{ margin: "0 auto"}} className='ttable'>
             <colgroup>
               <col width="70" />
               <col width="600" />
@@ -92,9 +93,11 @@ function PartyList() {
                     <td align="center">{i + 1}</td>
                     <td align="center">{bbs.title}</td>
                     <td align="center">
-                      <button onClick={() => history(`/myinfo/partyRoom/${bbs.partySeq}`)}>보기</button>
+                      <Button onClick={() => history(`/myinfo/partyRoom/${bbs.partySeq}`)}>보기</Button>
                     </td>
-                    <td align="center">{bbs.masterId}</td>
+                    <td align="center">
+                   
+                      {bbs.masterId}</td>
                   </tr>
                 );
               })}

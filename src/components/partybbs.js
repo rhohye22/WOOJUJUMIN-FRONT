@@ -31,7 +31,8 @@ function Partybbs(){
           top: "50%",
           left: "50%",
           width: "600px",
-          height: "800px",
+          height: "700px",
+
           transform: "translate(-50%, -50%)",
           WebkitOverflowScrolling: "touch",
           borderRadius: "14px",
@@ -139,6 +140,8 @@ function Partybbs(){
   };
 
     return(
+
+      
         <Container>
             {/* 모임장소 */}
             <Row className="justify-content-md-center">
@@ -192,15 +195,7 @@ function Partybbs(){
                 </Modal.Footer>
             </Modal>
 
-            {/* <Modal isOpen={modalIsOpen} style={mdstyle} onRequestClose={() => setModalIsOpen(false)} > 
-            <form className="inputForm" onSubmit={handleSubmit}>
-                <input placeholder="검색어를 입력하세요" onChange={onChange} value={InputText} /> 
-                <button type="submit">검색</button>
-            </form>
-             <MapContainer  setPla={setPla}  setAddr={setAddr} searchPlace={search} />
-            상세주소 : <input type="text" value={address} readOnly/><br/>
-            <button onClick={()=> setModalIsOpen(false)}>완료</button>
-            </Modal> */}
+ 
 
             <form id="frm">
             {/* 카테고리 */}
@@ -231,24 +226,7 @@ function Partybbs(){
             </Form.Select>
             </Col>
             </Row>
-            {/* <select name = "tag" onChange={(e)=>setCategory(e.target.value)}>
-                <option>카테고리</option>
-                <option value={1}>농구</option>
-                <option value={2}>축구</option>
-                <option value={3}>야구</option>
-                <option value={4}>예능</option>
-                <option value={5}>드라마/영화</option>
-                <option value={6}>게임</option>
-                <option value={7}>음식</option>
-                <option value={8}>함께</option>
-                <option value={9}>탐사</option>
-                <option value={10}>잡담</option>
-            </select> */}
-            {/* <select name = "partytype" onChange={(e)=>setMCategory(e.target.value)}>
-                <option>모집유형</option>
-                <option value={1}>관람</option>
-                <option value={2}>팀원</option>
-            </select> */}
+          
             <br/>
 
             {/* 제목 */}
@@ -283,17 +261,7 @@ function Partybbs(){
                         showTimeSelect
                         dateFormat="yyyy-MM-dd HH:mm:ss"
                         customInput={<Form.Control />}/>
-            {/* <DatePicker 
-                        selected={MDate} 
-                        onChange={date => setMDate(date)}
-                        minDate={currentDate}   
-                        showTimeSelect
-                        dateFormat="yyyy-MM-dd HH:mm:ss"/>
-            <input type="text" name="people" value={mnum} onChange={mnumChange} readOnly/>
-            <button type="button" onClick={()=>setMnum(mnum+1)}>up</button><button type="button" onClick={()=>setMnum(mnum-1)}>down</button><br/>
-            <textarea value={content} name="content" placeholder="내용을 입력해주세요" onChange={contentChange} /><br/>
-            <input type="file" name="uploadFile" /> <br/>
-            <button onClick={fetchData} >작성</button> */}
+       
             
             </Col>
             </Row>
@@ -335,8 +303,10 @@ function Partybbs(){
             </Row>
             </form>
         </Container>
+        
     );
 
 }
+
 
 export default Partybbs;
