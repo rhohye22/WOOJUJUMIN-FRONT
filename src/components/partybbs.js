@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 
@@ -10,7 +10,6 @@ import MapContainer from "./mapcontainer/MapContainer";
 import { Button, Form, InputGroup, Container, Row, Col, FloatingLabel, Modal } from "react-bootstrap";
 
 //npm install react-datepicker
-
 
 function Partybbs() {
   // const mdstyle = {
@@ -42,8 +41,6 @@ function Partybbs() {
   //     },
   // };
 
-
-
   let history = useNavigate();
   const [id, setId] = useState("");
   const [category, setCategory] = useState("");
@@ -58,6 +55,9 @@ function Partybbs() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [InputText, setInputText] = useState("");
   const [search, setSearch] = useState("");
+
+  const [image, setImage] = useState();
+
   const setAddr = (e) => {
     setAddress(e);
   };
@@ -139,6 +139,16 @@ function Partybbs() {
       });
   };
 
+  const imgRef = useRef();
+  function imageLoad() {
+    const file = imgRef.current.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImage(reader.result);
+    };
+    //console.log(image);
+  }
 
   return (
     <Container>
@@ -201,7 +211,6 @@ function Partybbs() {
               <td>
                 <Row className="justify-content-md-center">
                   <Col>
-
                     <InputGroup className="mb-3">
                       <Form.Control placeholder="모임장소" aria-label="모임장소" aria-describedby="basic-addon2" onChange={placeChange} value={place} />
                       <Button variant="outline-secondary" id="button-addon2" onClick={() => setModalIsOpen(true)}>
@@ -210,7 +219,6 @@ function Partybbs() {
                     </InputGroup>
                   </Col>
                 </Row>
-
 
                 {/* 지도 모달 */}
                 <Modal show={modalIsOpen} onHide={() => setModalIsOpen(false)} backdrop="static" keyboard={false} size="lg" centered>
@@ -229,7 +237,6 @@ function Partybbs() {
                     </form>
                     <MapContainer setPla={setPla} setAddr={setAddr} searchPlace={search} />
                   </Modal.Body>
-
 
                   <Modal.Footer>
                     <div style={{ marginRight: "90%" }}>상세주소</div>
@@ -254,10 +261,8 @@ function Partybbs() {
               </td>
             </tr>
 
-
             <tr>
               <th>날짜 & 시간 설정</th>
-
 
               <td>
                 <Row className="justify-content-md-center">
@@ -287,10 +292,27 @@ function Partybbs() {
               </td>
             </tr>
 
+            <tr align="left">
+              <td colSpan={2}>
+                <form name="frm" onSubmit={fetchData} encType="multipart/form-data">
+                  <input type="file" onChange={imageLoad} ref={imgRef} name="uploadFile" /> {/* <input type="file" name="uploadFile" /> */}
+                </form>
+              </td>
+            </tr>
+            <tr style={{ border: "none" }}>
+              <td style={{ border: "none" }} colSpan={2}>
+                <img
+                  src={image}
+                  alt=""
+                  style={{
+                    width: 500,
+                    height: "auto",
+                    objectFit: "cover",
+                    objectPosition: "center",
+                    padding: 20,
+                  }}
+                />
 
-            <tr>
-              <th>내용</th>
-              <td>
                 <Row className="justify-content-md-center">
                   <Col>
                     <Form.Control
@@ -308,9 +330,6 @@ function Partybbs() {
               </td>
             </tr>
 
-           
-
-
             <tr>
               <td colSpan={2}>
                 <Row className="justify-content-md-center">
@@ -320,8 +339,7 @@ function Partybbs() {
                         작성
                       </Button>
                     </div>
-                  <input type="file" name="uploadFile" /> <br/>
-     </Col>
+                  </Col>
                 </Row>
               </td>
             </tr>
@@ -331,6 +349,5 @@ function Partybbs() {
     </Container>
   );
 }
-
 
 export default Partybbs;
