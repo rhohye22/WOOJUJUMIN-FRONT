@@ -114,7 +114,7 @@ function FreeBbsModify() {
       <br />
       <h3>글 수정하기</h3>
       <br />
-      <table border="1" align="center">
+      <table border="1" align="center" className="ttable">
         <colgroup>
           <col width={"80px"} />
           <col width={"500px"} />
