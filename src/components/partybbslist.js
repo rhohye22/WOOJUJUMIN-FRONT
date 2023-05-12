@@ -9,7 +9,6 @@ function Partybbslist(){
     let history = useNavigate();
     const [id, setId] = useState('');
     const [pbslist, setPbslist] = useState([]);
-
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [filterText, setFilterText] = useState('');
@@ -17,6 +16,18 @@ function Partybbslist(){
     const [tag, setTag] = useState();
     const [page, setPage] = useState(0);
     const postsContainerRef = useRef(null);
+    const categories = [
+      '농구',
+      '축구',
+      '야구',
+      '예능',
+      '드라마/영화',
+      '게임',
+      '음식',
+      '함께',
+      '탐사',
+      '잡담'
+    ];
     console.log(tag)
     console.log(typeof(tag))
     useEffect(() => {
@@ -37,7 +48,7 @@ function Partybbslist(){
 
     async function getPartybbs() {
       try {
-        const response = await axios.get(`http://localhost:3000/getAllpbslist`, { params:{"pageNumber":page}});
+        const response = await axios.get(`http://localhost:3000/getAllpbslist`, { params:{"pageNumber":page, "tag":tag}});
         console.log(response.data);
         setPbslist(response.data);
         console.log(JSON.stringify(response.data[0]));
@@ -77,7 +88,10 @@ function Partybbslist(){
     useEffect(() => {
       loadPosts();
     }, []);
-  
+
+    useEffect(() => {
+      setPage(0);
+    }, [tag]);
     // useEffect(() => {
     //   function handleScroll() {
     //     if (
@@ -120,40 +134,51 @@ function Partybbslist(){
         post.body.toUpperCase().includes(filterText)
     );
       {/* <div key={post.partySeq} className="post" style={{ display: 'inline-block', width: '48%' }}> */}
+
+    function selcat(e) {
+      setTag(parseInt(e.target.value));
+      setPage(0);
+
+      setPosts([]);
+
+      loadPosts();
+       
+    }
+
     return (
       <div className="partybbslist-container">
               <br />
-      <button value={""} onClick={(e) => setTag(parseInt(e.target.value))}>
+      <button value={0} onClick={selcat}>
         전체
       </button>
-      <button value={1} onClick={(e) => setTag(parseInt(e.target.value))}>
+      <button value={1} onClick={selcat}>
         농구
       </button>
-      <button value={2} onClick={(e) => setTag(parseInt(e.target.value))}>
+      <button value={2} onClick={selcat}>
         축구
       </button>
-      <button value={3} onClick={(e) => setTag(parseInt(e.target.value))}>
+      <button value={3} onClick={selcat}>
         야구
       </button>
-      <button value={4} onClick={(e) => setTag(parseInt(e.target.value))}>
+      <button value={4} onClick={selcat}>
         예능
       </button>
-      <button value={5} onClick={(e) => setTag(parseInt(e.target.value))}>
+      <button value={5} onClick={selcat}>
         드라마/영화
       </button>
-      <button value={6} onClick={(e) => setTag(parseInt(e.target.value))}>
+      <button value={6} onClick={selcat}>
         게임
       </button>
-      <button value={7} onClick={(e) => setTag(parseInt(e.target.value))}>
+      <button value={7} onClick={selcat}>
         음식
       </button>
-      <button value={8} onClick={(e) => setTag(parseInt(e.target.value))}>
+      <button value={8} onClick={selcat}>
         함께
       </button>
-      <button value={9} onClick={(e) => setTag(parseInt(e.target.value))}>
+      <button value={9} onClick={selcat}>
         탐사
       </button>
-      <button value={10} onClick={(e) => setTag(parseInt(e.target.value))}>
+      <button value={10} onClick={selcat}>
         잡담
       </button>
         {/* <div className="filter-container">
@@ -163,15 +188,20 @@ function Partybbslist(){
           {/* {filteredPosts.filter(post => post.tag === tag).map((post) => (  */}
           {filteredPosts.map((post) => (
           <div key={post.partySeq} className="post">      
-              <div className="number">{post.partySeq}</div>
-              <div className="post-info">
-                
-                  <img src={base} alt=''  width="100" height="100"/>
-            
+              <div className="post-info">                         
+
+                {/* <img src={post.image ? `http://localhost:3000/upload/partybbs/${post.image.substring(80)}` : base} alt=''  width="150" height="150"/> */}
+                <img src={post.image ? `http://localhost:3000/upload/partybbs/${post.image}` : base} alt=''  width="150" height="150"/>
+                <div className="post-body">
+                <p>{categories[Number(post.tag-1)]}</p>
+                </div>
+             
                 <Link to={`/partybbsdetail/${post.partySeq}`}>
                   <h2 className="post-title">{post.title}</h2>
                 </Link>
-                  <p className="post-body">{post.content}</p>
+                  <p >모집입원 : {post.people}</p>                          
+                  <p >모임날짜 : {post.mdate.substring(5,16)}</p>
+          
               </div>
             </div>
           ))}

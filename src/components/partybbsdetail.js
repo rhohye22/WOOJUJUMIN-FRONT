@@ -7,6 +7,35 @@ import MapContainer from "./mapcontainer/MapContainer";
 import DetailMap from "./mapcontainer/detailMap";
 //import { useIsFocused } from "@react-navigation/native";
 function Partybbsdetail() {
+
+  const mdstyle = {
+    overlay: {
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: "rgba(0, 0, 0, 0.45)",
+      zIndex: 10,
+    },
+    content: {
+      display: "flex",
+      justifyContent: "center",
+      background: "#ffffff",
+      overflow: "auto",
+      top: "50%",
+      left: "50%",
+      width: "600px",
+      height: "600px",
+      transform: "translate(-50%, -50%)",
+      WebkitOverflowScrolling: "touch",
+      borderRadius: "14px",
+      outline: "none",
+      zIndex: 10,
+      display: "flex",
+      flexDirection: "column",
+    },
+  };
   let params = useParams("");
   let history = useNavigate();
   const [id, setId] = useState("");
@@ -131,7 +160,7 @@ function Partybbsdetail() {
       alert("참여신청을 취소합니다.");
     }
   }
-  const imageUrl = partybbslist.image !== null ? `http://localhost:3000/upload/party/${partybbslist.image}` : null;
+  const imageUrl = partybbslist.image !== null ? `http://localhost:3000/upload/partybbs/${partybbslist.image}` : null;
 
 
   return (
@@ -173,25 +202,14 @@ function Partybbsdetail() {
               </Button>
               <Modal
                 isOpen={modalIsOpen}
-                onRequestClose={() => setModalIsOpen(false)}
+                style={mdstyle} onRequestClose={() => setModalIsOpen(false)}
                 shouldCloseOnOverlayClick={false}
-                style={{
-                  overlay: {
-                    backgroundColor: "rgba(0, 0, 0, 0.1)",
-                  },
-                  content: {
-                    marginTop: "60px",
-                    width: "600px",
-                    height: "600px",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                  },
-                }}
               >
                 <DetailMap searchPlace={partybbslist.place} />
-                <button onClick={() => setModalIsOpen(false)}>창닫기</button>
-              </Modal>
+                <div style={{ marginTop: "auto" }}>
+              <button onClick={()  => setModalIsOpen(false)}>창닫기</button>
+              </div>
+            </Modal>
             </td>
           </tr>
           <tr>
@@ -262,9 +280,14 @@ function Partybbsdetail() {
       <br /> <br />
       <br />
       <br />
+
+  
+        
+    
+   
     </div>
   );
-
+      
 }
 
 export default Partybbsdetail;

@@ -76,28 +76,29 @@ td {
 }
 
 .gamssagi2 {
-  /*   margin-top: -15%; */
+ text-align: center;
 }
 
 .gamssagi3 {
-  /*   margin-top: -10%; */
-}
-.gamssagi4 {
-  /*   margin-top: -13.5%; */
-}
-.tabdogae {
-  /*  margin-left: 45%; */
+  align-items: center;
 }
 
+
 .searchs {
-  margin-left: 43%;
+  text-align: center;
 }
-/* .mysidemenu {
-  width: 150px;
-} */
-/* .changeinfo {
-  width: 500px;
-  height: 800px;
-  background-color: #a39485;
+
+
+.partyWhat{
+
+  color: #0095f6;
 }
- */
+
+.partyWhat2{
+
+  color: crimson;
+}
+.partyWhat3{
+
+  color: blueviolet
+}

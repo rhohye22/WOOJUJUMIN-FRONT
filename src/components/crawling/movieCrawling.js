@@ -79,7 +79,7 @@ function MovieCrawling() {
 
         imageslist.map((img, index) => {
             let imageload = "";
-            console.log("이미지경로" + imageslist[index]);
+            // console.log("이미지경로" + imageslist[index]);
             imageload = imageslist[index].split("\\");
             // console.log("스플릿" + imageload);
             importimg.push(imageload[imageload.length - 1]);

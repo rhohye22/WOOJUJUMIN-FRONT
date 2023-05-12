@@ -11,6 +11,7 @@ import { Button, Form, InputGroup, Container, Row, Col, FloatingLabel, Modal } f
 
 //npm install react-datepicker
 
+
 function Partybbs() {
   // const mdstyle = {
   //     overlay: {
@@ -40,6 +41,8 @@ function Partybbs() {
   //         flexDirection: "column",
   //     },
   // };
+
+
 
   let history = useNavigate();
   const [id, setId] = useState("");
@@ -136,6 +139,7 @@ function Partybbs() {
       });
   };
 
+
   return (
     <Container>
       <br />
@@ -197,6 +201,7 @@ function Partybbs() {
               <td>
                 <Row className="justify-content-md-center">
                   <Col>
+
                     <InputGroup className="mb-3">
                       <Form.Control placeholder="모임장소" aria-label="모임장소" aria-describedby="basic-addon2" onChange={placeChange} value={place} />
                       <Button variant="outline-secondary" id="button-addon2" onClick={() => setModalIsOpen(true)}>
@@ -205,6 +210,7 @@ function Partybbs() {
                     </InputGroup>
                   </Col>
                 </Row>
+
 
                 {/* 지도 모달 */}
                 <Modal show={modalIsOpen} onHide={() => setModalIsOpen(false)} backdrop="static" keyboard={false} size="lg" centered>
@@ -223,6 +229,7 @@ function Partybbs() {
                     </form>
                     <MapContainer setPla={setPla} setAddr={setAddr} searchPlace={search} />
                   </Modal.Body>
+
 
                   <Modal.Footer>
                     <div style={{ marginRight: "90%" }}>상세주소</div>
@@ -247,8 +254,10 @@ function Partybbs() {
               </td>
             </tr>
 
+
             <tr>
               <th>날짜 & 시간 설정</th>
+
 
               <td>
                 <Row className="justify-content-md-center">
@@ -278,6 +287,7 @@ function Partybbs() {
               </td>
             </tr>
 
+
             <tr>
               <th>내용</th>
               <td>
@@ -298,6 +308,9 @@ function Partybbs() {
               </td>
             </tr>
 
+           
+
+
             <tr>
               <td colSpan={2}>
                 <Row className="justify-content-md-center">
@@ -307,7 +320,8 @@ function Partybbs() {
                         작성
                       </Button>
                     </div>
-                  </Col>
+                  <input type="file" name="uploadFile" /> <br/>
+     </Col>
                 </Row>
               </td>
             </tr>
@@ -317,5 +331,6 @@ function Partybbs() {
     </Container>
   );
 }
+
 
 export default Partybbs;

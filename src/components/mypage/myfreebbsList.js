@@ -5,13 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import "./page.css";
 import "./accountInfo.css";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
+
 import Button from "react-bootstrap/Button";
 
 function MyfreebbsList() {
@@ -105,33 +99,8 @@ function MyfreebbsList() {
   if (bbslist.length > 0) {
     return (
       <>
-        {/*   <div className="tabdogae">
-          <Box sx={{ width: "100%" }}>
-            <Tabs value={value} onChange={handleChange} variant="scrollable" scrollButtons="auto" aria-label="scrollable auto tabs example">
-              <Tab label="모집 게시판" onClick={() => gobbs()}></Tab>
-              <Tab label="자유 게시판" onClick={() => gofree()}></Tab>
-            </Tabs>
-          </Box>
-        </div>
-        <div className="mysidemenu">
-          <List sx={style} component="nav" aria-label="mailbox folders">
-            <ListItem button>
-              <ListItemText primary="회원정보 수정" onClick={() => goinfo()} />
-            </ListItem>
-            <Divider />
-            <ListItem button>
-              <ListItemText primary="내가 쓴 글" onClick={() => gomy()} />
-            </ListItem>
-            <ListItem button>
-              <ListItemText primary="파티원 승인" onClick={() => goparty()} />
-            </ListItem>
-            <Divider light />
-            <ListItem button>
-              <ListItemText primary="내파티 보기" onClick={() => gomyparty()} />
-            </ListItem>
-          </List>
-        </div> */}
-        <div className="gamssagi4">
+      
+        <div >
           <div className="searchs">
             <select value={choice} onChange={(e) => setChoice(e.target.value)}>
               <option value="">검색</option>
@@ -152,7 +121,8 @@ function MyfreebbsList() {
               <col width="70" />
               <col width="600" />
               <col width="100" />
-              <col width="100" />
+              <col width="130" />
+              <col width="130" />
             </colgroup>
             <thead>
               <tr>
@@ -193,32 +163,7 @@ function MyfreebbsList() {
   } else {
     return (
       <>
-        {/* <div className="tabdogae">
-          <Box sx={{ width: "100%" }}>
-            <Tabs value={value} onChange={handleChange} variant="scrollable" scrollButtons="auto" aria-label="scrollable auto tabs example">
-              <Tab label="모집 게시판" onClick={() => gobbs()}></Tab>
-              <Tab label="자유 게시판" onClick={() => gofree()}></Tab>
-            </Tabs>
-          </Box>
-        </div>
-        <div className="mysidemenu">
-          <List sx={style} component="nav" aria-label="mailbox folders">
-            <ListItem button>
-              <ListItemText primary="회원정보 수정" onClick={() => goinfo()} />
-            </ListItem>
-            <Divider />
-            <ListItem button>
-              <ListItemText primary="내가 쓴 글" onClick={() => gomy()} />
-            </ListItem>
-            <ListItem button>
-              <ListItemText primary="파티원 승인" onClick={() => goparty()} />
-            </ListItem>
-            <Divider light />
-            <ListItem button>
-              <ListItemText primary="내파티 보기" onClick={() => gomyparty()} />
-            </ListItem>
-          </List>
-        </div> */}
+     
         <h3>작성된 내용이 없습니다.</h3>
         <br></br>
         <Pagination activePage={page} itemsCountPerPage={10} totalItemsCount={totalCnt} pageRangeDisplayed={5} prevPageText={"이전"} nextPageText={"다음"} onChange={pageChange} />
