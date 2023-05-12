@@ -1,12 +1,14 @@
 import Pagination from "react-js-pagination";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
+
 import "./freebbs.css";
 
 function FreeBbsList() {
+  let navigate = useNavigate();
   const [tag, setTag] = useState();
   const paramtag = useParams().tag;
 
@@ -160,8 +162,9 @@ function FreeBbsList() {
                           height: "50px",
                           overflow: "hidden",
                           display: "flex",
-                          alignItems: "center",
+                          alignItems: "left",
                         }}
+                        onClick={() => navigate(`/freeBbsDetail/${free.bbsSeq}`)}
                       >
                         {free.image !== null ? (
                           <img
@@ -175,7 +178,21 @@ function FreeBbsList() {
                             }}
                           />
                         ) : null}
-                        &nbsp;&nbsp;<Link to={`/freeBbsDetail/${free.bbsSeq}`}>{free.title}</Link>
+                        &nbsp;&nbsp;
+                        <div
+                          style={{
+                            textDecoration: "none",
+                            color: "inherit",
+                            cursor: "pointer",
+                            flexGrow: 1,
+                            display: "flex",
+                            justifyContent: "flex-start",
+                            alignItems: "center",
+                            height: "100%",
+                          }}
+                        >
+                          {free.title}
+                        </div>
                       </div>
                     </td>
 

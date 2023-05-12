@@ -2,7 +2,7 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* 화면의 높이만큼 최소한의 높이를 설정 */
+  height: 100%; /* 화면의 높이만큼 최소한의 높이를 설정 */
   background-color: #f9f9f9;
 }
 
@@ -12,7 +12,7 @@ header {
   top: 0;
   width: 100%;
   height: 100px;
-  background: linear-gradient(to bottom, #b6e388, #f9f9f9);
+  background: linear-gradient(to bottom, #88d4e3, #f9f9f9);
   /* border-radius: 20px; */
   text-align: center;
   margin-bottom: 0;
@@ -26,7 +26,7 @@ header {
   position: relative;
   background-color: #f9f9f9;
   width: 100%;
-  height: 70px;
+  height: 90px;
   top: 100px; /* 헤더의 높이만큼 띄워주기 */
   border-radius: 20px;
 }
@@ -46,35 +46,37 @@ main {
   flex: 1;
   width: 100%;
   height: calc(100vh-200px);
-  box-sizing: border-box;
+
   padding-top: 100px; /* 헤더와 네비바의 높이만큼 padding 설정 /*/
-  margin-bottom: 50px;
+  margin-bottom: 200px;
+  /*   background-color: #f9f9f9; */
 }
 
 footer {
-  position: fixed;
+  /*   position: fixed; */
   bottom: 0;
   width: 100%;
-  height: 30px; /* 푸터의 높이를 50px로 고정 */
+  height: 50px; /* 푸터의 높이를 50px로 고정 */
   background-color: #e9e9e5;
   text-align: center;
   display: flex;
   justify-content: flex-end;
 }
-.mainmenu{
+.mainmenu {
   position: relative;
   /* display: inline-block; */
   height: 70px;
   /* width: 100%; */
   margin-top: 35px;
 }
-.mainmenu:hover .submenu, .submenu:hover .submenu{
+.mainmenu:hover .submenu,
+.submenu:hover .submenu {
   display: flex;
   justify-content: center;
   /* font-style: italic; */
 }
 
-.submenu{
+.submenu {
   display: none;
   position: absolute;
   top: 40px;
@@ -87,7 +89,7 @@ footer {
   /* display: flex; */
   font-size: 14px;
 }
-.submenu li:first-child{
+.submenu li:first-child {
   width: 100px;
 }
 .submenu li {
@@ -97,6 +99,15 @@ footer {
   width: 100px;
   margin-right: 10px;
 }
-.submenu li a{
+.submenu li a {
   margin: 0;
+}
+.mainmiddle5 {
+  /*  background-color: rgb(166, 145, 110); */
+  height: 350px;
+  width: 1600px;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
 }

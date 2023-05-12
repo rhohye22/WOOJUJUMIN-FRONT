@@ -75,7 +75,7 @@ function FreeBbsReply(props) {
     <div>
       <br />
       <div>
-        <table border="1" align="center">
+        <table border="1" align="center" style={{ width: "100%" }}>
           <colgroup>
             <col width={"20%"} />
             <col width={"80%"} />
@@ -89,10 +89,14 @@ function FreeBbsReply(props) {
           <tbody>
             {replylist && replylist.length ? (
               replylist.map(function(reply, i) {
-                return (
+                return reply.del == 0 ? (
                   <tr key={i}>
                     <td>{reply.writer}</td>
                     <td>{reply.content}</td>
+                  </tr>
+                ) : (
+                  <tr key={i}>
+                    <td colSpan={2}> 관리자가 규제한 댓글입니다</td>
                   </tr>
                 );
               })
