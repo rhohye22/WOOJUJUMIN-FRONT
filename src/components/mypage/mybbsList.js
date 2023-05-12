@@ -3,13 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Pagination from "react-js-pagination";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
+import Button from "react-bootstrap/Button";
 import "./page.css";
 import "./accountInfo.css";
 
@@ -119,20 +113,22 @@ function MyBbsList() {
             <option value="writer">작성자</option>
           </select>
           &nbsp;
-          <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="검색어" />
-          <button onClick={searchBtn}>검색</button>
+          <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="검색어" />&nbsp;
+          <Button variant="success" size="sm" onClick={searchBtn}>
+              검색
+            </Button>
         </div>
 
         <br></br>
 
-        <table>
+        <table className="ttable">
           <colgroup>
             <col width="70" />
             <col width="600" />
             <col width="100" />
             <col width="100" />
-            <col width="100" />
-            <col width="100" />
+            <col width="130" />
+            <col width="130" />
           </colgroup>
           <thead>
             <tr>
@@ -152,13 +148,13 @@ function MyBbsList() {
                   <tr key={i}>
                     <td align="center">{i + 1}</td>
                     <td align="left">
-                      <Link to={`/bbsdetail/${bbs.seq}`}> {bbs.title}</Link>
+                      <Link to={`/partybbsdetail/${bbs.partySeq}`}> {bbs.title}</Link>
                     </td>
                     <td align="center">{bbs.readcount}</td>
                     <td align="center">{bbs.people}</td>
                     <td align="center">{bbs.wdate.substring(0, 10)}</td>
                     <td align="center">
-                      <img src={`http://localhost:3000/upload/party/${bbs.profile}`} style={{ width: "20px", height: "20px", borderRadius: "50%" }} />
+                      <img src={`http://localhost:3000/upload/member/${profile}`} style={{ width: "20px", height: "20px", borderRadius: "50%" }} />
                       {bbs.id}
                     </td>
                   </tr>
@@ -180,26 +176,6 @@ function MyBbsList() {
       </div>
     </>
   );
-} /* else {
-    return (
-      <>
-        <Link to="/accountInfo">회원정보 수정</Link>&nbsp;&nbsp;&nbsp;
-        <Link to="/mybbsList">내가 쓴 글</Link>&nbsp;&nbsp;&nbsp;
-        <Link to="/partyAccept">파티원 승인</Link>&nbsp;&nbsp;&nbsp;
-        <Link to="/partyList">내파티 보기</Link>
-        <br></br>
-        <br></br>
-        <Link to="/mybbsList">모집 게시판</Link>&nbsp;&nbsp;&nbsp;
-        <Link to="/myfreebbsList">자유 게시판</Link>&nbsp;&nbsp;&nbsp;
-        <br></br>
-        <br></br>
-        <br></br>
-        <h3>작성된 내용이 없습니다.</h3>
-        <br></br>
-        <Pagination activePage={page} itemsCountPerPage={10} totalItemsCount={totalCnt} pageRangeDisplayed={5} prevPageText={"이전"} nextPageText={"다음"} onChange={pageChange} />
-      </>
-    );
-  } */
-/* } */
+} 
 
 export default MyBbsList;

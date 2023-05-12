@@ -10,6 +10,38 @@ import MapContainer from "./mapcontainer/MapContainer";
 
 //npm install react-datepicker
 function Partybbs(){
+    const mdstyle = {
+        overlay: {
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.45)",
+          zIndex: 10,
+        },
+        content: {
+          display: "flex",
+          justifyContent: "center",
+          background: "#ffffff",
+          overflow: "auto",
+          top: "50%",
+          left: "50%",
+          width: "600px",
+          height: "700px",
+          transform: "translate(-50%, -50%)",
+          WebkitOverflowScrolling: "touch",
+          borderRadius: "14px",
+          outline: "none",
+          zIndex: 10,
+          display: "flex",
+          flexDirection: "column",
+        },
+      };
+
+
+
+
     let history = useNavigate();
     const [id, setId] = useState("");
     const [category, setCategory] = useState("");
@@ -106,7 +138,7 @@ function Partybbs(){
         <div>
             <input type="text"  placeholder="모임장소" onChange={placeChange} value={place}/>
             <button onClick={()=> setModalIsOpen(true)}>주소찾기</button><br/>
-            <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} > 
+            <Modal isOpen={modalIsOpen} style={mdstyle} onRequestClose={() => setModalIsOpen(false)} > 
             <form className="inputForm" onSubmit={handleSubmit}>
                 <input placeholder="검색어를 입력하세요" onChange={onChange} value={InputText} /> 
                 <button type="submit">검색</button>

@@ -95,39 +95,7 @@ function PartyRequest() {
   if (requestlist.length > 0) {
     return (
       <>
-        {/*   <div className='tabdogae'>
-        <Box sx={{ width: '100%' }}>
-         <Tabs
-        value={value}
-        onChange={handleChange}
-        variant="scrollable"
-        scrollButtons="auto"
-        aria-label="scrollable auto tabs example"
-        >
-        <Tab label="파티 수락" onClick={()=>gobbs()}></Tab>
-       <Tab label="파티 요청" onClick={()=>gofree()}></Tab>
-       
-        </Tabs>
-        </Box>
-        </div> */}
-        {/*  <div className="mysidemenu">
-          <List sx={style} component="nav" aria-label="mailbox folders">
-            <ListItem button>
-              <ListItemText primary="회원정보 수정" onClick={() => goinfo()} />
-            </ListItem>
-            <Divider />
-            <ListItem button>
-              <ListItemText primary="내가 쓴 글" onClick={() => gomy()} />
-            </ListItem>
-            <ListItem button>
-              <ListItemText primary="파티원 승인" onClick={() => goparty()} />
-            </ListItem>
-            <Divider light />
-            <ListItem button>
-              <ListItemText primary="내파티 보기" onClick={() => gomyparty()} />
-            </ListItem>
-          </List>
-        </div> */}
+     
         <div className="gamssagi3">
           <table className="ttable" border="1" style={{ margin: "0 auto" }}>
             <colgroup>
@@ -153,8 +121,8 @@ function PartyRequest() {
                     <td align="left">
                       <Link to={`/partybbsdetail/${bbs.partySeq}`}> {bbs.title}</Link>
                     </td>
-                    {bbs.check === 0 ? <td align="center">수락중...</td> : <td align="center">수락완료!</td>}
-                    {bbs.full === 0 ? <td align="center">모집중</td> : <td align="center">모집끝</td>}
+                    {bbs.check === 0 ? <td align="center" className="partyWhat">수락중...</td> : <td align="center" className="partyWhat3">수락완료!</td>}
+                    {bbs.full === 0 ? <td align="center" className="partyWhat">모집중</td> : <td align="center" className="partyWhat2">모집끝</td>}
                   </tr>
                 );
               })}
@@ -169,16 +137,7 @@ function PartyRequest() {
   } else {
     return (
       <>
-        {/*     <div className="mysidemenu">
-          <Link to="/accountInfo">회원정보 수정</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/mybbsList">내가 쓴 글</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/partyAccept">파티원 승인</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/partyList">내파티 보기</Link>
-          <br></br>
-          <br></br>
-          <Link to="/partyAccept">파티 수락</Link>&nbsp;&nbsp;&nbsp;
-          <Link to="/partyRequest">파티 요청</Link>&nbsp;&nbsp;&nbsp;
-        </div> */}
+      
         <br></br>
         <br></br>
 

@@ -121,10 +121,13 @@ function Partybbsdetail() {
       <input type="text" value={partybbslist.applymem} readOnly />
       {partybbslist.id !== id && flg === "NO" && (
         <>
+        
           <button onClick={apply}>신청</button>
-          <br />
+          <br></br>
         </>
+        
       )}
+      <br></br>
       <textarea value={partybbslist.content} readOnly></textarea>
       <br />
       <button>댓글</button>
