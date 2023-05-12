@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
-
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+import Button from "react-bootstrap/Button";
+
 import ToggleMenu from "./components/togglemenu";
 
 import BackToTopBtn from "./components/backToTopBtn";
@@ -8,24 +11,30 @@ import ChatbotModal from "./components/chatbotModal";
 import ChattingModal from "./components/ChattingModal";
 
 import logo from "./components/image/logo.png";
+import message from "./components/image/free-icon-received-message-9996256.png";
+import user from "./components/image/free-icon-user-4803103.png";
+import partyleader from "./components/image/free-icon-team-leader-2572948.png";
 
 import Login from "./components/login/login";
 
 import Main from "./components/main/main";
 import SocialHandler from "./components/social/socialHandler";
 
-import AccountInfo from "./components/accountInfo";
+import AccountInfo from "./components/mypage/accountInfo";
 import MessageInfo from "./components/messageInfo";
 import SendMessageInfo from "./components/sendMessageInfo";
 import Home from "./pages/Home";
 
-import MybbsList from "./components/mybbsList";
-import MyfreebbsList from "./components/myfreebbsList";
-import PartyAccept from "./components/partyAccept";
-import PartyRequest from "./components/partyRequest";
-import PartyRoom from "./components/partyRoom";
-import PartyList from "./components/partyList";
+import MyInfo from "./components/mypage/myinfo";
 
+/* import Mypage from "./components/mypage/mypage";
+import MybbsList from "./components/mypage/mybbsList";
+import MyfreebbsList from "./components/mypage/myfreebbsList";
+import PartyAccept from "./components/mypage/partyAccept";
+import PartyRequest from "./components/mypage/partyRequest";
+import PartyRoom from "./components/mypage/partyRoom";
+import PartyList from "./components/mypage/partyList";
+ */
 import Regi from "./components/login/regi";
 
 import FreeBbsList from "./components/freebbs/freeBbsList";
@@ -58,7 +67,6 @@ import Partybbs from "./components/partybbs";
 import Partybbsdetail from "./components/partybbsdetail";
 import Partybbslist from "./components/partybbslist";
 import Partybbsupdate from "./components/partybbsupdate";
-import Mypage from "./components/mypage";
 
 function App() {
   // 로그인 상태 관리
@@ -83,7 +91,21 @@ function App() {
       console.log(localStorage.getItem("login"));
     }
   }, [log]);
-
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      내정보 수정
+    </Tooltip>
+  );
+  const renderTooltip2 = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      메시지함
+    </Tooltip>
+  );
+  const renderTooltip3 = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      파티장 요청
+    </Tooltip>
+  );
   return (
     <div className="App">
       <BrowserRouter>
@@ -97,34 +119,57 @@ function App() {
             </Link>
           </div>
           <div style={{ display: "flex", lignItems: "center", justifyContent: "center" }}>
-
-          
-
             {log ? (
               <span>로그인해주세요</span>
             ) : (
               <span>
-                <img src={`http://localhost:3000/upload/member/${profile}`} style={{ width: "20px", height: "20px", borderRadius: "50%" }} />
-                {nickname}님
+                <img src={`http://localhost:3000/upload/member/${profile}`} style={{ width: "30px", height: "30px", borderRadius: "50%", background: "white" }} />
+                &nbsp;&nbsp;{nickname}님
               </span>
             )}
             &nbsp;&nbsp;&nbsp;
-
-            {log ? <Link to="/regi">회원가입</Link> : <Link to="/mypage">마이페이지</Link>}&nbsp;&nbsp;&nbsp;
-            {log === false && <Link to="/messageInfo">메시지함</Link>}&nbsp;&nbsp;&nbsp;
-            {log === false && <Link to="/">파티장 요청</Link>}&nbsp;&nbsp;&nbsp;
             {log ? (
-              <Link to="/login">로그인</Link>
+              <Link to="/regi">회원가입</Link>
             ) : (
-              <button
+              <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
+                <Link to="/myinfo/mypage">
+                  <img src={user} alt="noimg" style={{ width: "30px", height: "30px" }} />
+                </Link>
+              </OverlayTrigger>
+            )}
+            &nbsp;&nbsp;&nbsp;
+            {log === false && (
+              <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip2}>
+                <Link to="/messageInfo">
+                  <img src={message} alt="noimg" style={{ width: "30px", height: "30px" }} />
+                </Link>
+              </OverlayTrigger>
+            )}
+            &nbsp;&nbsp;&nbsp;
+            {log === false && (
+              <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip3}>
+                <Link to="/mypage">
+                  <img src={partyleader} alt="noimg" style={{ width: "30px", height: "30px" }} />
+                </Link>
+              </OverlayTrigger>
+            )}
+            &nbsp;&nbsp;&nbsp;
+            {log ? (
+              <Button variant="outline-dark">
+                <Link to="/login">로그인</Link>
+              </Button>
+            ) : (
+              <Button
+                variant="outline-dark"
                 onClick={() => {
                   loghandle();
                   signOut(auth);
                 }}
               >
                 로그아웃
-              </button>
-            )}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </Button>
+            )}
+            &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
           </div>
         </header>
 
@@ -176,25 +221,17 @@ function App() {
             <Route path="/qnadetail/:qnaSeq" exact element={<Qnadetail />} />
 
             <Route path="/socialLogin" element={<SocialHandler />} />
-            <Route path="/accountInfo" element={<AccountInfo />}></Route>
-            <Route path="/mybbsList" element={<MybbsList />}></Route>
-            <Route path="/partyAccept" element={<PartyAccept />}></Route>
-            <Route path="/partyRequest" element={<PartyRequest />}></Route>
-            <Route path="/partyRoom/:seq" element={<PartyRoom />}></Route>
-            <Route path="/partyList" element={<PartyList />}></Route>
+
+            <Route path="/myinfo/*" element={<MyInfo />}></Route>
 
             <Route path="/messageInfo" element={<MessageInfo />}></Route>
-            <Route path="/mypage" element={<Mypage />}></Route>
             <Route path="/sendMessageInfo" element={<SendMessageInfo />}></Route>
 
             <Route path="pages/Home" element={<Home />} />
             <Route path="bank/bankaccountInfo" element={<BankaccountInfo />} />
 
-            <Route path="/myfreebbsList" element={<MyfreebbsList />}></Route>
-
             <Route path="/freeBoard" element={<FreeBbsList />} />
             <Route path="/freeBoard/:tag" element={<FreeBbsList />} />
-
             <Route path="/freeBbsDetail/:bbsSeq" element={<FreeBbsDetail />} />
             <Route path="/freeBbsWrite" element={<FreeBbsWrite />} />
             <Route path="/freeBbsModify/:bbsSeq" element={<FreeBbsModify />} />
@@ -207,8 +244,102 @@ function App() {
             <Route path="/freeBbslikey" element={<FreeBbslikey />} />
           </Routes>
         </main>
+        <hr />
+        <div className="mainmiddle5" style={{ display: "flex", flexDirection: "row" }}>
+          <ul style={{ listStyle: "none", padding: "0" }}>
+            <br /> <br />
+            <li>
+              <Link to="freeBoard" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
+                자유게시판
+              </Link>
+            </li>
+            <br />
+            <br />
+            <li>
+              <Link to="partybbslist" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
+                모집게시판
+              </Link>
+            </li>
+            <br />
+            <br />
+            <li>
+              <Link to="#" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
+                문화생활
+              </Link>
+            </li>
+            <br />
+            <br />
+            <li>
+              <Link to="qnalist" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
+                사용문의
+              </Link>
+            </li>
+          </ul>
+          <ul style={{ listStyle: "none", padding: "0", marginLeft: "100px" }}>
+            <br />
+            <li>
+              <Link to="#" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
+                우주주민 소개
+              </Link>
+            </li>
+            <br />
+            <br />
+            <li>
+              <Link to="#" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
+                자주 묻는 질문
+              </Link>
+            </li>
+            <br />
+            <br />
+            <li>
+              <Link to="/pages/Home" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
+                채팅하기
+              </Link>
+            </li>
+            <br />
+            <br />
+          </ul>
+          <ul style={{ listStyle: "none", padding: "0", marginLeft: "100px" }}>
+            <br />
+            <li>
+              <Link to="#" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
+                제휴 문의
+              </Link>
+            </li>
+            <br />
+            <br />
+            <li>
+              <Link to="#" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
+                광고 문의
+              </Link>
+            </li>
+            <br />
+            <br />
+            <li>
+              <Link to="#" style={{ textDecoration: "none", fontSize: "1.2rem", color: "black" }}>
+                이용약관
+              </Link>
+            </li>
+            <br />
+            <br />
+          </ul>
+          <pre style={{ textAlign: "left", marginLeft: "100px" }}>
+            대표:우주인 | 개인정보책임관리자 : 우주인
+            <br />
+            주소 : 서울시 멀티캠퍼스 자바 풀스택 11반 파이널 2조
+            <br />
+            사업자등록번호 : 0000-000-00000 <br />
+            통신판매 : 제 2023-서울강남-00000
+            <br />
+            고객센터 : 000-0000-0000
+            <br />
+            운영 시간 : (월~금) 오전 11:00 ~ 오후 5:00 / (주말 및 공휴일) 오전 10:00 ~ 오후 7:00
+          </pre>
+
+          <hr />
+        </div>
         <footer>
-          <p style={{ color: "gray", fontSize: "12px" }}>Copyright(c)2023 woojujumin All rights reserved </p>&nbsp;&nbsp;
+          <p style={{ color: "gray", fontSize: "15px" }}>Copyright(c)2023 woojujumin All rights reserved </p>&nbsp;&nbsp;
         </footer>
       </BrowserRouter>
     </div>
