@@ -60,12 +60,17 @@ import Partybbsdetail from "./components/partybbsdetail";
 import Partybbslist from "./components/partybbslist";
 import Partybbsupdate from "./components/partybbsupdate";
 
+import PartyLeaderrequest from "./components/mypage/partyleaderrequest";
+import axios from "axios";
+import PartyLeaderresult from "./components/mypage/partyleaderresult";
+
 function App() {
   // 로그인 상태 관리
   const [log, setLog] = useState(null);
   const [nickname, setNickname] = useState("");
   const { currentUser } = useContext(AuthContext);
   const [profile, setProfile] = useState("");
+  const [cardcheck, setCardcheck] = useState("");
 
   function loghandle() {
     localStorage.clear();
@@ -83,6 +88,25 @@ function App() {
       console.log(localStorage.getItem("login"));
     }
   }, [log]);
+
+  useEffect(() => {
+    const loginInfo = JSON.parse(localStorage.getItem("login"));
+    const result = async () => {
+      await axios.get("http://localhost:3000/partyleaderresult", { params: { "memid": loginInfo.id } })
+        .then(function (res) {
+          console.log(res.data);
+          setCardcheck(res.data);
+        })
+        .catch(function (err) {
+          alert(err);
+        })
+    }
+
+    if (loginInfo !== null) {
+      result();
+    }
+  }, [])
+
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
       내정보 수정
@@ -138,9 +162,23 @@ function App() {
               </OverlayTrigger>
             )}
             &nbsp;&nbsp;&nbsp;
-            {log === false && (
+            {log === false && cardcheck === "" && (
               <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip3}>
-                <Link to="/mypage">
+                <Link to="/partyleaderrequest">
+                  <img src={partyleader} alt="noimg" style={{ width: "30px", height: "30px" }} />
+                </Link>
+              </OverlayTrigger>
+            )}
+            {log === false && cardcheck === 0 && (
+              <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip3}>
+                <Link to="/partyleaderresult">
+                  <img src={partyleader} alt="noimg" style={{ width: "30px", height: "30px" }} />
+                </Link>
+              </OverlayTrigger>
+            )}
+            {log === false && cardcheck === 1 || cardcheck === 2&&(
+              <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip3}>
+                <Link to="/partyleaderresult">
                   <img src={partyleader} alt="noimg" style={{ width: "30px", height: "30px" }} />
                 </Link>
               </OverlayTrigger>
@@ -202,6 +240,9 @@ function App() {
             <Route path="/regi" element={<Regi />} />
             <Route path="/idsearch" element={<IdSearch />} />
             <Route path="/pwdsearch" element={<PwdSearch />} />
+
+            <Route path="/partyleaderrequest" element={<PartyLeaderrequest />} />
+            <Route path="/partyleaderresult" element={<PartyLeaderresult />} />
 
             <Route path="/moviechart" element={<MovieCrawling />} />
             <Route path="/bookchart" element={<BookCrawling />} />
