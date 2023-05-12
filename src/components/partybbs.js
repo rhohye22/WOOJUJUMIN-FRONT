@@ -141,11 +141,7 @@ function Partybbs(){
 
     return(
 
-        <div>
-            <input type="text"  placeholder="모임장소" onChange={placeChange} value={place}/>
-            <button onClick={()=> setModalIsOpen(true)}>주소찾기</button><br/>
-            <Modal isOpen={modalIsOpen} style={mdstyle} onRequestClose={() => setModalIsOpen(false)}/ > 
-
+      
         <Container>
             {/* 모임장소 */}
             <Row className="justify-content-md-center">
@@ -307,7 +303,7 @@ function Partybbs(){
             </Row>
             </form>
         </Container>
-        </div>
+        
     );
 
 }

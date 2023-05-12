@@ -281,31 +281,10 @@ function Partybbsdetail() {
       <br />
       <br />
 
-      <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-        <DetailMap searchPlace={partybbslist.place} />
-        <button onClick={() => setModalIsOpen(false)}>완료</button>
-      </Modal>
-      {/* <input type="text" value={partybbslist.a} readOnly>//</input> */}
-      <input type="text" value={partybbslist.id} readOnly />
-      {partybbslist.applymem}/{partybbslist.people}
-      <input type="text" value={partybbslist.applymem} readOnly />
-      {partybbslist.id !== id && flg === "NO" && (
-        <>
+  
         
-          <button onClick={apply}>신청</button>
-          <br></br>
-        </>
-        
-      )}
-      <br></br>
-      <textarea value={partybbslist.content} readOnly></textarea>
-      <br />
-      <button>댓글</button>
-      <Link to={/partybbsupdate/ + partybbsSeq}>
-        <button>수정</button>
-      </Link>
-      <button onClick={pbdelete}>삭제</button>
-
+    
+   
     </div>
   );
       
