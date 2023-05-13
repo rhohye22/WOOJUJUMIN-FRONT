@@ -7,7 +7,6 @@ import MapContainer from "./mapcontainer/MapContainer";
 import DetailMap from "./mapcontainer/detailMap";
 //import { useIsFocused } from "@react-navigation/native";
 function Partybbsdetail() {
-
   const mdstyle = {
     overlay: {
       position: "fixed",
@@ -55,8 +54,6 @@ function Partybbsdetail() {
       setId(login.id);
       setProfile(login.profile);
       setWriter(login.id);
-      /*  setPartybbsseq(params.seq); */
-      console.log(partybbsSeq);
     } else {
       // alert('로그인해 주십시오');
       history("/login");
@@ -67,16 +64,12 @@ function Partybbsdetail() {
     axios
       .get(`http://localhost:3000/partyBbsdetail`, { params: { partySeq: partybbsSeq } })
       .then((response) => {
-        console.log(response.data);
         setPartybbslist(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }
-  useEffect(() => {
-    getpartyBbs();
-  }, [partybbsSeq]);
 
   function preventSecond() {
     axios
@@ -110,11 +103,10 @@ function Partybbsdetail() {
     await axios
       .post("http://localhost:3000/partyApply ", formData)
       .then(function(res) {
-        console.log(res.data);
         if (res.data === "YES") {
           alert("요청성공");
-          getpartyBbs();
-          /*   document.location.href = "/partybbsdetail/" + partybbsSeq; */
+          getpartyBbs(); //바로 반영
+          totalApplyCnt(); //바로 반영
         } else {
           alert("요청 실패");
         }
@@ -132,7 +124,6 @@ function Partybbsdetail() {
       .post("http://localhost:3000/deletePartybbs ", formData)
 
       .then(function(res) {
-        console.log(res.data);
         if (res.data === "YES") {
           alert("삭제되었습니다.");
         } else {
@@ -143,7 +134,6 @@ function Partybbsdetail() {
         console.log(err);
       });
   };
-
 
   function onRemove() {
     if (window.confirm("정말 삭제하겠습니까? ")) {
@@ -162,14 +152,55 @@ function Partybbsdetail() {
   }
   const imageUrl = partybbslist.image !== null ? `http://localhost:3000/upload/partybbs/${partybbslist.image}` : null;
 
+  //총신청인원
+  const [applyCnt, setApplyCnt] = useState();
+
+  function totalApplyCnt() {
+    axios
+      .get("http://localhost:3000/applyMemCnt", {
+        params: {
+          partySeq: partybbsSeq,
+        },
+      })
+      .then(function(resp) {
+        setApplyCnt(resp.data);
+      })
+      .catch(function(err) {
+        alert(err);
+      });
+  }
+  //확정인원
+  const [checkCnt, setCheckCnt] = useState();
+
+  function totalCheckCnt() {
+    axios
+      .get("http://localhost:3000/applyCheckMemCnt", {
+        params: {
+          partySeq: partybbsSeq,
+        },
+      })
+      .then(function(resp) {
+        setCheckCnt(resp.data);
+      })
+      .catch(function(err) {
+        alert(err);
+      });
+  }
+
+  useEffect(() => {
+    getpartyBbs();
+    totalApplyCnt();
+    totalCheckCnt();
+  }, [partybbsSeq]);
 
   return (
     <div>
       <table className="ttable" align="center" /* style={{ textAlign: "left" }} */>
         <colgroup>
-          <col width={"100px"} />
+          <col width={"150px"} />
           <col width={"500px"} />
           <col width={"150px"} />
+          <col width={"200px"} />
         </colgroup>
         <tbody>
           <tr>
@@ -200,16 +231,12 @@ function Partybbsdetail() {
               <Button variant="warning" size="sm" onClick={() => setModalIsOpen(true)}>
                 장소보기
               </Button>
-              <Modal
-                isOpen={modalIsOpen}
-                style={mdstyle} onRequestClose={() => setModalIsOpen(false)}
-                shouldCloseOnOverlayClick={false}
-              >
+              <Modal isOpen={modalIsOpen} style={mdstyle} onRequestClose={() => setModalIsOpen(false)} shouldCloseOnOverlayClick={false}>
                 <DetailMap searchPlace={partybbslist.place} />
                 <div style={{ marginTop: "auto" }}>
-              <button onClick={()  => setModalIsOpen(false)}>창닫기</button>
-              </div>
-            </Modal>
+                  <button onClick={() => setModalIsOpen(false)}>창닫기</button>
+                </div>
+              </Modal>
             </td>
           </tr>
           <tr>
@@ -231,10 +258,10 @@ function Partybbsdetail() {
           <tr>
             <th>참여확정인원</th>
             <td>
-              {partybbslist.applymem}/{partybbslist.people}
+              {checkCnt}/{partybbslist.people}
             </td>
             <th>현재신청인원</th>
-            <td>apply테이블에서 가져와야함</td>
+            <td>{applyCnt}</td>
           </tr>
 
           <tr>
@@ -270,24 +297,17 @@ function Partybbsdetail() {
           수정
         </Button>
       ) : null}
-      &nbsp;&nbsp;{" "}
+      &nbsp;&nbsp;
       {partybbslist.id === writer ? (
         <Button variant="outline-secondary" size="sm" onClick={() => onRemove()}>
           삭제
         </Button>
       ) : null}
-      &nbsp;&nbsp; &nbsp;&nbsp;
       <br /> <br />
       <br />
       <br />
-
-  
-        
-    
-   
     </div>
   );
-      
 }
 
 export default Partybbsdetail;
