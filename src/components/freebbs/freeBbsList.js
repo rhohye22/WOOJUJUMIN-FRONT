@@ -126,7 +126,13 @@ function FreeBbsList() {
         음식
       </Button>
       &nbsp;&nbsp;&nbsp;&nbsp;
-      <a href="#">내가 좋아한 게시물</a>
+      {auth != null && (
+        <Link to="/freeBbsWrite">
+          <Button variant="success" size="sm">
+            글 작성
+          </Button>
+        </Link>
+      )}
       <br />
       <br />
       <div className="freebbslist">
@@ -223,14 +229,6 @@ function FreeBbsList() {
             )}
           </tbody>
         </Table>
-        {auth != null && (
-          <Link to="/freeBbsWrite">
-            {" "}
-            <Button variant="success" size="sm">
-              글 작성
-            </Button>
-          </Link>
-        )}
         <br />
         <Pagination activePage={page} itemsCountPerPage={20} totalItemsCount={totalCnt} pageRangeDisplayed={5} prevPageText={"이전"} nextPageText={"다음"} onChange={pageChange} />
         <select value={choice} onChange={(e) => setChoice(e.target.value)}>

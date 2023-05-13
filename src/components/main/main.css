@@ -118,13 +118,13 @@
 }
 
 .partycard {
-  background-color: #e7eee9;
+  background-color: #f3f3f3;
   border-radius: 30px;
   box-shadow: 0 5px 0px rgba(0, 0, 0, 0.5);
   display: flex;
   /* justify-content: center; */ /* 수평 가운데 정렬 */
   align-items: center; /* 수직 가운데 정렬 */
-  border: 3px solid rgb(26, 112, 26);
+  border: 1px solid rgb(122, 123, 122);
 }
 .partycard img {
   margin-left: 30px;
@@ -136,21 +136,22 @@
   margin-left: 30px;
 }
 .mainmiddle4 {
-  /*   background-color: rgb(149, 158, 186); */
-  height: 300px;
+  /*   background-color: rgba(149, 158, 186, 0.549); */
+  height: 400px;
   width: 1200px;
   margin: 0 auto;
 }
 .saycard {
-  /*   background-color: rgb(214, 202, 181); */
-  height: 200px;
+  /*   background-color: rgba(214, 202, 181, 0.842); */
+  height: 300px;
   width: 100px;
   padding-top: 10px;
+  padding-bottom: 10px;
 }
 .incard {
-  background-color: rgb(242, 242, 242);
-  height: 90%;
-  width: 85%;
+  background-color: rgb(249, 249, 249);
+  height: 100%;
+  width: 90%;
   border-radius: 30px;
 
   display: flex; /* flexbox 사용 */
