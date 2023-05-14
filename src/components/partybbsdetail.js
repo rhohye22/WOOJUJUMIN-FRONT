@@ -6,6 +6,11 @@ import axios from "axios";
 import MapContainer from "./mapcontainer/MapContainer";
 import DetailMap from "./mapcontainer/detailMap";
 //import { useIsFocused } from "@react-navigation/native";
+
+import PartyBbslikey from "./partybbslikey";
+import PartyBbsReply from "./partybbsreply";
+import PartyBbsReadcount from "./partybbsreadcount";
+
 function Partybbsdetail() {
   const mdstyle = {
     overlay: {
@@ -35,22 +40,29 @@ function Partybbsdetail() {
       flexDirection: "column",
     },
   };
-  let params = useParams("");
+  let params = useParams();
   let history = useNavigate();
   const [id, setId] = useState("");
   const [partybbslist, setPartybbslist] = useState([]);
   const [profile, setProfile] = useState("");
   const [flg, setFlg] = useState("");
-  const [writer, setWriter] = useState("");
+
   //const { partybbsSeq } = useParams();
   const [partybbsSeq, setPartybbsseq] = useState(params.seq);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  //const isFocused = useIsFocused();
-  useEffect(() => {
-    let login = JSON.parse(localStorage.getItem("login"));
-    if (login !== undefined) {
-      // 빈칸이 아닐때
+  const [memberSeq, setMemberSeq] = useState();
 
+  //댓글
+  const [replySeq, setReplySeq] = useState();
+
+  const [writer, setWriter] = useState("");
+
+  //const isFocused = useIsFocused();
+  let login = JSON.parse(localStorage.getItem("login"));
+  useEffect(() => {
+    if (login) {
+      // 빈칸이 아닐때
+      setMemberSeq(login.memberSeq);
       setId(login.id);
       setProfile(login.profile);
       setWriter(login.id);
@@ -58,7 +70,9 @@ function Partybbsdetail() {
       // alert('로그인해 주십시오');
       history("/login");
     }
-  }, [history]);
+  }, []);
+
+  const seqs = { memberSeq: memberSeq, bbsSeq: partybbsSeq };
 
   function getpartyBbs() {
     axios
@@ -191,10 +205,14 @@ function Partybbsdetail() {
     getpartyBbs();
     totalApplyCnt();
     totalCheckCnt();
-  }, [partybbsSeq]);
+    setReplySeq(params.seq);
+  }, [params.seq]);
 
   return (
     <div>
+      <br /> <br />
+      <h3>모집글 보기</h3>
+      <br /> <br />
       <table className="ttable" align="center" /* style={{ textAlign: "left" }} */>
         <colgroup>
           <col width={"150px"} />
@@ -212,15 +230,16 @@ function Partybbsdetail() {
             <td>{partybbslist.id}</td>
             <th>조회수</th>
             <td>
-              {/*   <FreeBbsReadcount seqs={seqs} /> */}
-              조회수숫자
+              <PartyBbsReadcount seqs={seqs} />
             </td>
           </tr>
           <tr>
             <th>작성시간</th>
             <td>{partybbslist.wdate}</td>
             <th>좋아요</th>
-            <td>좋아요숫자</td>
+            <td>
+              <PartyBbslikey seqs={seqs} />
+            </td>
           </tr>
           <tr>
             <th>모임 일시</th>
@@ -249,9 +268,12 @@ function Partybbsdetail() {
                   </Button>
                 </>
               ) : partybbslist.id === writer ? (
-                <p>내가 방장인 게시글입니다</p>
+                <span>내가 방장인 게시글입니다</span>
               ) : (
-                <p>신청완료</p>
+                <>
+                  <p style={{ fontSize: "15px", color: "green" }}>참여 요청을 보냈습니다.</p>
+                  <span style={{ fontSize: "15px", color: "green" }}>승인여부는 [마이페이지]-[파티 요청]에서 확인가능합니다 </span>
+                </>
               )}
             </td>
           </tr>
@@ -282,9 +304,17 @@ function Partybbsdetail() {
               <br /> <br />
               <pre>{partybbslist.content}</pre>
               <br /> <br />
-              {/*        {login && <FreeBbslikey seqs={seqs} />} <br /> <br />  <button>댓글</button> */}
+              {/*    <PartyBbslikey seqs={seqs} /> <br /> <br /> */}
             </td>
           </tr>
+          {login && (
+            <tr>
+              <td colSpan={4}>
+                <PartyBbsReply replySeq={params.seq} writer={writer} />
+                <br /> <br />
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
       <br />

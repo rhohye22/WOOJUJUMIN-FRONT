@@ -160,9 +160,9 @@ function Partybbs() {
 
   return (
     <Container>
-      <br />
+      <br /> <br />
       <h3>모집게시판 글쓰기</h3>
-      <br />
+      <br /> <br />
       <form id="frm">
         {/* 모임장소 */}
         <table className="ttable" border="1" align="center">

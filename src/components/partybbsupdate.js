@@ -29,7 +29,7 @@ function Partybbsupdate() {
   const [MDate, setMDate] = useState(new Date());
   const [mnum, setMnum] = useState(0);
 
-  const [image, setImage] = useState();
+  const [image, setImage] = useState("");
   const imgRef = useRef();
 
   function imageLoad() {
@@ -230,7 +230,7 @@ function Partybbsupdate() {
               </tr>
               <tr style={{ border: "none" }}>
                 <td style={{ border: "none" }} colSpan={2}>
-                  {imageUrl !== "" && imageUrl !== "" ? (
+                  {imageUrl !== "" && imageUrl !== null ? (
                     <div>
                       <div>
                         <img

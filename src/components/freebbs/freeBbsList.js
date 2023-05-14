@@ -89,7 +89,9 @@ function FreeBbsList() {
 
   return (
     <div className="freebbspage">
-      <br />
+      <br /> <br />
+      <h3>자유게시판</h3>
+      <br /> <br />
       <Button variant="outline-secondary" value={""} onClick={(e) => setTag(e.target.value)}>
         전체
       </Button>
