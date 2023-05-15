@@ -102,7 +102,7 @@ function App() {
     const loginInfo = JSON.parse(localStorage.getItem("login"));
     const result = async () => {
       await axios
-        .get("http://localhost:3000/partyleaderresult", { params: { memid: loginInfo.id } })
+        .get("http://118.67.132.98:3000/partyleaderresult", { params: { memid: loginInfo.id } })
         .then(function(res) {
           console.log(res.data);
           setCardcheck(res.data);
@@ -149,7 +149,7 @@ function App() {
               <span>회원이 아닌가요?</span>
             ) : (
               <span>
-                <img src={`http://localhost:3000/upload/member/${profile}`} style={{ width: "30px", height: "30px", borderRadius: "50%", background: "white" }} />
+                <img src={`http://118.67.132.98:3000/upload/member/${profile}`} style={{ width: "30px", height: "30px", borderRadius: "50%", background: "white" }} />
                 &nbsp;&nbsp;{nickname}님
               </span>
             )}

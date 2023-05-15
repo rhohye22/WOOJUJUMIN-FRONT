@@ -43,7 +43,7 @@ function MyBbsList() {
 
   function getBbslist(choice, search, page) {
     axios
-      .get("http://localhost:3000/myBbslist", { params: { choice: choice, search: search, pageNumber: page, id: id } })
+      .get("http://118.67.132.98:3000/myBbslist", { params: { choice: choice, search: search, pageNumber: page, id: id } })
       .then(function(resp) {
         //console.log(resp.data);
         setBbslist(resp.data.list); // map을 return하기 때문(map 안에 list있음)
@@ -142,7 +142,7 @@ function MyBbsList() {
                     >
                       {bbs.image !== null ? (
                         <img
-                          src={`http://localhost:3000/upload/partybbs/${bbs.image}`}
+                          src={`http://118.67.132.98:3000/upload/partybbs/${bbs.image}`}
                           alt="free image"
                           style={{
                             width: 40,
@@ -173,7 +173,7 @@ function MyBbsList() {
                   <td align="center">{bbs.people}</td>
                   <td align="center">{bbs.wdate.substring(0, 10)}</td>
                   <td align="center">
-                    <img src={`http://localhost:3000/upload/member/${profile}`} style={{ width: "20px", height: "20px", borderRadius: "50%" }} />
+                    <img src={`http://118.67.132.98:3000/upload/member/${profile}`} style={{ width: "20px", height: "20px", borderRadius: "50%" }} />
                     {bbs.id}
                   </td>
                 </tr>
