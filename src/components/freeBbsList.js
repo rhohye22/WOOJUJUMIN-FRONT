@@ -6,7 +6,7 @@
 //     const [bbsList, setBbsList] = useState([]);
 
 //     useEffect(() => {
-//         axios.get("http://localhost:3000/getAllList")
+//         axios.get("http://118.67.132.98:3000/getAllList")
 //             .then(response => {
 //                 setBbsList(response.data);
 //             })
@@ -104,7 +104,7 @@ function FreeBbsList() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/getAllList?page=${page}&size=10`)
+      .get(`http://118.67.132.98:3000/getAllList?page=${page}&size=10`)
       .then((response) => {
         setList(response.data.content);
         setTotalPages(response.data.totalPages);

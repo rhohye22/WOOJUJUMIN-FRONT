@@ -17,7 +17,7 @@ function Qnawrite() {
     }
 
     axios
-      .post("http://localhost:3000/qnawrite", null, {
+      .post("http://118.67.132.98:3000/qnawrite", null, {
         params: { id: id, title: title, qtype: qtype, content: content },
       })
       .then((res) => {

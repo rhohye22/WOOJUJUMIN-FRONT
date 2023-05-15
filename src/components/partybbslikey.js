@@ -12,7 +12,7 @@ function PartyBbslikey(props) {
   ////입장시 페이지 좋아요 상태(개인별 기록 불러오기)
   async function likeyState() {
     try {
-      const res = await axios.get("http://localhost:3000/partyLikeyState", {
+      const res = await axios.get("http://118.67.132.98:3000/partyLikeyState", {
         params: { bbsSeq: bbsSeq, memSeq: memberSeq },
       });
       console.log(res.data);
@@ -28,7 +28,7 @@ function PartyBbslikey(props) {
   //게시글당 좋아요 개수
   async function cntLikey() {
     try {
-      const res = await axios.get("http://localhost:3000/partycntLikey", {
+      const res = await axios.get("http://118.67.132.98:3000/partycntLikey", {
         params: { bbsSeq: bbsSeq },
       });
       console.log("setSumlikey : " + res.data);
@@ -53,7 +53,7 @@ function PartyBbslikey(props) {
 
   async function checkLikeyrow() {
     try {
-      const res = await axios.get("http://localhost:3000/partycheckLikeyrow", {
+      const res = await axios.get("http://118.67.132.98:3000/partycheckLikeyrow", {
         params: { bbsSeq: bbsSeq, memSeq: memberSeq },
       });
       console.log(res.data);
@@ -71,7 +71,7 @@ function PartyBbslikey(props) {
   //likey테이블에 로우 삽입
   function makeLikeyrow() {
     axios
-      .post("http://localhost:3000/partymakeLikeyrow", null, {
+      .post("http://118.67.132.98:3000/partymakeLikeyrow", null, {
         params: { bbsSeq: bbsSeq, memSeq: memberSeq },
       })
       .then((res) => {
@@ -89,7 +89,7 @@ function PartyBbslikey(props) {
   // 좋아요 +1
   function LikeyPlus() {
     axios
-      .post("http://localhost:3000/partyLikeyPlus", null, {
+      .post("http://118.67.132.98:3000/partyLikeyPlus", null, {
         params: { bbsSeq: bbsSeq, memSeq: memberSeq },
       })
       .then((res) => {
@@ -108,7 +108,7 @@ function PartyBbslikey(props) {
   // 좋아요 -1
   function LikeyMinus() {
     axios
-      .post("http://localhost:3000/partyLikeyMinus", null, {
+      .post("http://118.67.132.98:3000/partyLikeyMinus", null, {
         params: { bbsSeq: bbsSeq, memSeq: memberSeq },
       })
       .then((res) => {

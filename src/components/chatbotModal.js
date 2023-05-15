@@ -425,7 +425,7 @@ function ChatbotModal() {
           <ThemeProvider theme={theme}>
             <ChatBot recognitionEnable={true} recognitionLang='ko'
               steps={steps} hideHeader={false} headerTitle="미리내"
-              userAvatar={`http://localhost:3000/upload/member/${profile}`} botAvatar={chatbot} />
+              userAvatar={`http://118.67.132.98:3000/upload/member/${profile}`} botAvatar={chatbot} />
           </ThemeProvider>
           <br />
           <button onClick={handleButtonClick2}>닫기</button>
