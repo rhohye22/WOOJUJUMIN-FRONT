@@ -1,10 +1,10 @@
-
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import defaultimg from '../image/defaultnuill.png'
 import { useNavigate } from "react-router-dom";
 import './crawlingcss.css';
 import mainimg from './popcorn.jpg';
+import Form from 'react-bootstrap/Form';
 
 function MovieCrawling() {
 
@@ -12,7 +12,7 @@ function MovieCrawling() {
 
     const [movielist, setMovieList] = useState([]);
     const [imageslist, setImageslist] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [firsrDel, setFirstDel] = useState(false);
     const [talks, setTalks] = useState([]);
     const [comment, setComment] = useState("");
 
@@ -99,8 +99,8 @@ function MovieCrawling() {
             }
         });
 
-        console.log(imagePath);
-        setLoading(false);
+        // console.log(imagePath);
+        // setLoading(false);
 
         function dot3(msg) {
             return msg.trim().length > 10 ? msg.substring(0, 10) + "..." : msg;
@@ -115,7 +115,7 @@ function MovieCrawling() {
                             <img src={imagePath[i]} alt={movie} />
                             <h3>{dot3(movie.split(":")[0])}</h3>
                             <h4>{"예매율｜" + movie.split(":")[1]}</h4>
-                            <h4>{movie.split(":")[2]}</h4>                   
+                            <h4>{movie.split(":")[2]}</h4>
                         </div>
                     ))) : (<div>내용을 불러오고 있습니다.</div>)}
             </div>
@@ -160,8 +160,10 @@ function MovieCrawling() {
 
         // console.log(localStorage.getItem("login"));
         e.preventDefault();
-        if(typeof comment === "string" && comment.trim().length < 3){
-            alert("두 글자 이상으로 작성해주세요");
+        setFirstDel(true);
+
+        if (typeof comment === "string" && comment.trim().length < 3) {
+            alert("세 글자 이상으로 작성해주세요");
             return;
         }
 
@@ -185,6 +187,7 @@ function MovieCrawling() {
                                 // alert("확인");
                                 // setIndexCom(1);
                                 // document.getElementById("more-btn").style.display = "block";
+                                document.getElementById("more-btn").disabled = false;
                             }
                             console.log(indexCom + "fd");
                         } catch (err) {
@@ -242,6 +245,10 @@ function MovieCrawling() {
                 setTalks([...talks, ...newTalks]);
                 setIndexCom(indexCom + 1);
 
+                const container = document.getElementById("divdown");
+                const containerHeight = container.scrollHeight;
+        
+                container.scrollTop = containerHeight;
             })
             .catch((err) => {
                 console.error(err);
@@ -252,7 +259,7 @@ function MovieCrawling() {
 
 
     return (
-        <div className="allcontent">
+        <div className="allcontent" id="divdown">
             <div>
                 <img src={mainimg} alt="무비이미지" className="mainimg" />
             </div>
@@ -267,7 +274,7 @@ function MovieCrawling() {
                     <h3>영화 한줄 톡!</h3>
                 </div>
                 <textarea onClick={loginfnc} value={comment} onChange={(e) => { setComment(e.target.value) }}
-                    onKeyDown={activeEnter} className="talkinsert"  placeholder="영화에 대한 톡을 입력해주세요. &#13;&#10;무관한 내용은 삭제 될 수 있습니다."></textarea>
+                    onKeyDown={activeEnter} className="talkinsert" placeholder="영화에 대한 톡을 입력해주세요. &#13;&#10;무관한 내용은 삭제 될 수 있습니다."></textarea>
                 <div className="subinform">
                     <button type="submit" onClick={commentSubmit} className="btnsub">등록</button>
                     <p className="count">{comment.length}/300</p>
@@ -283,10 +290,12 @@ function MovieCrawling() {
                             </p>
                         </div>
                     ))}
+                    {alltalk.length === 0 && !firsrDel && <p>첫 코멘트를 달아주세요!</p>}
                 </div>
             </div>
             <div className="morebtnAll">
-                {alltalk.length === 0 && <p>첫 코멘트를 달아주세요!</p>}
+                {/* {alltalk.length === 0 && <p>첫 코멘트를 달아주세요!</p>} */}
+                {alltalk.length === 0 && <button id="more-btn" disabled>더보기 ∨</button>}
                 {alltalk.length > 0 && <button onClick={loadMoreTalks} id="more-btn">더보기 ∨</button>}
             </div>
             {/* {talks.map((talk, index) => (

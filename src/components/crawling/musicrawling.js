@@ -22,6 +22,8 @@ function Musiccrawling() {
     const [alltalk, setAlltalk] = useState([]);
     const [indexCom, setIndexCom] = useState(1);
 
+    const [firsrDel, setFirstDel] = useState(false);
+
     useEffect(() => {
         const fetchData = async () => {
             await axios.get("http://localhost:3000/musicchart", { params: {} })
@@ -145,7 +147,9 @@ function Musiccrawling() {
         // console.log(localStorage.getItem("login"));
 
         e.preventDefault();
-        if(typeof comment === "string" && comment.trim().length < 3){
+        setFirstDel(true);
+
+        if (typeof comment === "string" && comment.trim().length < 3) {
             alert("두 글자 이상으로 작성해주세요");
             return;
         }
@@ -170,6 +174,7 @@ function Musiccrawling() {
                                 // alert("확인");
                                 // setIndexCom(1);
                                 // document.getElementById("more-btn").style.display = "block";
+                                document.getElementById("more-btn").disabled = false;
                             }
                             console.log(indexCom + "fd");
                         } catch (err) {
@@ -226,6 +231,7 @@ function Musiccrawling() {
 
                 setTalks([...talks, ...newTalks]);
                 setIndexCom(indexCom + 1);
+                
 
             })
             .catch((err) => {
@@ -254,7 +260,7 @@ function Musiccrawling() {
                     <p className="count">{comment.length}/300</p>
                 </div>
                 <div className="allcomment">
-                    {alltalk.length === 0 && <p>첫 코멘트를 달아주세요!</p>}
+                    {alltalk.length === 0 && !firsrDel && <p>첫 코멘트를 달아주세요!</p>}
                     {talks.map((talk, index) => (
                         <div className="comment-box" key={index + 1}>
                             <p>
@@ -268,7 +274,8 @@ function Musiccrawling() {
                 </div>
             </div>
             <div className="morebtnAll">
-                <button onClick={loadMoreTalks} id="more-btn">더보기 ∨</button>
+                {alltalk.length === 0 && <button id="more-btn" disabled>더보기 ∨</button>}
+                {alltalk.length > 0 && <button onClick={loadMoreTalks} id="more-btn">더보기 ∨</button>}
             </div>
 
         </div>

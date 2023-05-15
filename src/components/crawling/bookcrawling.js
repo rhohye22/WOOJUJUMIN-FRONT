@@ -17,6 +17,8 @@ function BookCrawling() {
     const [alltalk, setAlltalk] = useState([]);
     const [indexCom, setIndexCom] = useState(1);
 
+    const [firsrDel, setFirstDel] = useState(false);
+
     useEffect(() => {
         const fetchData = async () => {
             await axios.get("http://localhost:3000/bookchart", { params: {} })
@@ -123,7 +125,9 @@ function BookCrawling() {
         // console.log(localStorage.getItem("login"));
 
         e.preventDefault();
-        if(typeof comment === "string" && comment.trim().length < 3){
+        setFirstDel(true);
+
+        if (typeof comment === "string" && comment.trim().length < 3) {
             alert("두 글자 이상으로 작성해주세요");
             return;
         }
@@ -148,6 +152,7 @@ function BookCrawling() {
                                 // alert("확인");
                                 // setIndexCom(1);
                                 // document.getElementById("more-btn").style.display = "block";
+                                document.getElementById("more-btn").disabled = false;
                             }
                             console.log(indexCom + "fd");
                         } catch (err) {
@@ -245,10 +250,11 @@ function BookCrawling() {
                             </p>
                         </div>
                     ))}
+                    {alltalk.length === 0 && !firsrDel && <p>첫 코멘트를 달아주세요!</p>}
                 </div>
             </div>
             <div className="morebtnAll">
-                {alltalk.length === 0 && <p>첫 코멘트를 달아주세요!</p>}
+                {alltalk.length === 0 && <button id="more-btn" disabled>더보기 ∨</button>}
                 {alltalk.length > 0 && <button onClick={loadMoreTalks} id="more-btn">더보기 ∨</button>}
             </div>
         </div>
