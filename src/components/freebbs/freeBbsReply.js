@@ -32,7 +32,7 @@ function FreeBbsReply(props) {
     }
 
     axios
-      .post("http://localhost:3000/writeFreeReply", null, {
+      .post("http://118.67.132.98:3000/writeFreeReply", null, {
         params: { writer: writer, replySeq: replySeq, content: content },
       })
       .then((res) => {
@@ -52,7 +52,7 @@ function FreeBbsReply(props) {
 
   function getReplylist() {
     axios
-      .get("http://localhost:3000/freeReplyList", {
+      .get("http://118.67.132.98:3000/freeReplyList", {
         params: { replySeq: replySeq, start: start, limit: limit },
       })
       .then(function(resp) {

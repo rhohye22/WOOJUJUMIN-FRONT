@@ -56,7 +56,7 @@ function FreeBbsWrite() {
       }
 
       axios
-        .post("http://localhost:3000/writeFreeBbs", formData)
+        .post("http://118.67.132.98:3000/writeFreeBbs", formData)
         .then(function(resp) {
           if (resp.data === "YES") {
             alert("글이 등록되었습니다.");

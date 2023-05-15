@@ -10,7 +10,7 @@ function Qnadetail() {
   console.log(params.qnaSeq);
 
   const qnaData = async (qnaSeq) => {
-    const response = await axios.get("http://localhost:3000/getQna", {
+    const response = await axios.get("http://118.67.132.98:3000/getQna", {
       params: { qnaSeq: qnaSeq },
     });
     setQna(response.data);

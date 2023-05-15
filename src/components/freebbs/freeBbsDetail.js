@@ -36,7 +36,7 @@ function FreeBbsDetail() {
   const seqs = { memberSeq: memberSeq, bbsSeq: bbsSeq };
 
   const bbsData = async (bbsSeq) => {
-    const response = await axios.get("http://localhost:3000/getfreeBbs", {
+    const response = await axios.get("http://118.67.132.98:3000/getfreeBbs", {
       params: { bbsSeq: bbsSeq },
     });
     setFreeBbs(response.data);
@@ -45,7 +45,7 @@ function FreeBbsDetail() {
 
   function delFeebbsByWriter() {
     axios
-      .post("http://localhost:3000/delFeebbsByWriter", null, {
+      .post("http://118.67.132.98:3000/delFeebbsByWriter", null, {
         params: { bbsSeq: bbsSeq },
       })
       .then(function(resp) {
@@ -78,7 +78,7 @@ function FreeBbsDetail() {
     return <div>Loading...</div>;
   }
 
-  const imageUrl = freebbs.image !== null ? `http://localhost:3000/upload/freebbs/${freebbs.image}` : null;
+  const imageUrl = freebbs.image !== null ? `http://118.67.132.98:3000/upload/freebbs/${freebbs.image}` : null;
 
   //목록으로 이동
   function handleButtonClick() {
