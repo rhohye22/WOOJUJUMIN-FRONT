@@ -177,7 +177,11 @@ function Calendar() {
 
     // 위쪽 빈칸
     for (let i = 1; i < dayOfWeek; i++) {
-      row.push(<td key={i} style={{border:"1px solid #e2e2e2", color:"#808080", verticalAlign:"top"}}>{lastDayOfPrevMonth.getDate() - dayOfWeek + i + 1}</td>);
+      row.push(
+        <td key={i} style={{ border: "1px solid #e2e2e2", color: "#808080", verticalAlign: "top" }}>
+          {lastDayOfPrevMonth.getDate() - dayOfWeek + i + 1}
+        </td>
+      );
     }
 
     // 날짜
@@ -204,10 +208,12 @@ function Calendar() {
       });
 
       row.push(
-        <td key={i + dayOfWeek - 1} style={{border:"1px solid #e2e2e2", height:"55px"}}>
+        <td key={i + dayOfWeek - 1} style={{ border: "1px solid #e2e2e2", height: "55px" }}>
           <div key={i} onClick={() => handleClick(i)} style={{ backgroundColor: clickedDate === i ? "#ECC5FB" : "" }}>
-            <Link to={`/${year}${month}${charTwo(i)}`} style={{ textDecoration:"none"}}>{i}일</Link>
-            <b style={{textAlign:"right", float:"right", fontSize:"13px"}}>{listcnt[i - 1]}</b>
+            <Link to={`/${year}${month}${charTwo(i)}`} style={{ textDecoration: "none" }}>
+              {i}일
+            </Link>
+            <b style={{ textAlign: "right", float: "right", fontSize: "13px" }}>{listcnt[i - 1]}</b>
           </div>
           {tableList}
         </td>
@@ -224,7 +230,11 @@ function Calendar() {
 
     // 아래쪽 빈칸
     for (let i = 0; i < 7 - weekday; i++) {
-      row.push(<td key={i} style={{border:"1px solid #e2e2e2", color:"#808080", verticalAlign:"top"}}>{i + 1}</td>);
+      row.push(
+        <td key={i} style={{ border: "1px solid #e2e2e2", color: "#808080", verticalAlign: "top" }}>
+          {i + 1}
+        </td>
+      );
     }
     let keyVal = 0;
     arrTop.push(

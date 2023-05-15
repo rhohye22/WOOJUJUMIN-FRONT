@@ -42,7 +42,7 @@ function FreeBbsReadcount(props) {
         alert(err);
       });
   }
-  //게시글당 좋아요 개수
+  //게시글당 조회수 개수
   async function cntRead() {
     try {
       const res = await axios.get("http://localhost:3000/cntRead", {

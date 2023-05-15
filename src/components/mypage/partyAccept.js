@@ -4,6 +4,8 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Pagination from "react-js-pagination";
+import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
 import "./accountInfo.css";
 
 function PartyAccept() {
@@ -14,6 +16,7 @@ function PartyAccept() {
   const [partyList, setPartyList] = useState([]);
   const [profile, setProfile] = useState("");
   const [value, setValue] = React.useState("one");
+  const [surak, setSurak] = React.useState(false);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -39,7 +42,6 @@ function PartyAccept() {
         setPartyList(resp.data.list); // map을 return하기 때문(map 안에 list있음)
         setTotalCnt(resp.data.cnt);
         setProfile(resp.data);
-       
       })
       .catch(function(err) {
         alert(err);
@@ -49,7 +51,8 @@ function PartyAccept() {
     axios
       .get("http://localhost:3000/updateCheck", { params: { partySeq: partySeq, applyMem: applyMem } })
       .then(function(resp) {
-        document.location.href = "myinfo/mypartypage/partyAccept";
+        /*   document.location.href = "myinfo/mypartypage/partyAccept"; */
+        setSurak(!surak);
       })
       .catch(function(err) {
         alert(err);
@@ -68,6 +71,9 @@ function PartyAccept() {
     },
     [id]
   );
+  useEffect(() => {
+    myPartyList();
+  }, [surak]);
 
   function pageChange(page) {
     setPage(page);
@@ -95,9 +101,9 @@ function PartyAccept() {
   if (partyList.length > 0) {
     return (
       <>
-      
         <div className="gamssagi3">
-          <table border="1" style={{ margin: "0 auto" }} className='ttable'>
+          {/*      <table border="1" style={{ margin: "0 auto" }} className='ttable'> */}
+          <Table bordered hover>
             <colgroup>
               <col width="100" />
               <col width="600" />
@@ -120,34 +126,83 @@ function PartyAccept() {
                 return (
                   <tr key={i}>
                     <td align="center">
-                    <img src={`http://localhost:3000/upload/member/${bbs.profile}`} style={{ width: "20px", height: "20px", borderRadius: "50%" }} />
-                      {bbs.applyMem}</td>
-                    <td align="center">{bbs.title}</td>
-                    <td align="center">{bbs.wdate.substring(0,10)}</td>
+                      <img src={`http://localhost:3000/upload/member/${bbs.profile}`} style={{ width: "20px", height: "20px", borderRadius: "50%" }} />
+                      &nbsp;{bbs.applyMem}
+                    </td>
+                    {/* <td align="center">{bbs.title}</td> */}
+
+                    <td>
+                      <div
+                        style={{
+                          width: "100%",
+                          height: "50px",
+                          overflow: "hidden",
+                          display: "flex",
+                          alignItems: "left",
+                        }}
+                        onClick={() => history(`/partybbsdetail/${bbs.partySeq}`)}
+                      >
+                        {bbs.image !== null ? (
+                          <img
+                            src={`http://localhost:3000/upload/partybbs/${bbs.image}`}
+                            alt="free image"
+                            style={{
+                              width: 40,
+                              height: "auto",
+                              objectFit: "cover",
+                              objectPosition: "center",
+                            }}
+                          />
+                        ) : null}
+                        &nbsp;&nbsp;
+                        <div
+                          style={{
+                            textDecoration: "none",
+                            color: "inherit",
+                            cursor: "pointer",
+                            flexGrow: 1,
+                            display: "flex",
+                            justifyContent: "flex-start",
+                            alignItems: "center",
+                            height: "100%",
+                          }}
+                        >
+                          {bbs.title}
+                        </div>
+                      </div>
+                    </td>
+
+                    <td align="center">{bbs.wdate.substring(0, 10)}</td>
                     <td align="center">
                       {bbs.countMem}/{bbs.totalMem}
                     </td>
 
                     {bbs.countMem === bbs.totalMem ? (
-                      <td align="center" className="partyWhat">파티완료</td>
+                      <td align="center" className="partyWhat">
+                        모집 완료
+                      </td>
                     ) : bbs.check === 1 ? (
-                      <td align="center" className="partyWhat">수락됨</td>
+                      <td align="center" className="partyWhat">
+                        <span style={{ color: "red" }}>참여 확정</span>
+                      </td>
                     ) : (
                       <td align="center">
-                        <button
+                        <Button
+                          variant="success"
+                          size="sm"
                           onClick={() => {
                             check(bbs.partySeq, bbs.applyMem);
                           }}
                         >
-                          수락하기
-                        </button>
+                          참여 승인
+                        </Button>
                       </td>
                     )}
                   </tr>
                 );
               })}
             </tbody>
-          </table>
+          </Table>
 
           <br></br>
           <Pagination activePage={page} itemsCountPerPage={10} totalItemsCount={totalCnt} pageRangeDisplayed={5} prevPageText={"이전"} nextPageText={"다음"} onChange={pageChange} />
@@ -157,7 +212,6 @@ function PartyAccept() {
   } else {
     return (
       <>
-   
         <br></br>
         <br></br>
         <h3>작성된 내용이 없습니다.</h3>

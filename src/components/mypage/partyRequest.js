@@ -4,6 +4,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Pagination from "react-js-pagination";
+import Table from "react-bootstrap/Table";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
@@ -95,9 +96,9 @@ function PartyRequest() {
   if (requestlist.length > 0) {
     return (
       <>
-     
         <div className="gamssagi3">
-          <table className="ttable" border="1" style={{ margin: "0 auto" }}>
+          {/*  <table className="ttable" border="1" style={{ margin: "0 auto" }}> */}
+          <Table bordered hover>
             <colgroup>
               <col width="70" />
               <col width="600" />
@@ -108,7 +109,7 @@ function PartyRequest() {
               <tr>
                 <th>번호</th>
                 <th>파티제목</th>
-                <th>수락여부</th>
+                <th>참여여부</th>
                 <th>모집여부</th>
               </tr>
             </thead>
@@ -118,16 +119,69 @@ function PartyRequest() {
                 return (
                   <tr key={i}>
                     <td align="center">{i + 1}</td>
-                    <td align="left">
-                      <Link to={`/partybbsdetail/${bbs.partySeq}`}> {bbs.title}</Link>
+                    <td>
+                      <div
+                        style={{
+                          width: "100%",
+                          height: "50px",
+                          overflow: "hidden",
+                          display: "flex",
+                          alignItems: "left",
+                        }}
+                        onClick={() => history(`/partybbsdetail/${bbs.partySeq}`)}
+                      >
+                        {bbs.image !== null ? (
+                          <img
+                            src={`http://localhost:3000/upload/partybbs/${bbs.image}`}
+                            alt="free image"
+                            style={{
+                              width: 40,
+                              height: "auto",
+                              objectFit: "cover",
+                              objectPosition: "center",
+                            }}
+                          />
+                        ) : null}
+                        &nbsp;&nbsp;
+                        <div
+                          style={{
+                            textDecoration: "none",
+                            color: "inherit",
+                            cursor: "pointer",
+                            flexGrow: 1,
+                            display: "flex",
+                            justifyContent: "flex-start",
+                            alignItems: "center",
+                            height: "100%",
+                          }}
+                        >
+                          {bbs.title}
+                        </div>
+                      </div>
                     </td>
-                    {bbs.check === 0 ? <td align="center" className="partyWhat">수락중...</td> : <td align="center" className="partyWhat3">수락완료!</td>}
-                    {bbs.full === 0 ? <td align="center" className="partyWhat">모집중</td> : <td align="center" className="partyWhat2">모집끝</td>}
+                    {bbs.check === 0 ? (
+                      <td align="center" className="partyWhat">
+                        승인대기중
+                      </td>
+                    ) : (
+                      <td align="center" className="partyWhat3">
+                        <span style={{ color: "red" }}>참여 확정</span>
+                      </td>
+                    )}
+                    {bbs.full === 0 ? (
+                      <td align="center" className="partyWhat">
+                        모집 진행중
+                      </td>
+                    ) : (
+                      <td align="center" className="partyWhat2">
+                        모집 마감
+                      </td>
+                    )}
                   </tr>
                 );
               })}
             </tbody>
-          </table>
+          </Table>
 
           <br></br>
           <Pagination activePage={page} itemsCountPerPage={10} totalItemsCount={totalCnt} pageRangeDisplayed={5} prevPageText={"이전"} nextPageText={"다음"} onChange={pageChange} />
@@ -137,7 +191,6 @@ function PartyRequest() {
   } else {
     return (
       <>
-      
         <br></br>
         <br></br>
 
