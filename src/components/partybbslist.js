@@ -33,34 +33,35 @@ function Partybbslist() {
 
   // Fetch posts from API
 
-  async function getPartybbs() {
-    try {
-      const response = await axios.get(`http://localhost:3000/getAllpbslist`, { params: { pageNumber: page, tag: tag } });
-      // console.log(response.data);
-      setPbslist(response.data);
-      // console.log(JSON.stringify(response.data[0]));
-      const str = JSON.stringify(response.data.list);
-      const data = JSON.parse(str);
-      // console.log(data);
-      return data;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  useEffect(() => {
-    axios
-      .get(`http://localhost:3000/getAllpbslist`, { params: { pageNumber: page } })
-      .then((response) => {
+    async function getPartybbs() {
+      try {
+        const response = await axios.get(`http://118.67.132.98:3000/getAllpbslist`, { params:{"pageNumber":page, "tag":tag}});
         // console.log(response.data);
-        // console.log(JSON.stringify(response.data.list[0]));
-        // console.log(JSON.parse(JSON.stringify(response.data.list)));
         setPbslist(response.data);
-      })
-      .catch((error) => {
+        // console.log(JSON.stringify(response.data[0]));
+        const str = JSON.stringify(response.data.list);
+        const data = JSON.parse(str);
+        // console.log(data);
+        return data;
+      } catch (error) {
         console.log(error);
-      });
-  }, []);
+      }
+
+    }
+
+    useEffect(() => {
+      axios
+        .get(`http://118.67.132.98:3000/getAllpbslist`, { params:{"pageNumber":page}})
+        .then((response) => {
+          // console.log(response.data);
+          // console.log(JSON.stringify(response.data.list[0]));
+          // console.log(JSON.parse(JSON.stringify(response.data.list)));
+          setPbslist(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }, []);
 
   async function loadPosts(resetPage) {
     setLoading(true);
@@ -187,38 +188,31 @@ function Partybbslist() {
       {/* <div className="filter-container">
           <input type="text" placeholder="Filter posts..." onInput={filterPosts} />
         </div> */}
-      <div className="posts-container" ref={postsContainerRef}>
-        {/* {filteredPosts.filter(post => post.tag === tag).map((post) => (  */}
-        {filteredPosts.map((post) => (
-          <div key={post.partySeq} className="post" onClick={() => history(`/partybbsdetail/${post.partySeq}`)}>
-            <div className="post-info">
-              {/* <img src={post.image ? `http://localhost:3000/upload/partybbs/${post.image.substring(80)}` : base} alt=''  width="150" height="150"/> */}
-              <img src={post.image ? `http://localhost:3000/upload/partybbs/${post.image}` : base} alt="" width="150" height="150" />
-              <div className="post-body">
-                <p>{categories[Number(post.tag - 1)]}</p>
-              </div>
+        <div className="posts-container" ref={postsContainerRef}>
+          {/* {filteredPosts.filter(post => post.tag === tag).map((post) => (  */}
+          {filteredPosts.map((post) => (
+          <div key={post.partySeq} className="post" onClick={() => history(`/partybbsdetail/${post.partySeq}`)}>      
+              <div className="post-info">                         
 
-              {/* <Link to={`/partybbsdetail/${post.partySeq}`}> */}
-              {/*  <h4 className="post-title">{post.title.substring(0, 12)}...</h4> */}
-              <p className="post-title bold" style={{ color: "gray", fontSize: "28px", fontWeight: "bold" }}>
-                &nbsp;
-                {post.title.substring(0, 10)}~
-              </p>
-
-              {/* </Link> */}
-              <div className="postpcl">
-                <p style={{ color: "gray", fontSize: "20px", fontWeight: "bold" }}>
-                  {" "}
-                  <span style={{ color: "navy", fontSize: "20px", fontWeight: "bold" }}> {ptype[Number(post.partytype - 1)]}</span> · 모임날짜 · {post.mdate.substring(5, 16)}
-                </p>
-                <p style={{ color: "gray", fontSize: "15px", fontWeight: "bold" }}> 모집입원 : {post.people}</p>
+                {/* <img src={post.image ? `http://118.67.132.98:3000/upload/partybbs/${post.image.substring(80)}` : base} alt=''  width="150" height="150"/> */}
+                <img src={post.image ? `http://118.67.132.98:3000/upload/partybbs/${post.image}` : base} alt=''  width="150" height="150"/>
+                <div className="post-body">
+                <p >{categories[Number(post.tag-1)]}</p>
+                </div>
+             
+                {/* <Link to={`/partybbsdetail/${post.partySeq}`}> */}
+                  <h2 className="post-title">{post.title}</h2>
+                {/* </Link> */}
+                <div className='postpcl'>
+                  <p> {ptype[Number(post.partytype-1)]} · 모임날짜 · {post.mdate.substring(5,16)}</p>
+                  <p> 모집입원 : {post.people}</p>    
+                </div>                                
               </div>
             </div>
-          </div>
-        ))}
-        {loading && <div className="loader">Loading...</div>}
+          ))}
+          {loading && <div className="loader">Loading...</div>}
+        </div>
       </div>
-    </div>
   );
 }
 

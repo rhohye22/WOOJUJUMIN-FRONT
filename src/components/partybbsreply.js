@@ -32,7 +32,7 @@ function PartyBbsReply(props) {
     }
 
     axios
-      .post("http://localhost:3000/writepartyReply", null, {
+      .post("http://118.67.132.98:3000/writepartyReply", null, {
         params: { writer: writer, replySeq: replySeq, content: content },
       })
       .then((res) => {
@@ -52,7 +52,7 @@ function PartyBbsReply(props) {
 
   function getReplylist() {
     axios
-      .get("http://localhost:3000/partyReplyList", {
+      .get("http://118.67.132.98:3000/partyReplyList", {
         params: { replySeq: replySeq, start: start, limit: limit },
       })
       .then(function(resp) {
