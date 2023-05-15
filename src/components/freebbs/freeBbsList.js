@@ -46,7 +46,7 @@ function FreeBbsList() {
 
   function getFreelist() {
     axios
-      .get("http://localhost:3000/freeBbslist", {
+      .get("http://118.67.132.98:3000/freeBbslist", {
         params: { choice: choice, search: search, start: start, tag: tag },
       })
       .then(function(resp) {
@@ -59,7 +59,7 @@ function FreeBbsList() {
 
   function getFreecnt() {
     axios
-      .get("http://localhost:3000/cntFreeBbs", {
+      .get("http://118.67.132.98:3000/cntFreeBbs", {
         params: {
           choice: choice,
           search: search,
@@ -176,7 +176,7 @@ function FreeBbsList() {
                       >
                         {free.image !== null ? (
                           <img
-                            src={`http://localhost:3000/upload/freebbs/${free.image}`}
+                            src={`http://118.67.132.98:3000/upload/freebbs/${free.image}`}
                             alt="free image"
                             style={{
                               width: 40,
