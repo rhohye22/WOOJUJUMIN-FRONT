@@ -93,7 +93,7 @@ function Regi() {
 
   const idCheck = async () => {
     await axios
-      .post("http://localhost:3000/idcheck", null, { params: { id: id } })
+      .post("http://118.67.132.98:3000/idcheck", null, { params: { id: id } })
       .then(function(res) {
         if (res.data === "YES") {
           alert("사용가능한 아이디입니다.");
@@ -111,7 +111,7 @@ function Regi() {
 
   const nickCheck = async () => {
     await axios
-      .post("http://localhost:3000/nickcheck", null, { params: { nickname: nickname } })
+      .post("http://118.67.132.98:3000/nickcheck", null, { params: { nickname: nickname } })
       .then(function(res) {
         if (res.data === "YES") {
           alert("사용가능한 닉네임입니다.");
@@ -185,7 +185,7 @@ function Regi() {
 
     // let member = { "id":id, "password":password, "nickname":nickname, "email":email, "phoneNum":phonenum, "address":address, "uploadFile":formData };
     axios
-      .post("http://localhost:3000/addmember", formData)
+      .post("http://118.67.132.98:3000/addmember", formData)
       .then(function(resp) {
         if (resp.data === "YES") {
           alert("정상적으로 가입되었습니다.");
@@ -285,7 +285,7 @@ function Regi() {
 
     // 해당 카카오 계정이 있는지 확인
     axios
-      .post("http://localhost:3000/idcheck", null, { params: { id: kakaoId } })
+      .post("http://118.67.132.98:3000/idcheck", null, { params: { id: kakaoId } })
       .then(function(res) {
         if (res.data === "YES") {
           // 임의 비밀번호
@@ -296,7 +296,7 @@ function Regi() {
           // 데이터를 모아서 백엔드로 넘기기
           let kakaoParams = { id: kakaoId, password: randomString, profile: kakaoImg, nickname: kakaoNickname, email: kakaoEmail, phoneNum: "초기값", address: "초기값" };
           axios
-            .post("http://localhost:3000/socialRegi", null, { params: kakaoParams })
+            .post("http://118.67.132.98:3000/socialRegi", null, { params: kakaoParams })
             .then(function(resp) {
               if (resp.data === "YES") {
                 console.log(kakaoParams);
@@ -316,7 +316,7 @@ function Regi() {
             });
         } else {
           axios
-            .post("http://localhost:3000/socialLogin", null, { params: { id: kakaoId } })
+            .post("http://118.67.132.98:3000/socialLogin", null, { params: { id: kakaoId } })
             .then(function(resp) {
               console.log(resp.data);
               if (resp.data !== null && resp.data !== "") {
@@ -356,7 +356,7 @@ function Regi() {
 
     // 구글 계정이 있는지 확인
     axios
-      .post("http://localhost:3000/idcheck", null, { params: { id: googleId } })
+      .post("http://118.67.132.98:3000/idcheck", null, { params: { id: googleId } })
       .then(function(res) {
         if (res.data === "YES") {
           // 임의 비밀번호
@@ -367,7 +367,7 @@ function Regi() {
           // 데이터를 모아서 백엔드로 넘기기
           let googleParams = { id: googleId, password: randomString, profile: googleImg, nickname: googleNickname, email: googleEmail, phoneNum: "초기값", address: "초기값" };
           axios
-            .post("http://localhost:3000/socialRegi", null, { params: googleParams })
+            .post("http://118.67.132.98:3000/socialRegi", null, { params: googleParams })
             .then(function(resp) {
               if (resp.data === "YES") {
                 console.log(googleParams);
@@ -387,7 +387,7 @@ function Regi() {
             });
         } else {
           axios
-            .post("http://localhost:3000/socialLogin", null, { params: { id: googleId } })
+            .post("http://118.67.132.98:3000/socialLogin", null, { params: { id: googleId } })
             .then(function(resp) {
               console.log(resp.data);
               if (resp.data !== null && resp.data !== "") {

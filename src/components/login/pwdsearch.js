@@ -7,7 +7,7 @@ function PwdSearch() {
 
     const pwdInfo = async() => {
         await axios
-            .post("http://localhost:3000/idcheck", null, { params: { id: id } })
+            .post("http://118.67.132.98:3000/idcheck", null, { params: { id: id } })
             .then(function(res) {
                 //console.log(res);
                 if (res.data === "YES") {
@@ -17,7 +17,7 @@ function PwdSearch() {
                     // 임의 비밀번호
                     const randomString = Math.random().toString(36).slice(2);
 
-                    axios.post("http://localhost:3000/pwdsearch", null, { params: { id: id, password: randomString } })
+                    axios.post("http://118.67.132.98:3000/pwdsearch", null, { params: { id: id, password: randomString } })
                         .then(function(res) {
                             //console.log(res);
                             if(res.data === "YES") {
