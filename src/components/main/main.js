@@ -18,6 +18,7 @@ import "./main.css";
 import CategoryBtn from "./categoryBtn";
 
 function Main() {
+  let navigate = useNavigate();
   let { ryear, rmonth, ryyyymm } = useParams();
 
   if (typeof ryear === "undefined" || typeof rmonth === "undefined" || typeof ryyyymm === "undefined") {
@@ -38,7 +39,7 @@ function Main() {
         <span style={{ fontSize: "1.5em" }}>이웃과 함께 당신의 관심사에 대해 이야기하세요</span> &nbsp; &nbsp;&nbsp; &nbsp;
         <img src={speech} alt="noimg" style={{ height: "60px", width: "auto" }} />
         <CategoryBtn />
-        <Button variant="outline-info" size="sm">
+        <Button variant="outline-info" size="sm" onClick={() => navigate("freeBoard")}>
           더보기
         </Button>
       </div>
@@ -49,7 +50,7 @@ function Main() {
         <div className="mainmiddle3-2">
           <PartycardBtn />
         </div>
-        <Button variant="outline-secondary" size="sm">
+        <Button variant="outline-secondary" size="sm" onClick={() => navigate("partybbslist")}>
           더보기
         </Button>
       </div>
@@ -58,8 +59,8 @@ function Main() {
       <div className="mainmiddle2">
         <Calendar />
       </div>
-      <img src={review} alt="noimg" style={{ height: "50px", width: "auto" }} /> &nbsp; &nbsp;&nbsp;
-      <span style={{ fontSize: "1.5em" }}>우주인들의 후기</span>
+      {/*       <img src={review} alt="noimg" style={{ height: "50px", width: "auto" }} /> &nbsp; &nbsp;&nbsp;
+      <span style={{ fontSize: "1.5em" }}>우주인들의 후기</span> */}
       <div className="mainmiddle4">
         <Oursays />
       </div>

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Pagination from "react-js-pagination";
+import Table from "react-bootstrap/Table";
 import "./page.css";
 import "./accountInfo.css";
 
@@ -96,53 +97,77 @@ function MyfreebbsList() {
   const gofree = () => {
     history("/myfreebbsList");
   };
-  if (bbslist.length > 0) {
-    return (
-      <>
-      
-        <div >
-          <div className="searchs">
-            <select value={choice} onChange={(e) => setChoice(e.target.value)}>
-              <option value="">검색</option>
-              <option value="title">제목</option>
-              <option value="content">내용</option>
-              <option value="writer">작성자</option>
-            </select>
-            &nbsp;
-            <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="검색어" /> &nbsp;
-            <Button variant="success" size="sm" onClick={searchBtn}>
-              검색
-            </Button>
-          </div>
-          <br></br>
+  /*   if (bbslist.length > 0) { */
+  return (
+    <>
+      <div>
+        {/*      <table border="1" style={{ margin: "0 auto" }} className="ttable"> */}
+        <Table bordered hover>
+          <colgroup>
+            <col width="70" />
+            <col width="600" />
+            {/*         <col width="100" /> */}
+            <col width="130" />
+            <col width="130" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>번호</th>
+              <th>제목</th>
+              {/*   <th>조회수</th> */}
+              <th>날짜</th>
+              <th>작성자</th>
+            </tr>
+          </thead>
 
-          <table border="1" style={{ margin: "0 auto" }} className="ttable">
-            <colgroup>
-              <col width="70" />
-              <col width="600" />
-              <col width="100" />
-              <col width="130" />
-              <col width="130" />
-            </colgroup>
-            <thead>
-              <tr>
-                <th>번호</th>
-                <th>제목</th>
-                <th>조회수</th>
-                <th>날짜</th>
-                <th>작성자</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {bbslist.map(function(bbs, i) {
+          <tbody>
+            {" "}
+            {bbslist.length ? (
+              bbslist.map(function(bbs, i) {
                 return (
                   <tr key={i}>
                     <td align="center">{i + 1}</td>
-                    <td align="left">
-                      <Link to={`/freeBbsDetail/${bbs.bbsSeq}`}> {bbs.title}</Link>
+                    <td>
+                      <div
+                        style={{
+                          width: "100%",
+                          height: "50px",
+                          overflow: "hidden",
+                          display: "flex",
+                          alignItems: "left",
+                        }}
+                        onClick={() => history(`/freeBbsDetail/${bbs.bbsSeq}`)}
+                      >
+                        {bbs.image !== null ? (
+                          <img
+                            src={`http://localhost:3000/upload/freebbs/${bbs.image}`}
+                            alt="free image"
+                            style={{
+                              width: 40,
+                              height: "auto",
+                              objectFit: "cover",
+                              objectPosition: "center",
+                            }}
+                          />
+                        ) : null}
+                        &nbsp;&nbsp;
+                        <div
+                          style={{
+                            textDecoration: "none",
+                            color: "inherit",
+                            cursor: "pointer",
+                            flexGrow: 1,
+                            display: "flex",
+                            justifyContent: "flex-start",
+                            alignItems: "center",
+                            height: "100%",
+                          }}
+                        >
+                          {bbs.title}
+                        </div>
+                      </div>
                     </td>
-                    <td align="center">{bbs.readcount}</td>
+                    {/*        <td align="center">{bbs.readcount}</td> */}
 
                     <td align="center">{bbs.wdate.substring(0, 10)}</td>
                     <td align="center">
@@ -151,25 +176,40 @@ function MyfreebbsList() {
                     </td>
                   </tr>
                 );
-              })}
-            </tbody>
-          </table>
-          <br></br>
-          <Pagination activePage={page} itemsCountPerPage={10} totalItemsCount={totalCnt} pageRangeDisplayed={5} prevPageText={"이전"} nextPageText={"다음"} onChange={pageChange} />
-          <br></br>
+              })
+            ) : (
+              <tr>
+                <td colSpan={6}>글이 없습니다.</td>
+              </tr>
+            )}
+          </tbody>
+        </Table>{" "}
+        <div className="searchs">
+          <select value={choice} onChange={(e) => setChoice(e.target.value)}>
+            <option value="">검색</option>
+            <option value="title">제목</option>
+            <option value="content">내용</option>
+            <option value="writer">작성자</option>
+          </select>
+          &nbsp;
+          <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="검색어" /> &nbsp;
+          <Button variant="success" size="sm" onClick={searchBtn}>
+            검색
+          </Button>
         </div>
-      </>
-    );
-  } else {
+        <Pagination activePage={page} itemsCountPerPage={10} totalItemsCount={totalCnt} pageRangeDisplayed={5} prevPageText={"이전"} nextPageText={"다음"} onChange={pageChange} />
+        <br />
+      </div>
+    </>
+  );
+} /* else {
     return (
       <>
-     
         <h3>작성된 내용이 없습니다.</h3>
         <br></br>
         <Pagination activePage={page} itemsCountPerPage={10} totalItemsCount={totalCnt} pageRangeDisplayed={5} prevPageText={"이전"} nextPageText={"다음"} onChange={pageChange} />
       </>
     );
-  }
-}
+  } */
 
 export default MyfreebbsList;

@@ -62,6 +62,27 @@ function Calendar() {
     fetchData(sendYear, sendMonth);
   }, [sendMonth, sendYear, sendyyyymm]);
 
+  const [listcnt, setListcnt] = useState([]);
+
+  useEffect(() => {
+    async function cntData() {
+      try {
+        const updatedListcnt = []; // 업데이트된 배열을 임시로 저장할 변수
+        for (let i = 1; i <= lastday; i++) {
+          let ymd = year + charTwo(month) + charTwo(i);
+          const response = await axios.get("http://localhost:3000/listcount", { params: { rdate: ymd } });
+          console.log(response.data);
+          updatedListcnt.push(response.data);
+        }
+        setListcnt(updatedListcnt); // 배열 상태 업데이트
+      } catch (error) {
+        alert(error);
+      }
+    }
+    cntData();
+    console.log("배열확인용", listcnt); // 배열이 업데이트될 때마다 호출
+  }, [lastday]);
+
   // 전년도
   function prevYear() {
     // alert(year);
@@ -139,9 +160,28 @@ function Calendar() {
     let arrTop = [];
     let row = [];
 
+    // 내가 이동한 월 가져오기
+    const today = new Date(year, month - 1);
+    console.log(today);
+
+    // 현재 월의 첫 날 설정
+    const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+
+    // 전월의 첫 날 설정
+    const firstDayOfPrevMonth = new Date(firstDayOfMonth.getFullYear(), firstDayOfMonth.getMonth() - 1, 1);
+
+    // 전월의 마지막 날 가져오기
+    const lastDayOfPrevMonth = new Date(firstDayOfPrevMonth.getFullYear(), firstDayOfPrevMonth.getMonth() + 1, 0);
+
+    console.log(lastDayOfPrevMonth.getDate()); // 전월의 마지막 날짜 출력
+
     // 위쪽 빈칸
     for (let i = 1; i < dayOfWeek; i++) {
-      row.push(<td key={i}></td>);
+      row.push(
+        <td key={i} style={{ border: "1px solid #e2e2e2", color: "#808080", verticalAlign: "top" }}>
+          {lastDayOfPrevMonth.getDate() - dayOfWeek + i + 1}
+        </td>
+      );
     }
 
     // 날짜
@@ -168,11 +208,13 @@ function Calendar() {
       });
 
       row.push(
-        <td key={i + dayOfWeek - 1}>
+        <td key={i + dayOfWeek - 1} style={{ border: "1px solid #e2e2e2", height: "55px" }}>
           <div key={i} onClick={() => handleClick(i)} style={{ backgroundColor: clickedDate === i ? "#ECC5FB" : "" }}>
-            <Link to={`/${year}${month}${charTwo(i)}`}>{i}일</Link>
+            <Link to={`/${year}${month}${charTwo(i)}`} style={{ textDecoration: "none" }}>
+              {i}일
+            </Link>
+            <b style={{ textAlign: "right", float: "right", fontSize: "13px" }}>{listcnt[i - 1]}</b>
           </div>
-
           {tableList}
         </td>
       );
@@ -188,7 +230,11 @@ function Calendar() {
 
     // 아래쪽 빈칸
     for (let i = 0; i < 7 - weekday; i++) {
-      row.push(<td key={i}></td>);
+      row.push(
+        <td key={i} style={{ border: "1px solid #e2e2e2", color: "#808080", verticalAlign: "top" }}>
+          {i + 1}
+        </td>
+      );
     }
     let keyVal = 0;
     arrTop.push(

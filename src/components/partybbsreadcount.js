@@ -1,23 +1,23 @@
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
-function FreeBbsReadcount(props) {
+function PartyBbsReadcount(props) {
   const { bbsSeq, memberSeq } = props.seqs;
   const [cntread, setCntread] = useState();
 
   //read테이블에 bbsSeq, memSeq조건을 만족하는 로우가 있는지 확인
   async function checkReadrow() {
     try {
-      const res = await axios.get("http://localhost:3000/checkReadrow", {
+      const res = await axios.get("http://localhost:3000/partycheckReadrow", {
         params: { bbsSeq: bbsSeq, memSeq: memberSeq },
       });
       console.log(res.data);
       if (res.data === 0) {
         //이미 있으면 1 없으면 0
-        return false;
+        return true;
       } else {
         //alert("이미 존재합니다");
-        return true;
+        return false;
       }
     } catch (err) {
       alert(err);
@@ -27,7 +27,7 @@ function FreeBbsReadcount(props) {
   //read테이블에 로우 삽입
   function makeReadrow() {
     axios
-      .post("http://localhost:3000/makeReadrow", null, {
+      .post("http://localhost:3000/partymakeReadrow", null, {
         params: { bbsSeq: bbsSeq, memSeq: memberSeq },
       })
       .then((res) => {
@@ -42,10 +42,10 @@ function FreeBbsReadcount(props) {
         alert(err);
       });
   }
-  //게시글당 조회수 개수
+  //게시글당 조회수
   async function cntRead() {
     try {
-      const res = await axios.get("http://localhost:3000/cntRead", {
+      const res = await axios.get("http://localhost:3000/partycntRead", {
         params: { bbsSeq: bbsSeq },
       });
       console.log(res.data);
@@ -62,7 +62,7 @@ function FreeBbsReadcount(props) {
         makeReadrow();
       }
     }
-  }, []);
+  }, [memberSeq]);
 
   useEffect(() => {
     cntRead();
@@ -70,4 +70,4 @@ function FreeBbsReadcount(props) {
 
   return <> {cntread}</>;
 }
-export default FreeBbsReadcount;
+export default PartyBbsReadcount;

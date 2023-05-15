@@ -28,9 +28,10 @@ function Qnadetail() {
 
   return (
     <div>
-      <h3>상세 글보기</h3>
-
-      <table align="center" border="1">
+      <br /> <br />
+      <h3>내 문의글 보기</h3>
+      <br /> <br />
+      <table align="center" border="1" className="ttable">
         <colgroup>
           <col style={{ width: "150px" }} />
           <col style={{ width: "500px" }} />
