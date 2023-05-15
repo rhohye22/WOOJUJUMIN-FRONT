@@ -19,21 +19,22 @@ function MovieCrawling() {
   const [alltalk, setAlltalk] = useState([]);
   const [indexCom, setIndexCom] = useState(1);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await axios
-        .get("http://localhost:3000/moviechart", { params: {} })
-        .then(function(res) {
-          console.log(res.data.movie);
-          setMovieList(res.data.movie);
-          setImageslist(res.data.images);
-          // alert(res.data.images);
-          // alert(loading);
-        })
-        .catch(function(err) {
-          alert(err);
-        });
-    };
+    useEffect(() => {
+        const fetchData = async () => {
+            const path = "/finalProject/WOOJUJUMIN-FRONT/src/components/crawlingimages";
+            await axios.get("http://localhost:3000/moviechart", { params: {path:path} })
+                .then(function (res) {
+                    console.log(res.data.movie);
+                    setMovieList(res.data.movie);
+                    setImageslist(res.data.images);
+                    // alert(res.data.images);
+                    // alert(loading);
+
+                })
+                .catch(function (err) {
+                    alert(err);
+                })
+        }
 
     const talkData = async () => {
       await axios
