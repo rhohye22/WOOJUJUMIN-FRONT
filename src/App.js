@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-dom";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import Button from "react-bootstrap/Button";
@@ -66,17 +66,26 @@ import PartyLeaderresult from "./components/mypage/partyleaderresult";
 
 function App() {
   // 로그인 상태 관리
+  
   const [log, setLog] = useState(null);
   const [nickname, setNickname] = useState("");
   const { currentUser } = useContext(AuthContext);
   const [profile, setProfile] = useState("");
   const [cardcheck, setCardcheck] = useState("");
+  //const location = useLocation();
+  //const tmp = { ...location.state };
 
   function loghandle() {
     localStorage.clear();
     window.location.href = "/";
   }
+  useEffect(() =>{
 
+   // setLog(tmp.res);
+  });
+
+
+  //setLog(props);
   useEffect(() => {
     if (localStorage.getItem("login") === null) {
       setLog(true);
@@ -92,24 +101,25 @@ function App() {
   useEffect(() => {
     const loginInfo = JSON.parse(localStorage.getItem("login"));
     const result = async () => {
-      await axios.get("http://localhost:3000/partyleaderresult", { params: { "memid": loginInfo.id } })
-        .then(function (res) {
+      await axios
+        .get("http://localhost:3000/partyleaderresult", { params: { memid: loginInfo.id } })
+        .then(function(res) {
           console.log(res.data);
           setCardcheck(res.data);
         })
-        .catch(function (err) {
+        .catch(function(err) {
           alert(err);
-        })
-    }
+        });
+    };
 
     if (loginInfo !== null) {
       result();
     }
-  }, [])
+  }, []);
 
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
-      내정보 수정
+      마이페이지
     </Tooltip>
   );
   const renderTooltip2 = (props) => (
@@ -136,7 +146,7 @@ function App() {
           </div>
           <div style={{ display: "flex", lignItems: "center", justifyContent: "center" }}>
             {log ? (
-              <span>로그인해주세요</span>
+              <span>회원이 아닌가요?</span>
             ) : (
               <span>
                 <img src={`http://localhost:3000/upload/member/${profile}`} style={{ width: "30px", height: "30px", borderRadius: "50%", background: "white" }} />
@@ -145,7 +155,9 @@ function App() {
             )}
             &nbsp;&nbsp;&nbsp;
             {log ? (
-              <Link to="/regi">회원가입</Link>
+              <Link to="/regi" style={{ textDecoration: "none", /* fontSize: "1.2rem", */ color: "navy" }}>
+                회원가입하기
+              </Link>
             ) : (
               <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
                 <Link to="/myinfo/mypage">
@@ -176,21 +188,24 @@ function App() {
                 </Link>
               </OverlayTrigger>
             )}
-            {log === false && cardcheck === 1 || cardcheck === 2&&(
-              <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip3}>
-                <Link to="/partyleaderresult">
-                  <img src={partyleader} alt="noimg" style={{ width: "30px", height: "30px" }} />
-                </Link>
-              </OverlayTrigger>
-            )}
+            {(log === false && cardcheck === 1) ||
+              (cardcheck === 2 && (
+                <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip3}>
+                  <Link to="/partyleaderresult">
+                    <img src={partyleader} alt="noimg" style={{ width: "30px", height: "30px" }} />
+                  </Link>
+                </OverlayTrigger>
+              ))}
             &nbsp;&nbsp;&nbsp;
             {log ? (
-              <Button variant="outline-dark">
-                <Link to="/login">로그인</Link>
+              <Button variant="light">
+                <Link to="/login" style={{ textDecoration: "none", color: "black" }}>
+                  로그인
+                </Link>
               </Button>
             ) : (
               <Button
-                variant="outline-dark"
+                variant="light"
                 onClick={() => {
                   loghandle();
                   signOut(auth);
@@ -223,8 +238,7 @@ function App() {
             </ul>
           </Link>
           &nbsp;&nbsp;&nbsp;
-          <Link to="/partybbs">partybbs</Link> &nbsp;&nbsp;
-          <Link to="/partybbslist">partybbslist</Link> &nbsp;&nbsp;
+          <Link to="/partybbslist">파티게시판</Link> &nbsp;&nbsp;
           <Link to="/qnalist">사용문의</Link>&nbsp;&nbsp;&nbsp;
           {/* <Link to="/partybbsdetail">partybbsdetail</Link> &nbsp;&nbsp; */}
           {/* <Link to="/partybbsupdate">partybbsupdate</Link> &nbsp;&nbsp; */}
