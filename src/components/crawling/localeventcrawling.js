@@ -38,8 +38,9 @@ function Localeventcrawling() {
 
   useEffect(() => {
     const fetchData = async () => {
+      const path = "/finalProject/WOOJUJUMIN-FRONT/src/components/crawlingimages";
       await axios
-        .get("http://localhost:3000/localevent", { params: {} })
+        .get("http://localhost:3000/localevent", { params: {path:path} })
         .then(function(res) {
           console.log(res.data);
           setOnetitles(res.data.onepage.sendtitles);

@@ -26,8 +26,9 @@ function Musiccrawling() {
 
   useEffect(() => {
     const fetchData = async () => {
+      const path = "/finalProject/WOOJUJUMIN-FRONT/src/components/crawlingimages/musicimages";
       await axios
-        .get("http://localhost:3000/musicchart", { params: {} })
+        .get("http://localhost:3000/musicchart", { params: {path:path} })
         .then(function(res) {
           console.log(res.data);
           console.log(res.data.sendsingers);
