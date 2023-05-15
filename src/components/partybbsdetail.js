@@ -280,7 +280,9 @@ function Partybbsdetail() {
           <tr>
             <th>참여확정인원</th>
             <td>
+
               {checkCnt}/{partybbslist.people}
+
             </td>
             <th>현재신청인원</th>
             <td>{applyCnt}</td>

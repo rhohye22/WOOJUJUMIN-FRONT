@@ -2,8 +2,8 @@ import React, { useEffect, useState, useRef } from 'react'
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import './partylistcss.css';
-import ReactDOM from 'react-dom';
 import base from './image/base.png';
+import { Button } from 'react-bootstrap';
 
 function Partybbslist(){
     let history = useNavigate();
@@ -145,6 +145,10 @@ function Partybbslist(){
        
     }
 
+    const partyWrite = () => {
+      document.location.href = '/partybbs';
+    }
+
     return (
       <div className="partybbslist-container">
               <br />
@@ -207,7 +211,7 @@ function Partybbslist(){
           ))}
           {loading && <div className="loader">Loading...</div>}
         </div>
-
+        <Button variant="primary" onClick={() => partyWrite()}>글쓰기</Button>
       </div>
   );
 }
