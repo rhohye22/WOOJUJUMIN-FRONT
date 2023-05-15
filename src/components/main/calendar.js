@@ -170,7 +170,10 @@ function Calendar() {
       row.push(
         <td key={i + dayOfWeek - 1}>
           <div key={i} onClick={() => handleClick(i)} style={{ backgroundColor: clickedDate === i ? "#ECC5FB" : "" }}>
-            <Link to={`/${year}${month}${charTwo(i)}`}>{i}일</Link>
+            {/* <Link to={`/${year}${month}${charTwo(i)}`}>{i}일</Link> */}
+            <Link to={`/${year}${month}${charTwo(i)}`} style={{ textDecoration: "none", color: "black" }}>
+              {i}일
+            </Link>
           </div>
 
           {tableList}

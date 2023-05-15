@@ -28,8 +28,8 @@ function Mypartypage() {
       <div className="mypartypageTop">
         <Box sx={{ width: "100%" }}>
           <Tabs value={value} onChange={handleChange} variant="scrollable" scrollButtons="auto" aria-label="scrollable auto tabs example">
-            <Tab label="파티 수락" onClick={() => history("partyAccept")}></Tab>
-            <Tab label="파티 요청" onClick={() => history("partyRequest")}></Tab>
+            <Tab label="내가 쓴 모집글 파티원 수락하기" onClick={() => history("partyAccept")}></Tab>
+            <Tab label="내가 보낸 파티요청" onClick={() => history("partyRequest")}></Tab>
           </Tabs>
         </Box>
       </div>

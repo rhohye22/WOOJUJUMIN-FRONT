@@ -4,6 +4,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import Button from "react-bootstrap/Button";
+import Table from "react-bootstrap/Table";
 import "./page.css";
 import "./accountInfo.css";
 
@@ -99,11 +100,93 @@ function MyBbsList() {
   /*   if (bbslist.length > 0) { */
   return (
     <>
- 
+      <Table bordered hover>
+        <colgroup>
+          <col width="70" />
+          <col width="600" />
+          {/*  <col width="100" /> */}
+          <col width="100" />
+          <col width="130" />
+          <col width="130" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>제목</th>
+            {/*    <th>조회수</th> */}
+            <th>모집인원</th>
+            <th>날짜</th>
+            <th>작성자</th>
+          </tr>
+        </thead>
 
-   
+        <tbody>
+          {bbslist.length ? (
+            bbslist.map(function(bbs, i) {
+              return (
+                <tr key={i}>
+                  <td align="center">{i + 1}</td>
+                  {/*  <td align="left">
+                      <Link to={`/partybbsdetail/${bbs.partySeq}`}> {bbs.title}</Link>
+                    </td> */}
+                  <td>
+                    <div
+                      style={{
+                        width: "100%",
+                        height: "50px",
+                        overflow: "hidden",
+                        display: "flex",
+                        alignItems: "left",
+                      }}
+                      onClick={() => history(`/partybbsdetail/${bbs.partySeq}`)}
+                    >
+                      {bbs.image !== null ? (
+                        <img
+                          src={`http://localhost:3000/upload/partybbs/${bbs.image}`}
+                          alt="free image"
+                          style={{
+                            width: 40,
+                            height: "auto",
+                            objectFit: "cover",
+                            objectPosition: "center",
+                          }}
+                        />
+                      ) : null}
+                      &nbsp;&nbsp;
+                      <div
+                        style={{
+                          textDecoration: "none",
+                          color: "inherit",
+                          cursor: "pointer",
+                          flexGrow: 1,
+                          display: "flex",
+                          justifyContent: "flex-start",
+                          alignItems: "center",
+                          height: "100%",
+                        }}
+                      >
+                        {bbs.title}
+                      </div>
+                    </div>
+                  </td>
+                  {/*      <td align="center">{bbs.readcount}</td> */}
+                  <td align="center">{bbs.people}</td>
+                  <td align="center">{bbs.wdate.substring(0, 10)}</td>
+                  <td align="center">
+                    <img src={`http://localhost:3000/upload/member/${profile}`} style={{ width: "20px", height: "20px", borderRadius: "50%" }} />
+                    {bbs.id}
+                  </td>
+                </tr>
+              );
+            })
+          ) : (
+            <tr>
+              <td colSpan={6}>글이 없습니다.</td>
+            </tr>
+          )}
+        </tbody>
+      </Table>
 
-      <br></br>
       <div className="gamssagi2">
         <div className="searchs">
           <select value={choice} onChange={(e) => setChoice(e.target.value)}>
@@ -113,69 +196,19 @@ function MyBbsList() {
             <option value="writer">작성자</option>
           </select>
           &nbsp;
-          <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="검색어" />&nbsp;
+          <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="검색어" />
+          &nbsp;
           <Button variant="success" size="sm" onClick={searchBtn}>
-              검색
-            </Button>
+            검색
+          </Button>
         </div>
-
-        <br></br>
-
-        <table className="ttable">
-          <colgroup>
-            <col width="70" />
-            <col width="600" />
-            <col width="100" />
-            <col width="100" />
-            <col width="130" />
-            <col width="130" />
-          </colgroup>
-          <thead>
-            <tr>
-              <th>번호</th>
-              <th>제목</th>
-              <th>조회수</th>
-              <th>인원수</th>
-              <th>날짜</th>
-              <th>작성자</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {bbslist.length ? (
-              bbslist.map(function(bbs, i) {
-                return (
-                  <tr key={i}>
-                    <td align="center">{i + 1}</td>
-                    <td align="left">
-                      <Link to={`/partybbsdetail/${bbs.partySeq}`}> {bbs.title}</Link>
-                    </td>
-                    <td align="center">{bbs.readcount}</td>
-                    <td align="center">{bbs.people}</td>
-                    <td align="center">{bbs.wdate.substring(0, 10)}</td>
-                    <td align="center">
-                      <img src={`http://localhost:3000/upload/member/${profile}`} style={{ width: "20px", height: "20px", borderRadius: "50%" }} />
-                      {bbs.id}
-                    </td>
-                  </tr>
-                );
-              })
-            ) : (
-              <tr>
-                <td colSpan={6}>글이 없습니다.</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-
-        <br></br>
 
         <Pagination activePage={page} itemsCountPerPage={10} totalItemsCount={totalCnt} pageRangeDisplayed={5} prevPageText={"이전"} nextPageText={"다음"} onChange={pageChange} />
 
-        <br></br>
+        <br />
       </div>
     </>
   );
-} 
+}
 
 export default MyBbsList;

@@ -3,8 +3,9 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Pagination from "react-js-pagination";
-import { Button } from "react-bootstrap";
 
+import Button from "react-bootstrap/Button";
+import Table from "react-bootstrap/Table";
 function PartyList() {
   let history = useNavigate();
   const [id, setId] = useState("");
@@ -70,7 +71,8 @@ function PartyList() {
     return (
       <>
         <div>
-          <table border="1" style={{ margin: "0 auto"}} className='ttable'>
+          {/* <table border="1" style={{ margin: "0 auto"}} className='ttable'> */}
+          <Table bordered hover>
             <colgroup>
               <col width="70" />
               <col width="600" />
@@ -80,8 +82,8 @@ function PartyList() {
             <thead>
               <tr>
                 <th>번호</th>
-                <th>파티제목</th>
-                <th>파티정보 보기</th>
+                <th>모집글 제목</th>
+                <th>글보기</th>
                 <th>파티장</th>
               </tr>
             </thead>
@@ -93,16 +95,16 @@ function PartyList() {
                     <td align="center">{i + 1}</td>
                     <td align="center">{bbs.title}</td>
                     <td align="center">
-                      <Button onClick={() => history(`/myinfo/partyRoom/${bbs.partySeq}`)}>보기</Button>
+                      <Button variant="secondary" onClick={() => history(`/myinfo/partyRoom/${bbs.partySeq}`)}>
+                        상세보기
+                      </Button>
                     </td>
-                    <td align="center">
-                   
-                      {bbs.masterId}</td>
+                    <td align="center">{bbs.masterId}</td>
                   </tr>
                 );
               })}
             </tbody>
-          </table>
+          </Table>
 
           <br></br>
           <Pagination activePage={page} itemsCountPerPage={10} totalItemsCount={totalCnt} pageRangeDisplayed={5} prevPageText={"이전"} nextPageText={"다음"} onChange={pageChange} />
