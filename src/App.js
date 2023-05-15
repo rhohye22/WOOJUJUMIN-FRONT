@@ -223,8 +223,7 @@ function App() {
             </ul>
           </Link>
           &nbsp;&nbsp;&nbsp;
-          <Link to="/partybbs">partybbs</Link> &nbsp;&nbsp;
-          <Link to="/partybbslist">partybbslist</Link> &nbsp;&nbsp;
+          <Link to="/partybbslist">파티게시판</Link> &nbsp;&nbsp;
           <Link to="/qnalist">사용문의</Link>&nbsp;&nbsp;&nbsp;
           {/* <Link to="/partybbsdetail">partybbsdetail</Link> &nbsp;&nbsp; */}
           {/* <Link to="/partybbsupdate">partybbsupdate</Link> &nbsp;&nbsp; */}
