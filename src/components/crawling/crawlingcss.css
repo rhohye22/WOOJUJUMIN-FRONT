@@ -32,7 +32,7 @@
     /* border: 1px solid blue; */
     margin: 0;
     padding: 5px 0;
-    background-color: rgb(121, 183, 95)
+    background-color: #88d4e3;
 }
 .movieOne img{
     width: 200px;
@@ -53,7 +53,7 @@
     float: left;
     height: auto;
     /* background-color: rgb(50, 147, 206); */
-    background-color: rgb(50, 147, 206);
+    background-color: #edeff5;
     /* border: 1px solid red; */
     /* border-radius: 10px; */
     border-top-left-radius: 15px;
@@ -70,8 +70,9 @@
 }
 .talkinsert{
     width: 270px;
-    height: 60px;
+    height: 65px;
     padding: 10px 0;
+    resize: none;
 }
 .talkinsert::placeholder{
     font-size: 14px;
@@ -90,18 +91,19 @@
     float: right;  
     width: 48px;
     padding: 5px 0;
-    background-color: rgb(121, 183, 95);
+    background-color: #88d4e3;
     border-radius: 5px;
     font-weight: bold;
 }
 .allcomment{
-    overflow: auto;
-    height: 900px;
+    overflow-y: scroll;
+    height: 780px;
+    word-break:break-all;
 }
 .comment-box{
     clear: both;
     /* background-color: rgb(121, 183, 95); */
-    background-color: rgb(255, 245, 121);
+    background-color: rgb(255, 251, 196);
     margin: 10px 0px 5px 10px;
     /* float: left; */
     width: 270px;
@@ -131,7 +133,7 @@
 #more-btn{
     width: 300px;
     margin-left: 20px;
-    background-color: rgb(121, 183, 95);
+    background-color: #88d4e3;
     font-size: 16px;
     font-weight: bold;
     padding: 10px 0;
@@ -252,7 +254,7 @@
     width: 300px;
     height: auto;
     /* background-color: rgb(50, 147, 206); */
-    background-color: rgb(50, 147, 206);
+    background-color: #edeff5;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
 }

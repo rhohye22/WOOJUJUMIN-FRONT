@@ -5,15 +5,16 @@ import { useNavigate } from "react-router-dom";
 import "./crawlingcss.css";
 import mainimg from "./popcorn.jpg";
 import moviepage from "./moviepage.png";
+import Form from 'react-bootstrap/Form';
 
 function MovieCrawling() {
   let navigate = useNavigate();
 
-  const [movielist, setMovieList] = useState([]);
-  const [imageslist, setImageslist] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [talks, setTalks] = useState([]);
-  const [comment, setComment] = useState("");
+    const [movielist, setMovieList] = useState([]);
+    const [imageslist, setImageslist] = useState([]);
+    const [firsrDel, setFirstDel] = useState(false);
+    const [talks, setTalks] = useState([]);
+    const [comment, setComment] = useState("");
 
   const [alltalk, setAlltalk] = useState([]);
   const [indexCom, setIndexCom] = useState(1);
@@ -93,34 +94,30 @@ function MovieCrawling() {
       }
     });
 
-    console.log(imagePath);
-    setLoading(false);
+        // console.log(imagePath);
+        // setLoading(false);
 
     function dot3(msg) {
       return msg.trim().length > 10 ? msg.substring(0, 10) + "..." : msg;
     }
 
-    return (
-      <div className="movieAll">
-        {movies != null && images != null ? (
-          movies.map((movie, i) => (
-            <div key={i} className="movieOne">
-              <h3 className="movienum">
-                <span>No.</span>
-                {i + 1}
-              </h3>
-              <img src={imagePath[i]} alt={movie} />
-              <h3>{dot3(movie.split(":")[0])}</h3>
-              <h4>{"예매율｜" + movie.split(":")[1]}</h4>
-              <h4>{movie.split(":")[2]}</h4>
+        return (
+            <div className="movieAll">
+                {movies != null && images != null ? (
+                    movies.map((movie, i) => (
+                        <div key={i} className="movieOne">
+                            <h3 className="movienum"><span>No.</span>{i + 1}</h3>
+                            <img src={imagePath[i]} alt={movie} />
+                            <h3>{dot3(movie.split(":")[0])}</h3>
+                            <h4>{"예매율｜" + movie.split(":")[1]}</h4>
+                            <h4>{movie.split(":")[2]}</h4>
+                        </div>
+                    ))) : (<div>내용을 불러오고 있습니다.</div>)}
             </div>
-          ))
-        ) : (
-          <div>내용을 불러오고 있습니다.</div>
-        )}
-      </div>
-    );
-  }
+        );
+
+    }
+
 
   // function Talklist(props) {
 
@@ -156,40 +153,42 @@ function MovieCrawling() {
   function commentSubmit(e) {
     // alert("확인용");
 
-    // console.log(localStorage.getItem("login"));
-    e.preventDefault();
-    if (typeof comment === "string" && comment.trim().length < 3) {
-      alert("두 글자 이상으로 작성해주세요");
-      return;
-    }
+        // console.log(localStorage.getItem("login"));
+        e.preventDefault();
+        setFirstDel(true);
+
+        if (typeof comment === "string" && comment.trim().length < 3) {
+            alert("세 글자 이상으로 작성해주세요");
+            return;
+        }
 
     const loginData = JSON.parse(localStorage.getItem("login"));
     const id = loginData.id;
 
     // alert(id);
 
-    axios
-      .post("http://localhost:3000/talkcomment", null, { params: { talkid: id, talkcomment: comment, category: 1 } })
-      .then(function(res) {
-        // alert(res.data);
-        if (res.data === "YES") {
-          const fetchTalkData = async () => {
-            try {
-              const res = await axios.get("http://localhost:3000/alltalkcomment", { params: { category: 1 } });
-              setTalks(res.data.slice(0, 10));
-              setComment("");
-              setIndexCom(1);
-              // console.log( "다시 수정"+indexCom);
-              if (indexCom > 1) {
-                // alert("확인");
-                // setIndexCom(1);
-                // document.getElementById("more-btn").style.display = "block";
-              }
-              console.log(indexCom + "fd");
-            } catch (err) {
-              alert(err);
-            }
-          };
+        axios.post("http://localhost:3000/talkcomment", null, { params: { "talkid": id, "talkcomment": comment, "category": 1 } })
+            .then(function (res) {
+                // alert(res.data);
+                if (res.data === "YES") {
+                    const fetchTalkData = async () => {
+                        try {
+                            const res = await axios.get("http://localhost:3000/alltalkcomment", { params: { "category": 1 } });
+                            setTalks(res.data.slice(0, 10));
+                            setComment("");
+                            setIndexCom(1);
+                            // console.log( "다시 수정"+indexCom);
+                            if (indexCom > 1) {
+                                // alert("확인");
+                                // setIndexCom(1);
+                                // document.getElementById("more-btn").style.display = "block";
+                                document.getElementById("more-btn").disabled = false;
+                            }
+                            console.log(indexCom + "fd");
+                        } catch (err) {
+                            alert(err);
+                        }
+                    };
 
           fetchTalkData();
         }
@@ -235,13 +234,21 @@ function MovieCrawling() {
           // document.getElementById("more-btn").style.display = "none";
         }
 
-        setTalks([...talks, ...newTalks]);
-        setIndexCom(indexCom + 1);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+                setTalks([...talks, ...newTalks]);
+                setIndexCom(indexCom + 1);
+
+                const container = document.getElementById("divdown");
+                const containerHeight = container.scrollHeight;
+        
+                container.scrollTop = containerHeight;
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+
+
+    };
+
 
   return (
     <div className="allcontent">
@@ -254,44 +261,36 @@ function MovieCrawling() {
       <MovieList movies={movielist} images={imageslist} />
       {/* <Talklist talk={talks} /> */}
 
-      <div className="talkList">
-        <div className="talktitle">
-          <h3>영화 한줄 톡!</h3>
-        </div>
-        <textarea
-          onClick={loginfnc}
-          value={comment}
-          onChange={(e) => {
-            setComment(e.target.value);
-          }}
-          onKeyDown={activeEnter}
-          className="talkinsert"
-          placeholder="영화에 대한 톡을 입력해주세요. &#13;&#10;무관한 내용은 삭제 될 수 있습니다."
-        ></textarea>
-        <div className="subinform">
-          <button type="submit" onClick={commentSubmit} className="btnsub">
-            등록
-          </button>
-          <p className="count">{comment.length}/300</p>
-        </div>
-        <div className="allcomment">
-          {talks.map((talk, index) => (
-            <div className="comment-box" key={index + 1}>
-              <p>{talk.talkid}</p>
-              <p>{talk.talkcomment}</p>
+            <div className="talkList">
+                <div className="talktitle">
+                    <h3>영화 한줄 톡!</h3>
+                </div>
+                <textarea onClick={loginfnc} value={comment} onChange={(e) => { setComment(e.target.value) }}
+                    onKeyDown={activeEnter} className="talkinsert" placeholder="영화에 대한 톡을 입력해주세요. &#13;&#10;무관한 내용은 삭제 될 수 있습니다."></textarea>
+                <div className="subinform">
+                    <button type="submit" onClick={commentSubmit} className="btnsub">등록</button>
+                    <p className="count">{comment.length}/300</p>
+                </div>
+                <div className="allcomment">
+                    {talks.map((talk, index) => (
+                        <div className="comment-box" key={index + 1}>
+                            <p>
+                                {talk.talkid}
+                            </p>
+                            <p>
+                                {talk.talkcomment}
+                            </p>
+                        </div>
+                    ))}
+                    {alltalk.length === 0 && !firsrDel && <p>첫 코멘트를 달아주세요!</p>}
+                </div>
             </div>
-          ))}
-        </div>
-      </div>
-      <div className="morebtnAll">
-        {alltalk.length === 0 && <p>첫 코멘트를 달아주세요!</p>}
-        {alltalk.length > 0 && (
-          <button onClick={loadMoreTalks} id="more-btn">
-            더보기 ∨
-          </button>
-        )}
-      </div>
-      {/* {talks.map((talk, index) => (
+            <div className="morebtnAll">
+                {/* {alltalk.length === 0 && <p>첫 코멘트를 달아주세요!</p>} */}
+                {alltalk.length === 0 && <button id="more-btn" disabled>더보기 ∨</button>}
+                {alltalk.length > 0 && <button onClick={loadMoreTalks} id="more-btn">더보기 ∨</button>}
+            </div>
+            {/* {talks.map((talk, index) => (
                 <div>
                     <div key={index}>
                         <p>{talk.talkid}</p>

@@ -31,8 +31,10 @@ function Localeventcrawling() {
   const [talks, setTalks] = useState([]);
   const [comment, setComment] = useState([]);
 
-  const [alltalk, setAlltalk] = useState([]);
-  const [indexCom, setIndexCom] = useState(1);
+    const [alltalk, setAlltalk] = useState([]);
+    const [indexCom, setIndexCom] = useState(1);
+
+    const [firsrDel, setFirstDel] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -295,47 +297,50 @@ function Localeventcrawling() {
     }
   }
 
-  function dot3(msg) {
-    return msg.trim().length > 300 ? msg.substring(0, 300) + "..." : msg;
-  }
-  function commentSubmit(e) {
-    // alert("확인용");
+    function dot3(msg) {
+        return msg.trim().length > 300 ? msg.substring(0, 300) + "..." : msg;
+    }
+
+    function commentSubmit(e) {
+        // alert("확인용");
 
     // console.log(localStorage.getItem("login"));
 
-    e.preventDefault();
-    if (typeof comment === "string" && comment.trim().length < 3) {
-      alert("두 글자 이상으로 작성해주세요");
-      return;
-    }
+        e.preventDefault();
+        setFirstDel(true);
+
+        if (typeof comment === "string" && comment.trim().length < 3) {
+            alert("두 글자 이상으로 작성해주세요");
+            return;
+        }
 
     const loginData = JSON.parse(localStorage.getItem("login"));
     const id = loginData.id;
 
     // alert(id);
 
-    axios
-      .post("http://localhost:3000/talkcomment", null, { params: { talkid: id, talkcomment: comment, category: 3 } })
-      .then(function(res) {
-        // alert(res.data);
-        if (res.data === "YES") {
-          const fetchTalkData = async () => {
-            try {
-              const res = await axios.get("http://localhost:3000/alltalkcomment", { params: { category: 3 } });
-              setTalks(res.data.slice(0, 10));
-              setComment("");
-              setIndexCom(1);
-              // console.log( "다시 수정"+indexCom);
-              if (indexCom > 1) {
-                // alert("확인");
-                // setIndexCom(1);
-                // document.getElementById("more-btn").style.display = "block";
-              }
-              console.log(indexCom + "fd");
-            } catch (err) {
-              alert(err);
-            }
-          };
+        axios.post("http://localhost:3000/talkcomment", null, { params: { "talkid": id, "talkcomment": comment, "category": 3 } })
+            .then(function (res) {
+                // alert(res.data);
+                if (res.data === "YES") {
+                    const fetchTalkData = async () => {
+                        try {
+                            const res = await axios.get("http://localhost:3000/alltalkcomment", { params: { "category": 3 } });
+                            setTalks(res.data.slice(0, 10));
+                            setComment("");
+                            setIndexCom(1);
+                            // console.log( "다시 수정"+indexCom);
+                            if (indexCom > 1) {
+                                // alert("확인");
+                                // setIndexCom(1);
+                                // document.getElementById("more-btn").style.display = "block";
+                                document.getElementById("more-btn").disabled = false;
+                            }
+                            console.log(indexCom + "fd");
+                        } catch (err) {
+                            alert(err);
+                        }
+                    };
 
           fetchTalkData();
         }
@@ -400,43 +405,35 @@ function Localeventcrawling() {
       <FestivallistTwo titles={twotitles} informations={twoinform} dates={twodates} images={twoimages} />
       <FestivallistThree titles={threetitles} informations={threeinform} dates={threedates} images={threeimages} />
 
-      <div className="talkList_addop">
-        <div className="talktitle">
-          <h3>지역행사 한줄 톡!</h3>
-        </div>
-        <textarea
-          onClick={loginfnc}
-          value={comment}
-          onChange={(e) => {
-            setComment(e.target.value);
-          }}
-          onKeyDown={activeEnter}
-          className="talkinsert"
-          placeholder="행사에 대한 톡을 입력해주세요. &#13;&#10;무관한 내용은 삭제 될 수 있습니다."
-        ></textarea>
-        <div className="subinform" style={{ overflow: "hidden", marginBottom: "5px", marginRight: "10px", marginTop: "5px" }}>
-          <button type="submit" onClick={commentSubmit} className="btnsub">
-            등록
-          </button>
-          <p className="count">{comment.length}/300</p>
-        </div>
-        <div className="allcomment">
-          {talks.map((talk, index) => (
-            <div className="comment-box" key={index + 1}>
-              <p>{talk.talkid}</p>
-              <p>{talk.talkcomment}</p>
+            <div className="talkList_addop">
+                <div className="talktitle">
+                    <h3>지역행사 한줄 톡!</h3>
+                </div>
+                <textarea onClick={loginfnc} value={comment} onChange={(e) => { setComment(e.target.value) }}
+                    onKeyDown={activeEnter} className="talkinsert" placeholder="행사에 대한 톡을 입력해주세요. &#13;&#10;무관한 내용은 삭제 될 수 있습니다."></textarea>
+                <div className="subinform" style={{ overflow: "hidden", marginBottom: "5px", marginRight: "10px", marginTop: "5px" }}>
+                    <button type="submit" onClick={commentSubmit} className="btnsub">등록</button>
+                    <p className="count">{comment.length}/300</p>
+                </div>
+                <div className="allcomment">
+                    {talks.map((talk, index) => (
+                        <div className="comment-box" key={index + 1}>
+                            <p>
+                                {talk.talkid}
+                            </p>
+                            <p>
+                                {talk.talkcomment}
+                            </p>
+                        </div>
+                    ))}
+                    {alltalk.length === 0 && !firsrDel && <p>첫 코멘트를 달아주세요!</p>}
+
+                </div>
             </div>
-          ))}
-        </div>
-      </div>
-      <div className="morebtnAll_addop">
-        {alltalk.length === 0 && <p>첫 코멘트를 달아주세요!</p>}
-        {alltalk.length > 0 && (
-          <button onClick={loadMoreTalks} id="more-btn">
-            더보기 ∨
-          </button>
-        )}
-      </div>
+            <div className="morebtnAll_addop">
+                {alltalk.length === 0 && <button id="more-btn" disabled>더보기 ∨</button>}
+                {alltalk.length > 0 && <button onClick={loadMoreTalks} id="more-btn">더보기 ∨</button>}
+            </div>
 
       {/* <div className="talkList_addop">
                 <h3>지역행사 한줄 톡!</h3>
