@@ -7,7 +7,7 @@ function IdSearch() {
 
     const idInfo = async() => {
         await axios
-            .get("http://localhost:3000/idsearch", { params: { 'email': email } })
+            .get("http://118.67.132.98:3000/idsearch", { params: { 'email': email } })
             .then(function(res) {
                 //console.log(res);
             if (res.data === null || res.data === "") {
