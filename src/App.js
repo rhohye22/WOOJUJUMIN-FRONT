@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-dom";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import Button from "react-bootstrap/Button";
@@ -66,17 +66,26 @@ import PartyLeaderresult from "./components/mypage/partyleaderresult";
 
 function App() {
   // 로그인 상태 관리
+  
   const [log, setLog] = useState(null);
   const [nickname, setNickname] = useState("");
   const { currentUser } = useContext(AuthContext);
   const [profile, setProfile] = useState("");
   const [cardcheck, setCardcheck] = useState("");
+  //const location = useLocation();
+  //const tmp = { ...location.state };
 
   function loghandle() {
     localStorage.clear();
     window.location.href = "/";
   }
+  useEffect(() =>{
 
+   // setLog(tmp.res);
+  });
+
+
+  //setLog(props);
   useEffect(() => {
     if (localStorage.getItem("login") === null) {
       setLog(true);
