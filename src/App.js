@@ -101,24 +101,25 @@ function App() {
   useEffect(() => {
     const loginInfo = JSON.parse(localStorage.getItem("login"));
     const result = async () => {
-      await axios.get("http://localhost:3000/partyleaderresult", { params: { "memid": loginInfo.id } })
-        .then(function (res) {
+      await axios
+        .get("http://localhost:3000/partyleaderresult", { params: { memid: loginInfo.id } })
+        .then(function(res) {
           console.log(res.data);
           setCardcheck(res.data);
         })
-        .catch(function (err) {
+        .catch(function(err) {
           alert(err);
-        })
-    }
+        });
+    };
 
     if (loginInfo !== null) {
       result();
     }
-  }, [])
+  }, []);
 
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
-      내정보 수정
+      마이페이지
     </Tooltip>
   );
   const renderTooltip2 = (props) => (
@@ -145,7 +146,7 @@ function App() {
           </div>
           <div style={{ display: "flex", lignItems: "center", justifyContent: "center" }}>
             {log ? (
-              <span>로그인해주세요</span>
+              <span>회원이 아닌가요?</span>
             ) : (
               <span>
                 <img src={`http://localhost:3000/upload/member/${profile}`} style={{ width: "30px", height: "30px", borderRadius: "50%", background: "white" }} />
@@ -154,7 +155,9 @@ function App() {
             )}
             &nbsp;&nbsp;&nbsp;
             {log ? (
-              <Link to="/regi">회원가입</Link>
+              <Link to="/regi" style={{ textDecoration: "none", /* fontSize: "1.2rem", */ color: "navy" }}>
+                회원가입하기
+              </Link>
             ) : (
               <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
                 <Link to="/myinfo/mypage">
@@ -185,21 +188,24 @@ function App() {
                 </Link>
               </OverlayTrigger>
             )}
-            {log === false && cardcheck === 1 || cardcheck === 2&&(
-              <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip3}>
-                <Link to="/partyleaderresult">
-                  <img src={partyleader} alt="noimg" style={{ width: "30px", height: "30px" }} />
-                </Link>
-              </OverlayTrigger>
-            )}
+            {(log === false && cardcheck === 1) ||
+              (cardcheck === 2 && (
+                <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip3}>
+                  <Link to="/partyleaderresult">
+                    <img src={partyleader} alt="noimg" style={{ width: "30px", height: "30px" }} />
+                  </Link>
+                </OverlayTrigger>
+              ))}
             &nbsp;&nbsp;&nbsp;
             {log ? (
-              <Button variant="outline-dark">
-                <Link to="/login">로그인</Link>
+              <Button variant="light">
+                <Link to="/login" style={{ textDecoration: "none", color: "black" }}>
+                  로그인
+                </Link>
               </Button>
             ) : (
               <Button
-                variant="outline-dark"
+                variant="light"
                 onClick={() => {
                   loghandle();
                   signOut(auth);

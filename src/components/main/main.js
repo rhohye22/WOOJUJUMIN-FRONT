@@ -58,8 +58,8 @@ function Main() {
       <div className="mainmiddle2">
         <Calendar />
       </div>
-      <img src={review} alt="noimg" style={{ height: "50px", width: "auto" }} /> &nbsp; &nbsp;&nbsp;
-      <span style={{ fontSize: "1.5em" }}>우주인들의 후기</span>
+      {/*       <img src={review} alt="noimg" style={{ height: "50px", width: "auto" }} /> &nbsp; &nbsp;&nbsp;
+      <span style={{ fontSize: "1.5em" }}>우주인들의 후기</span> */}
       <div className="mainmiddle4">
         <Oursays />
       </div>
