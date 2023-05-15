@@ -250,7 +250,7 @@ function Musiccrawling() {
         <div className="allcontent">
             {/* const { titles, singres, albums, images } = props; */}
             <div>
-                <img src={mainimg} alt="mainimg" className="mainimg" />
+                <img src={musicpage} alt="mainimg" className="mainimg" />
             </div>
             <h2 className="page">멜론 TOP 50</h2>
             <Musiclist titles={titles} singers={singers} albums={albums} images={imageslist} />
