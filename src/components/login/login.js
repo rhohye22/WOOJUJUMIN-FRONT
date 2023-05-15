@@ -50,7 +50,7 @@ function Login() {
         setErr(true);
       }
 
-    axios.post("http://localhost:3000/login", null, { params: { id: id, password: password }})
+    axios.post("http://118.67.132.98:3000/login", null, { params: { id: id, password: password }})
         .then(function (resp) {
         console.log(resp.data);
         if (resp.data !== null && resp.data !== "") {
@@ -102,7 +102,7 @@ function Login() {
       // alert(idToken);
 
       // 해당 카카오 계정이 있는지 확인
-      axios.post('http://localhost:3000/idcheck', null, { params:{"id":kakaoId} })
+      axios.post('http://118.67.132.98:3000/idcheck', null, { params:{"id":kakaoId} })
               .then(function(res){
                 if(res.data === 'YES'){
                     // 임의 비밀번호
@@ -110,7 +110,7 @@ function Login() {
                 
                     // 데이터를 모아서 백엔드로 넘기기
                     let kakaoParams = { 'id':kakaoId, 'password':randomString, 'profile':kakaoImg, 'nickname':kakaoNickname, 'email':kakaoEmail, 'phoneNum':'초기값', 'address':'초기값' };
-                    axios.post("http://localhost:3000/socialRegi", null, { params:kakaoParams })
+                    axios.post("http://118.67.132.98:3000/socialRegi", null, { params:kakaoParams })
                       .then(function (resp) {
                       if (resp.data === "YES") {
                         console.log(kakaoParams);
@@ -130,7 +130,7 @@ function Login() {
                       alert(err);
                     });
                 }else{
-                  axios.post("http://localhost:3000/socialLogin", null, { params:{ 'id':kakaoId } })
+                  axios.post("http://118.67.132.98:3000/socialLogin", null, { params:{ 'id':kakaoId } })
                       .then(function (resp) {
                       console.log(resp.data);
                       if (resp.data !== null && resp.data !== "") {
@@ -169,7 +169,7 @@ function Login() {
     const googleImg = decodeding.picture;
 
     // 구글 계정이 있는지 확인
-    axios.post('http://localhost:3000/idcheck', null, { params:{"id":googleId} })
+    axios.post('http://118.67.132.98:3000/idcheck', null, { params:{"id":googleId} })
           .then(function(res){
               if(res.data === 'YES'){
                   // 임의 비밀번호
@@ -177,7 +177,7 @@ function Login() {
               
                   // 데이터를 모아서 백엔드로 넘기기
                   let googleParams = { 'id':googleId, 'password':randomString, 'profile':googleImg, 'nickname':googleNickname, 'email':googleEmail, 'phoneNum':'초기값', 'address':'초기값' };
-                  axios.post("http://localhost:3000/socialRegi", null, { params:googleParams })
+                  axios.post("http://118.67.132.98:3000/socialRegi", null, { params:googleParams })
                     .then(function (resp) {
                     if (resp.data === "YES") {
                       console.log(googleParams);
@@ -196,7 +196,7 @@ function Login() {
                     alert(err);
                   });
               }else{
-                axios.post("http://localhost:3000/socialLogin", null, { params:{ 'id':googleId } })
+                axios.post("http://118.67.132.98:3000/socialLogin", null, { params:{ 'id':googleId } })
                     .then(function (resp) {
                     console.log(resp.data);
                     if (resp.data !== null && resp.data !== "") {

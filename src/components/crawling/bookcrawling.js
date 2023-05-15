@@ -21,8 +21,9 @@ function BookCrawling() {
 
   useEffect(() => {
     const fetchData = async () => {
+      const path = "/finalProject/WOOJUJUMIN-FRONT/src/components/crawlingimages";
       await axios
-        .get("http://localhost:3000/bookchart", { params: {} })
+        .get("http://localhost:3000/bookchart", { params: {path:path} })
         .then(function(res) {
           console.log(res.data);
           setBooktitle(res.data.sendtitles);
