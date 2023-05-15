@@ -44,12 +44,14 @@ function CalendarList() {
           <col width={"350px"} />
           <col width={"80px"} />
         </colgroup>
-        <tbody>
+        <thead>
           <tr>
             <th>제목</th>
             <th>내용</th>
             <th>시간</th>
-          </tr>
+          </tr>{" "}
+        </thead>
+        <tbody>
           {daylist && daylist.length ? ( // daylist 배열이 존재하고 길이가 0보다 크면
             daylist.map(function(day, i) {
               return (

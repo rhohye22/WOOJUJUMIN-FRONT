@@ -1,12 +1,9 @@
 import * as React from "react";
 
-// import { useEffect, useState, useRef } from "react";
-// import axios from "axios";
-// import { useNavigate } from "react-router-dom";
-import { auth } from "../../firebase";
-import { useEffect, useState, useRef, useCallback } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../../firebase";
+import { useEffect, useState, useRef, useCallback } from "react";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -14,14 +11,11 @@ import { useDaumPostcodePopup } from "react-daum-postcode";
 import "./page.css";
 import "./accountInfo.css";
 
-
 import { signOut } from "firebase/auth";
-
-
 
 function Mypage() {
   let history = useNavigate();
- 
+
   const [memberSeq, setmemberSeq] = useState("");
   const [id, setId] = useState("");
   const [nickname, setNickname] = useState("");
@@ -37,7 +31,6 @@ function Mypage() {
 
   const [flg, setFlg] = useState(false);
 
-
   // 오류메시지 상태저장
   const [emailMsg, setEmailMsg] = useState("");
   const [phoneMsg, setPhoneMsg] = useState("");
@@ -45,7 +38,6 @@ function Mypage() {
   // 유효성 검사
   const [isEmail, setIsEmail] = useState(false);
   const [isPhone, setIsPhone] = useState(false);
-
 
   const style = {
     width: "100%",
@@ -65,12 +57,9 @@ function Mypage() {
     };
   }
 
-
-
   function loghandle() {
     localStorage.clear();
-    document.location.href= "/login"; // 페이지 전체 refresh
-   
+    document.location.href = "/login"; // 페이지 전체 refresh
   }
 
   // 다음 주소 api
@@ -122,7 +111,7 @@ function Mypage() {
       history("/login");
     }
   }, [history]);
- 
+
   const idChange = (e) => setId(e.target.value);
   const nicknameChange = (e) => setNickname(e.target.value);
   const passwordChange = (e) => setPwd(e.target.value);
@@ -157,7 +146,7 @@ function Mypage() {
           alert("성공적으로 수정되었습니다");
           loghandle();
           signOut(auth);
-        //  history("/login");
+          //  history("/login");
         } else {
           alert("수정되지 않았습니다");
         }
@@ -213,7 +202,6 @@ function Mypage() {
 
   return (
     <div className="changeinfo">
-
       <Form className="gamssagi">
         <Form.Group className="mb-3">
           <Form.Label>ID</Form.Label>
@@ -264,13 +252,7 @@ function Mypage() {
             프로필 이미지 추가
           </label>{" "}
           <br />
-         
           <input className="signup-profileImg-input" id="profileImg" name="uploadFile" type="file" onChange={imageLoad} ref={imgRef} />
-         
-       
-            
-
-
           {flg ? (
             <div className="preview" style={{ display: "block", margin: "0 auto" }}>
               <img src={profile} alt="" style={{ width: "50px", height: "50px", borderRadius: "50%" }} />

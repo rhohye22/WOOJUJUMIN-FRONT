@@ -36,30 +36,45 @@
     padding: 25px 0;
     display: inline-block;
     vertical-align: top;
+    cursor : pointer;
   }
   .post-body{
     background-color: rgba(216, 184, 184, 0.596);
-    color: black;
-    border-radius: 10px;
+    color: gray;
+    border-radius: 20px;
     padding: 5px;
     display: inline-block;
     margin-right: 5px;
+    text-align: left;
+    margin-left: 20px;
   }
   .post-info {
     overflow: hidden;
+    text-align: left;
   }
   
   .post-info img {
     float: left;
     margin-left: 20px;
+    border-radius : 10%;
   }
   
   .post-info h2 {
+    margin-left: 180px;
+    font-size: 38px;
     margin-top: 0;
   }
   
   .post-info p {
     margin-bottom: 0;
+  }
+  
+  .postpcl p{
+    margin-left: 182px;
+    text-align: left;
+    margin-bottom: 0;
+    font-size: 20px;
+    color: gray;
   }
   /* .post-info {
     overflow: hidden;

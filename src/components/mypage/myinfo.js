@@ -53,20 +53,21 @@ function MyInfo() {
   return (
     <div className="mypagetotal">
       <div className="mypagenav">
+        <br /> <br />
         <List component="nav" aria-label="mailbox folders">
           <ListItem button>
             <ListItemText primary="회원정보 수정" onClick={() => history("/myinfo/mypage")}></ListItemText>
           </ListItem>
           <Divider />
           <ListItem button>
-            <ListItemText primary="내가 쓴 글" onClick={() => history("mybbspage/mybbslist")}></ListItemText>
+            <ListItemText primary="내가 쓴 글보기" onClick={() => history("mybbspage/mybbslist")}></ListItemText>
           </ListItem>
           <ListItem button>
-            <ListItemText primary="파티원 승인" onClick={() => history("mypartypage/partyAccept")}></ListItemText>
+            <ListItemText primary="참여 수락▪요청" onClick={() => history("mypartypage/partyAccept")}></ListItemText>
           </ListItem>
           <Divider light />
           <ListItem button>
-            <ListItemText primary="내파티 보기" onClick={() => history("partyList")}></ListItemText>
+            <ListItemText primary="나의 참여모임" onClick={() => history("partyList")}></ListItemText>
           </ListItem>
         </List>
       </div>

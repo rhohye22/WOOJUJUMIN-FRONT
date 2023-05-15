@@ -23,9 +23,11 @@ function Oursays() {
   };
   return (
     <div>
+      {" "}
+      <br /> <br />
       <img src={review} alt="noimg" style={{ height: "50px", width: "auto" }} /> &nbsp; &nbsp;&nbsp;
       <span style={{ fontSize: "1.5em" }}>우주인들의 후기</span>
-      <br />
+      <br /> <br />
       <Slider {...settings}>
         <div className="saycard">
           <div className="incard">
