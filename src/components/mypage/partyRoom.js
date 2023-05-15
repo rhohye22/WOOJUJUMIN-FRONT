@@ -45,7 +45,7 @@ function PartyRoom() {
   const getMemberlist = async (seq) => {
     //alert(seq);
     axios
-      .get("http://localhost:3000/memberlist", { params: { applyMem: id, partySeq: seq } })
+      .get("http://118.67.132.98:3000/memberlist", { params: { applyMem: id, partySeq: seq } })
       .then(function(resp) {
         setMemberlist(resp.data);
       })

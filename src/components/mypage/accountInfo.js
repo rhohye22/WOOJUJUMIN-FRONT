@@ -135,7 +135,7 @@ function Mypage(){
         return alert('비밀번호와 비밀번호 확인은 같아야 합니다.')
     }
   
-      axios.post("http://localhost:3000/changeInfo", formData)
+      axios.post("http://118.67.132.98:3000/changeInfo", formData)
                .then(res => {
                   console.log(res.data);
                   if(res.data === "YES"){
@@ -269,7 +269,7 @@ function Mypage(){
                 </div>:
   
                 <div className="preview" style={{ display:"block", margin:'0 auto'}}>
-                {profile && <img src={`http://localhost:3000/upload/member/${profile}`} style={{width:'50px', height:'50px', borderRadius: "50%"}} />}
+                {profile && <img src={`http://118.67.132.98:3000/upload/member/${profile}`} style={{width:'50px', height:'50px', borderRadius: "50%"}} />}
                 </div>
             }
          <p className="message"></p>

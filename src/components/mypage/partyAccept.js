@@ -36,7 +36,7 @@ function PartyAccept() {
 
   function myPartyList(page) {
     axios
-      .get("http://localhost:3000/myPartyList", { params: { pageNumber: page, id: id } })
+      .get("http://118.67.132.98:3000/myPartyList", { params: { pageNumber: page, id: id } })
       .then(function(resp) {
         //console.log(resp.data);
         setPartyList(resp.data.list); // map을 return하기 때문(map 안에 list있음)
@@ -49,7 +49,7 @@ function PartyAccept() {
   }
   const check = (partySeq, applyMem) => {
     axios
-      .get("http://localhost:3000/updateCheck", { params: { partySeq: partySeq, applyMem: applyMem } })
+      .get("http://118.67.132.98:3000/updateCheck", { params: { partySeq: partySeq, applyMem: applyMem } })
       .then(function(resp) {
         /*   document.location.href = "myinfo/mypartypage/partyAccept"; */
         setSurak(!surak);
@@ -126,7 +126,7 @@ function PartyAccept() {
                 return (
                   <tr key={i}>
                     <td align="center">
-                      <img src={`http://localhost:3000/upload/member/${bbs.profile}`} style={{ width: "20px", height: "20px", borderRadius: "50%" }} />
+                      <img src={`http://118.67.132.98:3000/upload/member/${bbs.profile}`} style={{ width: "20px", height: "20px", borderRadius: "50%" }} />
                       &nbsp;{bbs.applyMem}
                     </td>
                     {/* <td align="center">{bbs.title}</td> */}
@@ -144,7 +144,7 @@ function PartyAccept() {
                       >
                         {bbs.image !== null ? (
                           <img
-                            src={`http://localhost:3000/upload/partybbs/${bbs.image}`}
+                            src={`http://118.67.132.98:3000/upload/partybbs/${bbs.image}`}
                             alt="free image"
                             style={{
                               width: 40,

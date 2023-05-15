@@ -30,7 +30,7 @@ function PartyLeaderresult() {
     useEffect(() => {
 
         const fetchData = async () => {
-            await axios.get("http://localhost:3000/partyleaderresultAll", { params: { "memid": loginInfo.id } })
+            await axios.get("http://118.67.132.98:3000/partyleaderresultAll", { params: { "memid": loginInfo.id } })
                 .then(function (res) {
                     console.log(JSON.stringify(res.data));
                     setIdcardDto(res.data);
@@ -44,7 +44,7 @@ function PartyLeaderresult() {
     }, []);
 
     const retryRequest = async()=>{
-        await axios.get("http://localhost:3000/partyleaderreset", {params:{"memid":loginInfo.id }})
+        await axios.get("http://118.67.132.98:3000/partyleaderreset", {params:{"memid":loginInfo.id }})
         .then(function(res){
             alert("파티장 신청을 다시 할 수 있습니다.");
             history("/partyleaderrequest");
