@@ -19,8 +19,10 @@ function Musiccrawling() {
   const [talks, setTalks] = useState([]);
   const [comment, setComment] = useState([]);
 
-  const [alltalk, setAlltalk] = useState([]);
-  const [indexCom, setIndexCom] = useState(1);
+    const [alltalk, setAlltalk] = useState([]);
+    const [indexCom, setIndexCom] = useState(1);
+
+    const [firsrDel, setFirstDel] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -153,39 +155,41 @@ function Musiccrawling() {
 
     // console.log(localStorage.getItem("login"));
 
-    e.preventDefault();
-    if (typeof comment === "string" && comment.trim().length < 3) {
-      alert("두 글자 이상으로 작성해주세요");
-      return;
-    }
+        e.preventDefault();
+        setFirstDel(true);
+
+        if (typeof comment === "string" && comment.trim().length < 3) {
+            alert("두 글자 이상으로 작성해주세요");
+            return;
+        }
 
     const loginData = JSON.parse(localStorage.getItem("login"));
     const id = loginData.id;
 
     // alert(id);
 
-    axios
-      .post("http://localhost:3000/talkcomment", null, { params: { talkid: id, talkcomment: comment, category: 4 } })
-      .then(function(res) {
-        // alert(res.data);
-        if (res.data === "YES") {
-          const fetchTalkData = async () => {
-            try {
-              const res = await axios.get("http://localhost:3000/alltalkcomment", { params: { category: 4 } });
-              setTalks(res.data.slice(0, 10));
-              setComment("");
-              setIndexCom(1);
-              // console.log( "다시 수정"+indexCom);
-              if (indexCom > 1) {
-                // alert("확인");
-                // setIndexCom(1);
-                // document.getElementById("more-btn").style.display = "block";
-              }
-              console.log(indexCom + "fd");
-            } catch (err) {
-              alert(err);
-            }
-          };
+        axios.post("http://localhost:3000/talkcomment", null, { params: { "talkid": id, "talkcomment": comment, "category": 4 } })
+            .then(function (res) {
+                // alert(res.data);
+                if (res.data === "YES") {
+                    const fetchTalkData = async () => {
+                        try {
+                            const res = await axios.get("http://localhost:3000/alltalkcomment", { params: { "category": 4 } });
+                            setTalks(res.data.slice(0, 10));
+                            setComment("");
+                            setIndexCom(1);
+                            // console.log( "다시 수정"+indexCom);
+                            if (indexCom > 1) {
+                                // alert("확인");
+                                // setIndexCom(1);
+                                // document.getElementById("more-btn").style.display = "block";
+                                document.getElementById("more-btn").disabled = false;
+                            }
+                            console.log(indexCom + "fd");
+                        } catch (err) {
+                            alert(err);
+                        }
+                    };
 
           fetchTalkData();
         }
@@ -231,59 +235,56 @@ function Musiccrawling() {
           // document.getElementById("more-btn").style.display = "none";
         }
 
-        setTalks([...talks, ...newTalks]);
-        setIndexCom(indexCom + 1);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-  return (
-    <div className="allcontent">
-      {/* const { titles, singres, albums, images } = props; */}
-      <div>
-        <img src={musicpage} alt="mainimg" className="mainimg" />
-        {/* <img src={mainimg} alt="mainimg" className="mainimg" /> */}
-      </div>
-      <h2 className="page">멜론 TOP 50</h2>
-      <Musiclist titles={titles} singers={singers} albums={albums} images={imageslist} />
+                setTalks([...talks, ...newTalks]);
+                setIndexCom(indexCom + 1);
+                
 
-      <div className="talkList">
-        <div className="talktitle">
-          <h3>노래 한줄 톡!</h3>
-        </div>
-        <textarea
-          onClick={loginfnc}
-          value={comment}
-          onChange={(e) => {
-            setComment(e.target.value);
-          }}
-          onKeyDown={activeEnter}
-          className="talkinsert"
-          placeholder="노래에 대한 톡을 입력해주세요. &#13;&#10;무관한 내용은 삭제 될 수 있습니다."
-        ></textarea>
-        <div className="subinform">
-          <button type="submit" onClick={commentSubmit} className="btnsub">
-            등록
-          </button>
-          <p className="count">{comment.length}/300</p>
-        </div>
-        <div className="allcomment">
-          {alltalk.length === 0 && <p>첫 코멘트를 달아주세요!</p>}
-          {talks.map((talk, index) => (
-            <div className="comment-box" key={index + 1}>
-              <p>{talk.talkid}</p>
-              <p>{talk.talkcomment}</p>
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+
+
+    };
+    return (
+        <div className="allcontent">
+            {/* const { titles, singres, albums, images } = props; */}
+            <div>
+                <img src={musicpage} alt="mainimg" className="mainimg" />
             </div>
-          ))}
+            <h2 className="page">멜론 TOP 50</h2>
+            <Musiclist titles={titles} singers={singers} albums={albums} images={imageslist} />
+
+            <div className="talkList">
+                <div className="talktitle">
+                    <h3>노래 한줄 톡!</h3>
+                </div>
+                <textarea onClick={loginfnc} value={comment} onChange={(e) => { setComment(e.target.value) }}
+                    onKeyDown={activeEnter} className="talkinsert" placeholder="노래에 대한 톡을 입력해주세요. &#13;&#10;무관한 내용은 삭제 될 수 있습니다."></textarea>
+                <div className="subinform">
+                    <button type="submit" onClick={commentSubmit} className="btnsub">등록</button>
+                    <p className="count">{comment.length}/300</p>
+                </div>
+                <div className="allcomment">
+                    {alltalk.length === 0 && !firsrDel && <p>첫 코멘트를 달아주세요!</p>}
+                    {talks.map((talk, index) => (
+                        <div className="comment-box" key={index + 1}>
+                            <p>
+                                {talk.talkid}
+                            </p>
+                            <p>
+                                {talk.talkcomment}
+                            </p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+            <div className="morebtnAll">
+                {alltalk.length === 0 && <button id="more-btn" disabled>더보기 ∨</button>}
+                {alltalk.length > 0 && <button onClick={loadMoreTalks} id="more-btn">더보기 ∨</button>}
+            </div>
+
         </div>
-      </div>
-      <div className="morebtnAll">
-        <button onClick={loadMoreTalks} id="more-btn">
-          더보기 ∨
-        </button>
-      </div>
-    </div>
-  );
+    )
 }
 export default Musiccrawling;
