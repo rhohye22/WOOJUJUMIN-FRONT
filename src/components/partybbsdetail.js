@@ -231,7 +231,7 @@ function Partybbsdetail() {
           <tr>
             <th>참여확정인원</th>
             <td>
-              {partybbslist.applymem}/{partybbslist.people}
+              {partybbslist.countMem}/{partybbslist.people}
             </td>
             <th>현재신청인원</th>
             <td>apply테이블에서 가져와야함</td>

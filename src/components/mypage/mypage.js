@@ -1,4 +1,9 @@
 import * as React from "react";
+
+import { useEffect, useState, useRef } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../../firebase";
 import { useEffect, useState, useRef, useCallback } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -9,9 +14,14 @@ import { useDaumPostcodePopup } from "react-daum-postcode";
 import "./page.css";
 import "./accountInfo.css";
 
+
+import { signOut } from "firebase/auth";
+
+
+
 function Mypage() {
   let history = useNavigate();
-
+ 
   const [memberSeq, setmemberSeq] = useState("");
   const [id, setId] = useState("");
   const [nickname, setNickname] = useState("");
@@ -27,6 +37,7 @@ function Mypage() {
 
   const [flg, setFlg] = useState(false);
 
+
   // 오류메시지 상태저장
   const [emailMsg, setEmailMsg] = useState("");
   const [phoneMsg, setPhoneMsg] = useState("");
@@ -34,6 +45,7 @@ function Mypage() {
   // 유효성 검사
   const [isEmail, setIsEmail] = useState(false);
   const [isPhone, setIsPhone] = useState(false);
+
 
   const style = {
     width: "100%",
@@ -52,9 +64,13 @@ function Mypage() {
       console.log(flg);
     };
   }
+
+
+
   function loghandle() {
     localStorage.clear();
-    
+    document.location.href= "/login"; // 페이지 전체 refresh
+   
   }
 
   // 다음 주소 api
@@ -106,7 +122,7 @@ function Mypage() {
       history("/login");
     }
   }, [history]);
-
+ 
   const idChange = (e) => setId(e.target.value);
   const nicknameChange = (e) => setNickname(e.target.value);
   const passwordChange = (e) => setPwd(e.target.value);
@@ -139,9 +155,9 @@ function Mypage() {
         console.log(res.data);
         if (res.data === "YES") {
           alert("성공적으로 수정되었습니다");
-         
           loghandle();
-          history("/");
+          signOut(auth);
+        //  history("/login");
         } else {
           alert("수정되지 않았습니다");
         }
@@ -197,12 +213,11 @@ function Mypage() {
 
   return (
     <div className="changeinfo">
- 
 
       <Form className="gamssagi">
         <Form.Group className="mb-3">
           <Form.Label>ID</Form.Label>
-          <Form.Control type="id" id="id" name="id" defaultValue={id} onChange={idChange} />
+          <Form.Control type="id" id="id" name="id" defaultValue={id} onChange={idChange} readOnly />
           <Form.Text className="text-muted">We'll never share your id with anyone else.</Form.Text>
         </Form.Group>
 
@@ -218,7 +233,7 @@ function Mypage() {
 
         <Form.Group className="mb-3">
           <Form.Label>Password Confirm</Form.Label>
-          <Form.Control type="passwordConfirm" id="passwordConfirm" name="passwordConfirm" onChange={passwordConfirmChange} />
+          <Form.Control type="password" id="passwordConfirm" name="passwordConfirm" onChange={passwordConfirmChange} />
         </Form.Group>
 
         <Form.Group className="mb-3">
@@ -249,7 +264,13 @@ function Mypage() {
             프로필 이미지 추가
           </label>{" "}
           <br />
+         
           <input className="signup-profileImg-input" id="profileImg" name="uploadFile" type="file" onChange={imageLoad} ref={imgRef} />
+         
+       
+            
+
+
           {flg ? (
             <div className="preview" style={{ display: "block", margin: "0 auto" }}>
               <img src={profile} alt="" style={{ width: "50px", height: "50px", borderRadius: "50%" }} />
