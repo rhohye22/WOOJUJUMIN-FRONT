@@ -145,7 +145,7 @@ function Partybbs() {
     }
 
     await axios
-      .post("http://localhost:3000/writePartybbs", formData2)
+      .post("http://118.67.132.98:3000/writePartybbs", formData2)
       .then(function(res) {
         console.log(res.data);
         if (res.data === "YES") {

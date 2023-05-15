@@ -59,7 +59,7 @@ function Partybbsupdate() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/partyBbsdetail`, { params: { partySeq: params.seq } })
+      .get(`http://118.67.132.98:3000/partyBbsdetail`, { params: { partySeq: params.seq } })
       .then((response) => {
         console.log(response.data);
         setPbsdetail(response.data);
@@ -100,7 +100,7 @@ function Partybbsupdate() {
     }
 
     axios
-      .post("http://localhost:3000/updatePartybbs", formData)
+      .post("http://118.67.132.98:3000/updatePartybbs", formData)
       .then(function(res) {
         console.log(res.data);
         if (res.data === "YES") {
@@ -115,7 +115,7 @@ function Partybbsupdate() {
         alert("에러");
       });
   }
-  const imageUrl = image == pbsdetail.image ? `http://localhost:3000/upload/partybbs/${image}` : image;
+  const imageUrl = image == pbsdetail.image ? `http://118.67.132.98:3000/upload/partybbs/${image}` : image;
 
   return (
     <div>

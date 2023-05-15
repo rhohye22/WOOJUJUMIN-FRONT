@@ -76,7 +76,7 @@ function Partybbsdetail() {
 
   function getpartyBbs() {
     axios
-      .get(`http://localhost:3000/partyBbsdetail`, { params: { partySeq: partybbsSeq } })
+      .get(`http://118.67.132.98:3000/partyBbsdetail`, { params: { partySeq: partybbsSeq } })
       .then((response) => {
         setPartybbslist(response.data);
       })
@@ -87,7 +87,7 @@ function Partybbsdetail() {
 
   function preventSecond() {
     axios
-      .get(`http://localhost:3000/getRow`, { params: { partySeq: partybbsSeq, applyMem: id, masterId: partybbslist.id } })
+      .get(`http://118.67.132.98:3000/getRow`, { params: { partySeq: partybbsSeq, applyMem: id, masterId: partybbslist.id } })
       .then((res) => {
         //console.log(res.data);
         setFlg(res.data);
@@ -115,7 +115,7 @@ function Partybbsdetail() {
     formData.append("totalMem", partybbslist.people);
     for (const keyValue of formData) console.log(keyValue);
     await axios
-      .post("http://localhost:3000/partyApply ", formData)
+      .post("http://118.67.132.98:3000/partyApply ", formData)
       .then(function(res) {
         if (res.data === "YES") {
           alert("요청성공");
@@ -135,7 +135,7 @@ function Partybbsdetail() {
     const formData = new FormData();
     formData.append("partySeq", partybbsSeq);
     await axios
-      .post("http://localhost:3000/deletePartybbs ", formData)
+      .post("http://118.67.132.98:3000/deletePartybbs ", formData)
 
       .then(function(res) {
         if (res.data === "YES") {
@@ -164,14 +164,14 @@ function Partybbsdetail() {
       alert("참여신청을 취소합니다.");
     }
   }
-  const imageUrl = partybbslist.image !== null ? `http://localhost:3000/upload/partybbs/${partybbslist.image}` : null;
+  const imageUrl = partybbslist.image !== null ? `http://118.67.132.98:3000/upload/partybbs/${partybbslist.image}` : null;
 
   //총신청인원
   const [applyCnt, setApplyCnt] = useState();
 
   function totalApplyCnt() {
     axios
-      .get("http://localhost:3000/applyMemCnt", {
+      .get("http://118.67.132.98:3000/applyMemCnt", {
         params: {
           partySeq: partybbsSeq,
         },
@@ -188,7 +188,7 @@ function Partybbsdetail() {
 
   function totalCheckCnt() {
     axios
-      .get("http://localhost:3000/applyCheckMemCnt", {
+      .get("http://118.67.132.98:3000/applyCheckMemCnt", {
         params: {
           partySeq: partybbsSeq,
         },
