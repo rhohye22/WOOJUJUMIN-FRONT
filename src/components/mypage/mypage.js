@@ -142,7 +142,7 @@ function Mypage() {
     }
 
     axios
-      .post("http://localhost:3000/changeInfo", formData)
+      .post("http://118.67.132.98:3000/changeInfo", formData)
       .then((res) => {
         console.log(res.data);
         if (res.data === "YES") {
@@ -262,7 +262,7 @@ function Mypage() {
             </div>
           ) : (
             <div className="preview" style={{ display: "block", margin: "0 auto" }}>
-              {profile && <img src={`http://localhost:3000/upload/member/${profile}`} style={{ width: "50px", height: "50px", borderRadius: "50%" }} />}
+              {profile && <img src={`http://118.67.132.98:3000/upload/member/${profile}`} style={{ width: "50px", height: "50px", borderRadius: "50%" }} />}
             </div>
           )}
           <p className="message"></p>

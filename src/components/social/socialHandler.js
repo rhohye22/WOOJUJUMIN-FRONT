@@ -47,7 +47,7 @@ function SocialHandler() {
     };
 
     const nickCheck = async() => {
-        await axios.post('http://localhost:3000/nickcheck', null, { params:{"nickname":nickname} })
+        await axios.post('http://118.67.132.98:3000/nickcheck', null, { params:{"nickname":nickname} })
                 .then(function(res){
                     if(res.data === 'YES'){
                         alert('사용가능한 닉네임입니다.');
@@ -64,7 +64,7 @@ function SocialHandler() {
 
     function account(){
         let member = { "id":userInfo.id, "nickname":nickname, "phoneNum":phonenum, "address":juso };
-        axios.post('http://localhost:3000/socialAdd', null, { params:member })
+        axios.post('http://118.67.132.98:3000/socialAdd', null, { params:member })
             .then(function(resp){
                 if(resp.data !== null && resp.data !== ""){
                     alert(resp.data.nickname + "님 환영합니다");
