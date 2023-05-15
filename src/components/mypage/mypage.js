@@ -1,14 +1,19 @@
 import * as React from "react";
+
 import { useEffect, useState, useRef } from "react";
-import { BrowserRouter, Routes, Route} from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
+import { useEffect, useState, useRef, useCallback } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 import "./page.css";
 import "./accountInfo.css";
+
 
 import { signOut } from "firebase/auth";
 
@@ -31,7 +36,17 @@ function Mypage() {
   const imgRef = useRef();
 
   const [flg, setFlg] = useState(false);
-  
+
+
+  // 오류메시지 상태저장
+  const [emailMsg, setEmailMsg] = useState("");
+  const [phoneMsg, setPhoneMsg] = useState("");
+
+  // 유효성 검사
+  const [isEmail, setIsEmail] = useState(false);
+  const [isPhone, setIsPhone] = useState(false);
+
+
   const style = {
     width: "100%",
     maxWidth: 360,
@@ -111,8 +126,8 @@ function Mypage() {
   const idChange = (e) => setId(e.target.value);
   const nicknameChange = (e) => setNickname(e.target.value);
   const passwordChange = (e) => setPwd(e.target.value);
-  const emailChange = (e) => setEmail(e.target.value);
-  const phoneChange = (e) => setPhone(e.target.value);
+  //const emailChange = (e) => setEmail(e.target.value);
+  //const phoneChange = (e) => setPhone(e.target.value);
   //const addressChange = (e) => setAddress(e.target.value);
   //const profileChange = (e) => setProfile(e.target.value);
   const passwordConfirmChange = (e) => setconfirmPassword(e.target.value);
@@ -166,6 +181,36 @@ function Mypage() {
 
   useEffect(() => {}, [history]);
 
+  // 전화번호
+  const phoneChange = useCallback((e) => {
+    const phonenumRegex = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
+    const phonenumCurrent = e.target.value;
+    setPhone(phonenumCurrent);
+
+    if (!phonenumRegex.test(phonenumCurrent)) {
+      setPhoneMsg("전화번호가 틀렸어요! 혹시 '-'를 입력하지 않았다면 '-'를 같이 입력해주세요");
+      setIsPhone(false);
+    } else {
+      setPhoneMsg("올바른 전화번호 형식입니다!");
+      setIsPhone(true);
+    }
+  }, []);
+
+  // 이메일
+  const emailChange = useCallback((e) => {
+    const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    const emailCurrent = e.target.value;
+    setEmail(emailCurrent);
+
+    if (!emailRegex.test(emailCurrent)) {
+      setEmailMsg("이메일 형식이 틀렸어요! 다시 확인해주세요!");
+      setIsEmail(false);
+    } else {
+      setEmailMsg("올바른 이메일 형식입니다!");
+      setIsEmail(true);
+    }
+  }, []);
+
   return (
     <div className="changeinfo">
 
@@ -196,11 +241,13 @@ function Mypage() {
           <Form.Control type="email" id="email" name="email" defaultValue={email} onChange={emailChange} />
           <Form.Text className="text-muted">We'll never share your email with anyone else.</Form.Text>
         </Form.Group>
+        {email.length > 0 && <span className={`message ${isEmail ? "success" : "error"}`}>{emailMsg}</span>}
 
         <Form.Group className="mb-3">
           <Form.Label>Phone</Form.Label>
           <Form.Control type="phone" id="phone" name="phone" defaultValue={phoneNum} onChange={phoneChange} />
         </Form.Group>
+        {phoneNum.length > 0 && <span className={`message ${isPhone ? "success" : "error"}`}>{phoneMsg}</span>}
 
         <Form.Group className="mb-3">
           <Form.Label>Address</Form.Label>
