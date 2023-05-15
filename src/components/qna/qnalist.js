@@ -80,7 +80,9 @@ function Qnalist() {
 
   return (
     <div className="pnapage">
-      <h2>사용문의</h2>
+      <br /> <br />
+      <h3>사용문의</h3>
+      <br /> <br />
       <div className="qnalist">
         <br />
 
@@ -107,7 +109,32 @@ function Qnalist() {
                     <td>{qna.qtype}</td>
                     <td align="left">
                       {qna.ansdate ? <span>[답변완료] </span> : <span>[답변대기중] </span>}
-                      <Link to={`/qnadetail/${qna.qnaSeq}`}>{qna.title}</Link>
+                      <div
+                        style={{
+                          width: "100%",
+                          height: "50px",
+                          overflow: "hidden",
+                          display: "flex",
+                          alignItems: "left",
+                        }}
+                        onClick={() => navigate(`/qnadetail/${qna.qnaSeq}`)}
+                      >
+                        {" "}
+                        <div
+                          style={{
+                            textDecoration: "none",
+                            color: "inherit",
+                            cursor: "pointer",
+                            flexGrow: 1,
+                            display: "flex",
+                            justifyContent: "flex-start",
+                            alignItems: "center",
+                            height: "100%",
+                          }}
+                        >
+                          {qna.title}
+                        </div>
+                      </div>
                     </td>
                     <td>{qna.wdate.substring(0, 10)}</td>
                     <td>{qna.id}</td>

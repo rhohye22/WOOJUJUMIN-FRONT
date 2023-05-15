@@ -38,9 +38,31 @@ function ToggleMenu() {
             <li>
               <Link to="/">메인페이지</Link>
             </li>
+            <li>
+              <ul>
+                <li>
+                  <Link to="/moviechart">현재 상영영화</Link>
+                </li>
+                <li>
+                  <Link to="/bookchart">현재 인기 도서</Link>
+                </li>
+                <li>
+                  <Link to="/localevent">현재 지역 축제</Link>
+                </li>
+                <li>
+                  <Link to="/musichart">최신 인기 음악</Link>
+                </li>
+              </ul>
+            </li>
 
             <li>
               <Link to="/freeBoard">자유게시판</Link>
+            </li>
+            <li>
+              <Link to="/partybbslist">모집게시판</Link>
+            </li>
+            <li>
+              <Link to="/myinfo/mypage">마이페이지</Link>
             </li>
 
             <li>

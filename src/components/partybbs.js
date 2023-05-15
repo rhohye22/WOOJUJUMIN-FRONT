@@ -57,6 +57,17 @@ function Partybbs() {
   const [search, setSearch] = useState("");
 
   const [image, setImage] = useState();
+  const imgRef = useRef();
+
+  function imageLoad() {
+    const file = imgRef.current.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImage(reader.result);
+    };
+    //console.log(image);
+  }
 
   const setAddr = (e) => {
     setAddress(e);
@@ -108,23 +119,31 @@ function Partybbs() {
     }
     const formData = new FormData();
     const formData2 = new FormData(document.getElementById("frm"));
-    console.log(MDate);
     const dat = MDate.getTime();
-    console.log(dat);
     const formattedTimestamp = new Date(dat)
       .toISOString()
       .slice(0, 19)
       .replace("T", " ");
-    console.log(formattedTimestamp);
+    /*  console.log(formattedTimestamp); */
     formData.append("id", id);
-    formData.append("title", title);
+    /*  formData.append("title", title); */
+    formData2.append("title", title);
     formData2.append("id", id);
     formData2.append("place", place);
     formData2.append("mdate", formattedTimestamp);
+    formData2.append("image", image);
     //formData.append("category", category);
     //for (const keyValue of formData) console.log(keyValue);
-    for (const keyValue of formData2) console.log(keyValue);
-    for (const keyValue of formData) console.log(keyValue);
+    /*     for (const keyValue of formData2) console.log(keyValue);
+    for (const keyValue of formData) console.log(keyValue); */
+
+    if (document.frm2.uploadFile.files[0] == null || document.frm2.uploadFile.files[0] == "") {
+      formData2.append("uploadFile", "basic");
+    } else {
+      console.log(document.frm2.uploadFile.files[0].name);
+      formData2.append("uploadFile", document.frm2.uploadFile.files[0]);
+    }
+
     await axios
       .post("http://localhost:3000/writePartybbs", formData2)
       .then(function(res) {
@@ -139,22 +158,11 @@ function Partybbs() {
       });
   };
 
-  const imgRef = useRef();
-  function imageLoad() {
-    const file = imgRef.current.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setImage(reader.result);
-    };
-    //console.log(image);
-  }
-
   return (
     <Container>
-      <br />
+      <br /> <br />
       <h3>모집게시판 글쓰기</h3>
-      <br />
+      <br /> <br />
       <form id="frm">
         {/* 모임장소 */}
         <table className="ttable" border="1" align="center">
@@ -212,7 +220,10 @@ function Partybbs() {
                 <Row className="justify-content-md-center">
                   <Col>
                     <InputGroup className="mb-3">
-                      <Form.Control placeholder="모임장소" aria-label="모임장소" aria-describedby="basic-addon2" onChange={placeChange} value={place} />
+                      <FloatingLabel controlTitle="floatingInput">
+                        <Form.Control placeholder="모임장소" aria-label="모임장소" aria-describedby="basic-addon2" onChange={placeChange} value={place} />
+                        <label style={{ color: "red" }}>글 작성후 모임장소와 일시는 변경할 수 없습니다</label>
+                      </FloatingLabel>
                       <Button variant="outline-secondary" id="button-addon2" onClick={() => setModalIsOpen(true)}>
                         주소찾기
                       </Button>
@@ -267,7 +278,9 @@ function Partybbs() {
               <td>
                 <Row className="justify-content-md-center">
                   <Col>
-                    <DatePicker selected={MDate} onChange={(date) => setMDate(date)} minDate={currentDate} showTimeSelect dateFormat="yyyy-MM-dd HH:mm:ss" customInput={<Form.Control />} />
+                    <FloatingLabel controlTitle="floatingInput">
+                      <DatePicker selected={MDate} onChange={(date) => setMDate(date)} minDate={currentDate} showTimeSelect dateFormat="yyyy-MM-dd HH:mm:ss" customInput={<Form.Control />} />
+                    </FloatingLabel>
                   </Col>
                 </Row>
               </td>
@@ -294,7 +307,7 @@ function Partybbs() {
 
             <tr align="left">
               <td colSpan={2}>
-                <form name="frm" onSubmit={fetchData} encType="multipart/form-data">
+                <form name="frm2" onSubmit={fetchData()} encType="multipart/form-data">
                   <input type="file" onChange={imageLoad} ref={imgRef} name="uploadFile" /> {/* <input type="file" name="uploadFile" /> */}
                 </form>
               </td>
