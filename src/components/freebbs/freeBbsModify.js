@@ -34,7 +34,7 @@ function FreeBbsModify() {
   }
   function getbbsData() {
     axios
-      .get("http://localhost:3000/getfreeBbs", {
+      .get("http://118.67.132.98:3000/getfreeBbs", {
         params: { bbsSeq: bbsSeq },
       })
       .then(function(resp) {
@@ -84,7 +84,7 @@ function FreeBbsModify() {
       }
 
       axios
-        .post("http://localhost:3000/modifyFreebbs", formData)
+        .post("http://118.67.132.98:3000/modifyFreebbs", formData)
         .then(function(resp) {
           if (resp.data === "YES") {
             alert("글이 수정되었습니다.");
@@ -107,7 +107,7 @@ function FreeBbsModify() {
   const handleContentChange = (e) => {
     setContent(e.target.value);
   };
-  const imageUrl = image == freebbs.image ? `http://localhost:3000/upload/freebbs/${image}` : image;
+  const imageUrl = image == freebbs.image ? `http://118.67.132.98:3000/upload/freebbs/${image}` : image;
 
   return (
     <div>
