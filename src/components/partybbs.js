@@ -127,7 +127,6 @@ function Partybbs() {
     /*  console.log(formattedTimestamp); */
     formData.append("id", id);
     /*  formData.append("title", title); */
-    formData2.append("title", title);
     formData2.append("id", id);
     formData2.append("place", place);
     formData2.append("mdate", formattedTimestamp);
@@ -143,7 +142,7 @@ function Partybbs() {
       console.log(document.frm2.uploadFile.files[0].name);
       formData2.append("uploadFile", document.frm2.uploadFile.files[0]);
     }
-
+    //for (const keyValue of formData2) console.log(keyValue)
     await axios
       .post("http://118.67.132.98:3000/writePartybbs", formData2)
       .then(function(res) {
