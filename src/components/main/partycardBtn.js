@@ -15,7 +15,7 @@ function PartycardBtn() {
 
   useEffect(() => {
     const partypost = async () => {
-      await axios.get("http://localhost:3000/mainPartypost", { params: {} })
+      await axios.get("http://118.67.132.98:3000/mainPartypost", { params: {} })
         .then(function (res) {
           console.log(res.data)
           setBbsdto(res.data);
