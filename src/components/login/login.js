@@ -298,7 +298,7 @@ function Login() {
       </Col>
       <Col>
       <div className="google-box">
-      <GoogleOAuthProvider clientId={clientId}>
+      <GoogleOAuthProvider clientId={clientId} >
         <GoogleLogin
             onSuccess={googleOnSuccess}
             onFailure={() => {
