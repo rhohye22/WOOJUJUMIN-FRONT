@@ -46,9 +46,11 @@ function PartyLeaderresult() {
     const retryRequest = async()=>{
         await axios.get("http://118.67.132.98:3000/partyleaderreset", {params:{"memid":loginInfo.id }})
         .then(function(res){
-            alert("파티장 신청을 다시 할 수 있습니다.");
-            history("/partyleaderrequest");
-            window.location.reload();
+            if(res.data === "YES"){
+                alert("파티장 신청을 다시 할 수 있습니다.");
+                history("/partyleaderrequest");
+                window.location.reload();
+            }
         })
         .catch(function(err){
             alert(err);

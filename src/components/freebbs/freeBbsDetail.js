@@ -78,7 +78,7 @@ function FreeBbsDetail() {
     return <div>Loading...</div>;
   }
 
-  const imageUrl = freebbs.image !== null ? `https://118.67.132.98:3000/image/upload/freebbs/${freebbs.image}` : null;
+  const imageUrl = freebbs.image !== null ? `http://118.67.132.98:3000/root/tmp/image/upload/freebbs/${freebbs.image}` : null;
 
   //목록으로 이동
   function handleButtonClick() {
