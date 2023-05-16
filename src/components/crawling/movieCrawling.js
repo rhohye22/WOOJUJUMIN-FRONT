@@ -24,9 +24,11 @@ function MovieCrawling() {
             const path = "/woojujumin/WOOJUJUMIN-FRONT/src/components/crawlingimages";
             await axios.get("http://118.67.132.98:3000/moviechart", { params: {path:path} })
                 .then(function (res) {
+                    console.log(res.data);
                     console.log(res.data.movie);
                     setMovieList(res.data.movie);
                     setImageslist(res.data.images);
+                    console.log(res.data.images);
                     // alert(res.data.images);
                     // alert(loading);
 
@@ -57,43 +59,43 @@ function MovieCrawling() {
     talkData();
   }, []);
 
-  let importimg = [];
+  // let importimg = [];
   // let indexCom = 1;
 
   function MovieList(props) {
     const { movies, images } = props;
-    let imagePath = [];
+    // let imagePath = [];
 
     // console.log("길이" + imageslist.length);
 
-    if (images.length === 0) {
-      return (
-        <div>
-          <p>이미지를 불러오고 있습니다...</p>
-        </div>
-      );
-    }
+    // if (images.length === 0) {
+    //   return (
+    //     <div>
+    //       <p>이미지를 불러오고 있습니다...</p>
+    //     </div>
+    //   );
+    // }
 
-    imageslist.map((img, index) => {
-      let imageload = "";
-      // console.log("이미지경로" + imageslist[index]);
-      imageload = imageslist[index].split("\\");
-      // console.log("스플릿" + imageload);
-      importimg.push(imageload[imageload.length - 1]);
-    });
+    // imageslist.map((img, index) => {
+    //   let imageload = "";
+    //   // console.log("이미지경로" + imageslist[index]);
+    //   imageload = imageslist[index].split("\\");
+    //   // console.log("스플릿" + imageload);
+    //   importimg.push(imageload[imageload.length - 1]);
+    // });
 
     // importimg.map((img, index) => {
     //     imagePath.push(require('../crawlingimages/' + importimg[index]));
 
     // })
 
-    importimg.map((img, index) => {
-      try {
-        imagePath.push(require("../crawlingimages/" + importimg[index]));
-      } catch (error) {
-        imagePath.push(defaultimg); // 이미지 대신 null 값을 추가합니다.
-      }
-    });
+    // importimg.map((img, index) => {
+    //   try {
+    //     imagePath.push(require("../crawlingimages/" + importimg[index]));
+    //   } catch (error) {
+    //     imagePath.push(defaultimg); // 이미지 대신 null 값을 추가합니다.
+    //   }
+    // });
 
         // console.log(imagePath);
         // setLoading(false);
@@ -108,7 +110,7 @@ function MovieCrawling() {
                     movies.map((movie, i) => (
                         <div key={i} className="movieOne">
                             <h3 className="movienum"><span>No.</span>{i + 1}</h3>
-                            <img src={imagePath[i]} alt={movie} />
+                            <img src={images[i]} alt={movie} />
                             <h3>{dot3(movie.split(":")[0])}</h3>
                             <h4>{"예매율｜" + movie.split(":")[1]}</h4>
                             <h4>{movie.split(":")[2]}</h4>
@@ -300,7 +302,7 @@ function MovieCrawling() {
                     </div>
                 </div>
             ))} */}
-      {/* <img src={imagePath[1]} alt="테스트용" /> */}
+      {/* <img src={imageslist[0]} alt="테스트용" /> */}
     </div>
   );
 }

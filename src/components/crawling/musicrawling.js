@@ -68,29 +68,29 @@ function Musiccrawling() {
   function Musiclist(props) {
     const { titles, singers, albums, images } = props;
 
-    let imagePath = [];
+    // let imagePath = [];
 
-    if (images.length === 0) {
-      return (
-        <div>
-          <p>이미지를 불러오고 있습니다...</p>
-        </div>
-      );
-    }
+    // if (images.length === 0) {
+    //   return (
+    //     <div>
+    //       <p>이미지를 불러오고 있습니다...</p>
+    //     </div>
+    //   );
+    // }
 
-    imageslist.map((img, index) => {
-      let imageload = "";
-      imageload = imageslist[index].split("\\");
-      importimg.push(imageload[imageload.length - 1]);
-    });
+    // imageslist.map((img, index) => {
+    //   let imageload = "";
+    //   imageload = imageslist[index].split("\\");
+    //   importimg.push(imageload[imageload.length - 1]);
+    // });
 
-    importimg.map((img, index) => {
-      try {
-        imagePath.push(require("../crawlingimages/musicimages/" + importimg[index]));
-      } catch (error) {
-        imagePath.push(defaultimg); // 이미지 대신 null 값을 추가합니다.
-      }
-    });
+    // importimg.map((img, index) => {
+    //   try {
+    //     imagePath.push(require("../crawlingimages/musicimages/" + importimg[index]));
+    //   } catch (error) {
+    //     imagePath.push(defaultimg); // 이미지 대신 null 값을 추가합니다.
+    //   }
+    // });
 
     // console.log("여기까지 오는거 확인"+singers);
     // console.log("여기까지 오는거 확인"+albums);
@@ -117,7 +117,7 @@ function Musiccrawling() {
               <tr key={i}>
                 <td>{i + 1}</td>
                 <td>
-                  <img src={imagePath[i]} alt={title} />
+                  <img src={imageslist[i]} alt={title} style={{width:"100px"}}/>
                   <p className="songname">{title}</p>
                 </td>
                 <td>
