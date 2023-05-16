@@ -47,7 +47,7 @@ function PartyRequest() {
   }, [history]);
   function myRequestList(page) {
     axios
-      .get("http://localhost:3000/myRequestList", { params: { pageNumber: page, id: id } })
+      .get("http://118.67.132.98:3000/myRequestList", { params: { pageNumber: page, id: id } })
       .then(function(resp) {
         //console.log(resp.data);
         setRequestlist(resp.data.list); // map을 return하기 때문(map 안에 list있음)
@@ -132,7 +132,7 @@ function PartyRequest() {
                       >
                         {bbs.image !== null ? (
                           <img
-                            src={`http://localhost:3000/upload/partybbs/${bbs.image}`}
+                            src={`http://118.67.132.98:3000/upload/partybbs/${bbs.image}`}
                             alt="free image"
                             style={{
                               width: 40,

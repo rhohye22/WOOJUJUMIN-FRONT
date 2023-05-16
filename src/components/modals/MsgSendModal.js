@@ -38,7 +38,7 @@ const writeMsg = () => {
 
   }
 
-  axios.get("http://localhost:3000/msgWrite",
+  axios.get("http://118.67.132.98:3000/msgWrite",
               { params:{ "targetId":tId, "sendId":sId, "title":title, "message":content } })
        .then(res => {
           console.log(res.data);

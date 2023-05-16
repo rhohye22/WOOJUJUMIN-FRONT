@@ -35,7 +35,7 @@ function Qnalist() {
       return;
     }
     axios
-      .get("http://localhost:3000/qnalist", {
+      .get("http://118.67.132.98:3000/qnalist", {
         params: {
           id: id,
           start: start,
@@ -54,7 +54,7 @@ function Qnalist() {
       return;
     }
     axios
-      .get("http://localhost:3000/cntqna", {
+      .get("http://118.67.132.98:3000/cntqna", {
         params: {
           id: id,
         },

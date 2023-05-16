@@ -39,7 +39,7 @@ function MessageInfo() {
 
   function getMSglist(page) {
     axios
-      .get("http://localhost:3000/msglist", { params: { pageNumber: page, id: id } })
+      .get("http://118.67.132.98:3000/msglist", { params: { pageNumber: page, id: id } })
       .then(function(resp) {
         //console.log(resp.data);
         setMsglist(resp.data.list); // map을 return하기 때문(map 안에 list있음)
@@ -56,7 +56,7 @@ function MessageInfo() {
     //setseq(prop);
 
     axios
-      .get("http://localhost:3000/delMsg", { params: { seq: prop } })
+      .get("http://118.67.132.98:3000/delMsg", { params: { seq: prop } })
       .then(function(resp) {
         //console.log(resp.data);
 
