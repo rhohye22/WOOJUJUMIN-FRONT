@@ -195,7 +195,7 @@ function Partybbslist() {
               <div className="post-info">                         
 
                 {/* <img src={post.image ? `http://118.67.132.98:3000/upload/partybbs/${post.image.substring(80)}` : base} alt=''  width="150" height="150"/> */}
-                <img src={post.image ? `http://118.67.132.98:3000/upload/partybbs/${post.image}` : base} alt=''  width="150" height="150"/>
+                <img src={post.image ? `${post.imageurl}` : base} alt=''  width="150" height="150"/>
                 <div className="post-body">
                 <p >{categories[Number(post.tag-1)]}</p>
                 </div>
