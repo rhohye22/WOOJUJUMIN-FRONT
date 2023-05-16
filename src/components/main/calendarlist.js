@@ -14,7 +14,7 @@ function CalendarList() {
     function() {
       async function fetchData() {
         await axios
-          .get("http://localhost:3000/getDayListFront", { params: { rdate: rdate } })
+          .get("http://118.67.132.98:3000/getDayListFront", { params: { rdate: rdate } })
           .then(function(res) {
             // alert(JSON.stringify(res.data));
             // alert(JSON.stringify(res.data[0]));
