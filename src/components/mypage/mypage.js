@@ -3,17 +3,25 @@ import * as React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
-import { useEffect, useState, useRef, useCallback } from "react";
-
+import { useEffect, useState, useRef, useCallback, useContext } from "react";
+import { db, firebasePhotoApp, storage } from "../firebasePhoto";
+import { getStorage, ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 import "./page.css";
 import "./accountInfo.css";
-
+import { AuthContext } from '../../context/AuthContext'
 import { signOut } from "firebase/auth";
 
 function Mypage() {
+
+  const [imageUpload, setImageUpload] = useState(null);
+  const [image, setImage] = useState("");
+  const [imageurl, setImageurl] = useState(null);
+  const {currentUser} = useContext(AuthContext)
+  const storage = getStorage(firebasePhotoApp);
+
   let history = useNavigate();
 
   const [memberSeq, setmemberSeq] = useState("");
@@ -44,8 +52,12 @@ function Mypage() {
     maxWidth: 360,
     bgcolor: "background.paper",
   };
+  const handleImageUpload = (event) => {
+    setImageUpload(event.target.files[0]);
+    imageLoad();
+  };
 
-  function imageLoad() {
+ function imageLoad(){
     setFlg(true);
     const file = imgRef.current.files[0];
     const reader = new FileReader();
@@ -121,10 +133,11 @@ function Mypage() {
   //const profileChange = (e) => setProfile(e.target.value);
   const passwordConfirmChange = (e) => setconfirmPassword(e.target.value);
 
-  function changeInfo(e) {
+  const changeInfo = async (e) => {
     //alert(profile);
     e.preventDefault();
     let formData = new FormData();
+    if (imageUpload === null) {
     formData.append("memberSeq", memberSeq);
     formData.append("id", id);
     formData.append("password", password);
@@ -154,6 +167,46 @@ function Mypage() {
       .catch(function(err) {
         alert(err);
       });
+    }else{
+      const imageRef = ref(storage, `images/${imageUpload.name}`);
+        const snapshot = await uploadBytes(imageRef, imageUpload);
+        await getDownloadURL(snapshot.ref).then((url) => {
+          formData.append("imageurl", url);
+          console.log("imgurl : " + url);
+        });
+        // 이미지 업로드가 끝나면 아래 코드가 실행됩니다.
+        formData.append("memberSeq", memberSeq);
+        formData.append("id", id);
+        formData.append("password", password);
+        formData.append("nickname", nickname);
+        formData.append("email", email);
+        formData.append("phoneNum", phoneNum);
+        formData.append("address", juso);
+        formData.append("uploadFile", document.frm.uploadFile.files[0]);
+    
+        if (password !== confirmPassword) {
+          return alert("비밀번호와 비밀번호 확인은 같아야 합니다.");
+        }
+    
+        axios
+          .post("http://118.67.132.98:3000/changeInfo", formData)
+          .then((res) => {
+            console.log(res.data);
+            if (res.data === "YES") {
+              alert("성공적으로 수정되었습니다");
+              loghandle();
+              signOut(auth);
+              //  history("/login");
+            } else {
+              alert("수정되지 않았습니다");
+            }
+          })
+          .catch(function(err) {
+            alert(err);
+          });
+
+
+    }
   }
   const gomy = () => {
     history("/mybbsList");
@@ -252,14 +305,14 @@ function Mypage() {
             프로필 이미지 추가
           </label>{" "}
           <br />
-          <input className="signup-profileImg-input" id="profileImg" name="uploadFile" type="file" onChange={imageLoad} ref={imgRef} />
+          <input className="signup-profileImg-input" id="profileImg" name="uploadFile" type="file" onChange={handleImageUpload} ref={imgRef} />
           {flg ? (
             <div className="preview" style={{ display: "block", margin: "0 auto" }}>
               <img src={profile} alt="" style={{ width: "50px", height: "50px", borderRadius: "50%" }} />
             </div>
           ) : (
             <div className="preview" style={{ display: "block", margin: "0 auto" }}>
-              {profile && <img src={`http://118.67.132.98:3000/upload/member/${profile}`} style={{ width: "50px", height: "50px", borderRadius: "50%" }} />}
+              {profile && <img src={currentUser.photoURL} style={{ width: "50px", height: "50px", borderRadius: "50%" }} />}
             </div>
           )}
           <p className="message"></p>
