@@ -4,7 +4,9 @@ import axios from "axios";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db, storage } from "../../firebase";
-import { ref, uploadBytesResumable, getDownloadURL, getStorage } from "firebase/storage";
+
+import { ref, uploadBytesResumable, getDownloadURL, uploadBytes, getStorage } from "firebase/storage";
+
 import { doc, setDoc } from "firebase/firestore";
 import KakaoLogin from "react-kakao-login";
 // npm install react-kakao-login
@@ -161,6 +163,12 @@ function Regi() {
               photoURL: downloadURL,
             });
             await setDoc(doc(db, "userChats", res.user.uid), {});
+            const imageRef = ref(storage, `${file.name}`);
+            const snapshot = await uploadBytes(imageRef, file);
+            await getDownloadURL(snapshot.ref).then((url) => {
+              formData.append("imageurl", url);
+              console.log("imgurl : " + url);
+            });
           });
         }
       );
