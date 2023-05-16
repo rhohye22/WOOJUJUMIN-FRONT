@@ -8,6 +8,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import MapContainer from "./mapcontainer/MapContainer";
 import { Button, Form, InputGroup, Container, Row, Col, FloatingLabel, Modal } from "react-bootstrap";
+import { auth, db, firebasePhotoApp, storage } from "./firebasePhoto";
+import { getStorage, ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
 
 //npm install react-datepicker
 
@@ -56,8 +58,13 @@ function Partybbs() {
   const [InputText, setInputText] = useState("");
   const [search, setSearch] = useState("");
 
-  const [image, setImage] = useState();
+  const [image, setImage] = useState("");
   const imgRef = useRef();
+
+  const [imageUpload, setImageUpload] = useState(null);
+  const [imageurl, setImageurl] = useState(null);
+
+  const storage = getStorage(firebasePhotoApp);
 
   function imageLoad() {
     const file = imgRef.current.files[0];
@@ -127,7 +134,6 @@ function Partybbs() {
     /*  console.log(formattedTimestamp); */
     formData.append("id", id);
     /*  formData.append("title", title); */
-    formData2.append("title", title);
     formData2.append("id", id);
     formData2.append("place", place);
     formData2.append("mdate", formattedTimestamp);
@@ -137,13 +143,20 @@ function Partybbs() {
     /*     for (const keyValue of formData2) console.log(keyValue);
     for (const keyValue of formData) console.log(keyValue); */
 
-    if (document.frm2.uploadFile.files[0] == null || document.frm2.uploadFile.files[0] == "") {
+    if (document.frm2.uploadFile.files[0] === null || document.frm2.uploadFile.files[0] === "") {
       formData2.append("uploadFile", "basic");
+      formData2.append("imageurl", imageurl);
     } else {
       console.log(document.frm2.uploadFile.files[0].name);
       formData2.append("uploadFile", document.frm2.uploadFile.files[0]);
+      const imageRef = ref(storage, `images/${imageUpload.name}`);
+      const snapshot = await uploadBytes(imageRef, imageUpload);
+      await getDownloadURL(snapshot.ref).then((url) => {
+        formData2.append("imageurl", url);
+        console.log("imgurl : " + url);
+      });
     }
-
+    for (const keyValue of formData2) console.log(keyValue)
     await axios
       .post("http://118.67.132.98:3000/writePartybbs", formData2)
       .then(function(res) {
@@ -156,6 +169,11 @@ function Partybbs() {
       .catch(function(err) {
         console.log(err);
       });
+  };
+
+  const handleImageUpload = (event) => {
+    setImageUpload(event.target.files[0]);
+    imageLoad();
   };
 
   return (
@@ -308,7 +326,7 @@ function Partybbs() {
             <tr align="left">
               <td colSpan={2}>
                 <form name="frm2" onSubmit={fetchData()} encType="multipart/form-data">
-                  <input type="file" onChange={imageLoad} ref={imgRef} name="uploadFile" /> {/* <input type="file" name="uploadFile" /> */}
+                  <input type="file" onChange={handleImageUpload} ref={imgRef} name="uploadFile" /> {/* <input type="file" name="uploadFile" /> */}
                 </form>
               </td>
             </tr>

@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import mainimg from "./piano.jpg";
 import musicpage from "./musicpage.png";
 import "./crawlingcss.css";
+import loadingimg from "../mypage/loading.gif"
+
 
 function Musiccrawling() {
   // const [musicdata, setMusicdata] = useState([]);
@@ -26,7 +28,7 @@ function Musiccrawling() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const path = "/woojujumin/WOOJUJUMIN-FRONT/src/components/crawlingimages/musicimages";
+      const path = "/finalProject/WOOJUJUMIN-FRONT/src/components/crawlingimages/musicimages";
       await axios
         .get("http://118.67.132.98:3000/musicchart", { params: {path:path} })
         .then(function(res) {
@@ -68,29 +70,31 @@ function Musiccrawling() {
   function Musiclist(props) {
     const { titles, singers, albums, images } = props;
 
-    let imagePath = [];
+    // let imagePath = [];
 
     if (images.length === 0) {
       return (
         <div>
           <p>이미지를 불러오고 있습니다...</p>
+          <img src={loadingimg} alt ="로딩중"/>
+
         </div>
       );
     }
 
-    imageslist.map((img, index) => {
-      let imageload = "";
-      imageload = imageslist[index].split("\\");
-      importimg.push(imageload[imageload.length - 1]);
-    });
+    // imageslist.map((img, index) => {
+    //   let imageload = "";
+    //   imageload = imageslist[index].split("\\");
+    //   importimg.push(imageload[imageload.length - 1]);
+    // });
 
-    importimg.map((img, index) => {
-      try {
-        imagePath.push(require("../crawlingimages/musicimages/" + importimg[index]));
-      } catch (error) {
-        imagePath.push(defaultimg); // 이미지 대신 null 값을 추가합니다.
-      }
-    });
+    // importimg.map((img, index) => {
+    //   try {
+    //     imagePath.push(require("../crawlingimages/musicimages/" + importimg[index]));
+    //   } catch (error) {
+    //     imagePath.push(defaultimg); // 이미지 대신 null 값을 추가합니다.
+    //   }
+    // });
 
     // console.log("여기까지 오는거 확인"+singers);
     // console.log("여기까지 오는거 확인"+albums);
@@ -117,7 +121,7 @@ function Musiccrawling() {
               <tr key={i}>
                 <td>{i + 1}</td>
                 <td>
-                  <img src={imagePath[i]} alt={title} />
+                  <img src={imageslist[i]} alt={title} style={{width:"100px"}}/>
                   <p className="songname">{title}</p>
                 </td>
                 <td>

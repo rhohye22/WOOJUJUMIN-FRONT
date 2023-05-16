@@ -177,6 +177,7 @@ function FreeBbsList() {
                         {free.image !== null ? (
                           <img
                             src={free.imageurl}
+
                             alt="free image"
                             style={{
                               width: 40,

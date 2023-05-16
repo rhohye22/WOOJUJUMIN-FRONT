@@ -59,6 +59,9 @@
 }
 
 .post-info h2 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   margin-left: 180px;
   font-size: 38px;
   margin-top: 0;

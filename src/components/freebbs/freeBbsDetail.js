@@ -78,8 +78,9 @@ function FreeBbsDetail() {
     return <div>Loading...</div>;
   }
 
+
   const imageUrl = freebbs.imageurl !== null ? freebbs.imageurl : null;
-  console.log("url : " + freebbs.imageurl);
+
 
   //목록으로 이동
   function handleButtonClick() {
