@@ -42,7 +42,7 @@ function Calendar() {
   useEffect(() => {
     const fetchData = async (sendYear, sendMonth) => {
       await axios
-        .post("http://localhost:3000/calendarmain", null, { params: { sendYear: sendYear, sendMonth: sendMonth, sendYyyymm: sendyyyymm } })
+        .post("http://118.67.132.98:3000/calendarmain", null, { params: { sendYear: sendYear, sendMonth: sendMonth, sendYyyymm: sendyyyymm } })
         .then(function(res) {
           setDayOfWeek(res.data.dayOfWeek);
           setLastday(res.data.lastday);
@@ -70,7 +70,7 @@ function Calendar() {
         const updatedListcnt = []; // 업데이트된 배열을 임시로 저장할 변수
         for (let i = 1; i <= lastday; i++) {
           let ymd = year + charTwo(month) + charTwo(i);
-          const response = await axios.get("http://localhost:3000/listcount", { params: { rdate: ymd } });
+          const response = await axios.get("http://118.67.132.98:3000/listcount", { params: { rdate: ymd } });
           console.log(response.data);
           updatedListcnt.push(response.data);
         }
