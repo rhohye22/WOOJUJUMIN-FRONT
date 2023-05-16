@@ -56,38 +56,38 @@ function BookCrawling() {
     talkData();
   }, []);
 
-  let importimg = [];
+  // let importimg = [];
 
   function Booklist(props) {
     const { titles, datas, images } = props;
-    let imagePath = [];
+  //   let imagePath = [];
 
-    if (images.length === 0) {
-      return (
-        <div>
-          <p>이미지를 불러오고 있습니다...</p>
-        </div>
-      );
-    }
+  //   if (images.length === 0) {
+  //     return (
+  //       <div>
+  //         <p>이미지를 불러오고 있습니다...</p>
+  //       </div>
+  //     );
+  //   }
 
-    bookimages.map((img, index) => {
-      let imageload = "";
-      imageload = bookimages[index].split("\\");
-      importimg.push(imageload[imageload.length - 1]);
-    });
+  //   bookimages.map((img, index) => {
+  //     let imageload = "";
+  //     imageload = bookimages[index].split("\\");
+  //     importimg.push(imageload[imageload.length - 1]);
+  //   });
 
     // importimg.map((img, index) => {
     //     imagePath.push(require('../crawlingimages/' + importimg[index]));
 
     // })
 
-    importimg.map((img, index) => {
-      try {
-        imagePath.push(require("../crawlingimages/" + importimg[index]));
-      } catch (error) {
-        imagePath.push(defaultimg); // 이미지 대신 null 값을 추가합니다.
-      }
-    });
+    // importimg.map((img, index) => {
+    //   try {
+    //     imagePath.push(require("../crawlingimages/" + importimg[index]));
+    //   } catch (error) {
+    //     imagePath.push(defaultimg); // 이미지 대신 null 값을 추가합니다.
+    //   }
+    // });
 
     // console.log("확인용" + titles);
     // console.log("확인용" + datas);
@@ -99,7 +99,7 @@ function BookCrawling() {
             <p style={{ float: "left" }}>
               <i>{index + 1}</i>
             </p>
-            <img src={imagePath[index]} alt={title} className="bookimg" />
+            <img src={bookimages[index]} alt={title} className="bookimg" />
             <div className="bookinform">
               {/* <p><i>{index + 1}</i></p> */}
               <h2>{title}</h2>
