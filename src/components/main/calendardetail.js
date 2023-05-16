@@ -20,7 +20,7 @@ function Calendardetail() {
     // console.log(year+month+day+calDate);
     // useEffect(() => {
     //     const fetchData = async () => {
-    //         await axios.post("http://localhost:3000/calendardetail", null, { params: { "calSeq": calSeq } })
+    //         await axios.post("http://118.67.132.98:3000/calendardetail", null, { params: { "calSeq": calSeq } })
     //             .then(function (res) {
     //                 console.log(res.data);
     //                 setCalinform(res.data);
@@ -37,7 +37,7 @@ function Calendardetail() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.post("http://localhost:3000/calendardetail", null, { params: { "calSeq": calSeq } });
+                const response = await axios.post("http://118.67.132.98:3000/calendardetail", null, { params: { "calSeq": calSeq } });
                 if (response.data) { // 데이터가 유효한 경우에만 setCalinform 호출
                     console.log(response.data);
                     setCalinform(response.data);
@@ -63,7 +63,7 @@ function Calendardetail() {
 
         const result = window.confirm("정말로 삭제하시겠습니까?");
         if(result){
-            axios.get("http://localhost:3000/calendardelete", {params:{"calSeq":calSeq}})
+            axios.get("http://118.67.132.98:3000/calendardelete", {params:{"calSeq":calSeq}})
             .then(function(res){
                 if(res.data==="YES"){
                     history("/calendar");

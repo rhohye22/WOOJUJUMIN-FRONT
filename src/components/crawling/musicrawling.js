@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import mainimg from "./piano.jpg";
 import musicpage from "./musicpage.png";
 import "./crawlingcss.css";
+import loadingimg from "../mypage/loading.gif"
+
 
 function Musiccrawling() {
   // const [musicdata, setMusicdata] = useState([]);
@@ -70,13 +72,15 @@ function Musiccrawling() {
 
     // let imagePath = [];
 
-    // if (images.length === 0) {
-    //   return (
-    //     <div>
-    //       <p>이미지를 불러오고 있습니다...</p>
-    //     </div>
-    //   );
-    // }
+    if (images.length === 0) {
+      return (
+        <div>
+          <p>이미지를 불러오고 있습니다...</p>
+          <img src={loadingimg} alt ="로딩중"/>
+
+        </div>
+      );
+    }
 
     // imageslist.map((img, index) => {
     //   let imageload = "";

@@ -4,6 +4,7 @@ import defaultimg from "../image/defaultnuill.png";
 import { useNavigate } from "react-router-dom";
 import story from "./story.jpg";
 import bookpage from "./bookpage.png";
+import loadingimg from "../mypage/loading.gif"
 
 function BookCrawling() {
   let navigate = useNavigate();
@@ -62,13 +63,14 @@ function BookCrawling() {
     const { titles, datas, images } = props;
   //   let imagePath = [];
 
-  //   if (images.length === 0) {
-  //     return (
-  //       <div>
-  //         <p>이미지를 불러오고 있습니다...</p>
-  //       </div>
-  //     );
-  //   }
+    if (images.length === 0) {
+      return (
+        <div>
+          <p>이미지를 불러오고 있습니다...</p>
+          <img src={loadingimg} alt ="로딩중"/>
+        </div>
+      );
+    }
 
   //   bookimages.map((img, index) => {
   //     let imageload = "";

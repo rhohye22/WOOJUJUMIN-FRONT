@@ -6,6 +6,8 @@ import "./crawlingcss.css";
 import mainimg from "./popcorn.jpg";
 import moviepage from "./moviepage.png";
 import Form from 'react-bootstrap/Form';
+import loadingimg from "../mypage/loading.gif"
+
 
 function MovieCrawling() {
   let navigate = useNavigate();
@@ -68,13 +70,14 @@ function MovieCrawling() {
 
     // console.log("길이" + imageslist.length);
 
-    // if (images.length === 0) {
-    //   return (
-    //     <div>
-    //       <p>이미지를 불러오고 있습니다...</p>
-    //     </div>
-    //   );
-    // }
+    if (images.length === 0) {
+      return (
+        <div>
+          <p>이미지를 불러오고 있습니다...</p>
+          <img src={loadingimg} alt ="로딩중"/>
+        </div>
+      );
+    }
 
     // imageslist.map((img, index) => {
     //   let imageload = "";

@@ -4,6 +4,8 @@ import defaultimg from "../image/defaultnuill.png";
 import { useNavigate } from "react-router-dom";
 import mainimg from "./fes.jpg";
 import localfesti from "./localfesti.png";
+import loadingimg from "../mypage/loading.gif"
+
 
 function Localeventcrawling() {
   let navigate = useNavigate();
@@ -92,13 +94,14 @@ function Localeventcrawling() {
     const { titles, informations, dates, images } = props;
     // let imagePath = [];
 
-    // if (images.length === 0) {
-    //   return (
-    //     <div>
-    //       <p>이미지를 불러오고 있습니다...</p>
-    //     </div>
-    //   );
-    // }
+    if (images.length === 0) {
+      return (
+        <div>
+          <p>이미지를 불러오고 있습니다...</p>
+          <img src={loadingimg} alt ="로딩중"/>
+        </div>
+      );
+    }
 
     // oneimages.map((img, index) => {
     //   let imageload = "";
