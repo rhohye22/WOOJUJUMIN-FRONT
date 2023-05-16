@@ -22,7 +22,7 @@ function MovieCrawling() {
     useEffect(() => {
         const fetchData = async () => {
             const path = "/woojujumin/WOOJUJUMIN-FRONT/src/components/crawlingimages";
-            await axios.get("http://localhost:3000/moviechart", { params: {path:path} })
+            await axios.get("http://118.67.132.98:3000/moviechart", { params: {path:path} })
                 .then(function (res) {
                     console.log(res.data);
                     console.log(res.data.movie);
@@ -40,7 +40,7 @@ function MovieCrawling() {
 
     const talkData = async () => {
       await axios
-        .get("http://localhost:3000/alltalkcomment", { params: { category: 1 } })
+        .get("http://118.67.132.98:3000/alltalkcomment", { params: { category: 1 } })
         .then(function(res) {
           console.log(res.data);
           console.log(res.data.slice(0, 10));
@@ -170,13 +170,13 @@ function MovieCrawling() {
 
     // alert(id);
 
-        axios.post("http://localhost:3000/talkcomment", null, { params: { "talkid": id, "talkcomment": comment, "category": 1 } })
+        axios.post("http://118.67.132.98:3000/talkcomment", null, { params: { "talkid": id, "talkcomment": comment, "category": 1 } })
             .then(function (res) {
                 // alert(res.data);
                 if (res.data === "YES") {
                     const fetchTalkData = async () => {
                         try {
-                            const res = await axios.get("http://localhost:3000/alltalkcomment", { params: { "category": 1 } });
+                            const res = await axios.get("http://118.67.132.98:3000/alltalkcomment", { params: { "category": 1 } });
                             setTalks(res.data.slice(0, 10));
                             setComment("");
                             setIndexCom(1);
@@ -216,7 +216,7 @@ function MovieCrawling() {
     console.log(numLoadedComments);
 
     await axios
-      .get("http://localhost:3000/alltalkcomment", { params: { category: 1 } })
+      .get("http://118.67.132.98:3000/alltalkcomment", { params: { category: 1 } })
       .then((res) => {
         // const newTalks = res.data.slice((indexCom*10)+1, (indexCom)*20);
         // setTalks([...talks.slice(0, 10), ...newTalks]);

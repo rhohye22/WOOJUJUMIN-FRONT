@@ -40,7 +40,7 @@ function Localeventcrawling() {
     const fetchData = async () => {
       const path = "/woojujumin/WOOJUJUMIN-FRONT/src/components/crawlingimages";
       await axios
-        .get("http://localhost:3000/localevent", { params: {path:path} })
+        .get("http://118.67.132.98:3000/localevent", { params: {path:path} })
         .then(function(res) {
           console.log(res.data);
           setOnetitles(res.data.onepage.sendtitles);
@@ -65,7 +65,7 @@ function Localeventcrawling() {
 
     const talkData = async () => {
       await axios
-        .get("http://localhost:3000/alltalkcomment", { params: { category: 3 } })
+        .get("http://118.67.132.98:3000/alltalkcomment", { params: { category: 3 } })
         .then(function(res) {
           console.log(res.data);
           console.log(res.data.slice(0, 10));
@@ -320,13 +320,13 @@ function Localeventcrawling() {
 
     // alert(id);
 
-        axios.post("http://localhost:3000/talkcomment", null, { params: { "talkid": id, "talkcomment": comment, "category": 3 } })
+        axios.post("http://118.67.132.98:3000/talkcomment", null, { params: { "talkid": id, "talkcomment": comment, "category": 3 } })
             .then(function (res) {
                 // alert(res.data);
                 if (res.data === "YES") {
                     const fetchTalkData = async () => {
                         try {
-                            const res = await axios.get("http://localhost:3000/alltalkcomment", { params: { "category": 3 } });
+                            const res = await axios.get("http://118.67.132.98:3000/alltalkcomment", { params: { "category": 3 } });
                             setTalks(res.data.slice(0, 10));
                             setComment("");
                             setIndexCom(1);
@@ -366,7 +366,7 @@ function Localeventcrawling() {
     console.log(numLoadedComments);
 
     await axios
-      .get("http://localhost:3000/alltalkcomment", { params: { category: 3 } })
+      .get("http://118.67.132.98:3000/alltalkcomment", { params: { category: 3 } })
       .then((res) => {
         // const newTalks = res.data.slice((indexCom*10)+1, (indexCom)*20);
         // setTalks([...talks.slice(0, 10), ...newTalks]);
