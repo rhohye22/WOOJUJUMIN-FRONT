@@ -3,7 +3,19 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import CloseButton from "react-bootstrap/CloseButton";
+
+import { auth, db, firebasePhotoApp, storage } from "../firebasePhoto";
+import { getStorage, ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
+
 function FreeBbsModify() {
+  ////////
+  const [imageUpload, setImageUpload] = useState(null);
+  //const [image, setImage] = useState("");
+  const [imageurl, setImageurl] = useState(null);
+
+  const storage = getStorage(firebasePhotoApp);
+  //const imageListRef = ref(storage, "images/");
+
   let history = useNavigate();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -45,6 +57,9 @@ function FreeBbsModify() {
         if (resp.data.image !== null) {
           setImage(resp.data.image);
         }
+        if (resp.data.imageurl !== null) {
+          setImageurl(resp.data.image);
+        }
       })
       .catch(function(err) {
         alert(err);
@@ -55,7 +70,9 @@ function FreeBbsModify() {
     getbbsData(bbsSeq);
   }, []);
 
-  function modifyFreeBbs(e) {
+  async function modifyFreeBbs(e) {
+    e.preventDefault();
+    let formData = new FormData();
     if (title === "") {
       alert("글의 제목을 입력하세요");
       return;
@@ -66,37 +83,74 @@ function FreeBbsModify() {
       alert("내용을 입력하세요");
       return;
     } else {
-      e.preventDefault();
-      let formData = new FormData();
-      formData.append("bbsSeq", bbsSeq);
-      formData.append("title", title);
-      formData.append("content", content);
+      if (imageUpload === null) {
+        formData.append("bbsSeq", bbsSeq);
+        formData.append("title", title);
+        formData.append("content", content);
 
-      formData.append("image", image);
+        formData.append("image", image);
 
-      formData.append("tag", tag);
+        formData.append("tag", tag);
 
-      if (document.frm.uploadFile.files[0] == null || document.frm.uploadFile.files[0] == "") {
-        formData.append("uploadFile", "basic");
+        if (document.frm.uploadFile.files[0] == null || document.frm.uploadFile.files[0] == "") {
+          formData.append("uploadFile", "basic");
+        } else {
+          console.log(document.frm.uploadFile.files[0].name);
+          formData.append("uploadFile", document.frm.uploadFile.files[0]);
+        }
+
+        axios
+          .post("http://118.67.132.98:3000/modifyFreebbs", formData)
+          .then(function(resp) {
+            if (resp.data === "YES") {
+              alert("글이 수정되었습니다.");
+              history(`/freeBbsDetail/${bbsSeq}`); // 이동(link)
+            } else {
+              alert("게시글 수정에 실패했습니다");
+            }
+          })
+          .catch(function(err) {
+            alert(err);
+            alert("에러");
+          });
       } else {
-        console.log(document.frm.uploadFile.files[0].name);
-        formData.append("uploadFile", document.frm.uploadFile.files[0]);
-      }
-
-      axios
-        .post("http://118.67.132.98:3000/modifyFreebbs", formData)
-        .then(function(resp) {
-          if (resp.data === "YES") {
-            alert("글이 수정되었습니다.");
-            history(`/freeBbsDetail/${bbsSeq}`); // 이동(link)
-          } else {
-            alert("게시글 수정에 실패했습니다");
-          }
-        })
-        .catch(function(err) {
-          alert(err);
-          alert("에러");
+        const imageRef = ref(storage, `images/${imageUpload.name}`);
+        const snapshot = await uploadBytes(imageRef, imageUpload);
+        await getDownloadURL(snapshot.ref).then((url) => {
+          formData.append("imageurl", url);
+          console.log("imgurl : " + url);
         });
+
+        formData.append("bbsSeq", bbsSeq);
+        formData.append("title", title);
+        formData.append("content", content);
+
+        formData.append("image", image);
+
+        formData.append("tag", tag);
+
+        if (document.frm.uploadFile.files[0] == null || document.frm.uploadFile.files[0] == "") {
+          formData.append("uploadFile", "basic");
+        } else {
+          console.log(document.frm.uploadFile.files[0].name);
+          formData.append("uploadFile", document.frm.uploadFile.files[0]);
+        }
+
+        axios
+          .post("http://118.67.132.98:3000/modifyFreebbs", formData)
+          .then(function(resp) {
+            if (resp.data === "YES") {
+              alert("글이 수정되었습니다.");
+              history(`/freeBbsDetail/${bbsSeq}`); // 이동(link)
+            } else {
+              alert("게시글 수정에 실패했습니다");
+            }
+          })
+          .catch(function(err) {
+            alert(err);
+            alert("에러");
+          });
+      }
     }
   }
 
@@ -107,7 +161,13 @@ function FreeBbsModify() {
   const handleContentChange = (e) => {
     setContent(e.target.value);
   };
-  const imageUrl = image == freebbs.image ? `http://118.67.132.98:3000/upload/freebbs/${image}` : image;
+
+  const handleImageUpload = (event) => {
+    setImageUpload(event.target.files[0]);
+    imageLoad();
+  };
+
+  const imageUrl = image == freebbs.image ? freebbs.imageurl : image;
 
   return (
     <div>
@@ -154,7 +214,7 @@ function FreeBbsModify() {
           <tr align="left">
             <td colSpan={4}>
               <form name="frm" onSubmit={modifyFreeBbs} encType="multipart/form-data">
-                <input type="file" onChange={imageLoad} ref={imgRef} name="uploadFile" />
+                <input type="file" onChange={handleImageUpload} ref={imgRef} name="uploadFile" />
               </form>
             </td>
           </tr>

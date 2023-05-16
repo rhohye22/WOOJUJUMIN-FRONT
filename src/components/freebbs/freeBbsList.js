@@ -176,7 +176,8 @@ function FreeBbsList() {
                       >
                         {free.image !== null ? (
                           <img
-                            src={`http://118.67.132.98:3000/root/tmp/image/upload/freebbs/speech-bubble.png`}
+                            src={free.imageurl}
+
                             alt="free image"
                             style={{
                               width: 40,

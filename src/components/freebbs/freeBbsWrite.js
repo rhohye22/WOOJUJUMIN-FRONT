@@ -2,11 +2,37 @@ import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
+import FireBaseimage from "./firebaseimage";
+
+import { auth, db, firebasePhotoApp, storage } from "../firebasePhoto";
+import { getStorage, ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
+
 function FreeBbsWrite() {
+  ////////
+  const [imageUpload, setImageUpload] = useState(null);
+  const [image, setImage] = useState("");
+  const [imageurl, setImageurl] = useState(null);
+
+  const storage = getStorage(firebasePhotoApp);
+  //const imageListRef = ref(storage, "images/");
+
+  const upload = () => {
+    if (imageUpload === null) return;
+
+    const imageRef = ref(storage, `images/${imageUpload.name}`);
+    uploadBytes(imageRef, imageUpload).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        setImageurl(url);
+        console.log("imgurl : " + url);
+      });
+    });
+  };
+
+  ///////
   let history = useNavigate();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [image, setImage] = useState();
+  /* const [image, setImage] = useState(); */
   const [tag, setTag] = useState("");
 
   const imgRef = useRef();
@@ -21,13 +47,16 @@ function FreeBbsWrite() {
     const file = imgRef.current.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
+
     reader.onloadend = () => {
       setImage(reader.result);
     };
     //console.log(image);
   }
 
-  function writeFreeBbs(e) {
+  const writeFreeBbs = async (e) => {
+    e.preventDefault();
+    let formData = new FormData();
     if (title === "") {
       alert("글의 제목을 입력하세요");
       return;
@@ -38,46 +67,82 @@ function FreeBbsWrite() {
       alert("내용을 입력하세요");
       return;
     } else {
-      e.preventDefault();
-      let formData = new FormData();
-      formData.append("id", id);
-      formData.append("title", title);
-      formData.append("content", content);
+      if (imageUpload === null) {
+        formData.append("id", id);
+        formData.append("title", title);
+        formData.append("content", content);
+        formData.append("image", image);
+        formData.append("imageurl", imageurl); //null인 상태
 
-      formData.append("image", image);
+        // formData.append("imageurl", imageurl);
 
-      formData.append("tag", tag);
+        formData.append("tag", tag);
 
-      if (document.frm.uploadFile.files[0] == null || document.frm.uploadFile.files[0] == "") {
-        formData.append("uploadFile", "basic");
+        axios
+          .post("http://118.67.132.98:3000/writeFreeBbs", formData)
+          .then(function(resp) {
+            if (resp.data === "YES") {
+              alert("글이 등록되었습니다.");
+              history("/freeBoard"); // 이동(link)
+            } else {
+              alert("게시글 등록에 실패했습니다");
+            }
+          })
+          .catch(function(err) {
+            alert(err);
+            alert("에러");
+          });
       } else {
-        console.log(document.frm.uploadFile.files[0].name);
-        formData.append("uploadFile", document.frm.uploadFile.files[0]);
-      }
-
-      axios
-        .post("http://118.67.132.98:3000/writeFreeBbs", formData)
-        .then(function(resp) {
-          if (resp.data === "YES") {
-            alert("글이 등록되었습니다.");
-            history("/freeBoard"); // 이동(link)
-          } else {
-            alert("게시글 등록에 실패했습니다");
-          }
-        })
-        .catch(function(err) {
-          alert(err);
-          alert("에러");
+        const imageRef = ref(storage, `images/${imageUpload.name}`);
+        const snapshot = await uploadBytes(imageRef, imageUpload);
+        await getDownloadURL(snapshot.ref).then((url) => {
+          formData.append("imageurl", url);
+          console.log("imgurl : " + url);
         });
-    }
-  }
+        // 이미지 업로드가 끝나면 아래 코드가 실행됩니다.
 
+        formData.append("id", id);
+        formData.append("title", title);
+        formData.append("content", content);
+        formData.append("image", image);
+
+        // formData.append("imageurl", imageurl);
+
+        formData.append("tag", tag);
+        if (document.frm.uploadFile.files[0] == null || document.frm.uploadFile.files[0] == "") {
+          formData.append("uploadFile", "basic");
+        } else {
+          console.log(document.frm.uploadFile.files[0].name);
+          formData.append("uploadFile", document.frm.uploadFile.files[0]);
+        }
+        axios
+          .post("http://118.67.132.98:3000/writeFreeBbs", formData)
+          .then(function(resp) {
+            if (resp.data === "YES") {
+              alert("글이 등록되었습니다.");
+              history("/freeBoard"); // 이동(link)
+            } else {
+              alert("게시글 등록에 실패했습니다");
+            }
+          })
+          .catch(function(err) {
+            alert(err);
+            alert("에러");
+          });
+      }
+    }
+  };
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
   };
 
   const handleContentChange = (e) => {
     setContent(e.target.value);
+  };
+
+  const handleImageUpload = (event) => {
+    setImageUpload(event.target.files[0]);
+    imageLoad();
   };
 
   return (
@@ -123,11 +188,14 @@ function FreeBbsWrite() {
               </select>
             </td>
           </tr>
+
           <tr align="left">
             <td colSpan={4}>
-              <form name="frm" onSubmit={writeFreeBbs} encType="multipart/form-data">
-                <input type="file" onChange={imageLoad} ref={imgRef} name="uploadFile" />
-              </form>
+              <div>
+                <form name="frm" onSubmit={writeFreeBbs} encType="multipart/form-data">
+                  <input type="file" onChange={handleImageUpload} ref={imgRef} name="uploadFile" />
+                </form>
+              </div>
             </td>
           </tr>
           <tr style={{ border: "none" }}>
@@ -136,7 +204,7 @@ function FreeBbsWrite() {
                 src={image}
                 alt=""
                 style={{
-                  width: 500,
+                  width: "100%",
                   height: "auto",
                   objectFit: "cover",
                   objectPosition: "center",
