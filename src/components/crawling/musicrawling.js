@@ -28,7 +28,7 @@ function Musiccrawling() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const path = "/woojujumin/WOOJUJUMIN-FRONT/src/components/crawlingimages/musicimages";
+      const path = "/finalProject/WOOJUJUMIN-FRONT/src/components/crawlingimages/musicimages";
       await axios
         .get("http://118.67.132.98:3000/musicchart", { params: {path:path} })
         .then(function(res) {
