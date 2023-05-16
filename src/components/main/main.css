@@ -3,20 +3,24 @@
   background-color: #f9f9f9;
   /*   z-index: 0; */
 }
+
 .slider-container {
   padding-top: 20px;
   /*  background-color: antiquewhite; */
   /*  z-index: 0; */
 }
+
 .carousel-control-prev,
 .carousel-control-next {
   z-index: 1;
 }
+
 .mainmiddle1 {
   /*   background-color: rgb(190, 107, 107); */
   height: 480px;
   padding-top: 50px;
 }
+
 .mainmiddle1-1 {
   margin: 0 auto;
   /*   background-color: rgb(209, 162, 162); */
@@ -29,7 +33,8 @@
   padding: 40px;
   margin-bottom: 10px;
 }
-.mainmiddle1-1 > div {
+
+.mainmiddle1-1>div {
   border-radius: 40px;
   background-color: white;
   display: flex;
@@ -43,10 +48,12 @@
   width: 100%;
   height: 100%;
 }
-.mainmiddle1-1 > div:hover {
+
+.mainmiddle1-1>div:hover {
   transform: translateY(-15px);
 }
-.mainmiddle1-1 > div > img {
+
+.mainmiddle1-1>div>img {
   order: 1;
 }
 
@@ -59,6 +66,7 @@
   display: flex;
   flex-direction: row;
 }
+
 .mainmiddle2-1 {
   background-color: #f9f9f9;
   width: 600px;
@@ -81,6 +89,7 @@
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
   margin-left: 10px;
 }
+
 .calisttable {
   max-height: 350px;
   overflow-y: auto;
@@ -90,6 +99,7 @@
   /*  background-color: rgb(166, 145, 110); */
   height: 700px;
 }
+
 /* .mainmiddle3-1 {
   margin: 0 auto;
   background-color: rgb(251, 228, 228);
@@ -122,25 +132,31 @@
   border-radius: 30px;
   box-shadow: 0 5px 0px rgba(0, 0, 0, 0.5);
   display: flex;
-  /* justify-content: center; */ /* 수평 가운데 정렬 */
-  align-items: center; /* 수직 가운데 정렬 */
+  /* justify-content: center; */
+  /* 수평 가운데 정렬 */
+  align-items: center;
+  /* 수직 가운데 정렬 */
   border: 1px solid rgb(122, 123, 122);
 }
+
 .partycard img {
   margin-left: 30px;
 }
+
 .partycontent {
   /*   background-color: #efe8e4; */
   width: 330px;
   height: 80%;
   margin-left: 30px;
 }
+
 .mainmiddle4 {
   /*   background-color: rgba(149, 158, 186, 0.549); */
   height: 400px;
   width: 1200px;
   margin: 0 auto;
 }
+
 .saycard {
   /*   background-color: rgba(214, 202, 181, 0.842); */
   height: 300px;
@@ -148,18 +164,68 @@
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
 .incard {
   background-color: rgb(249, 249, 249);
   height: 100%;
   width: 90%;
   border-radius: 30px;
 
-  display: flex; /* flexbox 사용 */
-  /*  justify-content: center;  */ /* 수평 가운데 정렬 */
-  align-items: center; /* 수직 가운데 정렬 */
+  display: flex;
+  /* flexbox 사용 */
+  /*  justify-content: center;  */
+  /* 수평 가운데 정렬 */
+  align-items: center;
+  /* 수직 가운데 정렬 */
   margin: 0 auto;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
 }
+
 .incard img {
   margin-left: 20px;
+}
+
+/* 메인카드 추가 */
+
+.mainmiddle3 p {
+  text-align: left;
+  clear: both;
+  padding:0;
+  margin-bottom: 7px;
+  font-weight: bold;
+}
+
+.partycard {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 2px 2px rgba(12, 80, 95, 0.4);
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  border: 3px solid rgb(21, 151, 180);
+}
+
+.partycontent p:nth-child(1) {
+  /* background-color: red; */
+  display: inline;
+  float: left;
+  padding: 5px 20px;
+  font-size: 16px;
+  border-radius: 15px;
+  margin-top: 15px;
+}
+
+.cardTitle {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.mainmiddle3 a{
+  text-decoration: none;
+  color: #000;
+}
+
+.mainmiddle3 a:hover{
+  color: orange;
+  /* background-color: #171c4b; */
 }

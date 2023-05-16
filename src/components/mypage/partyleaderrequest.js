@@ -7,6 +7,10 @@ import { useEffect } from "react";
 import sampleimg from './sample.png';
 import loading from './loading.gif';
 
+// 추가
+import { auth, db, firebasePhotoApp, storage } from "../firebasePhoto";
+import { getStorage, ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
+
 function Partyrequest() {
 
     let history = useNavigate();
@@ -23,6 +27,11 @@ function Partyrequest() {
     const [memid, setMemid] = useState("");
     const [changeimg, setChangimg] = useState(false);
 
+    // 추가
+    const [imageUpload, setImageUpload] = useState(null);
+    const [image, setImage] = useState("");
+    const [imageurl, setImageurl] = useState(null);
+    const storage = getStorage(firebasePhotoApp);
 
     useEffect(() => {
         function loginfnc() {
@@ -42,6 +51,7 @@ function Partyrequest() {
 
     function imageLoad() {
         setChangimg(true);
+
         const file = imgRef.current.files[0];
         const reader = new FileReader();
 
@@ -50,6 +60,11 @@ function Partyrequest() {
             setImgFile(reader.result);
         }
     }
+
+    const handleImageUpload = (event) => {
+        setImageUpload(event.target.files[0]);
+        imageLoad();
+    };
 
     function nameTrim(msg) {
         return msg.trim();
@@ -113,11 +128,18 @@ function Partyrequest() {
         }
     }
 
-    function ocrInform(event) {
+    async function ocrInform(event) {
         event.preventDefault();
         // alert("확인용");
-
         const cardData = new FormData();
+
+        const imageRef = ref(storage, `images/${imageUpload.name}`);
+        const snapshot = await uploadBytes(imageRef, imageUpload);
+        await getDownloadURL(snapshot.ref).then((url) => {
+            cardData.append("imageurl", url);
+            console.log("imgurl : " + url);
+        });
+
         cardData.append("memid", memid);
         cardData.append("idname", idname);
         cardData.append("idbirth", idbirth);
@@ -126,7 +148,14 @@ function Partyrequest() {
         cardData.append("idpublic", publicinstitution);
         cardData.append("idimage", imgFile);
 
-        console.log(cardData);
+        console.log(cardData.imageurl);
+
+        if (document.frm.uploadFile.files[0] == null || document.frm.uploadFile.files[0] == "") {
+            cardData.append("uploadFile", "basic");
+        } else {
+            console.log(document.frm.uploadFile.files[0].name);
+            cardData.append("uploadFile", document.frm.uploadFile.files[0]);
+        }
 
         axios.post("http://118.67.132.98:3000/partyleader", cardData)
             .then(function (res) {
@@ -179,58 +208,58 @@ function Partyrequest() {
             //         </form>
             //     </div>
             <div>
-                {isLoading && <div><p style={{padding:"10px 0",fontWeight:"bold"}}>Loading...</p> <img src={loading} alt="로딩중" /></div>}
-                {!isLoading && resp.length === 0 && changeimg && <p style={{padding:"10px 0",fontWeight:"bold"}}>불러온 정보가 없습니다.</p>}
+                {isLoading && <div><p style={{ padding: "10px 0", fontWeight: "bold" }}>Loading...</p> <img src={loading} alt="로딩중" /></div>}
+                {!isLoading && resp.length === 0 && changeimg && <p style={{ padding: "10px 0", fontWeight: "bold" }}>불러온 정보가 없습니다.</p>}
                 {!isLoading && resp.length !== 0 && !changeimg && (
                     <div>
-                        <form name="ocrInform" onSubmit={ocrInform} encType="multipart/form-data" style={{marginTop:"10px"}}>
-                            <table style={{width:"600px", margin:"0 auto",border:"1px solid #c0c0c0", marginTop:"25px"}} className="ocrinformtable">
+                        <form name="ocrInform" onSubmit={ocrInform} encType="multipart/form-data" style={{ marginTop: "10px" }}>
+                            <table style={{ width: "600px", margin: "0 auto", border: "1px solid #c0c0c0", marginTop: "25px" }} className="ocrinformtable">
                                 <tbody>
                                     <tr>
-                                        <th style={{border:"1px solid #c0c0c0"}}>아이디</th>
-                                        <td style={{border:"1px solid #c0c0c0"}}>
+                                        <th style={{ border: "1px solid #c0c0c0" }}>아이디</th>
+                                        <td style={{ border: "1px solid #c0c0c0" }}>
                                             {/* <input type="text" name="memid" value={memid} /> */}
-                                            <Form.Control type="text"  name="memid" value={memid} readOnly style={{width:"90%", margin:"0 auto"}}/>
+                                            <Form.Control type="text" name="memid" value={memid} readOnly style={{ width: "90%", margin: "0 auto" }} />
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th style={{border:"1px solid #c0c0c0"}}>{resp.images[0].title.name}</th>
-                                        <td style={{border:"1px solid #c0c0c0"}}>
+                                        <th style={{ border: "1px solid #c0c0c0" }}>{resp.images[0].title.name}</th>
+                                        <td style={{ border: "1px solid #c0c0c0" }}>
                                             {/* <input value={idname} name="idname" /> */}
-                                            <Form.Control type="text"  value={idname} name="idname" readOnly style={{width:"90%", margin:"0 auto"}}/>
+                                            <Form.Control type="text" value={idname} name="idname" readOnly style={{ width: "90%", margin: "0 auto" }} />
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th style={{border:"1px solid #c0c0c0"}}>{resp.images[0].fields[0].name}</th>
-                                        <td style={{border:"1px solid #c0c0c0"}}>
+                                        <th style={{ border: "1px solid #c0c0c0" }}>{resp.images[0].fields[0].name}</th>
+                                        <td style={{ border: "1px solid #c0c0c0" }}>
                                             {/* <input value={idbirth} name="idbirth" /> */}
-                                            <Form.Control type="text"  value={idbirth} name="idbirth" readOnly style={{width:"90%", margin:"0 auto"}}/>
+                                            <Form.Control type="text" value={idbirth} name="idbirth" readOnly style={{ width: "90%", margin: "0 auto" }} />
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th style={{border:"1px solid #c0c0c0"}}>{resp.images[0].fields[1].name}</th>
-                                        <td style={{border:"1px solid #c0c0c0"}}>
+                                        <th style={{ border: "1px solid #c0c0c0" }}>{resp.images[0].fields[1].name}</th>
+                                        <td style={{ border: "1px solid #c0c0c0" }}>
                                             {/* <input value={idaddress} name="idaddress" /> */}
-                                            <Form.Control type="text"  value={idaddress} name="idaddress" readOnly style={{width:"90%", margin:"0 auto"}}/>
+                                            <Form.Control type="text" value={idaddress} name="idaddress" readOnly style={{ width: "90%", margin: "0 auto" }} />
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th style={{border:"1px solid #c0c0c0"}}>{resp.images[0].fields[2].name}</th>
-                                        <td style={{border:"1px solid #c0c0c0"}}>
+                                        <th style={{ border: "1px solid #c0c0c0" }}>{resp.images[0].fields[2].name}</th>
+                                        <td style={{ border: "1px solid #c0c0c0" }}>
                                             {/* <input type="date" value={iddate} name="iddate" /> */}
-                                            <Form.Control type="date"  value={iddate} name="iddate" readOnly style={{width:"90%", margin:"0 auto"}}/>
+                                            <Form.Control type="date" value={iddate} name="iddate" readOnly style={{ width: "90%", margin: "0 auto" }} />
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th style={{border:"1px solid #c0c0c0"}}>{resp.images[0].fields[3].name}</th>
-                                        <td style={{border:"1px solid #c0c0c0"}}>
+                                        <th style={{ border: "1px solid #c0c0c0" }}>{resp.images[0].fields[3].name}</th>
+                                        <td style={{ border: "1px solid #c0c0c0" }}>
                                             {/* <input value={publicinstitution} name="idpublic" /> */}
-                                            <Form.Control type="text" value={publicinstitution} name="idpublic" readOnly style={{width:"90%", margin:"0 auto"}}/>
+                                            <Form.Control type="text" value={publicinstitution} name="idpublic" readOnly style={{ width: "90%", margin: "0 auto" }} />
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <Button variant="primary" type="submit" style={{marginTop:"20px"}}>파티장 승급 신청</Button>
+                            <Button variant="primary" type="submit" style={{ marginTop: "20px" }}>파티장 승급 신청</Button>
                             {/* <button type="submit">파티장 승급 신청</button> */}
                             {/* <ul>                                                        
                                 <li> 아이디 : <input type="text" name="memid" value={memid} /></li>
@@ -274,17 +303,21 @@ function Partyrequest() {
 
 
     return (
-        <div style={{paddingTop:"20px"}}>
-            <h3 style={{fontWeight:"bold"}}>파티장 승인 절차</h3>
-            <p style={{padding:"5px 0"}}>예시 사진 처럼 주민등록번호 뒷자리는 가리고 올려주시길 바랍니다. </p>
+        <div style={{ paddingTop: "20px" }}>
+            <h3 style={{ fontWeight: "bold" }}>파티장 승인 절차</h3>
+            <p style={{ padding: "5px 0" }}>예시 사진 처럼 주민등록번호 뒷자리는 가리고 올려주시길 바랍니다. </p>
             <form name="frm" onSubmit={onSubmit} encType="multipart/form-data">
                 {/* <input type="file" name="uploadFile" onChange={imageLoad} ref={imgRef} /><br /> */}
-                <Form.Control type="file" name="uploadFile" onChange={imageLoad} ref={imgRef} className="idcardimg" style={{ width: "25%", margin: "0 auto" }} />
+                <Form.Control type="file" name="uploadFile" onChange={handleImageUpload} ref={imgRef} className="idcardimg" style={{ width: "25%", margin: "0 auto" }} />
                 <img src={imgFile} alt="사진" style={{ width: "400px", margin: "20px 0 10px", border: "1px solid black", borderRadius: "10px" }} />
                 <hr />
-                {resp.length === 0 || changeimg ? (<Button variant="primary" type="submit">정보 가져오기</Button>):null}
+                {resp.length === 0 || changeimg ? (<Button variant="primary" type="submit">정보 가져오기</Button>) : null}
                 {/* <input type="submit" value="전송" /> */}
             </form>
+
+            {/* <form name="frm" onSubmit={writeFreeBbs} encType="multipart/form-data">
+                <input type="file" onChange={handleImageUpload} ref={imgRef} name="uploadFile" />
+            </form> */}
 
             {/* <p>{idname}</p>
             <p>{idbirth}</p>

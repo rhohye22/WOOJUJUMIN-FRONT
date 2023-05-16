@@ -6,6 +6,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import MapContainer from "./mapcontainer/MapContainer";
+import { auth, db, firebasePhotoApp, storage } from "./firebasePhoto";
+import { getStorage, ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
+
 function Partybbsupdate() {
   let params = useParams("");
   let history = useNavigate();
@@ -31,6 +34,11 @@ function Partybbsupdate() {
 
   const [image, setImage] = useState("");
   const imgRef = useRef();
+
+  const [imageUpload, setImageUpload] = useState(null);
+  const [imageurl, setImageurl] = useState(null);
+
+  const storage = getStorage(firebasePhotoApp);
 
   function imageLoad() {
     const file = imgRef.current.files[0];
@@ -73,13 +81,16 @@ function Partybbsupdate() {
         if (response.data.image !== null) {
           setImage(response.data.image);
         }
+        if (response.data.imageurl !== null) {
+          setImageurl(response.data.imageurl);
+        }
       })
       .catch((error) => {
         console.log(error);
       });
   }, [params.seq]);
 
-  function updatepbs(e) {
+  const updatepbs = async (e) => {
     e.preventDefault();
 
     const formData = new FormData();
@@ -92,11 +103,18 @@ function Partybbsupdate() {
     formData.append("people", mnum);
     formData.append("image", image);
 
-    if (document.frm2.uploadFile.files[0] == null || document.frm2.uploadFile.files[0] == "") {
+    if (document.frm2.uploadFile.files[0] === null || document.frm2.uploadFile.files[0] === "") {
       formData.append("uploadFile", "basic");
+      formData.append("imageurl", imageurl);
     } else {
       console.log(document.frm2.uploadFile.files[0].name);
       formData.append("uploadFile", document.frm2.uploadFile.files[0]);
+      const imageRef = ref(storage, `images/${imageUpload.name}`);
+      const snapshot = await uploadBytes(imageRef, imageUpload);
+      await getDownloadURL(snapshot.ref).then((url) => {
+        formData.append("imageurl", url);
+        console.log("imgurl : " + url);
+      });
     }
 
     axios
@@ -115,7 +133,12 @@ function Partybbsupdate() {
         alert("에러");
       });
   }
-  const imageUrl = image == pbsdetail.image ? `http://118.67.132.98:3000/upload/partybbs/${image}` : image;
+  //const imageUrl = image == pbsdetail.image ? `http://118.67.132.98:3000/upload/partybbs/${image}` : image;
+
+  const handleImageUpload = (event) => {
+    setImageUpload(event.target.files[0]);
+    imageLoad();
+  };
 
   return (
     <div>
@@ -224,17 +247,17 @@ function Partybbsupdate() {
               <tr align="left">
                 <td colSpan={2}>
                   <form name="frm2" onSubmit={updatepbs} encType="multipart/form-data">
-                    <input type="file" onChange={imageLoad} ref={imgRef} name="uploadFile" />
+                    <input type="file" onChange={handleImageUpload} ref={imgRef} name="uploadFile" />
                   </form>
                 </td>
               </tr>
               <tr style={{ border: "none" }}>
                 <td style={{ border: "none" }} colSpan={2}>
-                  {imageUrl !== "" && imageUrl !== null ? (
+                  {imageurl !== "" && imageurl !== null ? (
                     <div>
                       <div>
                         <img
-                          src={imageUrl}
+                          src={imageurl}
                           alt="no image"
                           style={{
                             width: 500,
