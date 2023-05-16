@@ -23,7 +23,7 @@ function BookCrawling() {
     const fetchData = async () => {
       const path = "/woojujumin/WOOJUJUMIN-FRONT/src/components/crawlingimages";
       await axios
-        .get("http://118.67.132.98:3000/bookchart", { params: {path:path} })
+        .get("http://localhost:3000/bookchart", { params: {path:path} })
         .then(function(res) {
           console.log(res.data);
           setBooktitle(res.data.sendtitles);
@@ -37,7 +37,7 @@ function BookCrawling() {
 
     const talkData = async () => {
       await axios
-        .get("http://118.67.132.98:3000/alltalkcomment", { params: { category: 2 } })
+        .get("http://localhost:3000/alltalkcomment", { params: { category: 2 } })
         .then(function(res) {
           console.log(res.data);
           console.log(res.data.slice(0, 10));
@@ -56,38 +56,38 @@ function BookCrawling() {
     talkData();
   }, []);
 
-  let importimg = [];
+  // let importimg = [];
 
   function Booklist(props) {
     const { titles, datas, images } = props;
-    let imagePath = [];
+  //   let imagePath = [];
 
-    if (images.length === 0) {
-      return (
-        <div>
-          <p>이미지를 불러오고 있습니다...</p>
-        </div>
-      );
-    }
+  //   if (images.length === 0) {
+  //     return (
+  //       <div>
+  //         <p>이미지를 불러오고 있습니다...</p>
+  //       </div>
+  //     );
+  //   }
 
-    bookimages.map((img, index) => {
-      let imageload = "";
-      imageload = bookimages[index].split("\\");
-      importimg.push(imageload[imageload.length - 1]);
-    });
+  //   bookimages.map((img, index) => {
+  //     let imageload = "";
+  //     imageload = bookimages[index].split("\\");
+  //     importimg.push(imageload[imageload.length - 1]);
+  //   });
 
     // importimg.map((img, index) => {
     //     imagePath.push(require('../crawlingimages/' + importimg[index]));
 
     // })
 
-    importimg.map((img, index) => {
-      try {
-        imagePath.push(require("../crawlingimages/" + importimg[index]));
-      } catch (error) {
-        imagePath.push(defaultimg); // 이미지 대신 null 값을 추가합니다.
-      }
-    });
+    // importimg.map((img, index) => {
+    //   try {
+    //     imagePath.push(require("../crawlingimages/" + importimg[index]));
+    //   } catch (error) {
+    //     imagePath.push(defaultimg); // 이미지 대신 null 값을 추가합니다.
+    //   }
+    // });
 
     // console.log("확인용" + titles);
     // console.log("확인용" + datas);
@@ -99,7 +99,7 @@ function BookCrawling() {
             <p style={{ float: "left" }}>
               <i>{index + 1}</i>
             </p>
-            <img src={imagePath[index]} alt={title} className="bookimg" />
+            <img src={bookimages[index]} alt={title} className="bookimg" />
             <div className="bookinform">
               {/* <p><i>{index + 1}</i></p> */}
               <h2>{title}</h2>
@@ -138,13 +138,13 @@ function BookCrawling() {
 
     // alert(id);
 
-        axios.post("http://118.67.132.98:3000/talkcomment", null, { params: { "talkid": id, "talkcomment": comment, "category": 2 } })
+        axios.post("http://localhost:3000/talkcomment", null, { params: { "talkid": id, "talkcomment": comment, "category": 2 } })
             .then(function (res) {
                 // alert(res.data);
                 if (res.data === "YES") {
                     const fetchTalkData = async () => {
                         try {
-                            const res = await axios.get("http://118.67.132.98:3000/alltalkcomment", { params: { "category": 2 } });
+                            const res = await axios.get("http://localhost:3000/alltalkcomment", { params: { "category": 2 } });
                             setTalks(res.data.slice(0, 10));
                             setComment("");
                             setIndexCom(1);
@@ -184,7 +184,7 @@ function BookCrawling() {
     console.log(numLoadedComments);
 
     await axios
-      .get("http://118.67.132.98:3000/alltalkcomment", { params: { category: 2 } })
+      .get("http://localhost:3000/alltalkcomment", { params: { category: 2 } })
       .then((res) => {
         // const newTalks = res.data.slice((indexCom*10)+1, (indexCom)*20);
         // setTalks([...talks.slice(0, 10), ...newTalks]);

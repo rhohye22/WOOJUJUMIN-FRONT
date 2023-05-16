@@ -28,7 +28,7 @@ function Musiccrawling() {
     const fetchData = async () => {
       const path = "/woojujumin/WOOJUJUMIN-FRONT/src/components/crawlingimages/musicimages";
       await axios
-        .get("http://118.67.132.98:3000/musicchart", { params: {path:path} })
+        .get("http://localhost:3000/musicchart", { params: {path:path} })
         .then(function(res) {
           console.log(res.data);
           console.log(res.data.sendsingers);
@@ -44,7 +44,7 @@ function Musiccrawling() {
 
     const talkData = async () => {
       await axios
-        .get("http://118.67.132.98:3000/alltalkcomment", { params: { category: 4 } })
+        .get("http://localhost:3000/alltalkcomment", { params: { category: 4 } })
         .then(function(res) {
           console.log(res.data);
           console.log(res.data.slice(0, 10));
@@ -68,29 +68,29 @@ function Musiccrawling() {
   function Musiclist(props) {
     const { titles, singers, albums, images } = props;
 
-    let imagePath = [];
+    // let imagePath = [];
 
-    if (images.length === 0) {
-      return (
-        <div>
-          <p>이미지를 불러오고 있습니다...</p>
-        </div>
-      );
-    }
+    // if (images.length === 0) {
+    //   return (
+    //     <div>
+    //       <p>이미지를 불러오고 있습니다...</p>
+    //     </div>
+    //   );
+    // }
 
-    imageslist.map((img, index) => {
-      let imageload = "";
-      imageload = imageslist[index].split("\\");
-      importimg.push(imageload[imageload.length - 1]);
-    });
+    // imageslist.map((img, index) => {
+    //   let imageload = "";
+    //   imageload = imageslist[index].split("\\");
+    //   importimg.push(imageload[imageload.length - 1]);
+    // });
 
-    importimg.map((img, index) => {
-      try {
-        imagePath.push(require("../crawlingimages/musicimages/" + importimg[index]));
-      } catch (error) {
-        imagePath.push(defaultimg); // 이미지 대신 null 값을 추가합니다.
-      }
-    });
+    // importimg.map((img, index) => {
+    //   try {
+    //     imagePath.push(require("../crawlingimages/musicimages/" + importimg[index]));
+    //   } catch (error) {
+    //     imagePath.push(defaultimg); // 이미지 대신 null 값을 추가합니다.
+    //   }
+    // });
 
     // console.log("여기까지 오는거 확인"+singers);
     // console.log("여기까지 오는거 확인"+albums);
@@ -117,7 +117,7 @@ function Musiccrawling() {
               <tr key={i}>
                 <td>{i + 1}</td>
                 <td>
-                  <img src={imagePath[i]} alt={title} />
+                  <img src={imageslist[i]} alt={title} style={{width:"100px"}}/>
                   <p className="songname">{title}</p>
                 </td>
                 <td>
@@ -169,13 +169,13 @@ function Musiccrawling() {
 
     // alert(id);
 
-        axios.post("http://118.67.132.98:3000/talkcomment", null, { params: { "talkid": id, "talkcomment": comment, "category": 4 } })
+        axios.post("http://localhost:3000/talkcomment", null, { params: { "talkid": id, "talkcomment": comment, "category": 4 } })
             .then(function (res) {
                 // alert(res.data);
                 if (res.data === "YES") {
                     const fetchTalkData = async () => {
                         try {
-                            const res = await axios.get("http://118.67.132.98:3000/alltalkcomment", { params: { "category": 4 } });
+                            const res = await axios.get("http://localhost:3000/alltalkcomment", { params: { "category": 4 } });
                             setTalks(res.data.slice(0, 10));
                             setComment("");
                             setIndexCom(1);
@@ -215,7 +215,7 @@ function Musiccrawling() {
     console.log(numLoadedComments);
 
     await axios
-      .get("http://118.67.132.98:3000/alltalkcomment", { params: { category: 4 } })
+      .get("http://localhost:3000/alltalkcomment", { params: { category: 4 } })
       .then((res) => {
         // const newTalks = res.data.slice((indexCom*10)+1, (indexCom)*20);
         // setTalks([...talks.slice(0, 10), ...newTalks]);

@@ -40,7 +40,7 @@ function Localeventcrawling() {
     const fetchData = async () => {
       const path = "/woojujumin/WOOJUJUMIN-FRONT/src/components/crawlingimages";
       await axios
-        .get("http://118.67.132.98:3000/localevent", { params: {path:path} })
+        .get("http://localhost:3000/localevent", { params: {path:path} })
         .then(function(res) {
           console.log(res.data);
           setOnetitles(res.data.onepage.sendtitles);
@@ -65,7 +65,7 @@ function Localeventcrawling() {
 
     const talkData = async () => {
       await axios
-        .get("http://118.67.132.98:3000/alltalkcomment", { params: { category: 3 } })
+        .get("http://localhost:3000/alltalkcomment", { params: { category: 3 } })
         .then(function(res) {
           console.log(res.data);
           console.log(res.data.slice(0, 10));
@@ -90,40 +90,40 @@ function Localeventcrawling() {
 
   function FestivallistOne(props) {
     const { titles, informations, dates, images } = props;
-    let imagePath = [];
+    // let imagePath = [];
 
-    if (images.length === 0) {
-      return (
-        <div>
-          <p>이미지를 불러오고 있습니다...</p>
-        </div>
-      );
-    }
+    // if (images.length === 0) {
+    //   return (
+    //     <div>
+    //       <p>이미지를 불러오고 있습니다...</p>
+    //     </div>
+    //   );
+    // }
 
-    oneimages.map((img, index) => {
-      let imageload = "";
-      imageload = oneimages[index].split("\\");
-      importimgOne.push(imageload[imageload.length - 1]);
-    });
+    // oneimages.map((img, index) => {
+    //   let imageload = "";
+    //   imageload = oneimages[index].split("\\");
+    //   importimgOne.push(imageload[imageload.length - 1]);
+    // });
 
     // importimgOne.map((img, index) => {
     //     imagePath.push(require('../crawlingimages/' + importimgOne[index]));
 
     // })
 
-    importimgOne.map((img, index) => {
-      try {
-        imagePath.push(require("../crawlingimages/" + importimgOne[index]));
-      } catch (error) {
-        imagePath.push(defaultimg); // 이미지 대신 null 값을 추가합니다.
-      }
-    });
+    // importimgOne.map((img, index) => {
+    //   try {
+    //     imagePath.push(require("../crawlingimages/" + importimgOne[index]));
+    //   } catch (error) {
+    //     imagePath.push(defaultimg); // 이미지 대신 null 값을 추가합니다.
+    //   }
+    // });
 
     return (
       <div className="eventAll firstevent">
         {titles.map((title, i) => (
           <div key={i} className="eventOne">
-            <img src={imagePath[i]} alt={title} />
+            <img src={oneimages[i]} alt={title} />
             <div className="eventinform">
               <h3>{title}</h3>
               <p>{dot3(oneinform[i])}</p>
@@ -158,40 +158,40 @@ function Localeventcrawling() {
 
   function FestivallistTwo(props) {
     const { titles, informations, dates, images } = props;
-    let imagePath = [];
+    // let imagePath = [];
 
-    if (images.length === 0) {
-      return (
-        <div>
-          <p>이미지를 불러오고 있습니다...</p>
-        </div>
-      );
-    }
+    // if (images.length === 0) {
+    //   return (
+    //     <div>
+    //       <p>이미지를 불러오고 있습니다...</p>
+    //     </div>
+    //   );
+    // }
 
-    twoimages.map((img, index) => {
-      let imageload = "";
-      imageload = images[index].split("\\");
-      importimgTwo.push(imageload[imageload.length - 1]);
-    });
+    // twoimages.map((img, index) => {
+    //   let imageload = "";
+    //   imageload = images[index].split("\\");
+    //   importimgTwo.push(imageload[imageload.length - 1]);
+    // });
 
     // importimgTwo.map((img, index) => {
     //     imagePath.push(require('../crawlingimages/' + importimgTwo[index]));
 
     // })
 
-    importimgTwo.map((img, index) => {
-      try {
-        imagePath.push(require("../crawlingimages/" + importimgTwo[index]));
-      } catch (error) {
-        imagePath.push(defaultimg); // 이미지 대신 null 값을 추가합니다.
-      }
-    });
+    // importimgTwo.map((img, index) => {
+    //   try {
+    //     imagePath.push(require("../crawlingimages/" + importimgTwo[index]));
+    //   } catch (error) {
+    //     imagePath.push(defaultimg); // 이미지 대신 null 값을 추가합니다.
+    //   }
+    // });
 
     return (
       <div className="eventAll">
         {titles.map((title, i) => (
           <div key={i} className="eventOne">
-            <img src={imagePath[i]} alt={title} />
+            <img src={twoimages[i]} alt={title} />
             <div className="eventinform">
               <h3>{title}</h3>
               <p>{dot3(twoinform[i])}</p>
@@ -225,40 +225,40 @@ function Localeventcrawling() {
 
   function FestivallistThree(props) {
     const { titles, informations, dates, images } = props;
-    let imagePath = [];
+    // let imagePath = [];
 
-    if (images.length === 0) {
-      return (
-        <div>
-          <p>이미지를 불러오고 있습니다...</p>
-        </div>
-      );
-    }
+    // if (images.length === 0) {
+    //   return (
+    //     <div>
+    //       <p>이미지를 불러오고 있습니다...</p>
+    //     </div>
+    //   );
+    // }
 
-    threeimages.map((img, index) => {
-      let imageload = "";
-      imageload = threeimages[index].split("\\");
-      importimgThree.push(imageload[imageload.length - 1]);
-    });
+    // threeimages.map((img, index) => {
+    //   let imageload = "";
+    //   imageload = threeimages[index].split("\\");
+    //   importimgThree.push(imageload[imageload.length - 1]);
+    // });
 
     // importimgThree.map((img, index) => {
     //     imagePath.push(require('../crawlingimages/' + importimgThree[index]));
 
     // })
 
-    importimgThree.map((img, index) => {
-      try {
-        imagePath.push(require("../crawlingimages/" + importimgThree[index]));
-      } catch (error) {
-        imagePath.push(defaultimg); // 이미지 대신 null 값을 추가합니다.
-      }
-    });
+    // importimgThree.map((img, index) => {
+    //   try {
+    //     imagePath.push(require("../crawlingimages/" + importimgThree[index]));
+    //   } catch (error) {
+    //     imagePath.push(defaultimg); // 이미지 대신 null 값을 추가합니다.
+    //   }
+    // });
 
     return (
       <div className="eventAll">
         {titles.map((title, i) => (
           <div key={i} className="eventOne">
-            <img src={imagePath[i]} alt={title} />
+            <img src={threeimages[i]} alt={title} />
             <div className="eventinform">
               <h3>{title}</h3>
               <p>{dot3(threeinform[i])}</p>
@@ -320,13 +320,13 @@ function Localeventcrawling() {
 
     // alert(id);
 
-        axios.post("http://118.67.132.98:3000/talkcomment", null, { params: { "talkid": id, "talkcomment": comment, "category": 3 } })
+        axios.post("http://localhost:3000/talkcomment", null, { params: { "talkid": id, "talkcomment": comment, "category": 3 } })
             .then(function (res) {
                 // alert(res.data);
                 if (res.data === "YES") {
                     const fetchTalkData = async () => {
                         try {
-                            const res = await axios.get("http://118.67.132.98:3000/alltalkcomment", { params: { "category": 3 } });
+                            const res = await axios.get("http://localhost:3000/alltalkcomment", { params: { "category": 3 } });
                             setTalks(res.data.slice(0, 10));
                             setComment("");
                             setIndexCom(1);
@@ -366,7 +366,7 @@ function Localeventcrawling() {
     console.log(numLoadedComments);
 
     await axios
-      .get("http://118.67.132.98:3000/alltalkcomment", { params: { category: 3 } })
+      .get("http://localhost:3000/alltalkcomment", { params: { category: 3 } })
       .then((res) => {
         // const newTalks = res.data.slice((indexCom*10)+1, (indexCom)*20);
         // setTalks([...talks.slice(0, 10), ...newTalks]);
