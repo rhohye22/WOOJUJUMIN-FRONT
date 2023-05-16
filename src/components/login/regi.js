@@ -4,7 +4,7 @@ import axios from "axios";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db, storage } from "../../firebase";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytesResumable, getDownloadURL, getStorage } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 import KakaoLogin from "react-kakao-login";
 // npm install react-kakao-login
@@ -135,7 +135,7 @@ function Regi() {
     console.log("pwd : " + chatPwd);
     const displayName = nickname;
     const file = document.frm.uploadFile.files[0];
-    console.log(file);
+    console.log('파일이름? '+file);
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password); // 계정생성
       //const storageRef = ref(storage, `avatars/${res.user.uid}/${fileId}`);
@@ -536,7 +536,6 @@ function Regi() {
       <input value={juso} readOnly /> */}
 
       {/* 프로필 사진 등록 */}
-      
       <Row className="justify-content-md-center">
       <Col md={3}>
       <Form.Group className="mb-3">
