@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import Button from "react-bootstrap/Button";
@@ -20,7 +20,6 @@ import Login from "./components/login/login";
 import Main from "./components/main/main";
 import SocialHandler from "./components/social/socialHandler";
 
-import AccountInfo from "./components/mypage/accountInfo";
 import MessageInfo from "./components/messageInfo";
 import SendMessageInfo from "./components/sendMessageInfo";
 import Home from "./pages/Home";
@@ -66,14 +65,12 @@ import PartyLeaderresult from "./components/mypage/partyleaderresult";
 
 function App() {
   // 로그인 상태 관리
-  
   const [log, setLog] = useState(null);
   const [nickname, setNickname] = useState("");
   const { currentUser } = useContext(AuthContext);
   const [profile, setProfile] = useState("");
   const [cardcheck, setCardcheck] = useState("");
-  //const location = useLocation();
-  //const tmp = { ...location.state };
+  const [id, setId] = useState('');
 
   function loghandle() {
     localStorage.clear();
@@ -94,6 +91,7 @@ function App() {
       const loginInfo = JSON.parse(localStorage.getItem("login"));
       setNickname(loginInfo.nickname);
       setProfile(loginInfo.profile);
+      setId(loginInfo.id);
       console.log(localStorage.getItem("login"));
     }
   }, [log]);
@@ -149,7 +147,10 @@ function App() {
               <span>회원이 아닌가요?</span>
             ) : (
               <span>
-                <img src={`http://localhost3000/upload/member/${profile}`} style={{ width: "30px", height: "30px", borderRadius: "50%", background: "white" }} />
+                {id.substring(0,5) === 'kakao' ?
+                  <img src={profile} style={{ width: "30px", height: "30px", borderRadius: "50%", background: "white" }} />
+                  : <img src={currentUser.photoURL} style={{ width: "30px", height: "30px", borderRadius: "50%", background: "white" }} />
+                }
                 &nbsp;&nbsp;{nickname}님
               </span>
             )}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import chatbot from "./image/free-icon-chatbot-6819697.png";
 import ChatBot from "react-simple-chatbot";
 // npm install react-simple-chatbot --save
@@ -8,18 +8,24 @@ import { ThemeProvider } from "styled-components";
 // npm install styled-components
 import { Link } from "react-router-dom";
 import Ans from "./chatbot/chatbot";
+import { AuthContext } from "../context/AuthContext";
 
 function ChatbotModal() {
   const [profile, setProfile] = useState('');
+  const { currentUser } = useContext(AuthContext);
+  const [id, setId] = useState('');
+  const [log, setLog] = useState(false);
 
   // login 되어 있는지 검사
   useEffect(() => {
     let login = JSON.parse(localStorage.getItem("login"));
     if (login === null || login === undefined) {
+      setLog(true);
       setProfile('basic.png');
     } else {
       // 빈칸이 아닐때
       setProfile(login.profile);
+      setId(login.id);
       //console.log(profile);
     }
   }, []);
@@ -424,8 +430,10 @@ function ChatbotModal() {
         >
           <ThemeProvider theme={theme}>
             <ChatBot recognitionEnable={true} recognitionLang='ko'
-              steps={steps} hideHeader={false} headerTitle="미리내"
-              userAvatar={`http://118.67.132.98:3000/upload/member/${profile}`} botAvatar={chatbot} />
+              steps={steps} hideHeader={false} headerTitle="미리내" botAvatar={chatbot}
+              userAvatar={log ? null :
+                (id.substring(0,5) === 'kakao' ?
+                profile : currentUser.photoURL)} />
           </ThemeProvider>
           <br />
           <button onClick={handleButtonClick2}>닫기</button>
