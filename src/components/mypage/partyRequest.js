@@ -132,7 +132,7 @@ function PartyRequest() {
                       >
                         {bbs.image !== null ? (
                           <img
-                            src={`http://118.67.132.98:3000/upload/partybbs/${bbs.image}`}
+                          src={bbs.imageurl}
                             alt="free image"
                             style={{
                               width: 40,
