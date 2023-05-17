@@ -36,7 +36,9 @@ function PartyAccept() {
 
   function myPartyList(page) {
     axios
+
       .get("http://118.67.132.98:3000/myPartyList", { params: { pageNumber: page, id: id } })
+
       .then(function(resp) {
         //console.log(resp.data);
         setPartyList(resp.data.list); // map을 return하기 때문(map 안에 list있음)
