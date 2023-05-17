@@ -130,9 +130,9 @@ function PartyRequest() {
                         }}
                         onClick={() => history(`/partybbsdetail/${bbs.partySeq}`)}
                       >
-                        {bbs.image !== null ? (
+                         {/* {bbs.profile && bbs.profile !== "" && bbs.profile !== "null" ? (
                           <img
-                          src={bbs.imageurl}
+                          src={bbs.profile}
                             alt="free image"
                             style={{
                               width: 40,
@@ -141,7 +141,7 @@ function PartyRequest() {
                               objectPosition: "center",
                             }}
                           />
-                        ) : null}
+                        ) : null} */}
                         &nbsp;&nbsp;
                         <div
                           style={{

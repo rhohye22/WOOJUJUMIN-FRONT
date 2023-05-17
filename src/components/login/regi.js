@@ -130,6 +130,7 @@ function Regi() {
   };
 
   const Account = async (e) => {
+    const formData = new FormData();
     if (isEmail === true && isPwd === true && isPwdchk === true && isPhone === true && isId === true && isNickname === true && isJuso === true && isProfile === true) {
       e.preventDefault();
       let chatPwd = password;
@@ -142,13 +143,19 @@ function Regi() {
         //const storageRef = ref(storage, `avatars/${res.user.uid}/${fileId}`);
         const storageRef = ref(storage, displayName);
         const uploadTask = uploadBytesResumable(storageRef, file);
+        const imageRef = ref(storage, `${file.name}`);
+       
 
         uploadTask.on(
           (error) => {
             // setErr(true);
           },
           async () => {
+
             await getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+              formData.append("imageurl", downloadURL);
+              alert("wefewfwefwe " + downloadURL);
+              console.log("imgurl : " + downloadURL);
               // 인증만 하는곳
               await updateProfile(res.user, {
                 displayName,
@@ -162,52 +169,51 @@ function Regi() {
                 photoURL: downloadURL,
               });
               await setDoc(doc(db, "userChats", res.user.uid), {});
-              const imageRef = ref(storage, `${file.name}`);
-              const snapshot = await uploadBytes(imageRef, file);
-              await getDownloadURL(snapshot.ref).then((url) => {
-                formData.append("imageurl", url);
-                console.log("imgurl : " + url);
-              });
+             
             });
+          
+          
+            formData.append("id", id);
+            formData.append("password", pwdchk);
+            formData.append("nickname", nickname);
+            formData.append("email", email);
+            formData.append("phoneNum", phonenum);
+            formData.append("address", juso);
+           
+            formData.append("uploadFile", document.frm.uploadFile.files[0]);
+            
+      
+            // let member = { "id":id, "password":password, "nickname":nickname, "email":email, "phoneNum":phonenum, "address":address, "uploadFile":formData };
+            axios
+              .post("http://118.67.132.98:3000/addmember", formData)
+              .then(function(resp) {
+                if (resp.data === "YES") {
+                  alert("정상적으로 가입되었습니다.");
+                  navigate("/login"); // 이동(link)
+                } else {
+                  alert("가입되지 않았습니다.");
+                }
+              })
+              .catch(function(err) {
+                alert(err);
+                alert("회원가입 에러");
+              });
+          
           }
+
+
+
         );
       } catch (err) {
         //setErr(true);
         alert(err);
       }
 
-      let formData = new FormData();
-      formData.append("id", id);
-      formData.append("password", pwdchk);
-      formData.append("nickname", nickname);
-      formData.append("email", email);
-      formData.append("phoneNum", phonenum);
-      formData.append("address", juso);
-      //if (document.frm.uploadFile.files[0].name === null || document.frm.uploadFile.files[0].name === "") {
-      //formData.append("uploadFile", "basic");
-      //} else {
-      //console.log(document.frm.uploadFile.files[0].name);
-      formData.append("uploadFile", document.frm.uploadFile.files[0]);
-      //}
       
-      // let member = { "id":id, "password":password, "nickname":nickname, "email":email, "phoneNum":phonenum, "address":address, "uploadFile":formData };
-      axios
-        .post("http://118.67.132.98:3000/addmember", formData)
-        .then(function(resp) {
-          if (resp.data === "YES") {
-            alert("정상적으로 가입되었습니다.");
-            navigate("/"); // 이동(link)
-          } else {
-            alert("가입되지 않았습니다.");
-          }
-        })
-        .catch(function(err) {
-          alert(err);
-          alert("회원가입 에러");
-        });
+  
     } else {
       alert("회원정보를 다시 살펴주세요");
-      navigate("/regi");
+     //navigate("/regi");
     }
   };
 
