@@ -87,8 +87,26 @@ function Partybbs() {
     let login = JSON.parse(localStorage.getItem("login"));
     if (login !== undefined) {
       // 빈칸이 아닐때
+      axios.post("http://118.67.132.98:3000/login", null, { params: { id: login.id, password: login.password }})
+        .then(function (resp) {
+        console.log(resp.data);
+        if (resp.data !== null && resp.data !== "") {
 
+          if(resp.data.auth !== 1){
+            alert("파티장신청인 완료된 유저만 모집 할 수 있습니다.");
+            history("/partybbslist");  
+          }
+
+        } else {
+          alert("id나 password를 확인하십시오");
+        }
+      })
+      .catch(function (err) {
+        alert(err);
+      });
+      //console.log(login)
       setId(login.id);
+      
     } else {
       // alert('로그인해 주십시오');
       history("/login");
