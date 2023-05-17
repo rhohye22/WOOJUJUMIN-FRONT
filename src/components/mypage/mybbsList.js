@@ -140,7 +140,7 @@ function MyBbsList() {
                       }}
                       onClick={() => history(`/partybbsdetail/${bbs.partySeq}`)}
                     >
-                      {bbs.image !== null ? (
+                      {/* {bbs.imageurl && bbs.imageurl !== "" && bbs.imageurl !== "null" ? (
                         <img
                         src= {bbs.imageurl}
                           alt="free image"
@@ -151,7 +151,7 @@ function MyBbsList() {
                             objectPosition: "center",
                           }}
                         />
-                      ) : null}
+                      ) : null} */}
                       &nbsp;&nbsp;
                       <div
                         style={{
@@ -173,8 +173,9 @@ function MyBbsList() {
                   <td align="center">{bbs.people}</td>
                   <td align="center">{bbs.wdate.substring(0, 10)}</td>
                   <td align="center">
-                    <img  src={bbs.imageurl} style={{ width: "20px", height: "20px", borderRadius: "50%" }} />
-                    {bbs.id}
+                  {/* {bbs.imageurl && bbs.imageurl !== "" && bbs.imageurl !== "null" ? (
+                    <img  src={bbs.imageurl} style={{ width: "20px", height: "20px", borderRadius: "50%" }} />): null}
+                    {bbs.id} */}
                   </td>
                 </tr>
               );

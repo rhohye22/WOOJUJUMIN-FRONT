@@ -36,7 +36,7 @@ function PartyAccept() {
 
   function myPartyList(page) {
     axios
-      .get("http://118.67.132.98:3000/myPartyList", { params: { pageNumber: page, id: id } })
+      .get("http://localhost:3000/myPartyList", { params: { pageNumber: page, id: id } })
       .then(function(resp) {
         //console.log(resp.data);
         setPartyList(resp.data.list); // map을 return하기 때문(map 안에 list있음)
@@ -49,7 +49,7 @@ function PartyAccept() {
   }
   const check = (partySeq, applyMem) => {
     axios
-      .get("http://118.67.132.98:3000/updateCheck", { params: { partySeq: partySeq, applyMem: applyMem } })
+      .get("http://localhost:3000/updateCheck", { params: { partySeq: partySeq, applyMem: applyMem } })
       .then(function(resp) {
         /*   document.location.href = "myinfo/mypartypage/partyAccept"; */
         setSurak(!surak);
@@ -126,7 +126,8 @@ function PartyAccept() {
                 return (
                   <tr key={i}>
                     <td align="center">
-                      <img src={bbs.imageurl} style={{ width: "20px", height: "20px", borderRadius: "50%" }} />
+                    {/* {bbs.profile && bbs.profile !== "" && bbs.profile !== "null" ? (
+                      <img src={bbs.profile} style={{ width: "20px", height: "20px", borderRadius: "50%" }} />) : null} */}
                       &nbsp;{bbs.applyMem}
                     </td>
                     {/* <td align="center">{bbs.title}</td> */}
@@ -142,9 +143,9 @@ function PartyAccept() {
                         }}
                         onClick={() => history(`/partybbsdetail/${bbs.partySeq}`)}
                       >
-                        {bbs.image !== null ? (
+                        {/* { bbs.profile !== "" && bbs.profile !== "null" ? (
                           <img
-                            src={bbs.imageurl}
+                            src={bbs.profile}
                             alt="free image"
                             style={{
                               width: 40,
@@ -153,7 +154,7 @@ function PartyAccept() {
                               objectPosition: "center",
                             }}
                           />
-                        ) : null}
+                        ) : null} */}
                         &nbsp;&nbsp;
                         <div
                           style={{

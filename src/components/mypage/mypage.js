@@ -74,6 +74,11 @@ function Mypage() {
     document.location.href = "/login"; // 페이지 전체 refresh
   }
 
+
+
+
+
+
   // 다음 주소 api
 
   const open = useDaumPostcodePopup("//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js");
@@ -117,6 +122,7 @@ function Mypage() {
       setPhone(login.phoneNum);
       setJuso(login.address);
       setProfile(login.profile);
+      setImageurl(login.imageurl);
       //alert(login);
     } else {
       // alert('로그인해 주십시오');
