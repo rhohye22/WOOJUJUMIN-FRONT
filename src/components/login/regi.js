@@ -189,7 +189,7 @@ function Regi() {
       //console.log(document.frm.uploadFile.files[0].name);
       formData.append("uploadFile", document.frm.uploadFile.files[0]);
       //}
-
+      
       // let member = { "id":id, "password":password, "nickname":nickname, "email":email, "phoneNum":phonenum, "address":address, "uploadFile":formData };
       axios
         .post("http://118.67.132.98:3000/addmember", formData)

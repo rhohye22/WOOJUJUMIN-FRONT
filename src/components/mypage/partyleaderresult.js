@@ -73,7 +73,7 @@ function PartyLeaderresult() {
                 </thead>
                 <tbody>
                     <tr>
-                        <td style={{ border: "1px solid #e2e2e2", margin: "0" }}><img src={idcardDto.idimage} alt="민증사진" style={{width:"400px"}}/></td>
+                        <td style={{ border: "1px solid #e2e2e2", margin: "0" }}><img src={idcardDto.imageurl} alt="민증사진" style={{width:"400px"}}/></td>
                         <td style={{ border: "1px solid #e2e2e2" }}>
                             <ul style={{ textAlign: "left", fontSize: "18px", marginLeft: "30px" }}>
                                 <li style={{ padding: "2px 0" }}>{idcardDto.idname}</li>
