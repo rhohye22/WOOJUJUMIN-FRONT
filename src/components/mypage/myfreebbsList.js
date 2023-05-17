@@ -171,9 +171,10 @@ function MyfreebbsList() {
 
                     <td align="center">{bbs.wdate.substring(0, 10)}</td>
                     <td align="center">
-                    {/* {bbs.imageurl && bbs.imageurl !== "" && bbs.imageurl !== "null" ? (
+                    {bbs.imageurl && bbs.imageurl !== "" && bbs.imageurl !== "null" ? (
                       <img src={bbs.imageurl} style={{ width: "20px", height: "20px", borderRadius: "50%" }} />): null}
-                      {bbs.id} */}
+                      {bbs.id}
+                    
                     </td>
                   </tr>
                 );
