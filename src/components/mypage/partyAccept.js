@@ -126,7 +126,7 @@ function PartyAccept() {
                 return (
                   <tr key={i}>
                     <td align="center">
-                      <img src={`http://118.67.132.98:3000/upload/member/${bbs.profile}`} style={{ width: "20px", height: "20px", borderRadius: "50%" }} />
+                      <img src={bbs.imageurl} style={{ width: "20px", height: "20px", borderRadius: "50%" }} />
                       &nbsp;{bbs.applyMem}
                     </td>
                     {/* <td align="center">{bbs.title}</td> */}
@@ -144,7 +144,7 @@ function PartyAccept() {
                       >
                         {bbs.image !== null ? (
                           <img
-                            src={`http://118.67.132.98:3000/upload/partybbs/${bbs.image}`}
+                            src={bbs.imageurl}
                             alt="free image"
                             style={{
                               width: 40,
