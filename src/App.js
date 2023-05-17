@@ -184,20 +184,20 @@ function App() {
                 </Link>
               </OverlayTrigger>
             )}
-            {log === false && cardcheck === 0 && (
+            {log === false && cardcheck !== "" && (
               <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip3}>
                 <Link to="/partyleaderresult">
                   <img src={partyleader} alt="noimg" style={{ width: "30px", height: "30px" }} />
                 </Link>
               </OverlayTrigger>
             )}
-            {log === false && (cardcheck === 1 || cardcheck === 2) && (
+            {/* {log === false && (cardcheck === 1 || cardcheck === 2) && (
                 <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip3}>
                   <Link to="/partyleaderresult">
                     <img src={partyleader} alt="noimg" style={{ width: "30px", height: "30px" }} />
                   </Link>
                 </OverlayTrigger>
-              )}
+              )} */}
             &nbsp;&nbsp;&nbsp;
             {log ? (
               <Button variant="light">
