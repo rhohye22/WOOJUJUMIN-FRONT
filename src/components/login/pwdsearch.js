@@ -48,12 +48,11 @@ function PwdSearch() {
             <FloatingLabel
                 controlId="floatingInput"
                 label="아이디"
-                className="mb-3"
             >
                 <Form.Control type="id" placeholder="아이디" value={id} onChange={(e) => setId(e.target.value)} />
             </FloatingLabel>
             </Col>
-            </Row>
+            </Row><br/>
             <Button variant="primary" onClick={() => pwdInfo()}>비밀번호 찾기</Button>
             {/* <input
                 value={id}

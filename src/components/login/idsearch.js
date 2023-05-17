@@ -33,7 +33,6 @@ function IdSearch() {
             <FloatingLabel
                 controlId="floatingInput"
                 label="이메일"
-                className="mb-3"
             >
                 <Form.Control type="email" placeholder="이메일" value={email} onChange={(e) => setEmail(e.target.value)} />
             </FloatingLabel>
@@ -44,7 +43,7 @@ function IdSearch() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="이메일 입력"
             />
-            <br/><br/> */}
+            <br/><br/> */}<br/>
             <Button variant="primary" onClick={() => idInfo()}>아이디 찾기</Button>
             </Form>
         </Container>
