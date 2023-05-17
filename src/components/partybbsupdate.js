@@ -260,7 +260,7 @@ function Partybbsupdate() {
                           src={imageurl}
                           alt="no image"
                           style={{
-                            width: 500,
+                            width: "100%",
                             height: "auto",
                             objectFit: "cover",
                             objectPosition: "center",
