@@ -108,7 +108,7 @@ function Qnalist() {
                   <tr key={i}>
                     <td>{qna.qtype}</td>
                     <td align="left">
-                      {qna.ansdate ? <span>[답변완료] </span> : <span>[답변대기중] </span>}
+                      {qna.answer !== null ? <span>[답변완료] </span> : <span>[답변대기중] </span>}
                       <div
                         style={{
                           width: "100%",

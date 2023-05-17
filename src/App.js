@@ -71,6 +71,7 @@ function App() {
   const [profile, setProfile] = useState("");
   const [cardcheck, setCardcheck] = useState("");
   const [id, setId] = useState('');
+  const [imageurl, setImageurl] = useState('');
 
   function loghandle() {
     localStorage.clear();
@@ -92,6 +93,7 @@ function App() {
       setNickname(loginInfo.nickname);
       setProfile(loginInfo.profile);
       setId(loginInfo.id);
+      setImageurl(loginInfo.imageurl);
       console.log(localStorage.getItem("login"));
     }
   }, [log]);
@@ -149,7 +151,7 @@ function App() {
               <span>
                 {id.substring(0,5) === 'kakao' ?
                   <img src={profile} style={{ width: "30px", height: "30px", borderRadius: "50%", background: "white" }} />
-                  : <img src={currentUser.photoURL} style={{ width: "30px", height: "30px", borderRadius: "50%", background: "white" }} />
+                  : <img src={imageurl} style={{ width: "30px", height: "30px", borderRadius: "50%", background: "white" }} />
                 }
                 &nbsp;&nbsp;{nickname}님
               </span>
