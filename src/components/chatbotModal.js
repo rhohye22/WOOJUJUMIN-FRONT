@@ -431,7 +431,7 @@ function ChatbotModal() {
           <ThemeProvider theme={theme}>
             <ChatBot recognitionEnable={true} recognitionLang='ko'
               steps={steps} hideHeader={false} headerTitle="미리내" botAvatar={chatbot}
-              userAvatar={log ? null :
+              userAvatar={log ? "https://firebasestorage.googleapis.com/v0/b/woojujumin-photo.appspot.com/o/images%2FImage20230517163548.png?alt=media&token=d5bcba4d-d1fb-49f4-8568-c91342f414c8" :
                 (id.substring(0,5) === 'kakao' ?
                 profile : currentUser.photoURL)} />
           </ThemeProvider>

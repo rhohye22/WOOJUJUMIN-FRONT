@@ -71,6 +71,7 @@ function App() {
   const [profile, setProfile] = useState("");
   const [cardcheck, setCardcheck] = useState("");
   const [id, setId] = useState('');
+  const [imageurl, setImageurl] = useState('');
 
   function loghandle() {
     localStorage.clear();
@@ -92,6 +93,7 @@ function App() {
       setNickname(loginInfo.nickname);
       setProfile(loginInfo.profile);
       setId(loginInfo.id);
+      setImageurl(loginInfo.imageurl);
       console.log(localStorage.getItem("login"));
     }
   }, [log]);
@@ -149,7 +151,7 @@ function App() {
               <span>
                 {id.substring(0,5) === 'kakao' ?
                   <img src={profile} style={{ width: "30px", height: "30px", borderRadius: "50%", background: "white" }} />
-                  : <img src={currentUser.photoURL} style={{ width: "30px", height: "30px", borderRadius: "50%", background: "white" }} />
+                  : <img src={imageurl} style={{ width: "30px", height: "30px", borderRadius: "50%", background: "white" }} />
                 }
                 &nbsp;&nbsp;{nickname}님
               </span>
@@ -189,14 +191,13 @@ function App() {
                 </Link>
               </OverlayTrigger>
             )}
-            {(log === false && cardcheck === 1) ||
-              (cardcheck === 2 && (
+            {log === false && (cardcheck === 1 || cardcheck === 2) && (
                 <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip3}>
                   <Link to="/partyleaderresult">
                     <img src={partyleader} alt="noimg" style={{ width: "30px", height: "30px" }} />
                   </Link>
                 </OverlayTrigger>
-              ))}
+              )}
             &nbsp;&nbsp;&nbsp;
             {log ? (
               <Button variant="light">
