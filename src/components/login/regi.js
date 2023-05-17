@@ -154,7 +154,7 @@ function Regi() {
 
             await getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
               formData.append("imageurl", downloadURL);
-              alert("wefewfwefwe " + downloadURL);
+             // alert("wefewfwefwe " + downloadURL);
               console.log("imgurl : " + downloadURL);
               // 인증만 하는곳
               await updateProfile(res.user, {
