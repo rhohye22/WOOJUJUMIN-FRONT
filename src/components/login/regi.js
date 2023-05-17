@@ -130,85 +130,84 @@ function Regi() {
   };
 
   const Account = async (e) => {
-    if(isEmail === true && isPwd === true && isPwdchk === true && isPhone === true
-        && isId === true && isNickname === true && isJuso === true && isProfile === true) {
-    e.preventDefault();
-    let chatPwd = password;
-    console.log("pwd : " + chatPwd);
-    const displayName = nickname;
-    const file = document.frm.uploadFile.files[0];
-    console.log('파일이름? '+file);
-    try {
-      const res = await createUserWithEmailAndPassword(auth, email, password); // 계정생성
-      //const storageRef = ref(storage, `avatars/${res.user.uid}/${fileId}`);
-      const storageRef = ref(storage, displayName);
-      const uploadTask = uploadBytesResumable(storageRef, file);
+    if (isEmail === true && isPwd === true && isPwdchk === true && isPhone === true && isId === true && isNickname === true && isJuso === true && isProfile === true) {
+      e.preventDefault();
+      let chatPwd = password;
+      console.log("pwd : " + chatPwd);
+      const displayName = nickname;
+      const file = document.frm.uploadFile.files[0];
+      console.log("파일이름? " + file);
+      try {
+        const res = await createUserWithEmailAndPassword(auth, email, password); // 계정생성
+        //const storageRef = ref(storage, `avatars/${res.user.uid}/${fileId}`);
+        const storageRef = ref(storage, displayName);
+        const uploadTask = uploadBytesResumable(storageRef, file);
 
-      uploadTask.on(
-        (error) => {
-          // setErr(true);
-        },
-        async () => {
-          await getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            // 인증만 하는곳
-            await updateProfile(res.user, {
-              displayName,
-              photoURL: downloadURL,
+        uploadTask.on(
+          (error) => {
+            // setErr(true);
+          },
+          async () => {
+            await getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+              // 인증만 하는곳
+              await updateProfile(res.user, {
+                displayName,
+                photoURL: downloadURL,
+              });
+              // collection에 data추가하는 곳
+              await setDoc(doc(db, "users", res.user.uid), {
+                uid: res.user.uid,
+                displayName,
+                email,
+                photoURL: downloadURL,
+              });
+              await setDoc(doc(db, "userChats", res.user.uid), {});
+              const imageRef = ref(storage, `${file.name}`);
+              const snapshot = await uploadBytes(imageRef, file);
+              await getDownloadURL(snapshot.ref).then((url) => {
+                formData.append("imageurl", url);
+                console.log("imgurl : " + url);
+              });
             });
-            // collection에 data추가하는 곳
-            await setDoc(doc(db, "users", res.user.uid), {
-              uid: res.user.uid,
-              displayName,
-              email,
-              photoURL: downloadURL,
-            });
-            await setDoc(doc(db, "userChats", res.user.uid), {});
-            const imageRef = ref(storage, `${file.name}`);
-            const snapshot = await uploadBytes(imageRef, file);
-            await getDownloadURL(snapshot.ref).then((url) => {
-              formData.append("imageurl", url);
-              console.log("imgurl : " + url);
-            });
-          });
-        }
-      );
-    } catch (err) {
-      //setErr(true);
-      alert(err);
-    }
+          }
+        );
+      } catch (err) {
+        //setErr(true);
+        alert(err);
+      }
 
-    let formData = new FormData();
-    formData.append("id", id);
-    formData.append("password", pwdchk);
-    formData.append("nickname", nickname);
-    formData.append("email", email);
-    formData.append("phoneNum", phonenum);
-    formData.append("address", juso);
-    //if (document.frm.uploadFile.files[0].name === null || document.frm.uploadFile.files[0].name === "") {
+      let formData = new FormData();
+      formData.append("id", id);
+      formData.append("password", pwdchk);
+      formData.append("nickname", nickname);
+      formData.append("email", email);
+      formData.append("phoneNum", phonenum);
+      formData.append("address", juso);
+      //if (document.frm.uploadFile.files[0].name === null || document.frm.uploadFile.files[0].name === "") {
       //formData.append("uploadFile", "basic");
-    //} else {
+      //} else {
       //console.log(document.frm.uploadFile.files[0].name);
       formData.append("uploadFile", document.frm.uploadFile.files[0]);
-    //}
+      //}
 
-    // let member = { "id":id, "password":password, "nickname":nickname, "email":email, "phoneNum":phonenum, "address":address, "uploadFile":formData };
-    axios
-      .post("http://118.67.132.98:3000/addmember", formData)
-      .then(function(resp) {
-        if (resp.data === "YES") {
-          alert("정상적으로 가입되었습니다.");
-          navigate("/"); // 이동(link)
-        } else {
-          alert("가입되지 않았습니다.");
-        }
-      })
-      .catch(function(err) {
-        alert(err);
-        alert("회원가입 에러");
-      });
-    }else {
-      alert('회원정보를 다시 살펴주세요');
-      navigate('/regi');
+      // let member = { "id":id, "password":password, "nickname":nickname, "email":email, "phoneNum":phonenum, "address":address, "uploadFile":formData };
+      axios
+        .post("http://118.67.132.98:3000/addmember", formData)
+        .then(function(resp) {
+          if (resp.data === "YES") {
+            alert("정상적으로 가입되었습니다.");
+            navigate("/"); // 이동(link)
+          } else {
+            alert("가입되지 않았습니다.");
+          }
+        })
+        .catch(function(err) {
+          alert(err);
+          alert("회원가입 에러");
+        });
+    } else {
+      alert("회원정보를 다시 살펴주세요");
+      navigate("/regi");
     }
   };
 
@@ -421,178 +420,155 @@ function Regi() {
   return (
     <Container fluid>
       <Form noValidate onSubmit={Account} encType="multipart/form-data" name="frm">
-      <h3>회원가입</h3>
-      {/* 아이디 */}
-      <Row className="justify-content-md-center">
-        <Col></Col>
+        <br /> <br /> <br />
+        <h3>회원가입</h3>
+        <br />
+        {/* 아이디 */}
+        <Row className="justify-content-md-center">
+          <Col></Col>
           <Col md={3}>
-      <FloatingLabel
-          controlId="floatingInput"
-          label="아이디"
-      >
-          <Form.Control type="id" placeholder="아이디" value={id} onChange={(e) => setId(e.target.value)} />
-      </FloatingLabel>
-      </Col>
-      {/* <input value={id} onChange={(e) => setId(e.target.value)} placeholder="아이디" /> */}
-      <Col>
-      <Button variant="primary" onClick={idCheck} style={{height:'50px', width:'80px', marginRight:'88%', marginTop:'0.5%'}}>id확인</Button>
-      </Col>
-      </Row>
-      {/* <button onClick={idCheck}>id확인</button> */}
-      <br/>
-      {/* 비밀번호 */}
-      <Row className="justify-content-md-center">
+            <FloatingLabel controlId="floatingInput" label="아이디">
+              <Form.Control type="id" placeholder="아이디" value={id} onChange={(e) => setId(e.target.value)} />
+            </FloatingLabel>
+          </Col>
+          {/* <input value={id} onChange={(e) => setId(e.target.value)} placeholder="아이디" /> */}
+          <Col>
+            <Button variant="primary" size="sm" onClick={idCheck} style={{ height: "50px", width: "80px", marginRight: "88%", marginTop: "0.5%" }}>
+              id확인
+            </Button>
+          </Col>
+        </Row>
+        {/* <button onClick={idCheck}>id확인</button> */}
+        <br />
+        {/* 비밀번호 */}
+        <Row className="justify-content-md-center">
           <Col md={3}>
-      <FloatingLabel
-          controlId="floatingInput"
-          label="비밀번호"
-          className="mb-3"
-      >
-          <Form.Control type="password" placeholder="비밀번호" value={password} onChange={onChangePassword} />
-      </FloatingLabel>
-      </Col>
-      </Row>
-      {/* <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="비밀번호" /><br/><br/> */}
-      {/* <input type="password" value={password} onChange={onChangePassword} placeholder="비밀번호" /> */}
-      
-      {password.length > 0 && <span className={`message ${isPwd ? "success" : "error"}`}>{pwdMsg}</span>}
-      
-      {/* 비밀번호 확인 */}
-      <Row className="justify-content-md-center">
+            <FloatingLabel controlId="floatingInput" label="비밀번호">
+              <Form.Control type="password" placeholder="비밀번호" value={password} onChange={onChangePassword} />
+            </FloatingLabel>
+          </Col>
+        </Row>
+        {/* <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="비밀번호" /><br/><br/> */}
+        {/* <input type="password" value={password} onChange={onChangePassword} placeholder="비밀번호" /> */}
+        {password.length > 0 && <span className={`message ${isPwd ? "success" : "error"}`}>{pwdMsg}</span>}
+        <br />
+        {/* 비밀번호 확인 */}
+        <Row className="justify-content-md-center">
           <Col md={3}>
-      <FloatingLabel
-          controlId="floatingInput"
-          label="비밀번호 확인"
-          className="mb-3"
-      >
-          <Form.Control type="password" placeholder="비밀번호 확인" value={pwdchk} onChange={onChangePasswordConfirm} />
-      </FloatingLabel>
-      </Col>
-      </Row>
-      {/* <input type="password" value={pwdchk} onChange={onChangePasswordConfirm} placeholder="비밀번호 확인" /> */}
-      
-      {pwdchk.length > 0 && <span className={`message ${isPwdchk ? "success" : "error"}`}>{pwdchkMsg}</span>}
-      
-      {/* 닉네임 */}
-      <Row className="justify-content-md-center">
-        <Col></Col>
+            <FloatingLabel controlId="floatingInput" label="비밀번호 확인">
+              <Form.Control type="password" placeholder="비밀번호 확인" value={pwdchk} onChange={onChangePasswordConfirm} />
+            </FloatingLabel>
+          </Col>
+        </Row>
+        {/* <input type="password" value={pwdchk} onChange={onChangePasswordConfirm} placeholder="비밀번호 확인" /> */}
+        {pwdchk.length > 0 && <span className={`message ${isPwdchk ? "success" : "error"}`}>{pwdchkMsg}</span>}
+        <br />
+        {/* 닉네임 */}
+        <Row className="justify-content-md-center">
+          <Col></Col>
           <Col md={3}>
-      <FloatingLabel
-          controlId="floatingInput"
-          label="닉네임"
-      >
-          <Form.Control type="text" placeholder="닉네임" value={nickname} onChange={(e) => setNickname(e.target.value)} />
-      </FloatingLabel>
-      </Col>
-      <Col>
-      {/* <input value={nickname} onChange={(e) => setNickname(e.target.value)} placeholder="닉네임" /> */}
-      <Button variant="primary" onClick={nickCheck} style={{height:'50px', width:'120px', marginRight:'85%', marginTop:'0.5%'}}>닉네임 확인</Button>
-      </Col>
-      </Row>
-      {/* <button onClick={nickCheck}>닉네임 확인</button> */}
-      <br/>
-      {/* 이메일 */}
-      <Row className="justify-content-md-center">
+            <FloatingLabel controlId="floatingInput" label="닉네임">
+              <Form.Control type="text" placeholder="닉네임" value={nickname} onChange={(e) => setNickname(e.target.value)} />
+            </FloatingLabel>
+          </Col>
+          <Col>
+            {/* <input value={nickname} onChange={(e) => setNickname(e.target.value)} placeholder="닉네임" /> */}
+            <Button variant="primary" size="sm" onClick={nickCheck} style={{ height: "50px", width: "120px", marginRight: "85%", marginTop: "0.5%" }}>
+              닉네임 확인
+            </Button>
+          </Col>
+        </Row>
+        {/* <button onClick={nickCheck}>닉네임 확인</button> */}
+        <br />
+        {/* 이메일 */}
+        <Row className="justify-content-md-center">
           <Col md={3}>
-      <FloatingLabel
-          controlId="floatingInput"
-          label="이메일"
-          className="mb-3"
-      >
-          <Form.Control type="email" placeholder="이메일" value={email} onChange={onChangeEmail} />
-      </FloatingLabel>
-      </Col>
-      </Row>
-      {/* <input value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="이메일" /><br/><br/> */}
-      {/* <input value={email} onChange={onChangeEmail} placeholder="이메일" /> */}
-      
-      {email.length > 0 && <span className={`message ${isEmail ? "success" : "error"}`}>{emailMsg}</span>}
-      
-      {/* 전화번호 */}
-      <Row className="justify-content-md-center">
+            <FloatingLabel controlId="floatingInput" label="이메일">
+              <Form.Control type="email" placeholder="이메일" value={email} onChange={onChangeEmail} />
+            </FloatingLabel>
+          </Col>
+        </Row>
+        {/* <input value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="이메일" /><br/><br/> */}
+        {/* <input value={email} onChange={onChangeEmail} placeholder="이메일" /> */}
+        {email.length > 0 && <span className={`message ${isEmail ? "success" : "error"}`}>{emailMsg}</span>}
+        <br />
+        {/* 전화번호 */}
+        <Row className="justify-content-md-center">
           <Col md={3}>
-      <FloatingLabel
-          controlId="floatingInput"
-          label="전화번호"
-          className="mb-3"
-      >
-          <Form.Control type="text" placeholder="전화번호" value={phonenum} onChange={onChangePhoneNum} />
-      </FloatingLabel>
-      </Col>
-      </Row>
-      {/* <input value={phonenum} onChange={(e)=>setPhonenum(e.target.value)} placeholder="휴대전화" /><br/><br/> */}
-      {/* <input value={phonenum} onChange={onChangePhoneNum} placeholder="전화번호" /> */}
-      
-      {phonenum.length > 0 && <span className={`message ${isPhone ? "success" : "error"}`}>{phoneMsg}</span>}
-      
-      {/* 주소 입력 */}
-      <Row>
-      <Col>
-      <Button variant="primary" onClick={() => handleClick()} style={{marginLeft:'64%'}}>행성등록</Button>
-      </Col>
-      <Col>
-      <Form.Group as={Row} className="mb-3" controlId="formPlaintextAddress">
-        <Form.Control plaintext readOnly value={juso} style={{textAlign:'left'}} />
-      </Form.Group>
-      </Col>
-      </Row>
-      
-      {/* <button type="button" onClick={handleClick}>
+            <FloatingLabel controlId="floatingInput" label="전화번호">
+              <Form.Control type="text" placeholder="전화번호" value={phonenum} onChange={onChangePhoneNum} />
+            </FloatingLabel>
+          </Col>
+        </Row>
+        {/* <input value={phonenum} onChange={(e)=>setPhonenum(e.target.value)} placeholder="휴대전화" /><br/><br/> */}
+        {/* <input value={phonenum} onChange={onChangePhoneNum} placeholder="전화번호" /> */}
+        {phonenum.length > 0 && <span className={`message ${isPhone ? "success" : "error"}`}>{phoneMsg}</span>}
+        <br />
+        {/* 주소 입력 */}
+        <Row>
+          <Col>
+            &nbsp;
+            <Button variant="success" onClick={() => handleClick()} style={{ marginLeft: "64%" }}>
+              주소 등록
+            </Button>
+          </Col>
+          <Col>
+            <Form.Group as={Row} className="mb-3" controlId="formPlaintextAddress">
+              <Form.Control plaintext readOnly value={juso} style={{ textAlign: "left" }} />
+            </Form.Group>
+          </Col>
+        </Row>
+        {/* <button type="button" onClick={handleClick}>
         행성 등록
       </button>
       &nbsp;
       <input value={juso} readOnly /> */}
-
-      {/* 프로필 사진 등록 */}
-      <Row className="justify-content-md-center">
-      <Col md={3}>
-      <Form.Group className="mb-3">
-        <Form.Label>프로필 등록</Form.Label>
-        <Form.Control
-          type="file"
-          required
-          name="uploadFile"
-          onChange={imageLoad}
-          ref={imgRef}
-        />
-      </Form.Group>
-      </Col>
-      </Row>
-      <img src={profile} alt="" />
-      <br/>
-      <Button variant="primary" type="submit">회원가입</Button>
-      
-      {/* <form name="frm" onSubmit={Account} encType="multipart/form-data">
+        {/* 프로필 사진 등록 */} <br />
+        <Row className="justify-content-md-center">
+          <Col md={3}>
+            <Form.Group>
+              <Form.Label>프로필 등록</Form.Label>
+              <Form.Control type="file" required name="uploadFile" onChange={imageLoad} ref={imgRef} />
+            </Form.Group>
+          </Col>
+        </Row>
+        <img src={profile} alt="" style={{ width: "50px", height: "50px", borderRadius: "50%" }} />
+        <br />
+        <Button variant="primary" type="submit">
+          회원가입
+        </Button>
+        {/* <form name="frm" onSubmit={Account} encType="multipart/form-data">
         <input type="file" onChange={imageLoad} ref={imgRef} name="uploadFile" />
         &nbsp;
         <img src={profile} alt="" />
         <br />
         <br />
         <button type="submit">회원가입</button>
-      </form> */}
-      <hr />
-      <Row>
-      <Col md={4}></Col>
-      <Col>
-      <KakaoLogin token={kakaoClientId} onSuccess={kakaoOnSuccess} onFail={kakaoOnFailure}>
-        카카오로 시작하기
-      </KakaoLogin>
-      </Col>
-      <Col>
-      <div className="google-box">
-        <GoogleOAuthProvider clientId={clientId}>
-          <GoogleLogin
-            onSuccess={googleOnSuccess}
-            onFailure={() => {
-              console.log("로그인 실패");
-            }}
-          />
-        </GoogleOAuthProvider>
-      </div>
-      </Col>
-      <Col md={4}></Col>
-      </Row>
-      </Form>
+      </form> */}{" "}
+        <br /> <br /> <br />
+        <hr />
+        <Row>
+          <Col md={4}></Col>
+          <Col>
+            <KakaoLogin token={kakaoClientId} onSuccess={kakaoOnSuccess} onFail={kakaoOnFailure}>
+              카카오로 시작하기
+            </KakaoLogin>
+          </Col>
+          <Col>
+            <div className="google-box">
+              <GoogleOAuthProvider clientId={clientId}>
+                <GoogleLogin
+                  onSuccess={googleOnSuccess}
+                  onFailure={() => {
+                    console.log("로그인 실패");
+                  }}
+                />
+              </GoogleOAuthProvider>
+            </div>
+          </Col>
+          <Col md={4}></Col>
+        </Row>
+      </Form>{" "}
     </Container>
   );
 }

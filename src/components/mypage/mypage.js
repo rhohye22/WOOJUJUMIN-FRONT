@@ -312,7 +312,7 @@ function Mypage() {
             </div>
           ) : (
             <div className="preview" style={{ display: "block", margin: "0 auto" }}>
-              {profile && <img src={currentUser.photoURL} style={{ width: "50px", height: "50px", borderRadius: "50%" }} />}
+              {profile && <img src={imageurl} style={{ width: "50px", height: "50px", borderRadius: "50%" }} />}
             </div>
           )}
           <p className="message"></p>

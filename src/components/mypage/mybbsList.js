@@ -142,7 +142,7 @@ function MyBbsList() {
                     >
                       {bbs.image !== null ? (
                         <img
-                          src={`http://118.67.132.98:3000/upload/partybbs/${bbs.image}`}
+                        src= {bbs.imageurl}
                           alt="free image"
                           style={{
                             width: 40,
@@ -173,7 +173,7 @@ function MyBbsList() {
                   <td align="center">{bbs.people}</td>
                   <td align="center">{bbs.wdate.substring(0, 10)}</td>
                   <td align="center">
-                    <img src={`http://118.67.132.98:3000/upload/member/${profile}`} style={{ width: "20px", height: "20px", borderRadius: "50%" }} />
+                    <img  src={bbs.imageurl} style={{ width: "20px", height: "20px", borderRadius: "50%" }} />
                     {bbs.id}
                   </td>
                 </tr>
