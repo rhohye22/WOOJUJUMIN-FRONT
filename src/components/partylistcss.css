@@ -37,9 +37,10 @@
   vertical-align: top;
   cursor: pointer;
 }
-.post-body {
-  background-color: rgba(216, 184, 184, 0.596);
-  color: gray;
+.post-body p{
+  /* background-color: rgba(216, 184, 184, 0.596); */
+  color: white;
+  font-weight: bold;
   border-radius: 20px;
   padding: 5px;
   display: inline-block;
@@ -50,6 +51,7 @@
 .post-info {
   overflow: hidden;
   text-align: left;
+  font-weight: bold;
 }
 
 .post-info img {

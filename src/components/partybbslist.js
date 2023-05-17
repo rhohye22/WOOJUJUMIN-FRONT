@@ -136,47 +136,47 @@ function Partybbslist() {
   return (
     <div className="partybbslist-container">
       <br />
-      <Button variant="outline-secondary" value={0} onClick={selcat}>
+      <Button variant="outline-secondary"  value={0} onClick={selcat}>
         전체
       </Button>
       &nbsp;&nbsp;
-      <Button variant="outline-secondary" value={1} onClick={selcat}>
+      <Button variant="outline-secondary" style={{ backgroundColor: "#f14e4e", color: "white" }} value={1} onClick={selcat}>
         농구
       </Button>
       &nbsp;&nbsp;
-      <Button variant="outline-secondary" value={2} onClick={selcat}>
+      <Button variant="outline-secondary" style={{ backgroundColor: "#dc9529", color: "white"  }} value={2} onClick={selcat}>
         축구
       </Button>
       &nbsp;&nbsp;
-      <Button variant="outline-secondary" value={3} onClick={selcat}>
+      <Button variant="outline-secondary" style={{ backgroundColor: "#d7cb1c", color: "white"  }} value={3} onClick={selcat}>
         야구
       </Button>
       &nbsp;&nbsp;
-      <Button variant="outline-secondary" value={4} onClick={selcat}>
+      <Button variant="outline-secondary" style={{ backgroundColor: "#86b467", color: "white"  }} value={4} onClick={selcat}>
         예능
       </Button>
       &nbsp;&nbsp;
-      <Button variant="outline-secondary" value={5} onClick={selcat}>
+      <Button variant="outline-secondary" style={{ backgroundColor: "#a2d6e4", color: "white"  }} value={5} onClick={selcat}>
         드라마/영화
       </Button>
       &nbsp;&nbsp;
-      <Button variant="outline-secondary" value={6} onClick={selcat}>
+      <Button variant="outline-secondary" style={{ backgroundColor: "#3676d4", color: "white" }} value={6} onClick={selcat}>
         게임
       </Button>
       &nbsp;&nbsp;
-      <Button variant="outline-secondary" value={7} onClick={selcat}>
+      <Button variant="outline-secondary" style={{ backgroundColor: "#1f1fe2", color: "white"  }} value={7} onClick={selcat}>
         음식
       </Button>
       &nbsp;&nbsp;
-      <Button variant="outline-secondary" value={8} onClick={selcat}>
+      <Button variant="outline-secondary" style={{ backgroundColor: "#6e1fe2", color: "white"  }} value={8} onClick={selcat}>
         함께
       </Button>
       &nbsp;&nbsp;
-      <Button variant="outline-secondary" value={9} onClick={selcat}>
+      <Button variant="outline-secondary" style={{ backgroundColor: "#d193e7", color: "white"  }} value={9} onClick={selcat}>
         탐사
       </Button>
       &nbsp;&nbsp;
-      <Button variant="outline-secondary" value={10} onClick={selcat}>
+      <Button variant="outline-secondary" style={{ backgroundColor: "#585154", color: "white"  }} value={10} onClick={selcat}>
         잡담
       </Button>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -197,14 +197,24 @@ function Partybbslist() {
                 {/* <img src={post.image ? `http://118.67.132.98:3000/upload/partybbs/${post.image.substring(80)}` : base} alt=''  width="150" height="150"/> */}
                 <img src={post.image ? `${post.imageurl}` : base} alt=''  width="150" height="150"/>
                 <div className="post-body">
-                <p >{categories[Number(post.tag-1)]}</p>
+                {/* <p >{categories[Number(post.tag-1)]}</p> */}
+                {post.tag === 1 && (<p style={{ backgroundColor: "#f14e4e" }}>농구</p>)}
+                {post.tag === 2 && (<p style={{ backgroundColor: "#dc9529" }}>축구</p>)}
+                {post.tag === 3 && (<p style={{ backgroundColor: "#d7cb1c" }}>야구</p>)}
+                {post.tag === 4 && (<p style={{ backgroundColor: "#86b467" }}>예능</p>)}
+                {post.tag === 5 && (<p style={{ backgroundColor: "#a2d6e4" }}>드라마/영화</p>)}
+                {post.tag === 6 && (<p style={{ backgroundColor: "#3676d4" }}>게임</p>)}
+                {post.tag === 7 && (<p style={{ backgroundColor: "#1f1fe2" }}>음식</p>)}
+                {post.tag === 8 && (<p style={{ backgroundColor: "#6e1fe2" }}>우주주민과 함께</p>)}
+                {post.tag === 9 && (<p style={{ backgroundColor: "#d193e7" }}>우주주민과 탐사</p>)}
+                {post.tag === 10 && (<p style={{ backgroundColor: "#585154" }}>잡담</p>)}
                 </div>
              
                 {/* <Link to={`/partybbsdetail/${post.partySeq}`}> */}
                   <h2 className="post-title">{post.title}</h2>
                 {/* </Link> */}
                 <div className='postpcl'>
-                  <p> {ptype[Number(post.partytype-1)]} · 모임날짜 · {post.mdate.substring(5,16)}</p>
+                  <p> <i>{ptype[Number(post.partytype-1)]} · 모임날짜 · {post.mdate.substring(5,16)}</i></p>
                   <p> 모집입원 : {post.people}</p>    
                 </div>                                
               </div>
