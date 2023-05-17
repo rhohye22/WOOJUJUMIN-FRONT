@@ -8,13 +8,12 @@ import { ThemeProvider } from "styled-components";
 // npm install styled-components
 import { Link } from "react-router-dom";
 import Ans from "./chatbot/chatbot";
-import { AuthContext } from "../context/AuthContext";
 
 function ChatbotModal() {
   const [profile, setProfile] = useState('');
-  const { currentUser } = useContext(AuthContext);
   const [id, setId] = useState('');
   const [log, setLog] = useState(false);
+  const [imageurl, setImageurl] = useState('');
 
   // login 되어 있는지 검사
   useEffect(() => {
@@ -26,6 +25,7 @@ function ChatbotModal() {
       // 빈칸이 아닐때
       setProfile(login.profile);
       setId(login.id);
+      setImageurl(login.imageurl);
       //console.log(profile);
     }
   }, []);
@@ -433,7 +433,7 @@ function ChatbotModal() {
               steps={steps} hideHeader={false} headerTitle="미리내" botAvatar={chatbot}
               userAvatar={log ? "https://firebasestorage.googleapis.com/v0/b/woojujumin-photo.appspot.com/o/images%2FImage20230517163548.png?alt=media&token=d5bcba4d-d1fb-49f4-8568-c91342f414c8" :
                 (id.substring(0,5) === 'kakao' ?
-                profile : currentUser.photoURL)} />
+                profile : imageurl)} />
           </ThemeProvider>
           <br />
           <button onClick={handleButtonClick2}>닫기</button>
