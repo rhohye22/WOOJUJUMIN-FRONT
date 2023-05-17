@@ -134,10 +134,10 @@ function Regi() {
     if (isEmail === true && isPwd === true && isPwdchk === true && isPhone === true && isId === true && isNickname === true && isJuso === true && isProfile === true) {
       e.preventDefault();
       let chatPwd = password;
-      console.log("pwd : " + chatPwd);
+      //console.log("pwd : " + chatPwd);
       const displayName = nickname;
       const file = document.frm.uploadFile.files[0];
-      console.log("파일이름? " + file);
+      //console.log("파일이름? " + file);
       try {
         const res = await createUserWithEmailAndPassword(auth, email, password); // 계정생성
         //const storageRef = ref(storage, `avatars/${res.user.uid}/${fileId}`);
@@ -154,8 +154,8 @@ function Regi() {
 
             await getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
               formData.append("imageurl", downloadURL);
-              alert("wefewfwefwe " + downloadURL);
-              console.log("imgurl : " + downloadURL);
+              //alert("wefewfwefwe " + downloadURL);
+              //console.log("imgurl : " + downloadURL);
               // 인증만 하는곳
               await updateProfile(res.user, {
                 displayName,
