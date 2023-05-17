@@ -291,12 +291,12 @@ function Partybbsdetail() {
           <tr>
             <td colSpan={4}>
               <br /> <br />
-              {imageUrl !== null ? (
+              {partybbslist.imageurl !== null ? (
                 <img
-                  src={imageUrl}
+                  src={partybbslist.imageurl}
                   alt="no image"
                   style={{
-                    width: 500,
+                    width: "100%",
                     height: "auto",
                     objectFit: "cover",
                     objectPosition: "center",
