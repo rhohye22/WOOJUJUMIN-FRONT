@@ -210,9 +210,23 @@ function Regi() {
 
       
   
-    } else {
-      alert("회원정보를 다시 살펴주세요");
+    }else if(isId === false) {
+      alert("아이디 중복체크를 해주세요");
      //navigate("/regi");
+    }else if(isPwd === false) {
+      alert("숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!");
+    }else if(isPwdchk === false) {
+      alert("비밀번호와 비밀번호 확인을 같게 만들어주세요");
+    }else if(isNickname === false) {
+      alert("닉네임 중복체크를 해주세요");
+    }else if(isEmail === false) {
+      alert("이메일 형식을 맞춰주세요");
+    }else if(isPhone === false) {
+      alert("전화번호 형식을 맞춰주세요");
+    }else if(isJuso === false) {
+      alert("주소 설정을 해주세요");
+    }else if(isProfile === false) {
+      alert("프로필 사진을 업로드해주세요");
     }
   };
 
