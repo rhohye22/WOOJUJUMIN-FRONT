@@ -1,6 +1,17 @@
 # 우주주민 - 테마별 모임 결성 커뮤니티(front) 주요기능
 
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).<br/>
+
 2023.04.03~2023.05.18 멀티캠퍼스 자바 풀스택 11기 파이널 프로젝트
+### `관리자페이지`
+#### 동일 데이터베이스, 백엔드 공유
+https://github.com/rhohye22/WOOJUJUMIN-FRONT-ADMIN
+
+
+### `백엔드`
+https://github.com/rhohye22/WOOJUJUMIN-BACK
+
+
 
 ## `메인화면`
 
@@ -49,13 +60,5 @@ Firebase 스토리지를 사용한 실시간 채팅방 구현(개인간 대화�
 
 최신 음악차트, 베스트셀러, 상영중인 영화,지역축제 정보 실시간 크롤링해서 노출
 
-
-### `관리자페이지`
-#### 동일 데이터베이스, 백엔드 공유
-https://github.com/rhohye22/WOOJUJUMIN-FRONT-ADMIN
-
-
-### `백엔드`
-https://github.com/rhohye22/WOOJUJUMIN-BACK
 
 
